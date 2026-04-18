@@ -7,15 +7,16 @@ PORT="4173"
 BASE_URL="http://${HOST}:${PORT}"
 LOG_FILE="${ROOT_DIR}/.r0-smoke-vite.log"
 ROUTES_FILE="${ROOT_DIR}/tests/r0/http/routes.txt"
+WITH_LOCAL_ENV="${ROOT_DIR}/scripts/with-local-env.sh"
 
 cd "$ROOT_DIR"
 
 echo "[r0-smoke:http] building app"
-npm run build >/dev/null
+"$WITH_LOCAL_ENV" npm run build >/dev/null
 
-echo "[r0-smoke:http] starting vite dev server at ${BASE_URL}"
+echo "[r0-smoke:http] starting preview server at ${BASE_URL}"
 rm -f "$LOG_FILE"
-npm run dev -- --host "$HOST" --port "$PORT" >"$LOG_FILE" 2>&1 &
+npm run preview -- --host "$HOST" --port "$PORT" >"$LOG_FILE" 2>&1 &
 SERVER_PID=$!
 
 cleanup() {
@@ -38,25 +39,37 @@ while [ "$ATTEMPTS" -lt 30 ]; do
 done
 
 if [ "$READY" -ne 1 ]; then
-  echo "[r0-smoke:http] vite server did not become ready"
+  echo "[r0-smoke:http] preview server did not become ready"
   echo "[r0-smoke:http] last log output:"
   tail -n 40 "$LOG_FILE" || true
   exit 1
 fi
+
+check_route() {
+  route="$1"
+  attempts=0
+
+  while [ "$attempts" -lt 5 ]; do
+    if curl -fsS "${BASE_URL}${route}" >/dev/null 2>&1; then
+      echo "[r0-smoke:http] ok ${route}"
+      return 0
+    fi
+    attempts=$((attempts + 1))
+    sleep 1
+  done
+
+  echo "[r0-smoke:http] failed ${route}"
+  echo "[r0-smoke:http] last log output:"
+  tail -n 40 "$LOG_FILE" || true
+  exit 1
+}
 
 while IFS= read -r route || [ -n "$route" ]; do
   case "$route" in
     ''|'#'*) continue ;;
   esac
 
-  if curl -fsS "${BASE_URL}${route}" >/dev/null; then
-    echo "[r0-smoke:http] ok ${route}"
-  else
-    echo "[r0-smoke:http] failed ${route}"
-    echo "[r0-smoke:http] last log output:"
-    tail -n 40 "$LOG_FILE" || true
-    exit 1
-  fi
+  check_route "$route"
 done < "$ROUTES_FILE"
 
 echo ""

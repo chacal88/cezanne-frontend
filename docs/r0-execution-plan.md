@@ -33,7 +33,7 @@ Confirmed implementation evidence:
 - route metadata coverage is explicit for the current R0 route set
 - unresolved typed-destination families are handled intentionally for R0
 - HTTP and UI smoke validation exist as executable checks
-- Bitbucket pipeline configuration exists for the R0 smoke gate
+- GitHub Actions workflow configuration exists for the R0 smoke gate
 
 R0 is therefore ready for **handoff into R1**, not for further foundation repair.
 
@@ -54,7 +54,7 @@ R0 is therefore ready for **handoff into R1**, not for further foundation repair
 | observability ports and correlation | `src/lib/observability/*`, `src/lib/api-client/*` |
 | HTTP smoke validation | `scripts/r0-smoke-http.sh`, `tests/r0/http/routes.txt` |
 | UI smoke validation | `playwright.r0.config.ts`, `tests/r0/ui/r0-shell.smoke.spec.ts` |
-| Bitbucket pipeline gate | `bitbucket-pipelines.yml` |
+| GitHub smoke gate | `.github/workflows/r0-smoke.yml` |
 
 ## Final R0 validation outcome
 
@@ -76,14 +76,14 @@ Confirmed in code:
 - production build succeeds with `npm run build`
 - route metadata covers the current registered R0 routes intentionally
 - unresolved Jobs / Candidate / Billing destinations resolve through explicit R0-safe behavior
-- local env defaults satisfy the typed env contract for smoke execution
+- local smoke tooling can bootstrap env values from `.env.example` without hardcoding API defaults into application code
 - Playwright failure artifacts are retained for diagnosis
 
 Confirmed in repository configuration:
-- `bitbucket-pipelines.yml` runs `npm run smoke:r0` for pull requests and primary branches
+- `.github/workflows/r0-smoke.yml` runs `npm run smoke:r0` for pull requests and primary branches
 
 Clarification:
-- Bitbucket branch restrictions and required-build enforcement are repository settings, not source files. The codebase is ready for that enforcement, but the enforcement itself must be enabled in Bitbucket.
+- merge policy is a GitHub repository administration concern, but the smoke gate workflow is now committed in source and ready to be required by branch protection if desired
 
 ## Exit criteria for R0
 
@@ -109,8 +109,9 @@ Jobs (`R1`) may start because:
 ### Immediate
 
 1. treat R0 as closed for engineering work in `recruit-frontend`
-2. enable required-build enforcement in Bitbucket if the repository administrators want merge gating on the smoke suite
-3. start `R1` Jobs implementation using:
+2. use `git add`, `git commit`, and `git push` together with `npm run smoke:r0` as the default repository workflow
+3. optionally require the `R0 Smoke` GitHub Actions workflow through branch protection
+4. start `R1` Jobs implementation using:
    - `roadmap.md`
    - `modules.md`
    - `screens.md`

@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 const envSchema = z.object({
   VITE_APP_ENV: z.enum(['local', 'development', 'staging', 'production']).default('local'),
-  VITE_API_BASE_URL: z.string().url().default('http://localhost:3000'),
-  VITE_GRAPHQL_URL: z.string().url().default('http://localhost:4000/graphql'),
+  VITE_API_BASE_URL: z.string().url(),
+  VITE_GRAPHQL_URL: z.string().url(),
   VITE_ENABLE_OBSERVABILITY: z
     .enum(['true', 'false'])
     .transform((value) => value === 'true')

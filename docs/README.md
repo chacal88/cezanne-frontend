@@ -16,7 +16,8 @@ It converts the migration analysis in `../../docs/frontend-2/` into an execution
 
 Confirmed:
 - **R0 is closed in code** in `recruit-frontend`
-- the current implementation includes build proof, route metadata coverage, typed-destination safety, smoke validation, and Bitbucket pipeline definition for the R0 gate
+- the current implementation includes build proof, route metadata coverage, typed-destination safety, smoke validation, and a GitHub Actions smoke workflow
+- the repository now uses a **Git/GitHub workflow with the R0 smoke gate defined in source**
 - the next engineering slice is **Jobs (`R1`)**
 
 ## Recommended reading order

@@ -21,8 +21,9 @@ Built on top of:
 
 As of **April 17, 2026**, R0 is **closed in code** for `recruit-frontend`.
 
-The remaining non-code follow-up is optional repository administration in Bitbucket:
-- enable required-build / merge-check enforcement if the team wants the smoke suite to block merges automatically
+The remaining repository follow-up is Git/GitHub administration only:
+- keep using `npm run smoke:r0` before commits or pushes that change routing, env, or shell behavior
+- optionally require the GitHub Actions smoke workflow through branch protection
 
 ## 1. Executable code tasks completed
 
@@ -39,7 +40,8 @@ Completed evidence:
 - Vite env typing is declared through `vite/client`
 - the router provider shape matches the installed TanStack Router API
 - route telemetry is mounted from the router tree instead of being passed as unsupported `RouterProvider` children
-- local bootstrap tolerates the documented `.env.example` defaults during smoke execution
+- the application requires API env values from environment input rather than hardcoding them in `env.ts`
+- local smoke execution can bootstrap from `.env.example` through repository scripts
 - `npm run build` succeeds
 
 ### Task 2.1 — route metadata coverage is enforced as code
@@ -87,30 +89,19 @@ Completed evidence:
 
 Files:
 - `../scripts/r0-smoke-http.sh`
+- `../scripts/with-local-env.sh`
 - `../tests/r0/http/routes.txt`
 - `../playwright.r0.config.ts`
 - `../tests/r0/ui/r0-shell.smoke.spec.ts`
 - `../package.json`
+- `../.github/workflows/r0-smoke.yml`
 
 Completed evidence:
 - `npm run smoke:r0:http` validates HTTP route reachability from `tests/r0/http/routes.txt`
 - `npm run smoke:r0:ui` validates current R0 UI behaviors through Playwright
 - `npm run smoke:r0` is the single local smoke entrypoint
+- GitHub Actions runs the same smoke suite on pull requests and primary branches
 - Playwright retains screenshots, traces, and videos on failure
-
-## 3. Bitbucket pipeline gate prepared
-
-Files:
-- `../bitbucket-pipelines.yml`
-
-Completed evidence:
-- Bitbucket Pipelines is configured to run the R0 smoke suite for pull requests
-- the same smoke suite is configured for `main` and `master`
-- pipeline artifacts retain the local Vite log plus Playwright report and test outputs
-- the pipeline unsets `NO_COLOR` before smoke execution to avoid noisy Playwright warnings
-
-Clarification:
-- merge blocking is controlled in Bitbucket settings, not in repository files
 
 ## R0 close decision
 
@@ -119,7 +110,7 @@ R0 is treated as closed because:
 - route metadata coverage is complete for current R0 routes
 - unresolved destination kinds are explicitly guarded through the R0 destination resolver
 - `npm run smoke:r0` succeeds locally
-- the repository contains the Bitbucket pipeline definition for the same smoke gate
+- the repository contains a GitHub Actions definition for the same smoke gate
 - no foundation-layer ambiguity remains that blocks Jobs (`R1`)
 
 ## Handoff to R1

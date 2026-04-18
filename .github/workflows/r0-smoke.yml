@@ -1,0 +1,44 @@
+name: R0 Smoke
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  r0-smoke:
+    name: R0 Smoke Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run R0 smoke suite
+        run: npm run smoke:r0
+
+      - name: Upload smoke logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r0-smoke-artifacts
+          path: |
+            .r0-smoke-vite.log
+            test-results/
+            playwright-report/
+          if-no-files-found: ignore
