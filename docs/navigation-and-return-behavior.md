@@ -45,9 +45,13 @@ Synthesized from:
 | inbox | full | preserve selected conversation from URL | respect conversation/page history | n/a |
 | jobs list | full | preserve scope/page/search/asAdmin/label | return from detail should restore meaningful list state | n/a |
 | job detail | full | preserve `section` and job context | back should respect prior source | child actions return here |
+| candidate database/list | full | preserve query/page/sort/filter state from URL | return from detail should restore meaningful database state | n/a |
 | candidate detail | full | preserve candidate/job/workflow context as far as encoded in URL | back should respect prior source | child actions return here |
 | job overlays/tasks | direct URL supported | reconstruct parent + task context or parent fallback | one step closes task | return to job detail |
 | candidate tasks | direct URL supported | reconstruct parent + task context or parent fallback | one step closes task | return to candidate detail |
+| settings subsections | full | rebuild subsection and save-state/readiness context from URL when stateful | back should remain within the active admin subsection when meaningful | route navigation or parent subsection |
+| reports | full | preserve family/filter state or explicit fallback | back should return to prior report family/index context | route navigation only |
+| integrations admin | full | rebuild integrations index/detail context | detail close should return to integrations index | route navigation or parent index |
 | user-profile | shell-aware direct entry only | rebuild shell then open overlay | one step closes overlay | return to prior route or dashboard |
 | billing card | shell/billing-aware direct entry | rebuild billing context then overlay | one step closes overlay | return to billing overview |
 | public/external token flows | full | preserve token state | standard | route navigation only |
@@ -105,3 +109,11 @@ Rule:
 ## Planning rule
 
 No routed overlay or task flow is ready for implementation until its parent-return and refresh behavior is explicitly defined here or in a referenced extension.
+
+## Implemented R2 candidate behavior
+
+The current R2 baseline registers the contextual candidate hub route family and candidate task routes so that:
+- direct entry and refresh preserve candidate/job/workflow interpretation from the route path
+- candidate task close/cancel/success return to the contextual candidate hub path
+- direct notification entry may append `?entry=notification` while preserving the frozen path contract
+- stale sequence context degrades by removing sequence navigation instead of redirecting to an unrelated route

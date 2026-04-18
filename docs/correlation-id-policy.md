@@ -33,6 +33,7 @@ Create a new correlation id at the start of:
 - notification-driven navigation into a destination
 - direct entry into a critical H-journey
 - task-flow submission for critical recruiter actions
+- direct entry and approve/reject submissions for tokenized requisition approval
 
 ## When a correlation id is reused
 

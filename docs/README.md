@@ -18,7 +18,25 @@ Confirmed:
 - **R0 is closed in code** in `recruit-frontend`
 - the current implementation includes build proof, route metadata coverage, typed-destination safety, smoke validation, and a GitHub Actions smoke workflow
 - the repository now uses a **Git/GitHub workflow with the R0 smoke gate defined in source**
-- the next engineering slice is **Jobs (`R1`)**
+- **R0 and R1 are closed in code**
+- a pre-R2 hardening pass is now in place for testing and browser-side request/security boundaries
+- **R2 is closed in code**
+- the current source also includes the initial archived **R3** baselines for:
+  - public application / survey / shared job
+  - tokenized chat
+  - external review (interview request, review-candidate, interview-feedback)
+  - requisition approval
+  - provider integration callbacks
+  - careers/application/job-listings settings
+- the previously open provider integration callback family is now represented in source under the `integrations` domain token-entry slice
+- the active **R4** planning package is now consolidated in:
+  - `r4-master-plan.md`
+  - `r4-operational-settings-open-points.md`
+  - `r4-candidate-database-open-points.md`
+  - `r4-team-and-favorites-open-points.md`
+  - `r4-integrations-open-points.md`
+  - `r4-reports-open-points.md`
+  - `r4-billing-marketplace-open-points.md`
 
 ## Recommended reading order
 
@@ -44,20 +62,24 @@ Confirmed:
 12. `correlation-id-policy.md` — correlation creation and propagation policy
 13. `aws-observability-strategy.md` — recommended AWS-backed observability approach
 14. `observability-implementation-plan.md` — R0 implementation order for telemetry, boundaries, and AWS activation
-15. `localization-strategy.md` — i18n and Crowdin readiness strategy for the app
-16. `i18n-implementation-plan.md` — concrete implementation plan for i18n runtime, locale files, and Crowdin sync
-17. `skills.md` — recommended repository-local AI skills for planning and implementation
-18. `release-skill-workflow.md` — skill usage by release phase (`R0`, `R1`, `R2`)
-19. `implementation-readiness-checklist.md` — go/no-go checklist before implementation starts
-20. `r0-execution-plan.md` — final R0 execution record and handoff into `R1`
-21. `r0-code-closeout-checklist.md` — final executable closeout evidence for R0
+15. `testing.md` — current Vitest + Testing Library + Playwright contract
+16. `security.md` — browser-side header and request-hardening baseline
+17. `localization-strategy.md` — i18n and Crowdin readiness strategy for the app
+18. `i18n-implementation-plan.md` — concrete implementation plan for i18n runtime, locale files, and Crowdin sync
+19. `skills.md` — recommended repository-local AI skills for planning and implementation
+20. `release-skill-workflow.md` — skill usage by release phase (`R0`, `R1`, `R2`)
+21. `implementation-readiness-checklist.md` — go/no-go checklist before implementation starts
+22. `r0-execution-plan.md` — final R0 execution record and handoff into `R1`
+23. `r0-code-closeout-checklist.md` — final executable closeout evidence for R0
 
-### 4. Then move into R1
+### 4. Then move into the next implementation slice
 
-22. `r0-route-registration-plan.md` — reference contract that R1 should extend, not redefine
-23. `conventions.md` — coding conventions and default implementation patterns
-24. `adrs/README.md` — durable architectural decisions that should not be re-debated feature-by-feature
-25. `roadmap.md` + `modules.md` + `screens.md` — primary starting point for Jobs (`R1`)
+24. `r0-route-registration-plan.md` — reference contract that later slices should extend, not redefine
+25. `conventions.md` — coding conventions and default implementation patterns
+26. `adrs/README.md` — durable architectural decisions that should not be re-debated feature-by-feature
+27. `roadmap.md` + `modules.md` + `screens.md` — primary starting point for Candidate (`R2`) and later slices
+28. `r4-master-plan.md` — consolidated sequencing, dependencies, and first-change queue for `R4`
+29. `r4-*-open-points.md` — per-area decision registers before opening each `R4` change
 
 ## Package roles
 
@@ -77,6 +99,8 @@ Confirmed:
 | `correlation-id-policy.md` | defines correlation id creation and propagation |
 | `aws-observability-strategy.md` | defines the recommended AWS observability mapping |
 | `observability-implementation-plan.md` | defines the R0 delivery order for observability |
+| `testing.md` | defines the current testing contract and validation commands |
+| `security.md` | defines the browser-side security and request-hardening baseline |
 | `localization-strategy.md` | defines the i18n and Crowdin readiness contract |
 | `i18n-implementation-plan.md` | defines the concrete implementation order for i18n and Crowdin sync |
 | `skills.md` | defines the recommended repository-local skill shortlist |

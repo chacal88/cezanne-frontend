@@ -6,6 +6,23 @@ import { AuthenticatedShell } from '../shell/layout/authenticated-shell';
 import { DashboardPage } from '../domains/dashboard/dashboard-page';
 import { NotificationsPage } from '../shell/notifications/notifications-page';
 import { InboxPage, validateInboxSearch } from '../domains/inbox/inbox-page';
+import { JobsListPage, validateJobsListScope, validateJobsListSearch } from '../domains/jobs/list/jobs-list-page';
+import { JobAuthoringPage, validateJobAuthoringSearch } from '../domains/jobs/authoring/job-authoring-page';
+import { JobDetailPage, validateJobDetailSearch } from '../domains/jobs/detail/job-detail-page';
+import { JobTaskPage } from '../domains/jobs/task-overlays/job-task-page';
+import { validateJobTaskSearch } from '../domains/jobs/task-overlays/job-task-context';
+import { CandidateDetailRoutePage } from '../domains/candidates/detail-hub/candidate-detail-page';
+import { CandidateTaskRoutePage } from '../domains/candidates/action-launchers/candidate-task-page';
+import { validateCandidateDetailSearch, validateCandidateTaskSearch } from '../domains/candidates/support/routing';
+import { SharedJobPage } from '../domains/public-external/shared-job/shared-job-page';
+import { PublicApplicationPage } from '../domains/public-external/public-application/public-application-page';
+import { PublicSurveyPage } from '../domains/public-external/public-survey/public-survey-page';
+import { ExternalChatPage } from '../domains/public-external/external-chat/external-chat-page';
+import { InterviewRequestPage } from '../domains/public-external/external-review/interview-request-page';
+import { ReviewCandidatePage } from '../domains/public-external/external-review/review-candidate-page';
+import { InterviewFeedbackPage } from '../domains/public-external/external-review/interview-feedback-page';
+import { RequisitionApprovalPage, validateRequisitionApprovalSearch } from '../domains/public-external/requisition-approval';
+import { IntegrationCvTokenEntryPage, IntegrationFormsTokenEntryPage, IntegrationJobTokenEntryPage } from '../domains/integrations';
 import { UserProfileShellOverlay } from '../shell/account/user-profile-overlay';
 import { observability } from './observability';
 import {
@@ -22,6 +39,24 @@ import {
   ResetPasswordPage,
   SamlCallbackPage,
 } from '../domains/auth/routes/public-pages';
+import {
+  candidateDetailRoutePaths,
+  candidateOfferRoutePaths,
+  candidateRejectRoutePaths,
+  candidateScheduleRoutePaths,
+} from '../lib/routing';
+import { CareersPageSettingsPage } from '../domains/settings/careers-application/careers-page-settings-page';
+import { ApplicationPageSettingsPage } from '../domains/settings/careers-application/application-page-settings-page';
+import { JobListingsSettingsPage } from '../domains/settings/careers-application/job-listings-settings-page';
+import { JobListingEditorPage } from '../domains/settings/careers-application/job-listing-editor-page';
+import { HiringFlowSettingsPage } from '../domains/settings/hiring-flow/hiring-flow-settings-page';
+import { CustomFieldsSettingsPage } from '../domains/settings/custom-fields/custom-fields-settings-page';
+import { TemplatesSettingsPage } from '../domains/settings/templates/templates-settings-page';
+import {
+  validateApplicationPageParams,
+  validateJobListingEditorSearch,
+  validateJobListingsSearch,
+} from '../domains/settings/careers-application';
 
 const deniedFallback = <AccessDeniedPage />;
 
@@ -43,6 +78,12 @@ const publicLayoutRoute = createRoute({
       <Outlet />
     </PublicShell>
   ),
+});
+
+const publicExternalLayoutRoute = createRoute({
+  getParentRoute: () => publicLayoutRoute,
+  id: 'public-external-layout',
+  component: () => <Outlet />,
 });
 
 const shellLayoutRoute = createRoute({
@@ -77,6 +118,124 @@ const samlCallbackRoute = createRoute({
 });
 const inviteTokenRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/users/invite-token', component: InviteTokenPage });
 
+const sharedJobRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/shared/$jobOrRole/$token/$source',
+  component: () => {
+    const { jobOrRole, token, source } = sharedJobRoute.useParams();
+    return <SharedJobPage jobOrRole={jobOrRole} token={token} source={source} />;
+  },
+});
+
+const publicApplicationRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/$jobOrRole/application/$token/$source',
+  component: () => {
+    const { jobOrRole, token, source } = publicApplicationRoute.useParams();
+    return <PublicApplicationPage jobOrRole={jobOrRole} token={token} source={source} />;
+  },
+});
+
+const publicSurveyRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/surveys/$surveyuuid/$jobuuid/$cvuuid',
+  component: () => {
+    const { surveyuuid, jobuuid, cvuuid } = publicSurveyRoute.useParams();
+    return <PublicSurveyPage surveyuuid={surveyuuid} jobuuid={jobuuid} cvuuid={cvuuid} />;
+  },
+});
+
+const externalChatRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/chat/$token/$userId',
+  component: () => {
+    const { token, userId } = externalChatRoute.useParams();
+    return <ExternalChatPage token={token} userId={userId} />;
+  },
+});
+
+const interviewRequestRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/interview-request/$scheduleUuid/$cvToken',
+  component: () => {
+    const { scheduleUuid, cvToken } = interviewRequestRoute.useParams();
+    return <InterviewRequestPage scheduleUuid={scheduleUuid} cvToken={cvToken} />;
+  },
+});
+
+const reviewCandidateRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/review-candidate/$code',
+  component: () => {
+    const { code } = reviewCandidateRoute.useParams();
+    return <ReviewCandidatePage code={code} />;
+  },
+});
+
+const interviewFeedbackRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/interview-feedback/$code',
+  component: () => {
+    const { code } = interviewFeedbackRoute.useParams();
+    return <InterviewFeedbackPage code={code} />;
+  },
+});
+
+const requisitionApprovalRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/job-requisition-approval',
+  validateSearch: validateRequisitionApprovalSearch,
+  component: () => {
+    const { token } = requisitionApprovalRoute.useSearch();
+    return <RequisitionApprovalPage token={token} />;
+  },
+});
+
+const integrationCvRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/integration/cv/$token',
+  component: () => {
+    const { token } = integrationCvRoute.useParams();
+    return <IntegrationCvTokenEntryPage token={token} />;
+  },
+});
+
+const integrationCvActionRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/integration/cv/$token/$action',
+  component: () => {
+    const { token, action } = integrationCvActionRoute.useParams();
+    return <IntegrationCvTokenEntryPage token={token} action={action} />;
+  },
+});
+
+const integrationFormsRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/integration/forms/$token',
+  component: () => {
+    const { token } = integrationFormsRoute.useParams();
+    return <IntegrationFormsTokenEntryPage token={token} />;
+  },
+});
+
+const integrationJobRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/integration/job/$token',
+  component: () => {
+    const { token } = integrationJobRoute.useParams();
+    return <IntegrationJobTokenEntryPage token={token} />;
+  },
+});
+
+const integrationJobActionRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/integration/job/$token/$action',
+  component: () => {
+    const { token, action } = integrationJobActionRoute.useParams();
+    return <IntegrationJobTokenEntryPage token={token} action={action} />;
+  },
+});
+
 const dashboardRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/dashboard',
@@ -108,6 +267,392 @@ const inboxRoute = createRoute({
   ),
 });
 
+const careersPageSettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/careers-page',
+  component: () => (
+    <AccessBoundary capability="canManageCareersPage" fallback={deniedFallback}>
+      <CareersPageSettingsPage />
+    </AccessBoundary>
+  ),
+});
+
+const hiringFlowSettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/hiring-flow',
+  component: () => (
+    <AccessBoundary capability="canManageHiringFlowSettings" fallback={deniedFallback}>
+      <HiringFlowSettingsPage />
+    </AccessBoundary>
+  ),
+});
+
+const customFieldsSettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/custom-fields',
+  component: () => (
+    <AccessBoundary capability="canManageCustomFields" fallback={deniedFallback}>
+      <CustomFieldsSettingsPage />
+    </AccessBoundary>
+  ),
+});
+
+const templatesIndexRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/templates',
+  component: () => (
+    <AccessBoundary capability="canManageTemplates" fallback={deniedFallback}>
+      <TemplatesSettingsPage routeState={{ kind: 'index' }} />
+    </AccessBoundary>
+  ),
+});
+
+const templatesSmartQuestionsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/templates/smart-questions',
+  component: () => (
+    <AccessBoundary capability="canManageTemplates" fallback={deniedFallback}>
+      <TemplatesSettingsPage routeState={{ kind: 'smart-questions' }} />
+    </AccessBoundary>
+  ),
+});
+
+const templatesDiversityQuestionsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/templates/diversity-questions',
+  component: () => (
+    <AccessBoundary capability="canManageTemplates" fallback={deniedFallback}>
+      <TemplatesSettingsPage routeState={{ kind: 'diversity-questions' }} />
+    </AccessBoundary>
+  ),
+});
+
+const templatesInterviewScoringRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/templates/interview-scoring',
+  component: () => (
+    <AccessBoundary capability="canManageTemplates" fallback={deniedFallback}>
+      <TemplatesSettingsPage routeState={{ kind: 'interview-scoring' }} />
+    </AccessBoundary>
+  ),
+});
+
+const templatesDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/templates/$templateId',
+  component: () => {
+    const { templateId } = templatesDetailRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageTemplates" fallback={deniedFallback}>
+        <TemplatesSettingsPage routeState={{ kind: 'detail', templateId }} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const applicationPageSettingsIndexRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/application-page',
+  component: () => (
+    <AccessBoundary capability="canManageApplicationPage" fallback={deniedFallback}>
+      <ApplicationPageSettingsPage routeState={validateApplicationPageParams({})} />
+    </AccessBoundary>
+  ),
+});
+
+const applicationPageSettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/application-page/$settingsId/$section/$subsection',
+  params: {
+    parse: (params) => validateApplicationPageParams(params),
+    stringify: (params) => params,
+  },
+  component: () => {
+    const params = applicationPageSettingsRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageApplicationPage" fallback={deniedFallback}>
+        <ApplicationPageSettingsPage routeState={params} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const applicationPageSettingsCompatRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/application-page/$settingsId',
+  component: () => {
+    const { settingsId } = applicationPageSettingsCompatRoute.useParams();
+    const routeState = validateApplicationPageParams({ settingsId });
+    return (
+      <AccessBoundary capability="canManageApplicationPage" fallback={deniedFallback}>
+        <ApplicationPageSettingsPage routeState={routeState} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobListingsSettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/job-listings',
+  validateSearch: validateJobListingsSearch,
+  component: () => {
+    const search = jobListingsSettingsRoute.useSearch();
+    return (
+      <AccessBoundary capability="canManageJobListings" fallback={deniedFallback}>
+        <JobListingsSettingsPage routeState={search} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobListingEditorCreateRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/job-listings/edit',
+  validateSearch: (search) => validateJobListingEditorSearch(search),
+  component: () => {
+    const search = jobListingEditorCreateRoute.useSearch();
+    return (
+      <AccessBoundary capability="canManageJobListings" fallback={deniedFallback}>
+        <JobListingEditorPage routeState={search} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobListingEditorEditRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/job-listings/edit/$uuid',
+  validateSearch: (search) => search,
+  component: () => {
+    const { uuid } = jobListingEditorEditRoute.useParams();
+    const search = validateJobListingEditorSearch(jobListingEditorEditRoute.useSearch(), uuid);
+    return (
+      <AccessBoundary capability="canManageJobListings" fallback={deniedFallback}>
+        <JobListingEditorPage routeState={search} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobsListRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/jobs/$scope',
+  params: {
+    parse: (params) => ({ scope: validateJobsListScope(params.scope) }),
+    stringify: (params) => params,
+  },
+  validateSearch: validateJobsListSearch,
+  component: () => {
+    const { scope } = jobsListRoute.useParams();
+    return (
+      <AccessBoundary capability="canViewJobsList" fallback={deniedFallback}>
+        <JobsListPage scope={scope} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobAuthoringCreateRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/jobs/manage',
+  validateSearch: validateJobAuthoringSearch,
+  component: () => {
+    const search = jobAuthoringCreateRoute.useSearch();
+    return (
+      <AccessBoundary capability="canCreateJob" fallback={deniedFallback}>
+        <JobAuthoringPage resetWorkflow={search.resetWorkflow} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobAuthoringEditRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/jobs/manage/$jobId',
+  validateSearch: validateJobAuthoringSearch,
+  component: () => {
+    const { jobId } = jobAuthoringEditRoute.useParams();
+    const search = jobAuthoringEditRoute.useSearch();
+    return (
+      <AccessBoundary capability="canEditJob" fallback={deniedFallback}>
+        <JobAuthoringPage jobId={jobId} resetWorkflow={search.resetWorkflow} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/job/$jobId',
+  validateSearch: validateJobDetailSearch,
+  component: () => {
+    const { jobId } = jobDetailRoute.useParams();
+    const { section } = jobDetailRoute.useSearch();
+    return (
+      <AccessBoundary capability="canViewJobDetail" fallback={deniedFallback}>
+        <JobDetailPage jobId={jobId} section={section} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobBidCreateRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/job/$jobId/bid',
+  validateSearch: validateJobTaskSearch,
+  component: () => {
+    const { jobId } = jobBidCreateRoute.useParams();
+    const search = jobBidCreateRoute.useSearch();
+    return (
+      <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
+        <JobTaskPage kind="bid-create" jobId={jobId} parent={search.parent} section={search.section} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobBidViewRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/job/$jobId/bid/$bidId',
+  validateSearch: validateJobTaskSearch,
+  component: () => {
+    const { jobId, bidId } = jobBidViewRoute.useParams();
+    const search = jobBidViewRoute.useSearch();
+    return (
+      <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
+        <JobTaskPage kind="bid-view" jobId={jobId} bidId={bidId} parent={search.parent} section={search.section} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobCvCreateRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/job/$jobId/cv',
+  validateSearch: validateJobTaskSearch,
+  component: () => {
+    const { jobId } = jobCvCreateRoute.useParams();
+    const search = jobCvCreateRoute.useSearch();
+    return (
+      <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
+        <JobTaskPage kind="cv-create" jobId={jobId} parent={search.parent} section={search.section} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobCvViewRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/job/$jobId/cv/$candidateId',
+  validateSearch: validateJobTaskSearch,
+  component: () => {
+    const { jobId, candidateId } = jobCvViewRoute.useParams();
+    const search = jobCvViewRoute.useSearch();
+    return (
+      <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
+        <JobTaskPage kind="cv-view" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobCvRejectRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/job/$jobId/cv-reject/$candidateId',
+  validateSearch: validateJobTaskSearch,
+  component: () => {
+    const { jobId, candidateId } = jobCvRejectRoute.useParams();
+    const search = jobCvRejectRoute.useSearch();
+    return (
+      <AccessBoundary capability="canRejectCvFromJob" fallback={deniedFallback}>
+        <JobTaskPage kind="reject" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobScheduleRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/job/$jobId/cv/$candidateId/schedule',
+  validateSearch: validateJobTaskSearch,
+  component: () => {
+    const { jobId, candidateId } = jobScheduleRoute.useParams();
+    const search = jobScheduleRoute.useSearch();
+    return (
+      <AccessBoundary capability="canScheduleInterviewFromJob" fallback={deniedFallback}>
+        <JobTaskPage kind="schedule" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobOfferRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/job/$jobId/cv/$candidateId/offer',
+  validateSearch: validateJobTaskSearch,
+  component: () => {
+    const { jobId, candidateId } = jobOfferRoute.useParams();
+    const search = jobOfferRoute.useSearch();
+    return (
+      <AccessBoundary capability="canCreateOfferFromJob" fallback={deniedFallback}>
+        <JobTaskPage kind="offer" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const candidateDetailRoutes = candidateDetailRoutePaths.map((path) =>
+  createRoute({
+    getParentRoute: () => shellLayoutRoute,
+    path,
+    validateSearch: validateCandidateDetailSearch,
+    component: () => (
+      <AccessBoundary capability="canViewCandidateDetail" fallback={deniedFallback}>
+        <CandidateDetailRoutePage />
+      </AccessBoundary>
+    ),
+  }),
+);
+
+const candidateScheduleRoutes = candidateScheduleRoutePaths.map((path) =>
+  createRoute({
+    getParentRoute: () => shellLayoutRoute,
+    path,
+    validateSearch: validateCandidateTaskSearch,
+    component: () => (
+      <AccessBoundary capability="canScheduleInterviewFromCandidate" fallback={deniedFallback}>
+        <CandidateTaskRoutePage />
+      </AccessBoundary>
+    ),
+  }),
+);
+
+const candidateOfferRoutes = candidateOfferRoutePaths.map((path) =>
+  createRoute({
+    getParentRoute: () => shellLayoutRoute,
+    path,
+    validateSearch: validateCandidateTaskSearch,
+    component: () => (
+      <AccessBoundary capability="canCreateOfferFromCandidate" fallback={deniedFallback}>
+        <CandidateTaskRoutePage />
+      </AccessBoundary>
+    ),
+  }),
+);
+
+const candidateRejectRoutes = candidateRejectRoutePaths.map((path) =>
+  createRoute({
+    getParentRoute: () => shellLayoutRoute,
+    path,
+    validateSearch: validateCandidateTaskSearch,
+    component: () => (
+      <AccessBoundary capability="canRejectCandidate" fallback={deniedFallback}>
+        <CandidateTaskRoutePage />
+      </AccessBoundary>
+    ),
+  }),
+);
+
 const userProfileRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/user-profile',
@@ -124,8 +669,70 @@ const logoutRoute = createRoute({ getParentRoute: () => shellLayoutRoute, path: 
 const accessDeniedRoute = createRoute({ getParentRoute: () => rootRoute, path: '/access-denied', component: AccessDeniedPage });
 
 const routeTree = rootRoute.addChildren([
-  publicLayoutRoute.addChildren([publicHomeRoute, confirmRegistrationRoute, forgotPasswordRoute, resetPasswordRoute, registerRoute, cezanneAuthRoute, cezanneCallbackRoute, samlCallbackRoute, inviteTokenRoute]),
-  shellLayoutRoute.addChildren([dashboardRoute, notificationsRoute, inboxRoute, userProfileRoute, hiringCompanyProfileRoute, recruitmentAgencyProfileRoute, logoutRoute]),
+  publicLayoutRoute.addChildren([
+    publicHomeRoute,
+    confirmRegistrationRoute,
+    forgotPasswordRoute,
+    resetPasswordRoute,
+    registerRoute,
+    cezanneAuthRoute,
+    cezanneCallbackRoute,
+    samlCallbackRoute,
+    inviteTokenRoute,
+    publicExternalLayoutRoute.addChildren([
+      sharedJobRoute,
+      publicApplicationRoute,
+  publicSurveyRoute,
+  externalChatRoute,
+  interviewRequestRoute,
+      reviewCandidateRoute,
+      interviewFeedbackRoute,
+      requisitionApprovalRoute,
+      integrationCvRoute,
+      integrationCvActionRoute,
+      integrationFormsRoute,
+      integrationJobRoute,
+      integrationJobActionRoute,
+    ]),
+  ]),
+  shellLayoutRoute.addChildren([
+    dashboardRoute,
+    notificationsRoute,
+    inboxRoute,
+    careersPageSettingsRoute,
+    hiringFlowSettingsRoute,
+    customFieldsSettingsRoute,
+    templatesIndexRoute,
+    templatesSmartQuestionsRoute,
+    templatesDiversityQuestionsRoute,
+    templatesInterviewScoringRoute,
+    templatesDetailRoute,
+    applicationPageSettingsIndexRoute,
+    applicationPageSettingsCompatRoute,
+    applicationPageSettingsRoute,
+    jobListingsSettingsRoute,
+    jobListingEditorCreateRoute,
+    jobListingEditorEditRoute,
+    jobsListRoute,
+    jobAuthoringCreateRoute,
+    jobAuthoringEditRoute,
+    jobDetailRoute,
+    jobBidCreateRoute,
+    jobBidViewRoute,
+    jobCvCreateRoute,
+    jobCvViewRoute,
+    jobCvRejectRoute,
+    jobScheduleRoute,
+    jobOfferRoute,
+    ...candidateDetailRoutes,
+    ...candidateScheduleRoutes,
+    ...candidateOfferRoutes,
+    ...candidateRejectRoutes,
+    userProfileRoute,
+    hiringCompanyProfileRoute,
+    recruitmentAgencyProfileRoute,
+    logoutRoute,
+  ]),
   accessDeniedRoute,
 ]);
 

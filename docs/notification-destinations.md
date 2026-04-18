@@ -66,9 +66,9 @@ The following current patterns must not survive into greenfield as-is:
 
 | Legacy key family | Current state | Greenfield treatment |
 |---|---|---|
-| `cv-interview-feedback` | raw `referer` | map to typed `candidate.detail` or explicit future review destination |
-| `cv-reviewed` | raw `referer` | map to typed candidate/review destination |
-| `user-mentioned` | raw `referer` | map to typed entity destination or inbox conversation |
+| `cv-interview-feedback` | raw `referer` | keep recruiter-internal ownership by default; resolve to typed `candidate.detail`; do not synthesize external token URLs |
+| `cv-reviewed` | raw `referer` | keep recruiter-internal ownership by default; resolve to typed candidate/review destination; do not synthesize external token URLs |
+| `user-mentioned` | raw `referer` | resolve to typed entity destination or inbox conversation; never synthesize external token URLs |
 | informational/no-link notifications | non-navigating | allow `kind = informational` with no route |
 
 ## Resolver contract
@@ -82,3 +82,10 @@ The resolver should:
 ## Planning rule
 
 No notification key may be considered migrated until it resolves through this catalog or an approved extension of it.
+
+## External-review ownership rule
+
+For the implemented first external-review slice, recruiter notifications remain **internal-only** unless a future typed destination family explicitly models an external token destination. The current baseline is:
+- `cv-interview-feedback` -> `candidate.detail`
+- `cv-reviewed` -> recruiter-owned candidate/review context
+- `user-mentioned` -> inbox/entity context

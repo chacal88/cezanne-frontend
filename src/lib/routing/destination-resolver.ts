@@ -4,17 +4,17 @@ export type TypedDestinationResolution = {
   destination: TypedDestination;
   target: string;
   fallbackTarget: '/access-denied';
-  status: 'available' | 'not-available-in-r0';
+  status: 'available' | 'not-available-in-r0' | 'not-available-in-r1';
   message?: string;
 };
 
-function notAvailableInR0(destination: TypedDestination, family: string): TypedDestinationResolution {
+function notAvailable(destination: TypedDestination, family: string, status: TypedDestinationResolution['status']) {
   return {
     destination,
     target: resolveTypedDestination(destination),
-    fallbackTarget: '/access-denied',
-    status: 'not-available-in-r0',
-    message: `${family} destinations are not registered in R0 yet.`,
+    fallbackTarget: '/access-denied' as const,
+    status,
+    message: `${family} destinations are not registered yet for this slice.`,
   };
 }
 
@@ -25,10 +25,21 @@ export function resolveTypedDestinationForR0(destination: TypedDestination): Typ
     case 'job.cv.view':
     case 'job.schedule':
     case 'job.offer':
-      return notAvailableInR0(destination, 'Jobs');
+    case 'job.reject':
     case 'candidate.detail':
-      return notAvailableInR0(destination, 'Candidate');
+    case 'candidate.schedule':
+    case 'candidate.offer':
+    case 'candidate.reject':
+    case 'public.shared-job':
+    case 'public.application':
+    case 'public.survey':
+      return {
+        destination,
+        target: resolveTypedDestination(destination),
+        fallbackTarget: '/access-denied',
+        status: 'available',
+      };
     case 'billing.overview':
-      return notAvailableInR0(destination, 'Billing');
+      return notAvailable(destination, 'Billing', 'not-available-in-r1');
   }
 }

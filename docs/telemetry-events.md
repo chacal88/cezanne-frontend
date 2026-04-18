@@ -122,6 +122,45 @@ Only add extra fields if they are relevant to the event.
 | `integration_provider_opened` | integration provider detail opened | `providerId` |
 | `integration_token_entry_opened` | token integration route opened | `integrationType` |
 
+
+### 8. Public external journeys
+
+| Event | Meaning | Typical extra fields |
+|---|---|---|
+| `public_shared_job_opened` | shared public job route opened | `jobOrRole`, `tokenState`, `source` |
+| `public_application_opened` | public application route opened | `jobOrRole`, `tokenState`, `source` |
+| `public_application_submit_started` | public application workflow started | `jobOrRole` |
+| `public_application_submit_completed` | public application workflow completed | `jobOrRole`, `uploadCount` |
+| `public_application_submit_failed` | public application workflow failed but remained recoverable in-route | `jobOrRole`, `stage` |
+| `public_survey_opened` | public survey continuation route opened | `surveyuuid`, `tokenState` |
+| `public_survey_submit_completed` | public survey completed successfully | `surveyuuid` |
+| `public_survey_submit_failed` | public survey completion failed but remained recoverable in-route | `surveyuuid` |
+| `external_interview_request_opened` | external interview request route opened | `scheduleUuid`, `tokenState` |
+| `external_interview_request_bootstrapped` | interview request bootstrap resolved | `scheduleUuid`, `readiness` |
+| `external_interview_request_token_state_resolved` | interview request token state resolved | `scheduleUuid`, `tokenState` |
+| `external_interview_request_submission_started` | interview request accept/decline started | `scheduleUuid`, `decision` |
+| `external_interview_request_submission_completed` | interview request reached a stable terminal outcome | `scheduleUuid`, `outcome` |
+| `external_interview_request_submission_failed` | interview request action failed but remained recoverable in-route | `scheduleUuid`, `stage` |
+| `external_review_candidate_opened` | external review candidate route opened | `code`, `tokenState` |
+| `external_review_candidate_bootstrapped` | review candidate bootstrap resolved | `code`, `readiness` |
+| `external_review_candidate_token_state_resolved` | review candidate token state resolved | `code`, `tokenState` |
+| `external_review_candidate_submission_started` | review candidate submission started | `code` |
+| `external_review_candidate_submission_completed` | review candidate submission completed | `code`, `outcome` |
+| `external_review_candidate_submission_failed` | review candidate submission failed but remained recoverable in-route | `code`, `stage` |
+| `external_interview_feedback_opened` | external interview feedback route opened | `code`, `tokenState` |
+| `external_interview_feedback_bootstrapped` | interview feedback bootstrap resolved | `code`, `readiness` |
+| `external_interview_feedback_token_state_resolved` | interview feedback token state resolved | `code`, `tokenState` |
+| `external_interview_feedback_submission_started` | interview feedback submission started | `code` |
+| `external_interview_feedback_submission_completed` | interview feedback submission completed | `code`, `outcome` |
+| `external_interview_feedback_submission_failed` | interview feedback submission failed but remained recoverable in-route | `code`, `stage` |
+| `external_interview_feedback_terminal_viewed` | submitted feedback read-only state rendered | `code`, `outcome` |
+| `requisition_approval_opened` | requisition approval route opened | `tokenState`, `workflowState`, `readiness` |
+| `requisition_approval_submit_started` | requisition approval submit started | `decision` |
+| `requisition_approval_submit_completed` | requisition approval submit completed successfully | `decision`, `terminalState` |
+| `requisition_approval_submit_failed` | requisition approval submit failed but remained recoverable in-route | `decision`, `stage` |
+| `requisition_approval_token_state_resolved` | requisition approval resolved to a token-state outcome after concurrent consumption | `decision`, `tokenState` |
+| `requisition_approval_workflow_drift` | requisition approval resolved to workflow drift instead of generic failure | `decision` |
+
 ## Event taxonomy rule
 
 New events must be added here before they become part of the default product instrumentation contract.

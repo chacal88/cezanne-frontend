@@ -1,0 +1,44 @@
+{
+  "list": {
+    "title": "Jobs",
+    "detail": "The Jobs list owns scope, pagination, search, admin-view, and label state in the URL.",
+    "scope": "Scope",
+    "search": "Search",
+    "page": "Page",
+    "adminView": "Admin view",
+    "label": "Label",
+    "allowedCreate": "Create entry available",
+    "blockedCreate": "Create entry denied",
+    "openExample": "Open job detail",
+    "newJob": "Create job"
+  },
+  "detail": {
+    "title": "Job hub",
+    "detail": "The Job route restores a section-aware hub model for direct entry and refresh.",
+    "section": "Section",
+    "workflow": "Workflow",
+    "assignments": "Assignments",
+    "openSchedule": "Open schedule flow",
+    "openOffer": "Open offer flow"
+  },
+  "authoring": {
+    "createTitle": "Create job",
+    "editTitle": "Edit job",
+    "detail": "Authoring consumes a normalized draft model instead of raw mixed backend payloads.",
+    "mode": "Mode",
+    "branching": "Branching",
+    "resetWorkflow": "Reset workflow",
+    "savePayload": "Serialized payload preview"
+  },
+  "tasks": {
+    "title": "Job task",
+    "detail": "Task routes resolve canonical job, candidate, and parent-return context before UI rendering.",
+    "kind": "Task kind",
+    "job": "Job",
+    "candidate": "Candidate",
+    "bid": "Bid",
+    "parent": "Parent target",
+    "close": "Close task",
+    "complete": "Complete task"
+  }
+}

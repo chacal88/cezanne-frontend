@@ -2,14 +2,18 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 import authEn from '../locales/en/auth.json';
+import candidatesEn from '../locales/en/candidates.json';
 import commonEn from '../locales/en/common.json';
 import dashboardEn from '../locales/en/dashboard.json';
 import inboxEn from '../locales/en/inbox.json';
+import jobsEn from '../locales/en/jobs.json';
 import shellEn from '../locales/en/shell.json';
 import authPt from '../locales/pt/auth.json';
+import candidatesPt from '../locales/pt/candidates.json';
 import commonPt from '../locales/pt/common.json';
 import dashboardPt from '../locales/pt/dashboard.json';
 import inboxPt from '../locales/pt/inbox.json';
+import jobsPt from '../locales/pt/jobs.json';
 import shellPt from '../locales/pt/shell.json';
 
 export const defaultLocale = 'en';
@@ -17,16 +21,20 @@ export const defaultLocale = 'en';
 export const resources = {
   en: {
     auth: authEn,
+    candidates: candidatesEn,
     common: commonEn,
     dashboard: dashboardEn,
     inbox: inboxEn,
+    jobs: jobsEn,
     shell: shellEn,
   },
   pt: {
     auth: authPt,
+    candidates: candidatesPt,
     common: commonPt,
     dashboard: dashboardPt,
     inbox: inboxPt,
+    jobs: jobsPt,
     shell: shellPt,
   },
 } as const;
@@ -40,7 +48,7 @@ if (!i18n.isInitialized) {
       lng: defaultLocale,
       fallbackLng: defaultLocale,
       defaultNS: 'common',
-      ns: ['common', 'auth', 'shell', 'dashboard', 'inbox'],
+      ns: ['common', 'auth', 'shell', 'dashboard', 'inbox', 'jobs', 'candidates'],
       interpolation: {
         escapeValue: false,
       },

@@ -61,6 +61,7 @@ Synthesized from:
 | Module | Type | Owns | Core capabilities | Release |
 |---|---|---|---|---|
 | `list` | Route-owning | jobs list, filter/search/pagination URL state | `canViewJobsList` | R1 |
+| `authoring-adapters` | Support | normalized Jobs draft inputs and serializers for create/edit | `canCreateJob`, `canEditJob`, `canResetJobWorkflow` | R1 |
 | `authoring` | Route-owning | create/edit/copy/reset-workflow flows | `canCreateJob`, `canEditJob`, `canResetJobWorkflow` | R1 |
 | `detail` | Route-owning | job hub, sections, linked summaries | `canViewJobDetail`, `canManageJobState` | R1 |
 | `task-overlays` | Task | bid, cv view, schedule, offer, reject from job context | `canOpenJobTask`, `canScheduleInterviewFromJob`, `canCreateOfferFromJob`, `canRejectCvFromJob` | R1 |
@@ -96,23 +97,29 @@ Synthesized from:
 
 | Module | Type | Owns | Core capabilities | Release |
 |---|---|---|---|---|
-| `shared-job-view` | Route-owning | shared/public job page | `canOpenSharedJob` | R3 |
-| `public-application` | Route-owning | application submission, attachments, recoverable submit | `canSubmitPublicApplication` | R3 |
-| `public-survey` | Route-owning | survey completion | `canCompletePublicSurvey` | R3 |
-| `external-review` | Route-owning | interview request, review-candidate, interview-feedback token flows | `canUseExternalReviewFlow` | R3 |
-| `requisition-approval` | Route-owning | tokenized requisition approval/form flows | `canApproveRequisitionByToken` | R3-R5 |
+| `shared-job-view` | Route-owning | shared/public job page, route-owned bootstrap, application launch handoff | `canOpenSharedJob` | R3 |
+| `public-application` | Route-owning | application submission, attachments, recoverable submit, stable completion | `canSubmitPublicApplication` | R3 |
+| `public-survey` | Route-owning | survey continuation, retry, stable completion | `canCompletePublicSurvey` | R3 |
+| `external-chat` | Route-owning | tokenized external chat bootstrap, grouped conversation rendering, same-route send/retry flow, and explicit inaccessible token/conversation outcomes for `/chat/:token/:user_id` | `canUseExternalTokenizedChat` | R3 |
+| `token-state-support` | Support | canonical `valid`/`invalid`/`expired`/`used`/`inaccessible` interpretation and recovery messaging | public route decision keys | R3 |
+| `public-route-support` | Support | route helpers, adapters, serializers, notification-ownership rules, upload/submission workflow contract, correlation-aware request reuse | public route decision keys | R3 |
+| `external-review` | Route-owning | interview request decision flow, review-candidate serializer/bootstrap, interview-feedback serializer/bootstrap, stable terminal read-only states | `canUseExternalReviewFlow` | R3 |
+| `requisition-approval` | Route-owning | tokenized requisition approval route bootstrap, workflow-aware access/readiness, approve/reject submission, workflow-drift recovery, and stable terminal outcomes for `/job-requisition-approval?token` (forms/download remains R5) | `canApproveRequisitionByToken` | R3-R5 |
 
 ### `settings`
 
 | Module | Type | Owns | Core capabilities | Release |
 |---|---|---|---|---|
-| `settings-container` | Route-owning | `/parameters` decomposition and subsection routing | `canEnterSettings` | R3-R5 |
+| `settings-container` | Route-owning | `/parameters` compatibility entry, subsection resolution, stable fallback, and subsection-level deny behavior | `canEnterSettings` | R3-R5 |
+| `operational-settings-substrate` | Support | shared subsection registry, compatibility parsing, dedicated-route metadata, and save/retry/readiness workflow helpers for operational settings | `canEnterSettings` plus subsection-specific capabilities | R4 |
 | `user-settings` | Route-owning | profile/preferences/personal controls | `canManageUserSettings` | R4 |
 | `company-settings` | Route-owning | company-wide recruiter configuration | `canManageCompanySettings` | R4 |
 | `agency-settings` | Route-owning | RA-specific settings | `canManageAgencySettings` | R4 |
 | `careers-application` | Route-owning | careers page, application page, job listings | `canManageCareersPage`, `canManageApplicationPage`, `canManageJobListings` | R3 |
-| `hiring-flow` | Route-owning | hiring flow and workflow settings | `canManageHiringFlowSettings` | R4 |
-| `custom-fields` | Route-owning | custom-field admin | `canManageCustomFields` | R4 |
+| `hiring-flow` | Route-owning | hiring flow and workflow settings as a consumer of the operational settings substrate, including requisition adjacency but not requisition authoring | `canManageHiringFlowSettings` | R4 |
+| `custom-fields` | Route-owning | custom-field admin as a consumer of the operational settings substrate, with downstream candidate/public consumers kept explicit but outside this route slice | `canManageCustomFields` | R4 |
+| `templates` | Route-owning | shared templates family, including list/detail plus smart-questions, diversity, and interview-scoring subsections as substrate consumers | `canManageTemplates` | R4 |
+| `reject-reasons` | Route-owning | reject reasons list/edit flow as a consumer of the operational settings substrate | `canManageRejectReasons` | R4 |
 | `api-endpoints` | Route-owning | API endpoints settings | `canManageApiEndpoints` | R5 |
 | `forms-docs-controls` | Route-owning | settings subsections for forms/documents and related controls | `canManageFormsDocsSettings` | R4-R5 |
 
@@ -122,7 +129,7 @@ Synthesized from:
 |---|---|---|---|---|
 | `provider-index` | Route-owning | integrations list | `canViewIntegrations` | R4 |
 | `provider-detail` | Route-owning | provider setup/detail/validation | `canManageIntegrationProvider` | R4 |
-| `token-entry` | Route-owning | `/integration/cv`, `/integration/forms`, `/integration/job` | `canUseIntegrationTokenEntry` | R5 |
+| `token-entry` | Route-owning | `/integration/cv`, `/integration/forms`, `/integration/job` | `canUseIntegrationTokenEntry` | R3 |
 
 ### `reports`
 
@@ -181,14 +188,16 @@ These module-level confirmations come from the current route definitions and sho
 
 - `jobs.list` must preserve dynamic URL state for scope, pagination, search, admin-view, and label filtering.
 - `jobs.authoring` must preserve edit/create/copy-style entry, `resetWorkflow`, and resolved dependencies such as sectors, favorites, and company settings.
-- `jobs.task-overlays` currently use route-owned modal entry with explicit parent-return semantics; greenfield may redesign the container, but not the entry/exit contract.
+- `jobs.task-overlays` currently use route-owned modal entry with explicit parent-return semantics; the current R1 code resolves a canonical `JobTaskContext` with a stable parent target before rendering.
 - `jobs.workflow-state` is not optional later-wave detail: requisition branching already changes jobs navigation and guarded route access.
 - `candidates.detail-hub` must assume a dense aggregate, not a lightweight profile page.
 - `candidates.action-launchers` share the same routed modal/parent-return behavior pattern used in jobs task routes.
 - `candidates.database-search` is permission-gated today by `seeCandidates` and must remain capability-bound.
 - `inbox.conversation-list` must preserve URL-owned conversation selection.
 - `settings.settings-container` must be treated as a decomposition target because the legacy route already bundles many unrelated operational concerns.
+- `settings.operational-settings-substrate` must freeze subsection routing, fallback, and workflow-state helpers before the first R4 settings pages land.
 - `settings.careers-application` is confirmed as a separate route family with stateful job-listings variants and editor entry.
+- `settings.hiring-flow`, `settings.custom-fields`, `settings.templates`, and `settings.reject-reasons` must consume the shared substrate rather than invent custom admin shells.
 - `integrations.provider-detail` currently behaves like a routed overlay/edit flow over the integrations index.
 - `integrations.token-entry` already has multiple unsigned token contracts (`cv`, `forms`, `job`) and should not be collapsed into one generic flow.
 - `reports.report-index` and `reports.report-family-pages` already exist as a family, with one legacy aggregate report route plus dedicated family routes.

@@ -2,7 +2,8 @@
   "navigation": {
     "dashboard": "Dashboard",
     "notifications": "Notifications",
-    "inbox": "Inbox"
+    "inbox": "Inbox",
+    "jobs": "Jobs"
   },
   "authenticatedShell": {
     "title": "Recruit shell"

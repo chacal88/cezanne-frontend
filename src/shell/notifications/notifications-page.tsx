@@ -6,7 +6,15 @@ const seededNotifications: { id: string; labelKey: 'notifications.seeded.candida
   {
     id: 'n-1',
     labelKey: 'notifications.seeded.candidateFollowUp',
-    destination: { kind: 'candidate.detail', candidateId: 'candidate-123' },
+    destination: {
+      kind: 'candidate.detail',
+      candidateId: 'candidate-123',
+      jobId: 'job-456',
+      status: 'screening',
+      order: '2',
+      filters: 'remote',
+      interview: 'interview-1',
+    },
   },
   {
     id: 'n-2',
@@ -36,7 +44,12 @@ export function NotificationsPage() {
                 <code>{resolution.target}</code>
               </div>
               {resolution.status === 'available' ? (
-                <span data-testid={`notification-status-${item.id}`}>{t('notifications.ready')}</span>
+                <span data-testid={`notification-status-${item.id}`}>
+                  {t('notifications.ready')}{' '}
+                  <a href={`${resolution.target}?entry=notification`} data-testid={`notification-link-${item.id}`}>
+                    Open destination
+                  </a>
+                </span>
               ) : (
                 <span data-testid={`notification-status-${item.id}`}>
                   {resolution.message} {t('notifications.safeFallback')} <code>{resolution.fallbackTarget}</code>

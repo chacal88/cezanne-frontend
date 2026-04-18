@@ -62,8 +62,12 @@ Six releases. R0 is foundation; R1/R2 are the recruiter-core pair that together 
 |---|---|---|---|
 | **R0** | **Foundation** | Routing model, domain API layer, access/capability model, design-system blockers, auth + SSO/SAML, shell, dashboard as valid recruiter-core landing route, notifications with typed destination resolver, inbox conversation entry | L |
 | **R1** | **Recruiter core — Jobs** | Jobs list, authoring (create/edit/resetWorkflow, incl. `jobRequisition` branching), detail hub, job-scoped task overlays (bid, cv, schedule, offer, reject) | XL |
+
+R1 implementation status (confirmed in code): the Jobs route family is now registered in `src/app/router.tsx`, the route metadata/capability layer recognizes the R1 slice, and the first smoke tests cover list, authoring, detail, and schedule-entry routes.
 | **R2** | **Recruiter core — Candidate** | Candidate detail hub, prev/next nav, full action family, comments/tags, CV upload, forms/docs/contracts/surveys/custom-fields summaries, interview feedback | XL |
 | **R3** | **Public + external slice** | Public application, public survey, external interview/review/feedback flows, requisition approval, provider integration callbacks, careers/application-page/job-listing settings | L |
+
+R3 implementation status (confirmed in code): the public/token route family now includes provider integration callbacks in `src/app/router.tsx`, with route metadata coverage plus smoke and Vitest proof for CV callback, forms/documents callback, and job callback direct entry.
 | **R4** | **Operations depth** | Candidate database + search, templates, hiring-flow/custom-fields config, integrations setup, team/users + favorites, reports, marketplace (RA), billing | L |
 | **R5** | **Platform + long-tail** | Sysadmin (companies/agencies/subscriptions/sectors/users), requisition authoring workflows, API endpoints settings, remaining parameters subsections, tokenized integration entries (cv/forms/job) | M |
 
@@ -75,6 +79,8 @@ The frontend-2 waves were optimized for phased **co-existence** — Wave 1 had t
 2. **Then extract slices that can launch independently (R3 → R5)**. Public/external, operations depth, and platform long-tail are independently testable and shippable once the core is in place.
 
 R0 is new and heavy on purpose: foundational decisions (routing, access, state, API layer, design-system primitives) must land once, correctly, before any domain work. Most greenfield failures trace back to skipping R0.
+
+Between `R1` and `R2`, the repository also carries a short hardening pass that is intentionally not modeled as a separate release: unit-test baseline, request/security hardening, and documentation synchronization. This keeps the R2 candidate slice from inheriting avoidable shared-library gaps.
 
 ### Cross-release dependencies to watch
 
@@ -134,6 +140,29 @@ A release is not "done" just because the code is written. It's done when the gat
 - Billing payment-state model (subscription, upgrade, SMS add-on, card) handles success and recoverable failure
 - Per-provider integration contracts traced and tested (not one generic integration flow)
 - Team/users/favorites/marketplace launched only after dependent config (hiring flow, templates, custom fields) is stable
+
+### R4 planning breakdown and sequencing
+
+`R4` is no longer treated as one undifferentiated operations wave. The consolidated planning baseline is:
+
+| Phase | Planning package | Core outcome | Opens first |
+|---|---|---|---|
+| `R4.1` | operational settings foundation | subsection registry, `/parameters` compatibility, settings save/retry/readiness contract | `r4-operational-settings-substrate` |
+| `R4.2` | candidate database | canonical database route family, preserved URL state, database → detail handoff | `r4-candidate-database-contract-foundation` |
+| `R4.4` | integrations setup | admin shell plus provider-family state model for integrations | `r4-integrations-shell` |
+| `R4.5` | reports | report shell plus shared export/scheduling contract | `r4-reports-foundation` |
+| `R4.3` | team/users/favorites | org-admin/team ownership, invite/membership scope, favorites ownership | after `R4.1` stabilizes |
+| `R4.6` | billing + marketplace | commercial state model for billing and bounded RA marketplace planning | after config/admin boundaries stabilize |
+
+Sequencing rule:
+- `R4.1` must land first because it stabilizes the operational settings substrate used by later admin-heavy areas.
+- `R4.2`, `R4.4`, and `R4.5` can advance in parallel planning once their route/capability contracts are frozen.
+- `R4.3` and `R4.6` stay later because their ownership and access boundaries still depend on stable config/admin decisions from earlier `R4` planning.
+
+Operational settings substrate rule:
+- `/parameters` remains compatibility-only.
+- dedicated `R4.1` settings routes consume one subsection registry plus one shared readiness/save/retry workflow contract.
+- the first consumers are `hiring-flow`, `custom-fields`, `templates`, and `reject-reasons`.
 
 ### R5 — Platform + long-tail gates
 
@@ -334,10 +363,10 @@ Every surface that enters from outside the authenticated shell:
 - `/auth/cezanne/:tenantGuid` · `/auth/cezanne/callback` · `/auth/saml` — SSO / SAML handoff
 - `/shared/{jobOrRole}/:token/:source` · `/{jobOrRole}/application/:token/:source` — public job view + application submit (upload-heavy)
 - `/surveys/:surveyuuid/:jobuuid/:cvuuid` — tokenized candidate survey
+- `/chat/:token/:user_id` — externally shared chat (dedicated external-chat contract, separate from inbox and external-review forms)
 - `/interview-request/:scheduleUuid/:cvToken` — external interviewer accept/decline
 - `/review-candidate/:code` — external reviewer assessment
 - `/interview-feedback/:code` — external interviewer feedback
-- `/chat/:token/:user_id` — externally shared chat
 - `/job-requisition-approval?token` · `/job-requisition-forms/:id?download` — tokenized requisition approval and download
 - `/integration/cv/:token/:action?` · `/integration/forms/:token` · `/integration/job/:token/:action?` — provider/integration tokenized callbacks
 
@@ -512,3 +541,5 @@ Not decided in this roadmap; must be resolved next in `architecture.md`:
 1. `architecture.md` — stack decisions, package layout, state-management implementation, routing implementation, access-control implementation, testing strategy
 2. `adrs/` — durable decisions per area, one file each
 3. `release-r0-plan.md` — detailed R0 scoping once architecture is committed
+
+R2 implementation status (confirmed in code): the Candidate route family is now registered in `src/app/router.tsx`, the shared route/capability layer recognizes candidate detail and candidate task flows, and the smoke + Vitest baseline now covers candidate direct entry, notification entry, parent-return behavior, and visible refresh after candidate actions.

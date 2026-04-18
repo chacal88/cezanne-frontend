@@ -54,6 +54,16 @@ The four greenfield docs have distinct responsibilities and should be read toget
 
 Architecture decisions in this document should assume those three documents are normative inputs, not optional references.
 
+## Current execution note
+
+As of 2026-04-18, the source tree now matches the planned pre-R2 testing and browser-side hardening posture:
+- Vitest is present in source for unit/module-contract coverage
+- Testing Library helpers are available under `src/testing/`
+- Playwright smoke validation remains the route-level browser proof
+- shared request hardening now attaches correlation and CSRF-related headers for unsafe same-origin requests
+- Vite dev/preview runs with a shared security-header baseline
+
+
 ---
 
 ## 1. Architectural principles

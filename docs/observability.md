@@ -223,3 +223,24 @@ Do not:
 - `telemetry-events.md`
 - `correlation-id-policy.md`
 - `architecture.md`
+
+## Implemented R2 candidate instrumentation
+
+The current source now emits candidate-focused events for:
+- `candidate_detail_viewed` on candidate hub entry
+- `candidate_sequence_previous` and `candidate_sequence_next` on contextual sequence navigation
+- `candidate_action_opened`, `candidate_action_succeeded`, and `candidate_action_failed` for candidate task routes
+- `candidate_cv_uploaded` for candidate-owned CV refresh workflows
+
+These events reuse the shared correlation-id context and the shared request-hardening boundary.
+
+## Current R3 public/external proof
+
+The current implementation now includes requisition-approval route instrumentation for:
+- route open
+- submit start
+- submit success/failure
+- token-state resolution after concurrent consumption
+- workflow-drift recovery
+
+This keeps `/job-requisition-approval?token` inside the same public/external observability boundary as the existing public token routes while preserving correlation-aware request reuse for approve/reject submissions.

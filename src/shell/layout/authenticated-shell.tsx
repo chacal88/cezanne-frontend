@@ -15,7 +15,7 @@ export function AuthenticatedShell({ children }: PropsWithChildren) {
         <h2 style={{ marginTop: 0 }}>{t('authenticatedShell.title')}</h2>
         <nav style={{ display: 'grid', gap: 8 }}>
           {navItems.map((item) => (
-            <Link key={item.to} to={item.to} search={item.search as never}>
+            <Link key={`${item.to}-${item.labelKey}`} to={item.to as never} params={item.params as never} search={item.search as never}>
               {t(item.labelKey)}
             </Link>
           ))}

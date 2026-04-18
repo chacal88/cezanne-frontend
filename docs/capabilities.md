@@ -136,15 +136,17 @@ Suggested fields:
 
 | Capability | Layer | Main inputs | Used by | Deny/fallback |
 |---|---|---|---|---|
-| `canEnterSettings` | Route access | `hc OR ra`, subsection-specific entitlements | parameters/templates/settings | subsection deny or dashboard fallback |
+| `canEnterSettings` | Route access | `hc OR ra`, subsection-specific entitlements, compatibility-route context | parameters/templates/settings | subsection deny or stable subsection fallback, then dashboard fallback when no subsection is available |
 | `canManageUserSettings` | Action capability | authenticated identity | user settings | read-only or deny |
 | `canManageCompanySettings` | Action capability | `hc` + admin | company settings | hide subsection |
 | `canManageAgencySettings` | Action capability | `ra` or recruiter-visibility entitlement where applicable | agency settings/recruiters | hide subsection |
 | `canManageCareersPage` | Action capability | `hc` + admin | careers page settings | hide subsection |
 | `canManageApplicationPage` | Action capability | `hc` + admin | application page settings | hide subsection |
 | `canManageJobListings` | Action capability | `hc` + admin | job listings + editor | hide subsection |
-| `canManageHiringFlowSettings` | Action capability | `hc` + admin, requisition capabilities where applicable | hiring flow / requisition workflows | hide subsection or dashboard fallback |
-| `canManageCustomFields` | Action capability | `hc` + admin + `customFieldsBeta` | custom-fields settings | hide subsection |
+| `canManageHiringFlowSettings` | Action capability | `hc` + admin, requisition capabilities where applicable | hiring flow settings in `R4`, with `/requisition-workflows` remaining a later distinct route | hide subsection or dashboard fallback |
+| `canManageCustomFields` | Action capability | `hc` + admin + `customFieldsBeta` | custom-fields settings as an operational-settings subsection, with candidate/public custom-field usage treated as downstream dependency rather than route scope | hide subsection |
+| `canManageTemplates` | Action capability | `hc`, with admin-only and subtype-specific gates layered on smart questions, diversity questions, and interview scoring where applicable | templates family and template subsections as operational-settings subsections | hide subsection |
+| `canManageRejectReasons` | Action capability | `hc` + admin + `rejectionReason` | reject reasons as an operational-settings subsection | hide subsection |
 | `canManageApiEndpoints` | Action capability | `hc` + admin | API endpoints settings | hide subsection |
 | `canManageFormsDocsSettings` | Action capability | `hc` + admin + `formsDocs` | forms/docs settings | hide subsection |
 | `canViewIntegrations` | Route access | `hc` + admin | integrations index | hide subsection or dashboard fallback |
@@ -158,6 +160,7 @@ Suggested fields:
 | `canUpgradeSubscription` | Action capability | billing access | billing upgrade | billing overview fallback |
 | `canManageSmsBilling` | Action capability | billing access + SMS commercial state | billing SMS flow | billing overview fallback |
 | `canManageBillingCard` | Action capability | billing access + card context | billing card overlay | billing overview fallback |
+| `canViewMarketplace` | Route access | `ra` | marketplace | hide nav or dashboard fallback |
 | `canManageHiringCompanies` | Route access | `sysAdmin` | sysadmin companies | platform dashboard fallback |
 | `canManageRecruitmentAgencies` | Route access | `sysAdmin` | sysadmin agencies | platform dashboard fallback |
 | `canManagePlatformSubscriptions` | Route access | `sysAdmin` | sysadmin subscriptions | platform dashboard fallback |

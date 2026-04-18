@@ -1,0 +1,44 @@
+{
+  "list": {
+    "title": "Vagas",
+    "detail": "A lista de vagas mantém escopo, paginação, busca, visão admin e rótulo na URL.",
+    "scope": "Escopo",
+    "search": "Busca",
+    "page": "Página",
+    "adminView": "Visão admin",
+    "label": "Rótulo",
+    "allowedCreate": "Entrada de criação disponível",
+    "blockedCreate": "Entrada de criação negada",
+    "openExample": "Abrir detalhe da vaga",
+    "newJob": "Criar vaga"
+  },
+  "detail": {
+    "title": "Hub da vaga",
+    "detail": "A rota da vaga restaura um hub com seção explícita em entrada direta e refresh.",
+    "section": "Seção",
+    "workflow": "Workflow",
+    "assignments": "Atribuições",
+    "openSchedule": "Abrir fluxo de agendamento",
+    "openOffer": "Abrir fluxo de oferta"
+  },
+  "authoring": {
+    "createTitle": "Criar vaga",
+    "editTitle": "Editar vaga",
+    "detail": "A tela consome um draft normalizado em vez de payloads mistos do backend.",
+    "mode": "Modo",
+    "branching": "Branching",
+    "resetWorkflow": "Resetar workflow",
+    "savePayload": "Prévia do payload serializado"
+  },
+  "tasks": {
+    "title": "Tarefa da vaga",
+    "detail": "As rotas de tarefa resolvem contexto canônico de vaga, candidato e retorno antes da UI.",
+    "kind": "Tipo de tarefa",
+    "job": "Vaga",
+    "candidate": "Candidato",
+    "bid": "Bid",
+    "parent": "Destino pai",
+    "close": "Fechar tarefa",
+    "complete": "Concluir tarefa"
+  }
+}

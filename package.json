@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "smoke:r0": "npm run smoke:r0:http && npm run smoke:r0:ui",
     "smoke:r0:ui": "env -u NO_COLOR playwright test -c playwright.r0.config.ts",
-    "smoke:r0:http": "sh ./scripts/r0-smoke-http.sh"
+    "smoke:r0:http": "sh ./scripts/r0-smoke-http.sh",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.59.0",
@@ -23,12 +26,19 @@
   },
   "devDependencies": {
     "@crowdin/cli": "^4.14.1",
+    "@playwright/test": "^1.54.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.7.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@vitest/coverage-v8": "^4.1.4",
+    "jsdom": "^29.0.2",
     "playwright": "^1.54.2",
     "typescript": "^5.6.3",
-    "vite": "^5.4.10",
-    "@playwright/test": "^1.54.2"
+    "vite": "^8.0.8",
+    "vitest": "^4.1.4"
   }
 }

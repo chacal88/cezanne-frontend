@@ -8,8 +8,8 @@ const defaultAccessContext: AccessContext = {
   isAdmin: true,
   isSysAdmin: false,
   pivotEntitlements: ['seeCandidates', 'jobRequisition'],
-  subscriptionCapabilities: ['calendarIntegration'],
-  rolloutFlags: [],
+  subscriptionCapabilities: ['calendarIntegration', 'formsDocs', 'surveys', 'customFields', 'candidateTags', 'reviewRequests', 'interviewFeedback', 'inbox'],
+  rolloutFlags: ['customFieldsBeta'],
 };
 
 const AccessContextReact = createContext<{ access: AccessContext; capabilities: Capabilities } | null>(null);
