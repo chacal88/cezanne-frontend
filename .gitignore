@@ -1,0 +1,7 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+.r0-smoke-vite.log
+*.tsbuildinfo
+.env

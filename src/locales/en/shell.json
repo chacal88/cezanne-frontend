@@ -1,0 +1,28 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "notifications": "Notifications",
+    "inbox": "Inbox"
+  },
+  "authenticatedShell": {
+    "title": "Recruit shell"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "accessLabel": "Notification access:",
+    "allowed": "allowed",
+    "denied": "denied",
+    "ready": "Ready to navigate.",
+    "safeFallback": "Safe fallback:",
+    "seeded": {
+      "candidateFollowUp": "Candidate follow-up is pending",
+      "offerAttention": "Offer flow requires attention"
+    }
+  },
+  "userProfile": {
+    "eyebrow": "Shell overlay",
+    "title": "User profile",
+    "detail": "This route is registered as a shell-owned overlay and stays distinct from domain task flows.",
+    "close": "Close overlay"
+  }
+}

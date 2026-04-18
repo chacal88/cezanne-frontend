@@ -1,0 +1,8 @@
+{
+  "home": {
+    "title": "Inbox",
+    "detail": "Esta rota possui estado compartilhável na URL através do parâmetro de busca `conversation`.",
+    "activeConversation": "Conversa ativa:",
+    "none": "nenhuma"
+  }
+}

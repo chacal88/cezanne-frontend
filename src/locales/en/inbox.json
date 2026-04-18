@@ -1,0 +1,8 @@
+{
+  "home": {
+    "title": "Inbox",
+    "detail": "This route owns shareable URL state through the `conversation` search param.",
+    "activeConversation": "Active conversation:",
+    "none": "none"
+  }
+}

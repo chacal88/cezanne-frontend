@@ -1,0 +1,7 @@
+/dashboard
+/notifications
+/inbox
+/inbox?conversation=conversation-123
+/user-profile
+/confirm-registration/example-token
+/access-denied

@@ -1,0 +1,28 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "notifications": "Notificações",
+    "inbox": "Inbox"
+  },
+  "authenticatedShell": {
+    "title": "Shell Recruit"
+  },
+  "notifications": {
+    "title": "Notificações",
+    "accessLabel": "Acesso às notificações:",
+    "allowed": "permitido",
+    "denied": "negado",
+    "ready": "Pronto para navegar.",
+    "safeFallback": "Fallback seguro:",
+    "seeded": {
+      "candidateFollowUp": "Follow-up do candidato está pendente",
+      "offerAttention": "Fluxo de oferta precisa de atenção"
+    }
+  },
+  "userProfile": {
+    "eyebrow": "Overlay do shell",
+    "title": "Perfil do usuário",
+    "detail": "Esta rota está registrada como overlay do shell e permanece distinta dos task flows de domínio.",
+    "close": "Fechar overlay"
+  }
+}
