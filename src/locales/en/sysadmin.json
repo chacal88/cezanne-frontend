@@ -7,5 +7,60 @@
       "title": "Hiring companies unavailable",
       "detail": "This foundation route proves SysAdmin platform fallback and metadata before company CRUD ships."
     }
+  },
+  "masterData": {
+    "eyebrow": "Platform master data",
+    "listTitle": "{{entity}} list",
+    "listDetail": "Frontend foundation for platform master-data list states. API-backed data is intentionally outside this slice.",
+    "detailTitle": "{{entity}} detail {{id}}",
+    "detailCopy": "Frontend foundation for platform master-data detail states and return behavior.",
+    "editTitle": "Edit {{entity}} {{id}}",
+    "editCopy": "Frontend foundation for edit success, cancel, error, and stale-state behavior.",
+    "companySubscriptionTitle": "Company subscription for {{id}}",
+    "companySubscriptionCopy": "Company-owned subscription administration with separate platform subscription mutation readiness.",
+    "countLabel": "Visible records",
+    "parentTargetLabel": "Parent target",
+    "cancelTargetLabel": "Cancel target",
+    "routeCapabilityLabel": "Route capability",
+    "mutationCapabilityLabel": "Mutation capability",
+    "backToCompany": "Back to company",
+    "entities": {
+      "hiringCompany": "Hiring company",
+      "recruitmentAgency": "Recruitment agency",
+      "subscription": "Subscription"
+    }
+  },
+  "users": {
+    "eyebrow": "Platform users",
+    "listTitle": "Platform users",
+    "createTitle": "Create platform user",
+    "detailTitle": "Platform user {{id}}",
+    "editTitle": "Edit platform user {{id}}",
+    "listCopy": "Platform-scoped user management foundation. Org invites and team membership stay in R4 team routes.",
+    "detailCopy": "Read-only platform user detail foundation with list return behavior.",
+    "editCopy": "Platform user edit foundation with deterministic cancel and success targets.",
+    "filtersLabel": "Sanitized filters",
+    "parentTargetLabel": "Parent target"
+  },
+  "favoriteRequests": {
+    "eyebrow": "Platform favorite-request queue",
+    "listTitle": "Favorite-request queue",
+    "detailTitle": "Favorite request {{id}}",
+    "listCopy": "Platform-admin queue foundation, separate from org favorite request task flows.",
+    "detailCopy": "Platform favorite-request detail foundation with deterministic action readiness.",
+    "approveAction": "Approve readiness"
+  },
+  "taxonomy": {
+    "eyebrow": "Platform taxonomy",
+    "sectorListTitle": "Sectors",
+    "sectorListCopy": "Platform taxonomy foundation for sector list states.",
+    "sectorDetailTitle": "Sector {{id}}",
+    "sectorDetailCopy": "Sector detail foundation with return to sector list.",
+    "subsectorListTitle": "Subsectors for {{id}}",
+    "subsectorListCopy": "Nested subsector list foundation with return to sector detail.",
+    "subsectorDetailTitle": "Subsector {{id}}",
+    "subsectorDetailCopy": "Subsector detail foundation with deterministic fallback parent.",
+    "surfaceLabel": "Taxonomy surface",
+    "parentTargetLabel": "Parent target"
   }
 }

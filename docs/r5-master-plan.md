@@ -49,10 +49,10 @@ Still unresolved for later R5 route-heavy slices:
 | Priority | Area | Why it goes now | First change |
 |---|---|---|---|
 | `1` | `R5.1` SysAdmin foundation | establishes platform shell, landing/fallback, navigation grouping, route metadata, and deny behavior before route-heavy SysAdmin implementation | `r5-sysadmin-foundation` |
-| `2` | `R5.2` platform master data | companies, agencies, and subscriptions are clearer platform-only surfaces than `/users` or favorite requests | `r5-platform-master-data` |
-| `3` | `R5.3` platform users and favorite-request queue | consumes the accepted R4/R5 split and still needs route-heavy platform user and queue behavior | `r5-platform-users-and-favorite-requests` |
-| `4` | `R5.4` taxonomy | sectors/subsectors are platform-only but lower criticality than companies/agencies/subscriptions | `r5-platform-taxonomy` |
-| `5` | `R5.5` requisition authoring completion | completes `jobRequisition` authoring without letting requisition workflows consume the Jobs domain | `r5-requisition-authoring` |
+| `2` | `R5.2` platform master data | implemented as the first route-heavy Platform group for companies, agencies, subscriptions, and company subscription administration | `r5-platform-master-data` |
+| `3` | `R5.3` platform users and favorite-request queue | implemented as platform `/users*` CRUD foundation plus platform `/favorites-request*` queue foundation | `r5-platform-users-and-favorite-requests` |
+| `4` | `R5.4` taxonomy | implemented as platform sectors/subsectors foundation with parent-child navigation | `r5-platform-taxonomy` |
+| `5` | `R5.5` requisition authoring completion | implemented as frontend route/state foundation for Jobs-side authoring and settings-side workflow administration | `r5-requisition-authoring` |
 | `6` | `R5.6` settings leftovers | API endpoints and remaining `/parameters` subsections need a closed inventory before implementation | `r5-settings-leftovers` |
 | `7` | `R5.7` public/token leftovers | requisition forms/download and any confirmed tokenized leftovers need distinct route contracts | `r5-public-token-leftovers` |
 | `8` | `R5.8` integration token leftovers | only opens if the decision register confirms scope still exists after R3 provider callbacks | conditional: `r5-integration-token-leftovers` |
@@ -279,6 +279,41 @@ No `R5` execution package should open until:
 Confirmed implementation baseline for `r5-sysadmin-foundation`:
 - `/dashboard` is the canonical SysAdmin platform landing URL when the access context is `sysAdmin` with no active HC/RA operational context.
 - The authenticated shell owns a dedicated `Platform` navigation group with child groups for master data, users and requests, and taxonomy. The foundation exposes groups only from platform-nav capabilities and keeps route-heavy links hidden until their owning slices ship.
-- `/hiring-companies` is registered only as a typed foundation placeholder for direct-entry and fallback proof; company CRUD remains owned by `r5-platform-master-data`.
+- `/hiring-companies` was registered as a typed foundation placeholder for direct-entry and fallback proof; `r5-platform-master-data` now supersedes it with implemented master-data foundation routes.
 - Platform-only denial resolves to `/dashboard`, allowing the dashboard mode to resolve from the user's access context.
 - Validation evidence now includes capability/navigation/fallback unit coverage plus R0 smoke coverage for SysAdmin dashboard platform mode and non-SysAdmin `/hiring-companies` fallback.
+
+
+## R5.2 platform master-data implementation checkpoint
+
+Confirmed implementation baseline for `r5-platform-master-data`:
+- Platform / Master data exposes implemented links for `/hiring-companies`, `/recruitment-agencies`, and `/subscriptions`.
+- company, agency, and subscription list/detail/edit routes use shared deterministic platform master-data states.
+- `/hiring-company/:id/subscription` remains company-owned for route entry and uses platform subscription capability for mutation readiness.
+- platform subscription administration remains separate from R4 HC-admin billing routes.
+
+
+## R5.3 platform users and favorite-request queue implementation checkpoint
+
+Confirmed implementation baseline for `r5-platform-users-and-favorite-requests`:
+- Platform / Users and requests exposes implemented links for `/users` and `/favorites-request`.
+- `/users`, `/users/new`, `/users/edit/:id`, and `/users/:id` are platform-owned and gated by `canManagePlatformUsers`.
+- `/favorites-request` and `/favorites-request/:id` are platform-owned and gated by `canManageFavoriteRequests`.
+- `/users/invite`, `/team*`, `/favorites*`, and `/favorites/request*` remain org-scoped R4 behavior and are not absorbed by R5 platform routes.
+
+
+## R5.4 platform taxonomy implementation checkpoint
+
+Confirmed implementation baseline for `r5-platform-taxonomy`:
+- Platform / Taxonomy exposes an implemented `/sectors` link.
+- `/sectors`, `/sectors/:id`, `/sectors/:sector_id/subsectors`, and `/subsectors/:id` are platform-owned and gated by `canManageTaxonomy`.
+- taxonomy state helpers preserve parent-child return behavior and stay separate from settings subsection routing and platform master-data routes.
+
+
+## R5.5 requisition authoring implementation checkpoint
+
+Confirmed implementation baseline for `r5-requisition-authoring`:
+- `/build-requisition` and `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` are Jobs-side workflow-state routes gated by `canUseJobRequisitionBranching`.
+- `/requisition-workflows` is settings/hiring-flow administration gated by `canManageHiringFlowSettings`.
+- requisition authoring models local draft, explicit save, submit, recoverable failure, stale workflow, and workflow-drift states without backend persistence.
+- no new typed notification destinations or autosave persistence are introduced.

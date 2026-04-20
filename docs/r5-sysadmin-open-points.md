@@ -106,109 +106,79 @@ First route-heavy navigation release:
 
 ### S3 — Platform master-data route behavior
 
-**Status:** Open
+**Status:** Accepted for `r5-platform-master-data`
 
-**Decision needed:** Freeze the common route behavior for companies, agencies, and subscriptions.
+**Decision:** Companies, agencies, and subscriptions use one shared platform master-data state vocabulary while keeping entity-specific route ownership and capability gates.
 
-Must define:
-- list loading, empty, error, and denied states.
-- detail loading, not-found, stale, and denied states.
-- edit success/cancel/error behavior.
-- return behavior from edit to detail or list.
-- refresh behavior after subscription updates.
-
-Recommendation:
-- plan companies, agencies, and subscriptions as the first route-heavy SysAdmin implementation after foundation.
+Accepted behavior:
+- list states are loading, empty, error, denied, and ready.
+- detail states are loading, not-found, stale, denied, and ready.
+- edit states are editing, saving, success, cancelled, error, and denied.
+- list routes return to `/dashboard`; detail routes return to their owning list; edit routes cancel and succeed back to their owning detail route.
+- route-heavy master-data pages are frontend foundation pages until real platform APIs are introduced.
 
 ### S4 — `/hiring-company/:id/subscription` ownership
 
-**Status:** Open
+**Status:** Accepted for `r5-platform-master-data`
 
-**Decision needed:** Define whether company subscription administration is owned by `sysadmin.companies` or `sysadmin.subscriptions`.
+**Decision:** Keep company subscription administration under `sysadmin.companies` route ownership while delegating subscription mutation readiness to platform subscription capability.
 
-Current evidence:
-- `screens.md` places the route in `sysadmin` and module `companies`.
-- the route requires both `canManageHiringCompanies` and `canManagePlatformSubscriptions`.
-
-Recommendation:
-- keep the route under `sysadmin.companies` route ownership, while delegating subscription-specific models/actions to shared subscription support or `sysadmin.subscriptions` adapters.
-
-Must define:
-- which capability controls route entry.
-- which capability controls subscription mutation actions.
-- where post-save refresh invalidates company and subscription data.
+Accepted behavior:
+- route entry is controlled by `canManageHiringCompanies`.
+- subscription mutation actions are controlled by `canManagePlatformSubscriptions`.
+- users with company access but without subscription capability can enter the company-owned subscription page but see mutation actions blocked with an explicit capability reason.
+- post-save refresh invalidates company detail, company subscription, and subscriptions list state.
+- this route remains separate from R4 HC-admin `/billing*` self-service routes.
 
 ### S5 — Platform users versus org users
 
-**Status:** Accepted boundary; route-heavy details remain open
+**Status:** Accepted for `r5-platform-users-and-favorite-requests`
 
-**Decision:** Split platform user management from org-admin user management.
+**Decision:** R5 `/users*` route-heavy behavior is platform-owned under `sysadmin.users`. Org invite and membership behavior stays in the R4 team boundary.
 
-Current evidence:
-- `/users` includes HC Admin, RA Admin, and SysAdmin personas in `screens.md`.
-- `capabilities.md` allows `canManagePlatformUsers` through `sysAdmin` or org-admin user-management context.
-- R4 team/invite/membership closeout keeps `/team`, `/team/recruiters`, and `/users/invite` org-scoped and explicitly separate from platform user CRUD.
-
-Accepted boundary:
-- platform-scoped user administration belongs to `sysadmin.users` for R5.
-- org invite/membership behavior stays in the R4 team/users boundary unless explicitly promoted by a future change.
-- `canManagePlatformUsers` must not be granted by R4 org invite, membership, or recruiter visibility behavior.
-
-Still must define for the platform users slice:
-- which `/users` URLs are platform-owned in R5.
-- whether org-admin `/users` access remains a compatibility path or moves to a separate future route family.
-- distinct fallback behavior for org-admin and SysAdmin denial.
-- search/filter semantics for `hiringCompanyId` and `recruitmentAgencyId`.
+Accepted behavior:
+- `/users`, `/users/new`, `/users/edit/:id`, and `/users/:id` are platform-owned R5 routes gated by `canManagePlatformUsers`.
+- `/users/invite`, `/team`, and `/team/recruiters` remain org-scoped R4 routes and do not grant platform user management.
+- `/users` list filters are URL-owned: `page`, `search`, `hiringCompanyId`, and `recruitmentAgencyId`; invalid page values degrade to `1`, and empty string filters are omitted.
+- authenticated org users denied from platform `/users*` fall back to `/dashboard`.
 
 ### S6 — User create/edit/view route contract
 
-**Status:** Open
+**Status:** Accepted for `r5-platform-users-and-favorite-requests`
 
-**Decision needed:** Define the route contract for user creation, editing, viewing, and list return behavior.
+**Decision:** Platform user create/edit/view routes are frontend foundation routes for platform-managed users only.
 
-Must define:
-- whether `/users/new` creates only platform-managed users or also org-scoped users.
-- whether `/users/edit/:id` can edit users across organization boundaries.
-- whether `/users/:id` is a read-only view or a management hub.
-- how list filters are preserved when returning from detail/edit.
-- not-found and permission-denied states for cross-tenant user access.
+Accepted behavior:
+- `/users/new` creates platform-managed users only in this route contract; org invite delivery stays at `/users/invite`.
+- `/users/edit/:id` and `/users/:id` are cross-tenant platform administration surfaces gated by `canManagePlatformUsers`.
+- detail and edit routes preserve sanitized `/users` return targets from list filters where provided.
+- not-found, permission-denied, stale, saving, success, cancel, and error are explicit frontend states; backend persistence is outside this slice.
 
 ### S7 — Favorite-request queue versus org favorites
 
-**Status:** Accepted boundary; queue details remain open
+**Status:** Accepted for `r5-platform-users-and-favorite-requests`
 
-**Decision:** Split platform favorite-request queue behavior from org/user favorite behavior.
+**Decision:** `/favorites-request` and `/favorites-request/:id` are platform-admin queue routes, separate from org `/favorites*` and `/favorites/request*` flows.
 
-Current evidence:
-- `/favorites*` routes are R4 and entitlement-heavy.
-- `/favorites/request*` task flows are R4 org-scoped favorite request behavior.
-- `/favorites-request*` routes are R5 SysAdmin platform queue routes.
-- R4 favorites/request closeout freezes personal, org-shared, recruiter-linked, and org request task-flow states outside the platform queue.
-
-Accepted boundary:
-- `/favorites-request` and `/favorites-request/:id` are platform-admin request queue routes.
-- org-scoped `/favorites*` and `/favorites/request*` behavior stays outside R5 SysAdmin unless explicitly re-sliced.
-
-Still must define for the platform queue slice:
-- whether platform queue can act on org/user favorite requests.
-- route states for pending, resolved, rejected, stale, or inaccessible requests.
-- action success/failure behavior.
-- relationship to org favorite request task flows.
+Accepted behavior:
+- queue/detail routes are gated by `canManageFavoriteRequests`.
+- queue states are pending, resolved, rejected, stale, inaccessible, empty, and error.
+- platform queue actions are approve, reject, and reopen with deterministic readiness/blocked reasons.
+- org favorite request task flows remain under `/favorites/request*` and continue to use `canViewOrgFavorites`.
 
 ### S8 — Taxonomy route behavior
 
-**Status:** Open
+**Status:** Accepted for `r5-platform-taxonomy`
 
-**Decision needed:** Freeze route behavior for sectors and subsectors.
+**Decision:** Sectors and subsectors are platform-owned taxonomy routes under `sysadmin.taxonomy`, gated by `canManageTaxonomy`.
 
-Must define:
-- whether sector/subsector routes are read-only, editable, or both.
-- parent/child navigation behavior between sector and subsector pages.
-- not-found behavior for nested subsector route access.
-- mutation refresh behavior for sector and subsector lists.
-
-Recommendation:
-- plan taxonomy after platform master data unless it becomes a prerequisite for company/agency editing.
+Accepted behavior:
+- `/sectors`, `/sectors/:id`, `/sectors/:sector_id/subsectors`, and `/subsectors/:id` are implemented frontend foundation routes.
+- taxonomy states include ready, loading, empty, error, denied, not-found, stale, mutation-success, and mutation-error.
+- `/sectors/:id` returns to `/sectors`.
+- `/sectors/:sector_id/subsectors` returns to `/sectors/:sector_id`.
+- `/subsectors/:id` returns to `/sectors` by default until API-backed parent-sector resolution exists.
+- taxonomy remains separate from settings subsection routing and platform master-data ownership.
 
 ### S9 — SysAdmin telemetry and evidence requirements
 
@@ -227,7 +197,7 @@ Accepted validation evidence:
 - route metadata coverage for new platform route ids and platform fallback behavior.
 - capability unit/module-contract proof for platform nav visibility and denied route outcomes.
 - smoke proof for SysAdmin dashboard/platform-mode entry.
-- smoke proof for an authenticated non-SysAdmin user attempting `/hiring-companies` and landing on the stable dashboard fallback once the foundation placeholder exists.
+- smoke proof for an authenticated non-SysAdmin user attempting a platform route and landing on the stable dashboard fallback.
 - documentation update proof in `r5-sysadmin-open-points.md`, `r5-master-plan.md`, `screens.md`, `capabilities.md`, `navigation-and-return-behavior.md`, `observability.md`, and `telemetry-events.md` when runtime behavior changes.
 
 Notification decision:
@@ -284,7 +254,7 @@ Before opening `r5-sysadmin-foundation`:
 
 Before opening `r5-platform-master-data`:
 - `r5-sysadmin-foundation` must freeze landing, fallback, navigation, and route metadata.
-- S3 and S4 must be resolved.
+- S3 and S4 are resolved by `r5-platform-master-data`.
 
 Before opening `r5-platform-users-and-favorite-requests`:
 - S5, S6, and S7 must be resolved.
@@ -298,6 +268,6 @@ Before opening `r5-platform-taxonomy`:
 - SysAdmin platform entry renders inside `/dashboard` when `isSysAdmin=true` and `organizationType=none`.
 - HC/RA dashboard behavior remains the recruiter-core dashboard.
 - Platform navigation is visible only through dedicated platform-nav capabilities; org-scoped admin/user-management/favorites capabilities do not grant the Platform group.
-- The foundation registers `/hiring-companies` as a typed unavailable placeholder for SysAdmin direct entry and as the denied-route fallback proof for authenticated non-SysAdmin users.
+- The foundation originally registered `/hiring-companies` as a typed unavailable placeholder for SysAdmin direct entry and as denied-route fallback proof; `r5-platform-master-data` supersedes that placeholder with implemented master-data routes.
 - Telemetry event definitions cover platform route entry, denied fallback, and navigation exposure without tenant or organization identifiers.
 - SysAdmin notification workflows remain out of scope and unchanged.

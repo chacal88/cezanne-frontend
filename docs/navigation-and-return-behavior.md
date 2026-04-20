@@ -56,7 +56,7 @@ Synthesized from:
 | billing card | shell/billing-aware direct entry | rebuild billing context then overlay | one step closes overlay | return to billing overview |
 | public/external token flows | full | preserve token state | standard | route navigation only |
 | integrations token-entry | full | preserve token state | standard | route navigation only |
-| sysadmin platform routes | full when implemented; `/hiring-companies` may exist as a foundation placeholder | rebuild shell + platform capability context | denied entry falls back to `/dashboard`; SysAdmin placeholder direct entry renders typed unavailable/foundation state until route body ships | route navigation only |
+| sysadmin platform routes | full for implemented master-data routes | rebuild shell + platform capability context | denied entry falls back to `/dashboard`; implemented master-data routes rebuild list/detail/edit/subscription state from route params | route navigation only |
 
 ## Parent-return rules
 
@@ -103,8 +103,8 @@ Parent/fallback target:
 Rules:
 - SysAdmin platform fallback resolves to `/dashboard` platform mode.
 - authenticated non-SysAdmin users who enter platform-only routes fall back to their normal dashboard state.
-- `/hiring-companies` is the first foundation placeholder route; SysAdmin direct entry may render a typed unavailable/foundation state until `r5-platform-master-data` implements the full route body.
-- the shell must not expose live navigation links to unimplemented route-heavy platform pages.
+- `/hiring-companies`, `/recruitment-agencies`, and `/subscriptions` are implemented Platform / Master data entries in `r5-platform-master-data`.
+- the shell exposes live navigation links only for implemented Platform / Master data routes; users/requests and taxonomy groups remain linkless until their slices ship.
 
 ## Notification-entry rules
 
@@ -131,13 +131,14 @@ The current R2 baseline registers the contextual candidate hub route family and 
 - direct notification entry may append `?entry=notification` while preserving the frozen path contract
 - stale sequence context degrades by removing sequence navigation instead of redirecting to an unrelated route
 
-## Implemented R5 platform fallback behavior
+## Implemented R5 platform fallback and master-data behavior
 
-The R5 SysAdmin foundation implements platform fallback as a route-capability outcome:
-- SysAdmin direct entry to `/hiring-companies` renders a typed foundation placeholder.
-- Authenticated non-SysAdmin direct entry to `/hiring-companies` redirects to `/dashboard`.
+The R5 SysAdmin foundation implements platform fallback as a route-capability outcome, and `r5-platform-master-data` adds the first route-heavy Platform group:
+- SysAdmin direct entry to `/hiring-companies`, `/recruitment-agencies`, and `/subscriptions` renders implemented master-data foundation pages.
+- Authenticated non-SysAdmin direct entry to platform master-data routes redirects to `/dashboard`.
 - The fallback target is stable, but the dashboard content is context-sensitive: SysAdmin platform context renders platform mode, while HC/RA contexts render recruiter-core dashboard content.
-- Planned platform navigation groups may be visible without live links until their route-heavy pages are implemented.
+- Platform / Master data exposes live links for companies, agencies, and subscriptions. Platform / Users and requests exposes live links for platform users and favorite-request queues. Platform / Taxonomy exposes a live `/sectors` link.
+- master-data detail routes return to their list route, edit routes cancel/succeed to detail, and company subscription administration returns to `/hiring-companies/:id`.
 
 ## Implemented R4 candidate database return behavior
 
@@ -197,3 +198,24 @@ Marketplace navigation now follows these rules:
 - Denied marketplace route entry falls back to `/dashboard`.
 - Supported types are `fill`, `bidding`, `cvs`, and `assigned`.
 - Unknown types render an unavailable marketplace state instead of redirecting to billing, HC-admin, or platform routes.
+
+## Implemented R5 platform users and favorite-request behavior
+
+- platform user detail/edit routes preserve sanitized `/users` return targets from list filters.
+- invalid platform user list `page` values degrade to `1`, and empty `search`, `hiringCompanyId`, or `recruitmentAgencyId` filters are omitted.
+- platform favorite-request queue/detail routes return to `/favorites-request` and remain separate from org `/favorites/request*` task flows.
+
+## Implemented R5 platform taxonomy behavior
+
+- `/sectors/:id` returns to `/sectors`.
+- `/sectors/:sector_id/subsectors` returns to `/sectors/:sector_id`.
+- `/subsectors/:id` returns to `/sectors` by default until API-backed parent-sector resolution exists.
+- taxonomy routes stay under `sysadmin.taxonomy` and do not use settings subsection or master-data ownership.
+
+## Implemented R5 requisition authoring behavior
+
+- `/build-requisition` falls back to `/dashboard` when requisition branching is unavailable.
+- `/job-requisitions/:jobWorkflowUuid` returns to `/jobs/open`.
+- `/job-requisitions/:jobWorkflowUuid/:jobStageUuid` returns to `/job-requisitions/:jobWorkflowUuid`.
+- `/requisition-workflows` returns to `/settings/hiring-flow` and stays settings-owned.
+- workflow drift and stale workflow are explicit states, not generic errors.

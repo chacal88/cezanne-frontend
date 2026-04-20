@@ -10,7 +10,15 @@
     "masterData": "Master data",
     "usersAndRequests": "Users and requests",
     "taxonomy": "Taxonomy",
-    "unavailable": "Routes unavailable until the owning R5 slice ships."
+    "unavailable": "Routes unavailable until the owning R5 slice ships.",
+    "links": {
+      "hiringCompanies": "Hiring companies",
+      "recruitmentAgencies": "Recruitment agencies",
+      "subscriptions": "Subscriptions",
+      "users": "Users",
+      "favoriteRequests": "Favorite requests",
+      "sectors": "Sectors"
+    }
   },
   "authenticatedShell": {
     "title": "Recruit shell"

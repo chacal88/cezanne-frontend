@@ -10,6 +10,7 @@ import { JobsListPage, validateJobsListScope, validateJobsListSearch } from '../
 import { JobAuthoringPage, validateJobAuthoringSearch } from '../domains/jobs/authoring/job-authoring-page';
 import { JobDetailPage, validateJobDetailSearch } from '../domains/jobs/detail/job-detail-page';
 import { JobTaskPage } from '../domains/jobs/task-overlays/job-task-page';
+import { BuildRequisitionPage, JobRequisitionPage } from '../domains/jobs/requisition';
 import { validateJobTaskSearch } from '../domains/jobs/task-overlays/job-task-context';
 import { CandidateDatabasePage } from '../domains/candidates/database';
 import { CandidateDetailRoutePage } from '../domains/candidates/detail-hub/candidate-detail-page';
@@ -56,10 +57,13 @@ import { ApplicationPageSettingsPage } from '../domains/settings/careers-applica
 import { JobListingsSettingsPage } from '../domains/settings/careers-application/job-listings-settings-page';
 import { JobListingEditorPage } from '../domains/settings/careers-application/job-listing-editor-page';
 import { HiringFlowSettingsPage } from '../domains/settings/hiring-flow/hiring-flow-settings-page';
-import { HiringCompaniesFoundationPage } from '../domains/sysadmin/platform-foundation';
+import { CompanySubscriptionPage, MasterDataDetailPage, MasterDataEditPage, MasterDataListPage } from '../domains/sysadmin/master-data';
+import { PlatformFavoriteRequestDetailPage, PlatformFavoriteRequestsPage, PlatformUserCreatePage, PlatformUserDetailPage, PlatformUserEditPage, PlatformUsersListPage } from '../domains/sysadmin/users-and-requests';
+import { SectorDetailPage, SectorListPage, SubsectorDetailPage, SubsectorListPage } from '../domains/sysadmin/taxonomy';
 import { CustomFieldsSettingsPage } from '../domains/settings/custom-fields/custom-fields-settings-page';
 import { TemplatesSettingsPage } from '../domains/settings/templates/templates-settings-page';
 import { RejectReasonsSettingsPage } from '../domains/settings/reject-reasons/reject-reasons-settings-page';
+import { RequisitionWorkflowsPage } from '../domains/settings/requisition-workflows';
 import {
   validateApplicationPageParams,
   validateJobListingEditorSearch,
@@ -658,7 +662,239 @@ const jobListingEditorEditRoute = createRoute({
 const hiringCompaniesRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/hiring-companies',
-  component: HiringCompaniesFoundationPage,
+  component: () => (
+    <AccessBoundary capability="canManageHiringCompanies" fallback={dashboardFallback}>
+      <MasterDataListPage entity="hiring-company" />
+    </AccessBoundary>
+  ),
+});
+
+const hiringCompanyDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/hiring-companies/$companyId',
+  component: () => {
+    const { companyId } = hiringCompanyDetailRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageHiringCompanies" fallback={dashboardFallback}>
+        <MasterDataDetailPage entity="hiring-company" id={companyId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const hiringCompanyEditRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/hiring-companies/edit/$companyId',
+  component: () => {
+    const { companyId } = hiringCompanyEditRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageHiringCompanies" fallback={dashboardFallback}>
+        <MasterDataEditPage entity="hiring-company" id={companyId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const hiringCompanySubscriptionRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/hiring-company/$companyId/subscription',
+  component: () => {
+    const { companyId } = hiringCompanySubscriptionRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageHiringCompanies" fallback={dashboardFallback}>
+        <CompanySubscriptionPage companyId={companyId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const recruitmentAgenciesRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/recruitment-agencies',
+  component: () => (
+    <AccessBoundary capability="canManageRecruitmentAgencies" fallback={dashboardFallback}>
+      <MasterDataListPage entity="recruitment-agency" />
+    </AccessBoundary>
+  ),
+});
+
+const recruitmentAgencyDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/recruitment-agencies/$agencyId',
+  component: () => {
+    const { agencyId } = recruitmentAgencyDetailRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageRecruitmentAgencies" fallback={dashboardFallback}>
+        <MasterDataDetailPage entity="recruitment-agency" id={agencyId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const recruitmentAgencyEditRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/recruitment-agencies/edit/$agencyId',
+  component: () => {
+    const { agencyId } = recruitmentAgencyEditRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageRecruitmentAgencies" fallback={dashboardFallback}>
+        <MasterDataEditPage entity="recruitment-agency" id={agencyId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const subscriptionsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/subscriptions',
+  component: () => (
+    <AccessBoundary capability="canManagePlatformSubscriptions" fallback={dashboardFallback}>
+      <MasterDataListPage entity="subscription" />
+    </AccessBoundary>
+  ),
+});
+
+const subscriptionDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/subscriptions/$subscriptionId',
+  component: () => {
+    const { subscriptionId } = subscriptionDetailRoute.useParams();
+    return (
+      <AccessBoundary capability="canManagePlatformSubscriptions" fallback={dashboardFallback}>
+        <MasterDataDetailPage entity="subscription" id={subscriptionId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const platformUsersRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/users',
+  validateSearch: (search) => search,
+  component: () => {
+    const search = platformUsersRoute.useSearch();
+    return (
+      <AccessBoundary capability="canManagePlatformUsers" fallback={dashboardFallback}>
+        <PlatformUsersListPage search={search} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const platformUserNewRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/users/new',
+  validateSearch: (search) => search,
+  component: () => {
+    const search = platformUserNewRoute.useSearch();
+    return (
+      <AccessBoundary capability="canManagePlatformUsers" fallback={dashboardFallback}>
+        <PlatformUserCreatePage search={search} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const platformUserEditRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/users/edit/$userId',
+  validateSearch: (search) => search,
+  component: () => {
+    const { userId } = platformUserEditRoute.useParams();
+    const search = platformUserEditRoute.useSearch();
+    return (
+      <AccessBoundary capability="canManagePlatformUsers" fallback={dashboardFallback}>
+        <PlatformUserEditPage userId={userId} returnTo={typeof search.returnTo === 'string' ? search.returnTo : undefined} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const platformUserDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/users/$userId',
+  validateSearch: (search) => search,
+  component: () => {
+    const { userId } = platformUserDetailRoute.useParams();
+    const search = platformUserDetailRoute.useSearch();
+    return (
+      <AccessBoundary capability="canManagePlatformUsers" fallback={dashboardFallback}>
+        <PlatformUserDetailPage userId={userId} returnTo={typeof search.returnTo === 'string' ? search.returnTo : undefined} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const platformFavoriteRequestsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/favorites-request',
+  component: () => (
+    <AccessBoundary capability="canManageFavoriteRequests" fallback={dashboardFallback}>
+      <PlatformFavoriteRequestsPage />
+    </AccessBoundary>
+  ),
+});
+
+const platformFavoriteRequestDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/favorites-request/$requestId',
+  component: () => {
+    const { requestId } = platformFavoriteRequestDetailRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageFavoriteRequests" fallback={dashboardFallback}>
+        <PlatformFavoriteRequestDetailPage requestId={requestId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const sectorsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/sectors',
+  component: () => (
+    <AccessBoundary capability="canManageTaxonomy" fallback={dashboardFallback}>
+      <SectorListPage />
+    </AccessBoundary>
+  ),
+});
+
+const sectorDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/sectors/$sectorId',
+  component: () => {
+    const { sectorId } = sectorDetailRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageTaxonomy" fallback={dashboardFallback}>
+        <SectorDetailPage sectorId={sectorId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const sectorSubsectorsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/sectors/$sectorId/subsectors',
+  component: () => {
+    const { sectorId } = sectorSubsectorsRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageTaxonomy" fallback={dashboardFallback}>
+        <SubsectorListPage sectorId={sectorId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const subsectorDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/subsectors/$subsectorId',
+  component: () => {
+    const { subsectorId } = subsectorDetailRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageTaxonomy" fallback={dashboardFallback}>
+        <SubsectorDetailPage subsectorId={subsectorId} />
+      </AccessBoundary>
+    );
+  },
 });
 
 const jobsListRoute = createRoute({
@@ -828,6 +1064,53 @@ const jobOfferRoute = createRoute({
   },
 });
 
+
+const buildRequisitionRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/build-requisition',
+  component: () => (
+    <AccessBoundary capability="canUseJobRequisitionBranching" fallback={dashboardFallback}>
+      <BuildRequisitionPage />
+    </AccessBoundary>
+  ),
+});
+
+const jobRequisitionWorkflowRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/job-requisitions/$jobWorkflowUuid',
+  component: () => {
+    const { jobWorkflowUuid } = jobRequisitionWorkflowRoute.useParams();
+    return (
+      <AccessBoundary capability="canUseJobRequisitionBranching" fallback={dashboardFallback}>
+        <JobRequisitionPage workflowUuid={jobWorkflowUuid} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const jobRequisitionStageRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/job-requisitions/$jobWorkflowUuid/$jobStageUuid',
+  component: () => {
+    const { jobWorkflowUuid, jobStageUuid } = jobRequisitionStageRoute.useParams();
+    return (
+      <AccessBoundary capability="canUseJobRequisitionBranching" fallback={dashboardFallback}>
+        <JobRequisitionPage workflowUuid={jobWorkflowUuid} stageUuid={jobStageUuid} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const requisitionWorkflowsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/requisition-workflows',
+  component: () => (
+    <AccessBoundary capability="canManageHiringFlowSettings" fallback={dashboardFallback}>
+      <RequisitionWorkflowsPage />
+    </AccessBoundary>
+  ),
+});
+
 const candidateDatabaseRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/candidates-database',
@@ -992,6 +1275,24 @@ const routeTree = rootRoute.addChildren([
     jobListingsSettingsRoute,
     jobListingEditorCreateRoute,
     hiringCompaniesRoute,
+    hiringCompanyDetailRoute,
+    hiringCompanyEditRoute,
+    hiringCompanySubscriptionRoute,
+    recruitmentAgenciesRoute,
+    recruitmentAgencyDetailRoute,
+    recruitmentAgencyEditRoute,
+    subscriptionsRoute,
+    subscriptionDetailRoute,
+    platformUsersRoute,
+    platformUserNewRoute,
+    platformUserEditRoute,
+    platformUserDetailRoute,
+    platformFavoriteRequestsRoute,
+    platformFavoriteRequestDetailRoute,
+    sectorsRoute,
+    sectorDetailRoute,
+    sectorSubsectorsRoute,
+    subsectorDetailRoute,
     jobListingEditorEditRoute,
     jobsListRoute,
     jobAuthoringCreateRoute,
@@ -1004,6 +1305,10 @@ const routeTree = rootRoute.addChildren([
     jobCvRejectRoute,
     jobScheduleRoute,
     jobOfferRoute,
+    buildRequisitionRoute,
+    jobRequisitionWorkflowRoute,
+    jobRequisitionStageRoute,
+    requisitionWorkflowsRoute,
     candidateDatabaseRoute,
     candidateDatabaseOldRoute,
     candidateDatabaseNewRoute,

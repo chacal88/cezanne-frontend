@@ -105,7 +105,7 @@ Suggested fields:
 | `canScheduleInterviewFromJob` | Action capability | job access + `calendarIntegration` + task context | job schedule flow | disabled action or job hub fallback |
 | `canCreateOfferFromJob` | Action capability | job access + commercial capability + task context | job offer flow | disabled action or job hub fallback |
 | `canRejectCvFromJob` | Action capability | job access + rejection policy | job reject flow | disabled action or job hub fallback |
-| `canUseJobRequisitionBranching` | Route access | `jobRequisition`, `seeJobRequisition`, admin context where required | jobs branching, requisition routes | jobs/dashboard fallback |
+| `canUseJobRequisitionBranching` | Route access | `hc` + admin + `jobRequisition` | jobs branching, requisition authoring routes | jobs/dashboard fallback |
 | `canManageJobAssignments` | Action capability | assignment rights + job context | job detail and authoring | disabled action |
 
 ### 3. Candidate capabilities
@@ -168,10 +168,10 @@ Suggested fields:
 | `canViewPlatformTaxonomyNav` | Route access | `sysAdmin` plus `canManageTaxonomy` | Platform / Taxonomy nav group | hide nav group |
 | `canManageHiringCompanies` | Route access | `sysAdmin` | sysadmin companies | `/dashboard` platform-mode fallback |
 | `canManageRecruitmentAgencies` | Route access | `sysAdmin` | sysadmin agencies | `/dashboard` platform-mode fallback |
-| `canManagePlatformSubscriptions` | Route access | `sysAdmin` | sysadmin subscriptions | `/dashboard` platform-mode fallback |
+| `canManagePlatformSubscriptions` | Route/action access | `sysAdmin` | sysadmin subscriptions and company-subscription mutation readiness | `/dashboard` platform-mode fallback or blocked mutation action |
 | `canManageTaxonomy` | Route access | `sysAdmin` | sectors/subsectors | `/dashboard` platform-mode fallback |
-| `canManagePlatformUsers` | Route access | `sysAdmin` for platform user routes; org-admin user-management context remains a separate contract for org routes | users | org/platform fallback based on route ownership |
-| `canManageFavoriteRequests` | Route access | `sysAdmin` for `/favorites-request*`; org favorite entitlements remain a separate contract for `/favorites*` | favorite requests | route-specific fallback |
+| `canManagePlatformUsers` | Route access | `sysAdmin` for platform `/users*` routes; org invite/membership remains a separate R4 team contract | platform users | `/dashboard` platform-mode fallback |
+| `canManageFavoriteRequests` | Route/action access | `sysAdmin` for platform `/favorites-request*`; org favorite entitlements remain a separate contract for `/favorites*` and `/favorites/request*` | platform favorite requests | `/dashboard` platform-mode fallback |
 
 ## Deny semantics
 

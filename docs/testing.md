@@ -247,3 +247,37 @@ Marketplace RA validation includes:
 - Route metadata coverage for `/jobmarket/:type`.
 - Vitest coverage for fill, bidding, cvs, assigned, empty, and unavailable list states.
 - Billing/platform separation proof that marketplace behavior stays under `canViewMarketplace`.
+
+## R5 platform master-data baseline
+
+The `r5-platform-master-data` validation baseline proves:
+- route metadata for hiring companies, recruitment agencies, subscriptions, and company subscription administration.
+- SysAdmin-only capability fallback for Platform / Master data routes.
+- live Platform / Master data navigation links while later platform groups remain linkless.
+- deterministic list/detail/edit/company-subscription state helpers.
+- separation between platform subscription administration and R4 HC-admin billing routes.
+
+## R5 platform users and favorite-request baseline
+
+The `r5-platform-users-and-favorite-requests` validation baseline proves:
+- route metadata for platform `/users*` and `/favorites-request*` routes.
+- URL-state sanitization for platform user list filters.
+- favorite-request queue state and action-readiness helpers.
+- live Platform / Users and requests navigation links while taxonomy is handled by `r5-platform-taxonomy`.
+- separation from R4 `/users/invite`, `/team*`, `/favorites*`, and `/favorites/request*` org routes.
+
+## R5 platform taxonomy baseline
+
+The `r5-platform-taxonomy` validation baseline proves:
+- route metadata for `/sectors`, `/sectors/:id`, `/sectors/:sector_id/subsectors`, and `/subsectors/:id`.
+- live Platform / Taxonomy navigation link to `/sectors`.
+- deterministic taxonomy state helpers and parent-child return behavior.
+- taxonomy separation from settings subsection routing and platform master-data route ownership.
+
+## R5 requisition authoring baseline
+
+The `r5-requisition-authoring` validation baseline proves:
+- route metadata for `/build-requisition`, `/job-requisitions*`, and `/requisition-workflows`.
+- `canUseJobRequisitionBranching` requires HC admin requisition context.
+- requisition draft/save/workflow-drift state helpers.
+- settings-side `/requisition-workflows` ownership remains separate from Jobs-side authoring execution.

@@ -40,5 +40,22 @@
     "parent": "Destino pai",
     "close": "Fechar tarefa",
     "complete": "Concluir tarefa"
+  },
+  "requisition": {
+    "eyebrow": "Autoria de requisição",
+    "buildTitle": "Criar requisição",
+    "buildCopy": "Fundação do fluxo de requisição no domínio Jobs com salvamento explícito e sem persistência de autosave.",
+    "workflowTitle": "Workflow de requisição {{workflowUuid}}",
+    "workflowCopy": "Rota de estado de workflow para estágios de requisição e tratamento de divergência.",
+    "stateLabel": "Estado",
+    "parentTargetLabel": "Destino pai",
+    "autosaveLabel": "Autosave"
+  },
+  "requisitionWorkflows": {
+    "eyebrow": "Configurações de hiring flow",
+    "title": "Workflows de requisição",
+    "copy": "Fundação de administração de workflows de requisição pertencente a Settings. A execução ativa fica nas rotas Jobs workflow-state.",
+    "ownerLabel": "Dono em settings",
+    "executionOwnerLabel": "Dono da execução"
   }
 }

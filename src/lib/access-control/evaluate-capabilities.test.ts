@@ -33,6 +33,18 @@ describe('evaluateCapabilities', () => {
     expect(capabilities.canUseJobRequisitionBranching).toBe(true);
   });
 
+
+
+  it('requires admin context for requisition branching routes', () => {
+    const admin = evaluateCapabilities(buildAccessContext({ isAdmin: true, pivotEntitlements: ['jobRequisition'] }));
+    const nonAdmin = evaluateCapabilities(buildAccessContext({ isAdmin: false, pivotEntitlements: ['jobRequisition'] }));
+    const withoutRequisition = evaluateCapabilities(buildAccessContext({ isAdmin: true, pivotEntitlements: [] }));
+
+    expect(admin.canUseJobRequisitionBranching).toBe(true);
+    expect(nonAdmin.canUseJobRequisitionBranching).toBe(false);
+    expect(withoutRequisition.canUseJobRequisitionBranching).toBe(false);
+  });
+
   it('blocks create/edit decisions for non-admin hiring-company users', () => {
     const capabilities = evaluateCapabilities(buildAccessContext({ isAdmin: false }));
 

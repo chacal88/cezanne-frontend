@@ -170,31 +170,31 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/shared/:jobOrRole/:token/:source` | Public/Token | public-external | shared-job-view | Public | `canOpenSharedJob` | valid public token/source | Unsigned shared job route resolves tokenized job payload. | M | R3 |
 | `/:jobOrRole/application/:token/:source` | Public/Token | public-external | public-application | Public | `canSubmitPublicApplication` | valid public token/source | Public application pulls careers/job-listing config plus applicant custom fields and surveys. | H | R3 |
 | `/surveys/:surveyuuid/:jobuuid/:cvuuid` | Public/Token | public-external | public-survey | Public | `canCompletePublicSurvey` | valid survey access; `surveysBeta` where product-gated | Public survey/token contract. | M | R3 |
-| `/users?page&search&hiringCompanyId&recruitmentAgencyId` | PageWithStatefulUrl | sysadmin | users | HC Admin, RA Admin, SysAdmin | `canManagePlatformUsers` or org-scoped user-management capability | `admin` and org or platform context | Mixed org-admin/platform-admin area; keep capability split explicit. | M | R5 |
-| `/users/edit/:id` | Page | sysadmin | users | HC Admin, RA Admin, SysAdmin | `canManagePlatformUsers` | `admin` and org or platform context | Admin-managed edit page. | M | R5 |
-| `/users/new` | Page | sysadmin | users | HC Admin, RA Admin, SysAdmin | `canManagePlatformUsers` | `admin` and org or platform context | Admin-managed create page. | M | R5 |
-| `/users/:id` | Page | sysadmin | users | HC Admin, RA Admin, SysAdmin | `canManagePlatformUsers` | `admin` and org or platform context | Admin-managed view page. | M | R5 |
+| `/users?page&search&hiringCompanyId&recruitmentAgencyId` | PageWithStatefulUrl | sysadmin | users | SysAdmin | `canManagePlatformUsers` | `sysAdmin` | Platform user administration list; org invite/membership stays in R4 team routes. | M | R5 |
+| `/users/edit/:id` | Page | sysadmin | users | SysAdmin | `canManagePlatformUsers` | `sysAdmin` | Edit platform-managed user with sanitized list return. | M | R5 |
+| `/users/new` | Page | sysadmin | users | SysAdmin | `canManagePlatformUsers` | `sysAdmin` | Create platform-managed user; org invite delivery stays at `/users/invite`. | M | R5 |
+| `/users/:id` | Page | sysadmin | users | SysAdmin | `canManagePlatformUsers` | `sysAdmin` | Platform-managed user detail with sanitized list return. | M | R5 |
 | `/users/invite` | TaskFlow | team | invite-management | HC Admin, RA Admin | `canManageOrgInvites` | org admin context | Org-scoped invite send/resend/revoke and membership readiness surface; consumes `/team` and remains distinct from platform `/users*` CRUD and token acceptance. | M | R4 |
 | `/users/invite-token` | Public/Token | auth | token-flows | Public | `canUseAuthTokenFlow` | valid invite token | Public acceptance side of invite flow. | M | R0 |
 | `/favorites` | Page | favorites | org-favorites | HC User, HC Admin, RA User, RA Admin | `canViewOrgFavorites` | `seeFavorites`, `recruiters`, or `ra` | Org-scoped favorites list with personal, org-shared, recruiter-linked, empty, and unavailable states; separate from platform favorite-request queues. | L | R4 |
 | `/favorites/:id` | Page | favorites | org-favorites | HC User, HC Admin, RA User, RA Admin | `canViewOrgFavorites` | `seeFavorites`, `recruiters`, or `ra` | Org-scoped favorite detail with unavailable state and `/favorites` return target. | L | R4 |
 | `/favorites/request/:id?` | TaskFlow | favorites | org-favorite-requests | HC User, HC Admin, RA User, RA Admin | `canViewOrgFavorites` | favorite-request entitlement context | Org-scoped favorite request task flow with draft/submitted/pending/approved/rejected/unavailable states; separate from platform `/favorites-request*` queues. | L | R4 |
-| `/favorites-request` | Page | sysadmin | favorite-requests | SysAdmin | `canManageFavoriteRequests` | `sysAdmin` | Platform-admin request queue. | L | R5 |
-| `/favorites-request/:id` | Page | sysadmin | favorite-requests | SysAdmin | `canManageFavoriteRequests` | `sysAdmin` | Platform-admin detail page. | L | R5 |
+| `/favorites-request` | PageWithStatefulUrl | sysadmin | favorite-requests | SysAdmin | `canManageFavoriteRequests` | `sysAdmin` | Platform-admin favorite-request queue with pending/resolved/rejected/stale/inaccessible states. | L | R5 |
+| `/favorites-request/:id` | Page | sysadmin | favorite-requests | SysAdmin | `canManageFavoriteRequests` | `sysAdmin` | Platform-admin request detail with approve/reject/reopen readiness. | L | R5 |
 | `/recruiters` | Page | settings | agency-settings | HC User, HC Admin | `canManageAgencySettings` or recruiter-visibility capability | `hc`, `seeRecruiters`, `recruiters` | Entitlement-heavy team/recruiter area. | L | R4 |
-| `/hiring-companies` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies` | `sysAdmin` | Platform-admin list; `r5-sysadmin-foundation` may first register a typed unavailable/foundation placeholder before full list implementation in `r5-platform-master-data`. | M | R5 |
+| `/hiring-companies` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies` | `sysAdmin` | Platform-admin list with deterministic list states from `r5-platform-master-data`. | M | R5 |
 | `/hiring-companies/:id` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies` | `sysAdmin` | Platform-admin detail page. | M | R5 |
 | `/hiring-companies/edit/:id` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies` | `sysAdmin` | Platform-admin edit page. | M | R5 |
-| `/hiring-company/:id/subscription` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies`, `canManagePlatformSubscriptions` | `sysAdmin` | Company subscription administration. | M | R5 |
+| `/hiring-company/:id/subscription` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies`, `canManagePlatformSubscriptions` | `sysAdmin` | Company-owned subscription administration; route entry uses `canManageHiringCompanies` and mutation readiness uses `canManagePlatformSubscriptions`. | M | R5 |
 | `/recruitment-agencies` | Page | sysadmin | agencies | SysAdmin | `canManageRecruitmentAgencies` | `sysAdmin` | Platform-admin list. | M | R5 |
 | `/recruitment-agencies/:id` | Page | sysadmin | agencies | SysAdmin | `canManageRecruitmentAgencies` | `sysAdmin` | Platform-admin detail page. | M | R5 |
 | `/recruitment-agencies/edit/:id` | Page | sysadmin | agencies | SysAdmin | `canManageRecruitmentAgencies` | `sysAdmin` | Platform-admin edit page. | M | R5 |
 | `/subscriptions` | Page | sysadmin | subscriptions | SysAdmin | `canManagePlatformSubscriptions` | `sysAdmin` | Platform-admin list. | M | R5 |
 | `/subscriptions/:id` | Page | sysadmin | subscriptions | SysAdmin | `canManagePlatformSubscriptions` | `sysAdmin` | Platform-admin detail page. | M | R5 |
-| `/sectors` | Page | sysadmin | taxonomy | SysAdmin | `canManageTaxonomy` | `sysAdmin` | Platform-admin taxonomy surface. | L | R5 |
-| `/sectors/:id` | Page | sysadmin | taxonomy | SysAdmin | `canManageTaxonomy` | `sysAdmin` | Platform-admin taxonomy detail. | L | R5 |
-| `/sectors/:sector_id/subsectors` | Page | sysadmin | taxonomy | SysAdmin | `canManageTaxonomy` | `sysAdmin` | Platform-admin nested taxonomy view. | L | R5 |
-| `/subsectors/:id` | Page | sysadmin | taxonomy | SysAdmin | `canManageTaxonomy` | `sysAdmin` | Platform-admin taxonomy detail. | L | R5 |
+| `/sectors` | PageWithStatefulUrl | sysadmin | taxonomy | SysAdmin | `canManageTaxonomy` | `sysAdmin` | Platform taxonomy sector list foundation. | L | R5 |
+| `/sectors/:id` | Page | sysadmin | taxonomy | SysAdmin | `canManageTaxonomy` | `sysAdmin` | Platform sector detail with `/sectors` parent. | L | R5 |
+| `/sectors/:sector_id/subsectors` | PageWithStatefulUrl | sysadmin | taxonomy | SysAdmin | `canManageTaxonomy` | `sysAdmin` | Platform nested subsector list with sector-detail parent. | L | R5 |
+| `/subsectors/:id` | Page | sysadmin | taxonomy | SysAdmin | `canManageTaxonomy` | `sysAdmin` | Platform subsector detail with `/sectors` fallback parent. | L | R5 |
 | `/templates` | Page | settings | templates | HC User, HC Admin | `canManageTemplates` | `hc` | Templates family root; remains subsection-driven and consumes the operational settings substrate. | M | R4 |
 | `/templates/:id` | Page | settings | templates | HC User, HC Admin | `canManageTemplates` | `hc` | Templates family detail variant; stays inside the same family contract. | M | R4 |
 | `/templates/smart-questions` | Page | settings | templates | HC Admin | `canManageTemplates` | `hc`, `admin` | Admin-only templates subsection inside the shared family. | M | R4 |
@@ -208,9 +208,9 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/settings/hiring-flow` | Page | settings | hiring-flow | HC Admin | `canManageHiringFlowSettings` | `hc`, `admin`, plus `jobRequisition` where relevant | Dedicated subsection route that consumes the operational settings substrate, keeps save/retry inside the route, and stops before `/requisition-workflows` authoring scope. | M | R4 |
 | `/settings/custom-fields` | Page | settings | custom-fields | HC Admin | `canManageCustomFields` | `hc`, `admin`, `customFieldsBeta` | Dedicated subsection route that consumes the operational settings substrate, keeps beta gating explicit, and freezes custom-field admin without absorbing downstream candidate/public rendering. | M | R4 |
 | `/settings/api-endpoints` | Page | settings | api-endpoints | HC Admin | `canManageApiEndpoints` | `hc`, `admin` | Admin-only settings slice. | L | R5 |
-| `/build-requisition` | TaskFlow | jobs | workflow-state | HC Admin | `canUseJobRequisitionBranching` | `hc`, `admin`, `jobRequisition` | Hard guard redirects to dashboard unless requisition capabilities are enabled. | M | R5 |
-| `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` | PageWithStatefulUrl | jobs | workflow-state | HC Admin | `canUseJobRequisitionBranching` | `hc`, `admin`, `jobRequisition`, `seeJobRequisition` | Requisition flow remains distinct from base jobs list. | M | R5 |
-| `/requisition-workflows` | Page | settings | hiring-flow | HC Admin | `canManageHiringFlowSettings` | `hc`, `admin`, `jobRequisition` | Hard guard redirects to dashboard without requisition + admin capability. | M | R5 |
+| `/build-requisition` | TaskFlow | jobs | workflow-state | HC Admin | `canUseJobRequisitionBranching` | `hc`, `admin`, `jobRequisition` | Jobs-side requisition task-flow foundation with local draft, explicit save, and dashboard fallback. | M | R5 |
+| `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` | PageWithStatefulUrl | jobs | workflow-state | HC Admin | `canUseJobRequisitionBranching` | `hc`, `admin`, `jobRequisition` | Jobs-side requisition workflow-state route with stale workflow and drift handling. | M | R5 |
+| `/requisition-workflows` | Page | settings | hiring-flow | HC Admin | `canManageHiringFlowSettings` | `hc`, `admin` | Settings-owned requisition workflow administration; active authoring stays in Jobs workflow-state. | M | R5 |
 | `/job-requisition-approval?token` | Public/Token | public-external | requisition-approval | External | `canApproveRequisitionByToken` | valid token; explicit invalid/expired/used/inaccessible handling; workflow-drift recovery when the requisition changed underneath the token | Unsigned approval-only route with token-resolved requisition summary, workflow-aware approve/reject actionability, stable approved/rejected terminal outcomes, and no authenticated-shell dependency. | M | R3 |
 | `/job-requisition-forms/:id?download` | Public/Token | public-external | requisition-approval | External | `canApproveRequisitionByToken` | valid token/form access | Unsigned requisition-forms contract with download variant. | L | R5 |
 | `/reject-reasons` | Page | settings | reject-reasons | HC Admin | `canManageRejectReasons` | `hc`, `admin`, `rejectionReason` | Dedicated subsection route plus list/edit flow, owned by the route, backed by the operational settings substrate, and kept separate from downstream reject task flows. | M | R4 |
@@ -264,8 +264,8 @@ The current source tree registers the candidate hub and candidate schedule/offer
 
 The implemented R5 foundation freezes these screen-level rules:
 - `/dashboard` is both recruiter-core landing and SysAdmin platform landing; platform mode is selected only for a SysAdmin access context with no active HC/RA operational context.
-- `/hiring-companies` is currently a SysAdmin-only foundation placeholder with route id `sysadmin.master-data.hiring-companies`; it must not be treated as implemented company CRUD until the master-data slice ships.
-- Authenticated non-SysAdmin users entering `/hiring-companies` fall back to `/dashboard`; unauthenticated behavior continues to follow the existing public/auth entry boundary.
+- `/hiring-companies` is now the implemented SysAdmin-only Platform / Master data list foundation with route id `sysadmin.master-data.hiring-companies`.
+- Authenticated non-SysAdmin users entering Platform / Master data routes fall back to `/dashboard`; unauthenticated behavior continues to follow the existing public/auth entry boundary.
 - Shell navigation must not expose live links to planned platform route-heavy pages before their implementation slices register page bodies.
 
 ## R4 candidate database implemented route contract
@@ -286,7 +286,7 @@ Billing now uses `/billing` as the canonical HC-admin overview, `/billing/upgrad
 
 Org team/users routes are now separated from platform user CRUD: `/team` owns the org team foundation, `/team/recruiters` owns recruiter visibility, and `/users/invite` is an org invite-management compatibility path under the team domain. These routes are org-admin scoped and do not grant Platform navigation or platform user-management.
 
-`/users/invite` now consumes `/team`, `canManageOrgInvites`, and recruiter-core fallback for deterministic invite send/resend/revoke plus membership role/status readiness states. Route-heavy `/users`, `/users/new`, `/users/edit/:id`, and `/users/:id` remain out of this R4 slice.
+`/users/invite` now consumes `/team`, `canManageOrgInvites`, and recruiter-core fallback for deterministic invite send/resend/revoke plus membership role/status readiness states. Route-heavy `/users`, `/users/new`, `/users/edit/:id`, and `/users/:id` are R5 platform-owned routes and remain outside this R4 slice.
 
 ## R4 org favorites implemented route contract
 
@@ -298,7 +298,7 @@ Favorites state models cover personal, org-shared, recruiter-linked, empty, and 
 
 Org favorite request task-flow routes are now separated from platform queues: `/favorites/request` starts a request and `/favorites/request/:id` opens request state. These routes use `canViewOrgFavorites`, return to `/favorites`, fall back to `/dashboard` when denied, and do not grant `canManageFavoriteRequests`.
 
-Request state models cover draft, submitted, pending, approved, rejected, and unavailable cases with deterministic submit, cancel, and resubmit action readiness. Platform `/favorites-request` and `/favorites-request/:id` remain out of this R4 org task-flow slice.
+Request state models cover draft, submitted, pending, approved, rejected, and unavailable cases with deterministic submit, cancel, and resubmit action readiness. Platform `/favorites-request` and `/favorites-request/:id` are R5 platform queue routes and remain outside this R4 org task-flow slice.
 
 ## R4 billing foundation implemented route contract
 

@@ -14,7 +14,7 @@ export type PlatformRouteMetadata = {
   routeFamily: PlatformRouteFamily;
   requiredCapability: keyof Capabilities;
   fallbackTarget: '/dashboard';
-  implementationState: 'foundation-placeholder' | 'planned';
+  implementationState: 'foundation-placeholder' | 'planned' | 'implemented';
 };
 
 export const platformRouteMetadata = {
@@ -23,7 +23,56 @@ export const platformRouteMetadata = {
     routeFamily: platformRouteFamilies.masterData,
     requiredCapability: 'canManageHiringCompanies',
     fallbackTarget: '/dashboard',
-    implementationState: 'foundation-placeholder',
+    implementationState: 'implemented',
+  },
+  hiringCompanyDetail: {
+    routeId: routeIds.platformHiringCompanyDetail,
+    routeFamily: platformRouteFamilies.masterData,
+    requiredCapability: 'canManageHiringCompanies',
+    fallbackTarget: '/dashboard',
+    implementationState: 'implemented',
+  },
+  hiringCompanySubscription: {
+    routeId: routeIds.platformHiringCompanySubscription,
+    routeFamily: platformRouteFamilies.masterData,
+    requiredCapability: 'canManageHiringCompanies',
+    fallbackTarget: '/dashboard',
+    implementationState: 'implemented',
+  },
+  recruitmentAgencies: {
+    routeId: routeIds.platformRecruitmentAgencies,
+    routeFamily: platformRouteFamilies.masterData,
+    requiredCapability: 'canManageRecruitmentAgencies',
+    fallbackTarget: '/dashboard',
+    implementationState: 'implemented',
+  },
+  subscriptions: {
+    routeId: routeIds.platformSubscriptions,
+    routeFamily: platformRouteFamilies.masterData,
+    requiredCapability: 'canManagePlatformSubscriptions',
+    fallbackTarget: '/dashboard',
+    implementationState: 'implemented',
+  },
+  users: {
+    routeId: routeIds.platformUsers,
+    routeFamily: platformRouteFamilies.usersAndRequests,
+    requiredCapability: 'canManagePlatformUsers',
+    fallbackTarget: '/dashboard',
+    implementationState: 'implemented',
+  },
+  favoriteRequests: {
+    routeId: routeIds.platformFavoriteRequests,
+    routeFamily: platformRouteFamilies.usersAndRequests,
+    requiredCapability: 'canManageFavoriteRequests',
+    fallbackTarget: '/dashboard',
+    implementationState: 'implemented',
+  },
+  sectors: {
+    routeId: routeIds.platformSectors,
+    routeFamily: platformRouteFamilies.taxonomy,
+    requiredCapability: 'canManageTaxonomy',
+    fallbackTarget: '/dashboard',
+    implementationState: 'implemented',
   },
 } as const satisfies Record<string, PlatformRouteMetadata>;
 

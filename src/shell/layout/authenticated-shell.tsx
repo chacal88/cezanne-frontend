@@ -38,7 +38,17 @@ export function AuthenticatedShell({ children }: PropsWithChildren) {
               {platformGroups.map((group) => (
                 <div key={group.navGroup} data-testid={`platform-nav-${group.navGroup}`}>
                   <strong>{t(group.labelKey)}</strong>
-                  <p style={{ margin: '2px 0 0', fontSize: 12 }}>{t('platformNavigation.unavailable')}</p>
+                  {group.links.length > 0 ? (
+                    <ul style={{ margin: '4px 0 0', paddingLeft: 18 }}>
+                      {group.links.map((link) => (
+                        <li key={link.to}>
+                          <Link to={link.to as never}>{t(link.labelKey)}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p style={{ margin: '2px 0 0', fontSize: 12 }}>{t('platformNavigation.unavailable')}</p>
+                  )}
                 </div>
               ))}
             </section>

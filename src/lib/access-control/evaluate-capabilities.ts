@@ -37,7 +37,7 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
   const canViewPlatformNavigation = canUsePlatformSurface && (canViewPlatformMasterDataNav || canViewPlatformUsersAndRequestsNav || canViewPlatformTaxonomyNav);
   const isHiringCompany = context.organizationType === 'hc';
   const canAdministerJobs = canEnterShell && (context.isAdmin || context.isSysAdmin);
-  const canUseJobRequisitionBranching = canEnterShell && isHiringCompany && hasPivotEntitlement(context, 'jobRequisition');
+  const canUseJobRequisitionBranching = canEnterShell && isHiringCompany && canAdministerJobs && hasPivotEntitlement(context, 'jobRequisition');
   const canViewJobDetail = canUseOrgSurface;
   const canOpenJobTask = canViewJobDetail;
   const canViewCandidateDetail = canUseOrgSurface;

@@ -28,7 +28,7 @@ describe('platform foundation fallback', () => {
     });
   });
 
-  it('allows SysAdmin platform context to render the foundation placeholder', () => {
+  it('allows SysAdmin platform context to render implemented master-data routes', () => {
     const capabilities = evaluateCapabilities(buildAccessContext({ organizationType: 'none', isSysAdmin: true }));
 
     expect(getPlatformFallbackOutcome(capabilities, platformRouteMetadata.hiringCompanies)).toMatchObject({

@@ -7,5 +7,60 @@
       "title": "Empresas contratantes indisponíveis",
       "detail": "Esta rota de fundação valida o fallback e os metadados SysAdmin antes do CRUD de empresas ser entregue."
     }
+  },
+  "masterData": {
+    "eyebrow": "Dados mestre da plataforma",
+    "listTitle": "Lista de {{entity}}",
+    "listDetail": "Fundação frontend para estados de lista de dados mestre da plataforma. Dados via API ficam intencionalmente fora deste slice.",
+    "detailTitle": "Detalhe de {{entity}} {{id}}",
+    "detailCopy": "Fundação frontend para estados de detalhe e comportamento de retorno.",
+    "editTitle": "Editar {{entity}} {{id}}",
+    "editCopy": "Fundação frontend para sucesso, cancelamento, erro e estado obsoleto de edição.",
+    "companySubscriptionTitle": "Assinatura da empresa {{id}}",
+    "companySubscriptionCopy": "Administração de assinatura pertencente à empresa com prontidão de mutação separada para assinatura da plataforma.",
+    "countLabel": "Registros visíveis",
+    "parentTargetLabel": "Destino pai",
+    "cancelTargetLabel": "Destino de cancelamento",
+    "routeCapabilityLabel": "Capacidade da rota",
+    "mutationCapabilityLabel": "Capacidade de mutação",
+    "backToCompany": "Voltar para empresa",
+    "entities": {
+      "hiringCompany": "empresa contratante",
+      "recruitmentAgency": "agência de recrutamento",
+      "subscription": "assinatura"
+    }
+  },
+  "users": {
+    "eyebrow": "Usuários da plataforma",
+    "listTitle": "Usuários da plataforma",
+    "createTitle": "Criar usuário da plataforma",
+    "detailTitle": "Usuário da plataforma {{id}}",
+    "editTitle": "Editar usuário da plataforma {{id}}",
+    "listCopy": "Fundação de gestão de usuários da plataforma. Convites da organização e membros do time ficam nas rotas R4 de time.",
+    "detailCopy": "Fundação de detalhe de usuário da plataforma com retorno para lista.",
+    "editCopy": "Fundação de edição de usuário da plataforma com destinos determinísticos de cancelar e sucesso.",
+    "filtersLabel": "Filtros sanitizados",
+    "parentTargetLabel": "Destino pai"
+  },
+  "favoriteRequests": {
+    "eyebrow": "Fila de solicitações de favoritos da plataforma",
+    "listTitle": "Fila de solicitações de favoritos",
+    "detailTitle": "Solicitação de favorito {{id}}",
+    "listCopy": "Fundação da fila de administração da plataforma, separada dos fluxos de solicitação de favoritos da organização.",
+    "detailCopy": "Fundação de detalhe da solicitação com prontidão determinística de ações.",
+    "approveAction": "Prontidão para aprovar"
+  },
+  "taxonomy": {
+    "eyebrow": "Taxonomia da plataforma",
+    "sectorListTitle": "Setores",
+    "sectorListCopy": "Fundação de taxonomia da plataforma para estados da lista de setores.",
+    "sectorDetailTitle": "Setor {{id}}",
+    "sectorDetailCopy": "Fundação de detalhe de setor com retorno para a lista.",
+    "subsectorListTitle": "Subsetores de {{id}}",
+    "subsectorListCopy": "Fundação de lista aninhada de subsetores com retorno para o detalhe do setor.",
+    "subsectorDetailTitle": "Subsetor {{id}}",
+    "subsectorDetailCopy": "Fundação de detalhe de subsetor com pai determinístico.",
+    "surfaceLabel": "Superfície de taxonomia",
+    "parentTargetLabel": "Destino pai"
   }
 }

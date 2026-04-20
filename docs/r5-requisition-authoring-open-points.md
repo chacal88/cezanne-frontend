@@ -44,13 +44,29 @@ Confirmed capability signals:
 - `canManageHiringFlowSettings` gates hiring-flow administration and `/requisition-workflows`.
 - `jobRequisition` and `seeJobRequisition` remain feature/subscription/pivot inputs for route availability.
 
+## R5 requisition authoring foundation decisions implemented
+
+The `r5-requisition-authoring` frontend foundation resolves RQ1-RQ10 at route/state level:
+- `/build-requisition` and `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` are Jobs-side `jobs.workflow-state` routes gated by `canUseJobRequisitionBranching`.
+- `/requisition-workflows` is a settings/hiring-flow administration route gated by `canManageHiringFlowSettings`.
+- `canUseJobRequisitionBranching` requires authenticated HC admin context plus `jobRequisition`; non-admin HC users do not enter R5 requisition authoring routes.
+- authoring state models include local draft, explicit save, submit, validation error, recoverable failure, stale workflow, and workflow drift.
+- autosave and backend draft persistence are intentionally not implemented; save behavior is modeled as explicit-save only.
+- workflow drift is first-class through removed-stage, changed-required-fields, reassigned-approval, and stale-workflow reasons.
+- R1 Jobs create/edit behavior remains unchanged; requisition authoring is an adjacent Jobs workflow-state route family.
+- no new typed notification destinations are introduced by this frontend foundation.
+- validation evidence covers route metadata, capability gates, state helpers, and settings-vs-Jobs ownership separation.
+
+Deferred beyond this foundation:
+- backend requisition API integration, autosave persistence, workflow engine mutations, notification destination additions, and production approval/signoff reassignment behavior.
+
 ## Open decisions
 
 ### RQ1 — Authoring versus configuration ownership
 
-**Status:** Open
+**Status:** Accepted for `r5-requisition-authoring`
 
-**Decision needed:** Freeze the boundary between requisition authoring execution and workflow configuration.
+**Decision:** Freeze the boundary between requisition authoring execution and workflow configuration.
 
 Recommendation:
 - keep `/build-requisition` and `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` under `jobs.workflow-state`.
@@ -64,9 +80,9 @@ Must define:
 
 ### RQ2 — `/build-requisition` route contract
 
-**Status:** Open
+**Status:** Accepted for `r5-requisition-authoring`
 
-**Decision needed:** Define `/build-requisition` as a task flow with explicit entry, exit, and fallback behavior.
+**Decision:** Define `/build-requisition` as a task flow with explicit entry, exit, and fallback behavior.
 
 Must define:
 - whether the route starts a new requisition draft or resumes an existing draft.
@@ -83,9 +99,9 @@ Recommendation:
 
 ### RQ3 — `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` route contract
 
-**Status:** Open
+**Status:** Accepted for `r5-requisition-authoring`
 
-**Decision needed:** Define the URL-state, stage navigation, and direct-entry behavior for requisition workflow pages.
+**Decision:** Define the URL-state, stage navigation, and direct-entry behavior for requisition workflow pages.
 
 Must define:
 - whether `jobWorkflowUuid` identifies a requisition workflow, job workflow, or requisition instance.
@@ -101,9 +117,9 @@ Recommendation:
 
 ### RQ4 — `/requisition-workflows` route contract
 
-**Status:** Open
+**Status:** Accepted for `r5-requisition-authoring`
 
-**Decision needed:** Define `/requisition-workflows` as a settings/hiring-flow administration route.
+**Decision:** Define `/requisition-workflows` as a settings/hiring-flow administration route.
 
 Must define:
 - whether it lists workflows, edits one workflow, or opens a workflow builder.
@@ -118,9 +134,9 @@ Recommendation:
 
 ### RQ5 — Capability and deny behavior split
 
-**Status:** Open
+**Status:** Accepted for `r5-requisition-authoring`
 
-**Decision needed:** Freeze the capability matrix for the three requisition routes.
+**Decision:** Freeze the capability matrix for the three requisition routes.
 
 Must define:
 - exact route-entry inputs for `canUseJobRequisitionBranching`.
@@ -137,9 +153,9 @@ Recommendation:
 
 ### RQ6 — Draft and partial-save behavior
 
-**Status:** Open
+**Status:** Accepted for `r5-requisition-authoring`
 
-**Decision needed:** Define how requisition authoring handles drafts, autosave, explicit save, validation errors, and recoverable failures.
+**Decision:** Define how requisition authoring handles drafts, autosave, explicit save, validation errors, and recoverable failures.
 
 Must define:
 - whether drafts are server-side or local-only during authoring.
@@ -154,9 +170,9 @@ Recommendation:
 
 ### RQ7 — Workflow drift and stale-state handling
 
-**Status:** Open
+**Status:** Accepted for `r5-requisition-authoring`
 
-**Decision needed:** Define what happens when requisition workflow configuration changes while a user is authoring or reviewing a requisition.
+**Decision:** Define what happens when requisition workflow configuration changes while a user is authoring or reviewing a requisition.
 
 Must define:
 - stale stage behavior.
@@ -171,9 +187,9 @@ Recommendation:
 
 ### RQ8 — Integration with Jobs create/edit
 
-**Status:** Open
+**Status:** Accepted for `r5-requisition-authoring`
 
-**Decision needed:** Define how full requisition authoring integrates with Jobs create/edit without replacing R1 Jobs authoring behavior.
+**Decision:** Define how full requisition authoring integrates with Jobs create/edit without replacing R1 Jobs authoring behavior.
 
 Must define:
 - entry points from job create/edit.
@@ -187,9 +203,9 @@ Recommendation:
 
 ### RQ9 — Notification and typed destination support
 
-**Status:** Open
+**Status:** Accepted for `r5-requisition-authoring`
 
-**Decision needed:** Define whether requisition authoring or workflow administration introduces new typed notification destinations.
+**Decision:** Define whether requisition authoring or workflow administration introduces new typed notification destinations.
 
 Must define:
 - destination kind for requisition authoring resume.
@@ -203,9 +219,9 @@ Recommendation:
 
 ### RQ10 — Validation evidence and telemetry
 
-**Status:** Open
+**Status:** Accepted for `r5-requisition-authoring`
 
-**Decision needed:** Define the minimum test and telemetry evidence for requisition authoring.
+**Decision:** Define the minimum test and telemetry evidence for requisition authoring.
 
 Must define:
 - route metadata coverage for all three routes.

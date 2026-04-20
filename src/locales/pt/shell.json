@@ -10,7 +10,15 @@
     "masterData": "Dados mestres",
     "usersAndRequests": "Usuários e solicitações",
     "taxonomy": "Taxonomia",
-    "unavailable": "Rotas indisponíveis até a entrega do recorte R5 responsável."
+    "unavailable": "Rotas indisponíveis até a entrega do recorte R5 responsável.",
+    "links": {
+      "hiringCompanies": "Empresas contratantes",
+      "recruitmentAgencies": "Agências de recrutamento",
+      "subscriptions": "Assinaturas",
+      "users": "Usuários",
+      "favoriteRequests": "Solicitações de favoritos",
+      "sectors": "Setores"
+    }
   },
   "authenticatedShell": {
     "title": "Shell Recruit"

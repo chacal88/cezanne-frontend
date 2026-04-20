@@ -40,5 +40,22 @@
     "parent": "Parent target",
     "close": "Close task",
     "complete": "Complete task"
+  },
+  "requisition": {
+    "eyebrow": "Requisition authoring",
+    "buildTitle": "Build requisition",
+    "buildCopy": "Jobs-side requisition task-flow foundation with explicit save and no autosave persistence.",
+    "workflowTitle": "Requisition workflow {{workflowUuid}}",
+    "workflowCopy": "Workflow-state route for requisition authoring stages and drift handling.",
+    "stateLabel": "State",
+    "parentTargetLabel": "Parent target",
+    "autosaveLabel": "Autosave"
+  },
+  "requisitionWorkflows": {
+    "eyebrow": "Hiring-flow settings",
+    "title": "Requisition workflows",
+    "copy": "Settings-owned requisition workflow administration foundation. Active authoring stays in Jobs workflow-state routes.",
+    "ownerLabel": "Settings owner",
+    "executionOwnerLabel": "Execution owner"
   }
 }
