@@ -70,3 +70,10 @@ This document records the planning boundary for `R4.1` before the operational se
 - `/templates/:id`, `/templates/smart-questions`, `/templates/diversity-questions`, and `/templates/interview-scoring` stay inside the same family contract.
 - Subtype-specific gates remain explicit: smart questions is admin-scoped, diversity questions depends on `surveysBeta` + `customSurveys`, and interview scoring depends on interview-feedback capability.
 - When a templates subsection is unavailable, the route falls back to a stable templates-family state instead of redirecting to unrelated settings navigation.
+
+## Reject reasons slice execution notes
+
+- `/reject-reasons` is a dedicated operational settings route, not a hidden settings-container subsection.
+- The route remains explicitly gated by `rejectionReason`; general admin access is not enough.
+- Reject-reasons saves stay inside `/reject-reasons` on recoverable failure and reuse the shared operational settings readiness/save/retry/stable-outcome contract.
+- Job and candidate reject flows remain downstream consumers of admin-managed reasons, but those flows stay out of scope for this slice.

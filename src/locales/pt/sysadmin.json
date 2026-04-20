@@ -1,0 +1,11 @@
+{
+  "foundation": {
+    "eyebrow": "Placeholder da fundação da plataforma",
+    "routeIdLabel": "ID da rota",
+    "stateLabel": "Estado da implementação",
+    "hiringCompanies": {
+      "title": "Empresas contratantes indisponíveis",
+      "detail": "Esta rota de fundação valida o fallback e os metadados SysAdmin antes do CRUD de empresas ser entregue."
+    }
+  }
+}

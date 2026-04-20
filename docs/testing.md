@@ -155,3 +155,43 @@ For `r4-templates-foundation`, the baseline additionally proves:
 - subtype-specific gating for smart questions, diversity questions, and interview scoring
 - stable templates-family fallback when a subsection is unavailable
 - stable templates-family save/retry behavior without leaving the family contract
+
+For `r4-reject-reasons-management`, the baseline additionally proves:
+- direct entry to `/reject-reasons`
+- explicit `rejectionReason` gating for reject-reasons administration
+- recoverable save failure with explicit retry while remaining on the same route
+- stable refreshed reject-reasons state after a successful save
+
+## R4 candidate database validation baseline
+
+Candidate database foundation validation includes:
+- Vitest coverage for URL-state parsing, invalid-state degradation, canonical path building, and database-origin detail handoff.
+- Module-contract coverage for candidate task return behavior when launched from database-origin detail.
+- Browser smoke coverage for `/candidates-database` direct entry, restored URL state, database → detail handoff, task close back to database-origin detail, and return to the database list.
+- HTTP smoke coverage for `/candidates-database`, `/candidates-old`, and `/candidates-new` entries.
+
+## R4 integrations admin validation baseline
+
+Integrations shell validation includes:
+- Vitest coverage for provider-state rendering and action concern taxonomy.
+- Route metadata coverage for `/integrations` and `/integrations/:id`.
+- Capability coverage for HC admin-only integrations access.
+- Browser smoke coverage for index direct entry, provider detail direct navigation, explicit provider state/action rendering, parent-index fallback, and unknown-provider unavailable state.
+- HTTP smoke coverage for `/integrations`, `/integrations/lever`, and `/integrations/unknown-provider`.
+
+## R4 reports validation baseline
+
+Reports foundation validation includes:
+- Vitest coverage for shared filters, family result-state, legacy compatibility targets, and export/scheduling command states.
+- Route metadata coverage for `/report/:family` and `/hiring-company/report/:id`.
+- Capability coverage for HC admin-only report access.
+- Browser smoke coverage for report index direct entry, family direct navigation, export success, scheduling success, unsupported scheduling state, and legacy compatibility routing.
+- HTTP smoke coverage for `/report`, `/report/jobs`, `/report/diversity`, and `/hiring-company/report/:id?`.
+
+## R4 org team/users validation baseline
+
+Org team/users foundation validation includes:
+- Vitest coverage for org team view-model state and org/platform capability split.
+- Route metadata coverage for `/team/recruiters` and `/users/invite`.
+- Browser smoke coverage for org team direct entry, recruiter visibility, invite foundation, and non-platform scope proof.
+- HTTP smoke coverage for `/team`, `/team/recruiters`, and `/users/invite`.

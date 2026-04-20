@@ -2,5 +2,13 @@
   "home": {
     "title": "Dashboard",
     "detail": "R0 shell landing page registered as a `Page` route."
+  },
+  "platform": {
+    "eyebrow": "Platform mode",
+    "title": "Platform administration",
+    "detail": "SysAdmin platform entry uses /dashboard while platform route families are implemented.",
+    "masterData": "Master data: hiring companies, recruitment agencies, and subscriptions",
+    "usersAndRequests": "Users and requests: platform users and favorite-request queue",
+    "taxonomy": "Taxonomy: sectors and subsectors"
   }
 }

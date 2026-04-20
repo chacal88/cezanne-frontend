@@ -36,4 +36,18 @@ describe('resolveCandidateActionContext', () => {
     expect(context.recoveryTarget).toBe('/candidate/candidate-123');
     expect(context.capabilityKey).toBe('canCreateOfferFromCandidate');
   });
+
+  it('keeps database-origin detail search as the explicit task return target', () => {
+    const context = resolveCandidateActionContext({
+      kind: 'offer',
+      pathname: '/candidate/candidate-123/cv/cv-123/offer',
+      context: { candidateId: 'candidate-123' },
+      cvId: 'cv-123',
+      parent: '/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database%3Fquery%3Dalex%26page%3D2',
+      entryMode: 'database',
+    });
+
+    expect(context.returnTarget).toBe('/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database%3Fquery%3Dalex%26page%3D2');
+    expect(context.recoveryTarget).toBe('/candidate/candidate-123');
+  });
 });

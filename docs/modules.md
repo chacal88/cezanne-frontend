@@ -119,7 +119,7 @@ Synthesized from:
 | `hiring-flow` | Route-owning | hiring flow and workflow settings as a consumer of the operational settings substrate, including requisition adjacency but not requisition authoring | `canManageHiringFlowSettings` | R4 |
 | `custom-fields` | Route-owning | custom-field admin as a consumer of the operational settings substrate, with downstream candidate/public consumers kept explicit but outside this route slice | `canManageCustomFields` | R4 |
 | `templates` | Route-owning | shared templates family, including list/detail plus smart-questions, diversity, and interview-scoring subsections as substrate consumers | `canManageTemplates` | R4 |
-| `reject-reasons` | Route-owning | reject reasons list/edit flow as a consumer of the operational settings substrate | `canManageRejectReasons` | R4 |
+| `reject-reasons` | Route-owning | reject reasons list/edit flow as a consumer of the operational settings substrate, with downstream reject task flows kept explicit but outside this route slice | `canManageRejectReasons` | R4 |
 | `api-endpoints` | Route-owning | API endpoints settings | `canManageApiEndpoints` | R5 |
 | `forms-docs-controls` | Route-owning | settings subsections for forms/documents and related controls | `canManageFormsDocsSettings` | R4-R5 |
 
@@ -202,3 +202,11 @@ These module-level confirmations come from the current route definitions and sho
 - `integrations.token-entry` already has multiple unsigned token contracts (`cv`, `forms`, `job`) and should not be collapsed into one generic flow.
 - `reports.report-index` and `reports.report-family-pages` already exist as a family, with one legacy aggregate report route plus dedicated family routes.
 - `billing.cards` is confirmed as a routed modal flow nested under billing.
+
+## R4 reports foundation module note
+
+The reports modules now have source-level foundation coverage: `report-index` owns `/report`, `report-family-pages` owns `/report/:family`, and `exports-scheduling` owns the shared export/schedule command contract consumed by report family pages.
+
+## R4 org team/users foundation module note
+
+The team/users foundation now has a source-level route-owning module boundary: org team index (`/team`), recruiter visibility (`/team/recruiters`), and invite foundation (`/users/invite`). Invite/membership and favorites follow-on modules must consume this foundation.

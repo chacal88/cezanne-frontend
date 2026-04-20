@@ -1,7 +1,11 @@
 import type { AccessContext, Capabilities } from './types';
 
 function hasOrgAccess(context: AccessContext) {
-  return context.organizationType === 'hc' || context.organizationType === 'ra' || context.isSysAdmin;
+  return context.organizationType === 'hc' || context.organizationType === 'ra';
+}
+
+function isPlatformContext(context: AccessContext) {
+  return context.isSysAdmin && context.organizationType === 'none';
 }
 
 function hasPivotEntitlement(context: AccessContext, entitlement: string) {
@@ -19,7 +23,19 @@ function hasRolloutFlag(context: AccessContext, flag: string) {
 export function evaluateCapabilities(context: AccessContext): Capabilities {
   const canEnterShell = context.isAuthenticated;
   const canUseOrgSurface = canEnterShell && hasOrgAccess(context);
-  const isHiringCompany = context.organizationType === 'hc' || context.isSysAdmin;
+  const canUsePlatformSurface = canEnterShell && isPlatformContext(context);
+  const canViewDashboard = canUseOrgSurface || canUsePlatformSurface;
+  const canManageHiringCompanies = canUsePlatformSurface;
+  const canManageRecruitmentAgencies = canUsePlatformSurface;
+  const canManagePlatformSubscriptions = canUsePlatformSurface;
+  const canManagePlatformUsers = canUsePlatformSurface;
+  const canManageFavoriteRequests = canUsePlatformSurface;
+  const canManageTaxonomy = canUsePlatformSurface;
+  const canViewPlatformMasterDataNav = canManageHiringCompanies || canManageRecruitmentAgencies || canManagePlatformSubscriptions;
+  const canViewPlatformUsersAndRequestsNav = canManagePlatformUsers || canManageFavoriteRequests;
+  const canViewPlatformTaxonomyNav = canManageTaxonomy;
+  const canViewPlatformNavigation = canUsePlatformSurface && (canViewPlatformMasterDataNav || canViewPlatformUsersAndRequestsNav || canViewPlatformTaxonomyNav);
+  const isHiringCompany = context.organizationType === 'hc';
   const canAdministerJobs = canEnterShell && (context.isAdmin || context.isSysAdmin);
   const canUseJobRequisitionBranching = canEnterShell && isHiringCompany && hasPivotEntitlement(context, 'jobRequisition');
   const canViewJobDetail = canUseOrgSurface;
@@ -27,10 +43,14 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
   const canViewCandidateDetail = canUseOrgSurface;
   const canOpenCandidateAction = canViewCandidateDetail;
   const canOpenCandidateConversation = canUseOrgSurface && hasSubscriptionCapability(context, 'inbox');
+  const canViewCandidateDatabase = canEnterShell && context.organizationType === 'hc' && hasPivotEntitlement(context, 'seeCandidates');
+  const canViewIntegrations = canEnterShell && context.organizationType === 'hc' && context.isAdmin;
+  const canViewReports = canEnterShell && context.organizationType === 'hc' && context.isAdmin;
+  const canViewOrgTeam = canEnterShell && (context.organizationType === 'hc' || context.organizationType === 'ra') && context.isAdmin;
 
   return {
     canEnterShell,
-    canViewDashboard: canUseOrgSurface,
+    canViewDashboard,
     canViewNotifications: canEnterShell,
     canUseInbox: canUseOrgSurface,
     canOpenAccountArea: canEnterShell,
@@ -42,6 +62,17 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
     canManageHiringFlowSettings: canEnterShell && isHiringCompany && canAdministerJobs,
     canManageCustomFields: canEnterShell && isHiringCompany && canAdministerJobs && hasRolloutFlag(context, 'customFieldsBeta'),
     canManageTemplates: canEnterShell && isHiringCompany,
+    canManageRejectReasons: canEnterShell && isHiringCompany && canAdministerJobs && hasSubscriptionCapability(context, 'rejectionReason'),
+    canViewPlatformNavigation,
+    canViewPlatformMasterDataNav,
+    canViewPlatformUsersAndRequestsNav,
+    canViewPlatformTaxonomyNav,
+    canManageHiringCompanies,
+    canManageRecruitmentAgencies,
+    canManagePlatformSubscriptions,
+    canManagePlatformUsers,
+    canManageFavoriteRequests,
+    canManageTaxonomy,
     canViewJobsList: canEnterShell && isHiringCompany,
     canCreateJob: canEnterShell && isHiringCompany && canAdministerJobs,
     canEditJob: canEnterShell && isHiringCompany && canAdministerJobs,
@@ -71,5 +102,16 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
     canCommentOnCandidate: canViewCandidateDetail,
     canTagCandidate: canViewCandidateDetail && hasSubscriptionCapability(context, 'candidateTags'),
     canOpenCandidateConversation,
+    canViewCandidateDatabase,
+    canSearchCandidates: canViewCandidateDatabase,
+    canViewIntegrations,
+    canManageIntegrationProvider: canViewIntegrations,
+    canViewReports,
+    canViewReportFamily: canViewReports,
+    canExportReport: canViewReports,
+    canScheduleReport: canViewReports,
+    canViewOrgTeam,
+    canViewRecruiterVisibility: canViewOrgTeam,
+    canManageOrgInvites: canViewOrgTeam,
   };
 }

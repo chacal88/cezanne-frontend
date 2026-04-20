@@ -138,7 +138,7 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/auth/cezanne/:tenantGuid` | Public/Token | auth | sso-callbacks | Public | `canCompleteSsoCallback` | SSO provider enabled | SSO launch entry. | H | R0 |
 | `/auth/cezanne/callback?code` | Public/Token | auth | sso-callbacks | Public | `canCompleteSsoCallback` | SSO callback state | Callback exchanges code for token and redirects to dashboard. | H | R0 |
 | `/auth/saml?code&error` | Public/Token | auth | sso-callbacks | Public | `canCompleteSsoCallback` | SAML callback state | Must surface callback error explicitly before redirect behavior. | H | R0 |
-| `/dashboard` | Page | dashboard | landing | HC User, HC Admin, RA User, RA Admin, limited SysAdmin | `canViewDashboard` | `hc` or `ra`; sysadmin handoff policy | Resolves notifications, calendar integration, and role-sensitive aggregate data. | H | R0 |
+| `/dashboard` | Page | dashboard | landing | HC User, HC Admin, RA User, RA Admin, SysAdmin | `canViewDashboard` | `hc` or `ra`; `sysAdmin` renders R5 platform mode when no HC/RA operational context is active | Resolves notifications, calendar integration, role-sensitive aggregate data, and SysAdmin platform-mode entry/fallback. | H | R0-R5 |
 | `/notifications` | Page | shell | notifications | HC User, HC Admin, RA User, RA Admin, contextual SysAdmin | `canOpenNotifications` | authenticated shell identity | Destination handling must stay typed and cross-domain. | H | R0 |
 | `/inbox?conversation=` | PageWithStatefulUrl | inbox | conversation-list | HC User, HC Admin, RA User, RA Admin | `canViewInbox`, `canOpenConversation` | `hc` or `ra` | Conversation selection is URL state; optional compose state also exists. | H | R0 |
 | `/user-profile` | ShellOverlay | shell | account-context | HC User, HC Admin, RA User, RA Admin | `canOpenAccountArea` | authenticated shell identity | Route redirects back to current route or dashboard, then opens modal overlay. | M | R0 |
@@ -182,7 +182,7 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/favorites-request` | Page | sysadmin | favorite-requests | SysAdmin | `canManageFavoriteRequests` | `sysAdmin` | Platform-admin request queue. | L | R5 |
 | `/favorites-request/:id` | Page | sysadmin | favorite-requests | SysAdmin | `canManageFavoriteRequests` | `sysAdmin` | Platform-admin detail page. | L | R5 |
 | `/recruiters` | Page | settings | agency-settings | HC User, HC Admin | `canManageAgencySettings` or recruiter-visibility capability | `hc`, `seeRecruiters`, `recruiters` | Entitlement-heavy team/recruiter area. | L | R4 |
-| `/hiring-companies` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies` | `sysAdmin` | Platform-admin list. | M | R5 |
+| `/hiring-companies` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies` | `sysAdmin` | Platform-admin list; `r5-sysadmin-foundation` may first register a typed unavailable/foundation placeholder before full list implementation in `r5-platform-master-data`. | M | R5 |
 | `/hiring-companies/:id` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies` | `sysAdmin` | Platform-admin detail page. | M | R5 |
 | `/hiring-companies/edit/:id` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies` | `sysAdmin` | Platform-admin edit page. | M | R5 |
 | `/hiring-company/:id/subscription` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies`, `canManagePlatformSubscriptions` | `sysAdmin` | Company subscription administration. | M | R5 |
@@ -213,7 +213,7 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/requisition-workflows` | Page | settings | hiring-flow | HC Admin | `canManageHiringFlowSettings` | `hc`, `admin`, `jobRequisition` | Hard guard redirects to dashboard without requisition + admin capability. | M | R5 |
 | `/job-requisition-approval?token` | Public/Token | public-external | requisition-approval | External | `canApproveRequisitionByToken` | valid token; explicit invalid/expired/used/inaccessible handling; workflow-drift recovery when the requisition changed underneath the token | Unsigned approval-only route with token-resolved requisition summary, workflow-aware approve/reject actionability, stable approved/rejected terminal outcomes, and no authenticated-shell dependency. | M | R3 |
 | `/job-requisition-forms/:id?download` | Public/Token | public-external | requisition-approval | External | `canApproveRequisitionByToken` | valid token/form access | Unsigned requisition-forms contract with download variant. | L | R5 |
-| `/reject-reasons` | Page | settings | reject-reasons | HC Admin | `canManageRejectReasons` | `hc`, `admin`, `rejectionReason` | Dedicated subsection route plus list/edit flow, owned by the route and backed by the operational settings substrate. | M | R4 |
+| `/reject-reasons` | Page | settings | reject-reasons | HC Admin | `canManageRejectReasons` | `hc`, `admin`, `rejectionReason` | Dedicated subsection route plus list/edit flow, owned by the route, backed by the operational settings substrate, and kept separate from downstream reject task flows. | M | R4 |
 | `/hiring-company/report/:id?` | Page | reports | report-index | HC Admin | `canViewReports` | `hc`, `admin` | Legacy aggregate report route with saved period/filter session behavior. | M | R4 |
 | `/report/jobs` | Page | reports | report-family-pages | HC Admin | `canViewReportFamily` | `hc`, `admin` | Dedicated report family page. | M | R4 |
 | `/report/hiring-process` | Page | reports | report-family-pages | HC Admin | `canViewReportFamily` | `hc`, `admin` | Dedicated report family page. | M | R4 |
@@ -259,3 +259,27 @@ If a Figma reference exists, it should additionally be mapped as:
 ## Current R2 execution note
 
 The current source tree registers the candidate hub and candidate schedule/offer/reject task routes under `src/app/router.tsx`, backed by the `src/domains/candidates/` module tree and candidate-focused tests.
+
+## R5 SysAdmin foundation screen contract
+
+The implemented R5 foundation freezes these screen-level rules:
+- `/dashboard` is both recruiter-core landing and SysAdmin platform landing; platform mode is selected only for a SysAdmin access context with no active HC/RA operational context.
+- `/hiring-companies` is currently a SysAdmin-only foundation placeholder with route id `sysadmin.master-data.hiring-companies`; it must not be treated as implemented company CRUD until the master-data slice ships.
+- Authenticated non-SysAdmin users entering `/hiring-companies` fall back to `/dashboard`; unauthenticated behavior continues to follow the existing public/auth entry boundary.
+- Shell navigation must not expose live links to planned platform route-heavy pages before their implementation slices register page bodies.
+
+## R4 candidate database implemented route contract
+
+The candidate database route family now uses `/candidates-database` as the canonical `PageWithStatefulUrl` route. `/candidates-old` and `/candidates-new` are compatibility entries only and normalize to the canonical route. The URL-owned state contract is `query`, `page`, `sort`, `order`, `stage`, and `tags`. Candidate detail launched from database search uses `entry=database` plus a sanitized `returnTo` value instead of overloading job-pipeline segments.
+
+## R4 integrations admin implemented route contract
+
+The internal integrations admin route family now distinguishes `/integrations` from public/token `/integration/*` routes. `/integrations` is the provider index and `/integrations/:id` is the provider detail route. Detail direct entry and close/return behavior use `/integrations` as the stable parent-index fallback, including unknown providers rendered as explicit `unavailable` state.
+
+## R4 reports implemented route contract
+
+Reports now use `/report` as the canonical index and `/report/:family` as the canonical family route. `/hiring-company/report/:id?` is compatibility behavior and maps into the shared report shell. Report families render through shared filter/result state and shared export/scheduling command states.
+
+## R4 org team/users implemented route contract
+
+Org team/users foundation routes are now separated from platform user CRUD: `/team` owns the org team foundation, `/team/recruiters` owns recruiter visibility, and `/users/invite` is an org invite foundation placeholder. These routes are org-admin scoped and do not grant Platform navigation or platform user-management.

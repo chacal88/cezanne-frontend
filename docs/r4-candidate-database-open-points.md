@@ -26,3 +26,18 @@ This document records the planning boundary for `R4.2` candidate database work b
 ## First change from this area
 
 - `r4-candidate-database-contract-foundation`
+
+## Foundation decisions implemented
+
+The R4.2 foundation resolves the first set of route/navigation decisions:
+- Canonical route: `/candidates-database`.
+- Compatibility routes: `/candidates-old` and `/candidates-new`; both normalize to the canonical route with sanitized state.
+- Minimum URL state: `query`, `page`, `sort`, `order`, `stage`, and `tags`. Invalid or stale values are sanitized instead of crashing or redirecting to unrelated routes.
+- Database → detail handoff: `/candidate/:id?entry=database&returnTo=<encoded-candidates-database-url>`.
+- Detail → database return: detail renders a database return target/link when `entry=database` is present.
+- Candidate task return: action routes launched from database-origin detail preserve the full database-origin detail URL in `parent`.
+
+Still deferred to later implementation slices:
+- full candidate database UI and bulk actions;
+- advanced boolean-search behavior beyond URL-state preservation;
+- database-specific previous/next sequence navigation, which currently degrades explicitly.

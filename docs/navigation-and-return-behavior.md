@@ -56,6 +56,7 @@ Synthesized from:
 | billing card | shell/billing-aware direct entry | rebuild billing context then overlay | one step closes overlay | return to billing overview |
 | public/external token flows | full | preserve token state | standard | route navigation only |
 | integrations token-entry | full | preserve token state | standard | route navigation only |
+| sysadmin platform routes | full when implemented; `/hiring-companies` may exist as a foundation placeholder | rebuild shell + platform capability context | denied entry falls back to `/dashboard`; SysAdmin placeholder direct entry renders typed unavailable/foundation state until route body ships | route navigation only |
 
 ## Parent-return rules
 
@@ -93,6 +94,18 @@ Parent target:
 Rule:
 - `user-profile` and similar shell overlays must not strand the user on an overlay-only URL
 
+
+### SysAdmin platform routes
+
+Parent/fallback target:
+- `/dashboard`
+
+Rules:
+- SysAdmin platform fallback resolves to `/dashboard` platform mode.
+- authenticated non-SysAdmin users who enter platform-only routes fall back to their normal dashboard state.
+- `/hiring-companies` is the first foundation placeholder route; SysAdmin direct entry may render a typed unavailable/foundation state until `r5-platform-master-data` implements the full route body.
+- the shell must not expose live navigation links to unimplemented route-heavy platform pages.
+
 ## Notification-entry rules
 
 - notification entry may land directly on a page, overlay, or task flow
@@ -117,3 +130,37 @@ The current R2 baseline registers the contextual candidate hub route family and 
 - candidate task close/cancel/success return to the contextual candidate hub path
 - direct notification entry may append `?entry=notification` while preserving the frozen path contract
 - stale sequence context degrades by removing sequence navigation instead of redirecting to an unrelated route
+
+## Implemented R5 platform fallback behavior
+
+The R5 SysAdmin foundation implements platform fallback as a route-capability outcome:
+- SysAdmin direct entry to `/hiring-companies` renders a typed foundation placeholder.
+- Authenticated non-SysAdmin direct entry to `/hiring-companies` redirects to `/dashboard`.
+- The fallback target is stable, but the dashboard content is context-sensitive: SysAdmin platform context renders platform mode, while HC/RA contexts render recruiter-core dashboard content.
+- Planned platform navigation groups may be visible without live links until their route-heavy pages are implemented.
+
+## Implemented R4 candidate database return behavior
+
+Candidate database navigation now follows these rules:
+- Direct entry to `/candidates-database` rebuilds list interpretation from URL state.
+- Invalid URL state is sanitized to stable defaults and valid values are preserved.
+- `/candidates-old` and `/candidates-new` normalize to `/candidates-database`.
+- Candidate detail opened from database uses `entry=database` and a sanitized `returnTo` target.
+- Candidate task flows launched from database-origin detail close/cancel/succeed back to the same database-origin detail context, preserving the database `returnTo`.
+
+## Implemented R4 integrations admin fallback behavior
+
+Integrations admin navigation now follows these rules:
+- `/integrations` supports direct entry for eligible HC admins.
+- `/integrations/:id` supports direct entry and renders an explicit provider state.
+- Provider detail always exposes `/integrations` as the parent-index return.
+- Unknown provider ids render `unavailable` instead of redirecting to an unrelated admin route.
+- Public/token `/integration/*` routes do not reuse internal admin-shell bootstrap.
+
+## Implemented R4 org team/users fallback behavior
+
+Org team/users navigation now follows these rules:
+- `/team`, `/team/recruiters`, and `/users/invite` support direct entry for eligible org admins.
+- Denied org team route entry falls back to `/dashboard`.
+- Recruiter visibility and invite foundation remain recruiter-core/org scoped, not platform scoped.
+- Follow-on invite/membership and favorites slices should preserve `/team` as the parent foundation context.

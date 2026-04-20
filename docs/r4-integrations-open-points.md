@@ -34,3 +34,15 @@ This document records the planning boundary for `R4.4` integrations setup.
 ## First change from this area
 
 - `r4-integrations-shell`
+
+## Foundation decisions implemented
+
+The R4 integrations shell resolves the first route/state decisions:
+- Internal admin index: `/integrations`.
+- Internal provider detail: `/integrations/:id`.
+- Detail parent fallback: `/integrations`; unknown providers render explicit `unavailable` state with the same parent-index return.
+- Provider states: `connected`, `disconnected`, `degraded`, `reauth_required`, and `unavailable`.
+- Action taxonomy: configuration (`configure`), auth (`connect`, `reauthorize`), and diagnostics (`run_diagnostics`, `view_logs`).
+- Public/token callback routes under `/integration/*` remain separate from authenticated admin setup routes.
+
+Follow-on provider-family implementation must consume this shell/state model and add provider-specific configuration/auth/diagnostics behavior without collapsing all providers into one generic form.

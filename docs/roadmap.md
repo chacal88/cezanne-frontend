@@ -543,3 +543,7 @@ Not decided in this roadmap; must be resolved next in `architecture.md`:
 3. `release-r0-plan.md` — detailed R0 scoping once architecture is committed
 
 R2 implementation status (confirmed in code): the Candidate route family is now registered in `src/app/router.tsx`, the shared route/capability layer recognizes candidate detail and candidate task flows, and the smoke + Vitest baseline now covers candidate direct entry, notification entry, parent-return behavior, and visible refresh after candidate actions.
+
+## R4 integrations shell implementation note
+
+The R4 integrations setup baseline now includes an internal admin shell for `/integrations` and `/integrations/:id`, with explicit provider states and parent-index fallback. Provider-specific setup slices remain follow-on work.

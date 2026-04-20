@@ -1,9 +1,10 @@
 import type { PropsWithChildren, ReactElement } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render } from '@testing-library/react';
-import { AccessProvider } from '../lib/access-control';
+import { AccessProvider, type AccessContext } from '../lib/access-control';
+import '../app/i18n';
 
-export function renderWithProviders(ui: ReactElement) {
+export function renderWithProviders(ui: ReactElement, options: { accessContext?: AccessContext } = {}) {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -15,7 +16,7 @@ export function renderWithProviders(ui: ReactElement) {
   function Wrapper({ children }: PropsWithChildren) {
     return (
       <QueryClientProvider client={queryClient}>
-        <AccessProvider>{children}</AccessProvider>
+        <AccessProvider value={options.accessContext}>{children}</AccessProvider>
       </QueryClientProvider>
     );
   }

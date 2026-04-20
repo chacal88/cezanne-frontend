@@ -1,29 +1,36 @@
 {
   "navigation": {
-    "dashboard": "Dashboard",
+    "dashboard": "Painel",
     "notifications": "Notificações",
-    "inbox": "Inbox",
+    "inbox": "Caixa de entrada",
     "jobs": "Vagas"
+  },
+  "platformNavigation": {
+    "label": "Plataforma",
+    "masterData": "Dados mestres",
+    "usersAndRequests": "Usuários e solicitações",
+    "taxonomy": "Taxonomia",
+    "unavailable": "Rotas indisponíveis até a entrega do recorte R5 responsável."
   },
   "authenticatedShell": {
     "title": "Shell Recruit"
   },
   "notifications": {
     "title": "Notificações",
-    "accessLabel": "Acesso às notificações:",
+    "accessLabel": "Acesso à notificação:",
     "allowed": "permitido",
     "denied": "negado",
     "ready": "Pronto para navegar.",
     "safeFallback": "Fallback seguro:",
     "seeded": {
-      "candidateFollowUp": "Follow-up do candidato está pendente",
-      "offerAttention": "Fluxo de oferta precisa de atenção"
+      "candidateFollowUp": "Acompanhamento do candidato pendente",
+      "offerAttention": "Fluxo de oferta requer atenção"
     }
   },
   "userProfile": {
     "eyebrow": "Overlay do shell",
     "title": "Perfil do usuário",
-    "detail": "Esta rota está registrada como overlay do shell e permanece distinta dos task flows de domínio.",
+    "detail": "Esta rota é registrada como overlay do shell e permanece distinta dos fluxos de tarefa de domínio.",
     "close": "Fechar overlay"
   }
 }

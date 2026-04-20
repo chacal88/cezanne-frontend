@@ -43,6 +43,15 @@ describe('candidate routing helpers', () => {
     expect(validateCandidateDetailSearch({ entry: 'notification', degrade: 'contracts,surveys,invalid' })).toEqual({
       entry: 'notification',
       degrade: ['contracts', 'surveys'],
+      returnTo: undefined,
+    });
+  });
+
+  it('validates database-origin candidate detail search with a sanitized return target', () => {
+    expect(validateCandidateDetailSearch({ entry: 'database', returnTo: '/candidates-database?query=alex&page=2' })).toEqual({
+      entry: 'database',
+      degrade: [],
+      returnTo: '/candidates-database?query=alex&page=2',
     });
   });
 

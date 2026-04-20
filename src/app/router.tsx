@@ -1,4 +1,4 @@
-import { createRootRoute, createRoute, createRouter, Outlet } from '@tanstack/react-router';
+import { createRootRoute, createRoute, createRouter, Navigate, Outlet } from '@tanstack/react-router';
 import { AccessBoundary } from '../lib/access-control';
 import { RouteTelemetryObserver } from '../lib/observability';
 import { PublicShell } from '../shell/layout/public-shell';
@@ -11,6 +11,7 @@ import { JobAuthoringPage, validateJobAuthoringSearch } from '../domains/jobs/au
 import { JobDetailPage, validateJobDetailSearch } from '../domains/jobs/detail/job-detail-page';
 import { JobTaskPage } from '../domains/jobs/task-overlays/job-task-page';
 import { validateJobTaskSearch } from '../domains/jobs/task-overlays/job-task-context';
+import { CandidateDatabasePage } from '../domains/candidates/database';
 import { CandidateDetailRoutePage } from '../domains/candidates/detail-hub/candidate-detail-page';
 import { CandidateTaskRoutePage } from '../domains/candidates/action-launchers/candidate-task-page';
 import { validateCandidateDetailSearch, validateCandidateTaskSearch } from '../domains/candidates/support/routing';
@@ -22,7 +23,9 @@ import { InterviewRequestPage } from '../domains/public-external/external-review
 import { ReviewCandidatePage } from '../domains/public-external/external-review/review-candidate-page';
 import { InterviewFeedbackPage } from '../domains/public-external/external-review/interview-feedback-page';
 import { RequisitionApprovalPage, validateRequisitionApprovalSearch } from '../domains/public-external/requisition-approval';
-import { IntegrationCvTokenEntryPage, IntegrationFormsTokenEntryPage, IntegrationJobTokenEntryPage } from '../domains/integrations';
+import { IntegrationCvTokenEntryPage, IntegrationFormsTokenEntryPage, IntegrationJobTokenEntryPage, IntegrationProviderDetailPage, IntegrationsIndexPage } from '../domains/integrations';
+import { LegacyReportCompatibilityPage, ReportFamilyPage, ReportsIndexPage, isReportFamily } from '../domains/reports';
+import { OrgInviteFoundationPage, OrgRecruiterVisibilityPage, OrgTeamIndexPage } from '../domains/team';
 import { UserProfileShellOverlay } from '../shell/account/user-profile-overlay';
 import { observability } from './observability';
 import {
@@ -50,8 +53,10 @@ import { ApplicationPageSettingsPage } from '../domains/settings/careers-applica
 import { JobListingsSettingsPage } from '../domains/settings/careers-application/job-listings-settings-page';
 import { JobListingEditorPage } from '../domains/settings/careers-application/job-listing-editor-page';
 import { HiringFlowSettingsPage } from '../domains/settings/hiring-flow/hiring-flow-settings-page';
+import { HiringCompaniesFoundationPage } from '../domains/sysadmin/platform-foundation';
 import { CustomFieldsSettingsPage } from '../domains/settings/custom-fields/custom-fields-settings-page';
 import { TemplatesSettingsPage } from '../domains/settings/templates/templates-settings-page';
+import { RejectReasonsSettingsPage } from '../domains/settings/reject-reasons/reject-reasons-settings-page';
 import {
   validateApplicationPageParams,
   validateJobListingEditorSearch,
@@ -59,6 +64,7 @@ import {
 } from '../domains/settings/careers-application';
 
 const deniedFallback = <AccessDeniedPage />;
+const dashboardFallback = <Navigate to="/dashboard" replace />;
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -236,6 +242,106 @@ const integrationJobActionRoute = createRoute({
   },
 });
 
+const integrationsIndexRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/integrations',
+  component: () => (
+    <AccessBoundary capability="canViewIntegrations" fallback={dashboardFallback}>
+      <IntegrationsIndexPage />
+    </AccessBoundary>
+  ),
+});
+
+const integrationProviderDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/integrations/$providerId',
+  component: () => {
+    const { providerId } = integrationProviderDetailRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageIntegrationProvider" fallback={dashboardFallback}>
+        <IntegrationProviderDetailPage providerId={providerId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const orgTeamIndexRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/team',
+  component: () => (
+    <AccessBoundary capability="canViewOrgTeam" fallback={dashboardFallback}>
+      <OrgTeamIndexPage />
+    </AccessBoundary>
+  ),
+});
+
+const orgRecruitersRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/team/recruiters',
+  component: () => (
+    <AccessBoundary capability="canViewRecruiterVisibility" fallback={dashboardFallback}>
+      <OrgRecruiterVisibilityPage />
+    </AccessBoundary>
+  ),
+});
+
+const orgInviteFoundationRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/users/invite',
+  component: () => (
+    <AccessBoundary capability="canManageOrgInvites" fallback={dashboardFallback}>
+      <OrgInviteFoundationPage />
+    </AccessBoundary>
+  ),
+});
+
+const reportsIndexRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/report',
+  component: () => (
+    <AccessBoundary capability="canViewReports" fallback={dashboardFallback}>
+      <ReportsIndexPage />
+    </AccessBoundary>
+  ),
+});
+
+const reportFamilyRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/report/$family',
+  component: () => {
+    const { family } = reportFamilyRoute.useParams();
+    if (!isReportFamily(family)) return <Navigate to="/report" replace />;
+    return (
+      <AccessBoundary capability="canViewReportFamily" fallback={<Navigate to="/report" replace />}>
+        <ReportFamilyPage family={family} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const legacyReportIndexRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/hiring-company/report',
+  component: () => (
+    <AccessBoundary capability="canViewReports" fallback={dashboardFallback}>
+      <LegacyReportCompatibilityPage />
+    </AccessBoundary>
+  ),
+});
+
+const legacyReportDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/hiring-company/report/$reportId',
+  component: () => {
+    const { reportId } = legacyReportDetailRoute.useParams();
+    return (
+      <AccessBoundary capability="canViewReports" fallback={dashboardFallback}>
+        <LegacyReportCompatibilityPage reportId={reportId} />
+      </AccessBoundary>
+    );
+  },
+});
+
 const dashboardRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/dashboard',
@@ -350,6 +456,16 @@ const templatesDetailRoute = createRoute({
   },
 });
 
+const rejectReasonsSettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/reject-reasons',
+  component: () => (
+    <AccessBoundary capability="canManageRejectReasons" fallback={deniedFallback}>
+      <RejectReasonsSettingsPage />
+    </AccessBoundary>
+  ),
+});
+
 const applicationPageSettingsIndexRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/settings/application-page',
@@ -432,6 +548,12 @@ const jobListingEditorEditRoute = createRoute({
       </AccessBoundary>
     );
   },
+});
+
+const hiringCompaniesRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/hiring-companies',
+  component: HiringCompaniesFoundationPage,
 });
 
 const jobsListRoute = createRoute({
@@ -601,6 +723,39 @@ const jobOfferRoute = createRoute({
   },
 });
 
+const candidateDatabaseRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/candidates-database',
+  validateSearch: (search) => search,
+  component: () => (
+    <AccessBoundary capability="canViewCandidateDatabase" fallback={dashboardFallback}>
+      <CandidateDatabasePage />
+    </AccessBoundary>
+  ),
+});
+
+const candidateDatabaseOldRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/candidates-old',
+  validateSearch: (search) => search,
+  component: () => (
+    <AccessBoundary capability="canViewCandidateDatabase" fallback={dashboardFallback}>
+      <CandidateDatabasePage />
+    </AccessBoundary>
+  ),
+});
+
+const candidateDatabaseNewRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/candidates-new',
+  validateSearch: (search) => search,
+  component: () => (
+    <AccessBoundary capability="canViewCandidateDatabase" fallback={dashboardFallback}>
+      <CandidateDatabasePage />
+    </AccessBoundary>
+  ),
+});
+
 const candidateDetailRoutes = candidateDetailRoutePaths.map((path) =>
   createRoute({
     getParentRoute: () => shellLayoutRoute,
@@ -697,6 +852,15 @@ const routeTree = rootRoute.addChildren([
   ]),
   shellLayoutRoute.addChildren([
     dashboardRoute,
+    integrationsIndexRoute,
+    integrationProviderDetailRoute,
+    orgTeamIndexRoute,
+    orgRecruitersRoute,
+    orgInviteFoundationRoute,
+    reportsIndexRoute,
+    reportFamilyRoute,
+    legacyReportIndexRoute,
+    legacyReportDetailRoute,
     notificationsRoute,
     inboxRoute,
     careersPageSettingsRoute,
@@ -707,11 +871,13 @@ const routeTree = rootRoute.addChildren([
     templatesDiversityQuestionsRoute,
     templatesInterviewScoringRoute,
     templatesDetailRoute,
+    rejectReasonsSettingsRoute,
     applicationPageSettingsIndexRoute,
     applicationPageSettingsCompatRoute,
     applicationPageSettingsRoute,
     jobListingsSettingsRoute,
     jobListingEditorCreateRoute,
+    hiringCompaniesRoute,
     jobListingEditorEditRoute,
     jobsListRoute,
     jobAuthoringCreateRoute,
@@ -724,6 +890,9 @@ const routeTree = rootRoute.addChildren([
     jobCvRejectRoute,
     jobScheduleRoute,
     jobOfferRoute,
+    candidateDatabaseRoute,
+    candidateDatabaseOldRoute,
+    candidateDatabaseNewRoute,
     ...candidateDetailRoutes,
     ...candidateScheduleRoutes,
     ...candidateOfferRoutes,

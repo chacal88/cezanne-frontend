@@ -37,6 +37,12 @@ Confirmed:
   - `r4-integrations-open-points.md`
   - `r4-reports-open-points.md`
   - `r4-billing-marketplace-open-points.md`
+- initial **R5** planning has started with:
+  - `r5-decision-register.md`
+  - `r5-master-plan.md`
+  - `r5-sysadmin-open-points.md`
+  - `r5-requisition-authoring-open-points.md`
+  - `r5-settings-and-token-open-points.md`
 
 ## Recommended reading order
 
@@ -80,6 +86,11 @@ Confirmed:
 27. `roadmap.md` + `modules.md` + `screens.md` — primary starting point for Candidate (`R2`) and later slices
 28. `r4-master-plan.md` — consolidated sequencing, dependencies, and first-change queue for `R4`
 29. `r4-*-open-points.md` — per-area decision registers before opening each `R4` change
+30. `r5-decision-register.md` — initial decision register for platform and long-tail planning before opening executable `R5` changes
+31. `r5-master-plan.md` — consolidated R5 sequencing and first OpenSpec queue
+32. `r5-sysadmin-open-points.md` — SysAdmin foundation, master-data, users, favorite-request, and taxonomy decisions
+33. `r5-requisition-authoring-open-points.md` — requisition authoring and hiring-flow workflow boundary decisions
+34. `r5-settings-and-token-open-points.md` — settings leftovers, public/token leftovers, and integration token reconciliation decisions
 
 ## Package roles
 
@@ -110,6 +121,11 @@ Confirmed:
 | `r0-code-closeout-checklist.md` | records the executable closeout evidence for R0 |
 | `r0-route-registration-plan.md` | defines the minimum R0 route-registration contract |
 | `conventions.md` | defines implementation conventions and default patterns |
+| `r5-decision-register.md` | records R5 platform and long-tail decisions before executable planning starts |
+| `r5-master-plan.md` | consolidates R5 sequencing, dependencies, and first OpenSpec queue |
+| `r5-sysadmin-open-points.md` | records SysAdmin open decisions before R5 platform implementation starts |
+| `r5-requisition-authoring-open-points.md` | records requisition authoring and hiring-flow workflow open decisions before R5 implementation starts |
+| `r5-settings-and-token-open-points.md` | records settings leftovers, public/token leftovers, and integration token reconciliation decisions before R5 implementation starts |
 
 ## Source relationship
 

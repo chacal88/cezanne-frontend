@@ -18,6 +18,10 @@ export type RouteMetadata = {
   module: string;
   directEntry: 'full' | 'shell-aware' | 'scoped';
   parentTarget?: string;
+  routeFamily?: string;
+  requiredCapability?: string;
+  fallbackTarget?: string;
+  implementationState?: 'foundation-placeholder' | 'implemented';
 };
 
 export type RouteMatch = {
@@ -84,6 +88,15 @@ export const routeMetadataRegistry = {
   '/dashboard': { routeId: routeIds.dashboard, routeClass: routeClasses.page, domain: 'dashboard', module: 'home', directEntry: 'full' },
   '/notifications': { routeId: routeIds.notifications, routeClass: routeClasses.page, domain: 'shell', module: 'notifications', directEntry: 'full' },
   '/inbox': { routeId: routeIds.inbox, routeClass: routeClasses.pageWithStatefulUrl, domain: 'inbox', module: 'conversation-list', directEntry: 'full' },
+  '/integrations': { routeId: routeIds.integrationsAdminIndex, routeClass: routeClasses.page, domain: 'integrations', module: 'provider-index', directEntry: 'full', requiredCapability: 'canViewIntegrations', fallbackTarget: '/dashboard', implementationState: 'foundation-placeholder' },
+  '/integrations/$providerId': { routeId: routeIds.integrationsAdminDetail, routeClass: routeClasses.page, domain: 'integrations', module: 'provider-detail', directEntry: 'full', parentTarget: '/integrations', requiredCapability: 'canManageIntegrationProvider', fallbackTarget: '/integrations', implementationState: 'foundation-placeholder' },
+  '/team': { routeId: routeIds.orgTeamIndex, routeClass: routeClasses.page, domain: 'team', module: 'org-team', directEntry: 'full', requiredCapability: 'canViewOrgTeam', fallbackTarget: '/dashboard', implementationState: 'foundation-placeholder' },
+  '/team/recruiters': { routeId: routeIds.orgRecruiterVisibility, routeClass: routeClasses.page, domain: 'team', module: 'recruiter-visibility', directEntry: 'full', parentTarget: '/team', requiredCapability: 'canViewRecruiterVisibility', fallbackTarget: '/dashboard', implementationState: 'foundation-placeholder' },
+  '/users/invite': { routeId: routeIds.orgInviteFoundation, routeClass: routeClasses.taskFlow, domain: 'team', module: 'invite-foundation', directEntry: 'full', parentTarget: '/team', requiredCapability: 'canManageOrgInvites', fallbackTarget: '/dashboard', implementationState: 'foundation-placeholder' },
+  '/report': { routeId: routeIds.reportsIndex, routeClass: routeClasses.page, domain: 'reports', module: 'report-index', directEntry: 'full', requiredCapability: 'canViewReports', fallbackTarget: '/dashboard', implementationState: 'foundation-placeholder' },
+  '/report/$family': { routeId: routeIds.reportsFamily, routeClass: routeClasses.page, domain: 'reports', module: 'report-family-pages', directEntry: 'full', parentTarget: '/report', requiredCapability: 'canViewReportFamily', fallbackTarget: '/report', implementationState: 'foundation-placeholder' },
+  '/hiring-company/report': { routeId: routeIds.reportsLegacyCompat, routeClass: routeClasses.page, domain: 'reports', module: 'report-index', directEntry: 'full', parentTarget: '/report', requiredCapability: 'canViewReports', fallbackTarget: '/report', implementationState: 'foundation-placeholder' },
+  '/hiring-company/report/$reportId': { routeId: routeIds.reportsLegacyCompat, routeClass: routeClasses.page, domain: 'reports', module: 'report-index', directEntry: 'full', parentTarget: '/report', requiredCapability: 'canViewReports', fallbackTarget: '/report', implementationState: 'foundation-placeholder' },
   '/settings/careers-page': { routeId: routeIds.careersPageSettings, routeClass: routeClasses.page, domain: 'settings', module: 'careers-application', directEntry: 'full' },
   '/settings/hiring-flow': { routeId: routeIds.operationalSettingsHiringFlow, routeClass: routeClasses.page, domain: 'settings', module: 'hiring-flow', directEntry: 'full' },
   '/settings/custom-fields': { routeId: routeIds.operationalSettingsCustomFields, routeClass: routeClasses.page, domain: 'settings', module: 'custom-fields', directEntry: 'full' },
@@ -92,6 +105,7 @@ export const routeMetadataRegistry = {
   '/templates/diversity-questions': { routeId: routeIds.templatesDiversityQuestions, routeClass: routeClasses.page, domain: 'settings', module: 'templates', directEntry: 'full', parentTarget: '/templates' },
   '/templates/interview-scoring': { routeId: routeIds.templatesInterviewScoring, routeClass: routeClasses.page, domain: 'settings', module: 'templates', directEntry: 'full', parentTarget: '/templates' },
   '/templates/$templateId': { routeId: routeIds.templatesDetail, routeClass: routeClasses.page, domain: 'settings', module: 'templates', directEntry: 'full', parentTarget: '/templates' },
+  '/reject-reasons': { routeId: routeIds.operationalSettingsRejectReasons, routeClass: routeClasses.page, domain: 'settings', module: 'reject-reasons', directEntry: 'full' },
   '/settings/application-page': { routeId: routeIds.applicationPageSettings, routeClass: routeClasses.pageWithStatefulUrl, domain: 'settings', module: 'careers-application', directEntry: 'full' },
   '/settings/application-page/$settingsId': { routeId: routeIds.applicationPageSettings, routeClass: routeClasses.pageWithStatefulUrl, domain: 'settings', module: 'careers-application', directEntry: 'full' },
   '/settings/application-page/$settingsId/$section': { routeId: routeIds.applicationPageSettings, routeClass: routeClasses.pageWithStatefulUrl, domain: 'settings', module: 'careers-application', directEntry: 'full' },
@@ -99,6 +113,10 @@ export const routeMetadataRegistry = {
   '/settings/job-listings': { routeId: routeIds.jobListingsSettings, routeClass: routeClasses.pageWithStatefulUrl, domain: 'settings', module: 'careers-application', directEntry: 'full' },
   '/settings/job-listings/edit': { routeId: routeIds.jobListingEditor, routeClass: routeClasses.page, domain: 'settings', module: 'careers-application', directEntry: 'full', parentTarget: '/settings/job-listings' },
   '/settings/job-listings/edit/$uuid': { routeId: routeIds.jobListingEditor, routeClass: routeClasses.page, domain: 'settings', module: 'careers-application', directEntry: 'full', parentTarget: '/settings/job-listings' },
+  '/hiring-companies': { routeId: routeIds.platformHiringCompanies, routeClass: routeClasses.page, domain: 'sysadmin', module: 'master-data', directEntry: 'full', routeFamily: 'master-data', requiredCapability: 'canManageHiringCompanies', fallbackTarget: '/dashboard', implementationState: 'foundation-placeholder' },
+  '/candidates-database': { routeId: routeIds.candidateDatabase, routeClass: routeClasses.pageWithStatefulUrl, domain: 'candidates', module: 'database-search', directEntry: 'full', requiredCapability: 'canViewCandidateDatabase', fallbackTarget: '/dashboard', implementationState: 'foundation-placeholder' },
+  '/candidates-old': { routeId: routeIds.candidateDatabaseCompat, routeClass: routeClasses.pageWithStatefulUrl, domain: 'candidates', module: 'database-search', directEntry: 'full', parentTarget: '/candidates-database', requiredCapability: 'canViewCandidateDatabase', fallbackTarget: '/dashboard', implementationState: 'foundation-placeholder' },
+  '/candidates-new': { routeId: routeIds.candidateDatabaseCompat, routeClass: routeClasses.pageWithStatefulUrl, domain: 'candidates', module: 'database-search', directEntry: 'full', parentTarget: '/candidates-database', requiredCapability: 'canViewCandidateDatabase', fallbackTarget: '/dashboard', implementationState: 'foundation-placeholder' },
   '/jobs/$scope': { routeId: routeIds.jobsList, routeClass: routeClasses.pageWithStatefulUrl, domain: 'jobs', module: 'list', directEntry: 'full' },
   '/jobs/manage': { routeId: routeIds.jobAuthoringCreate, routeClass: routeClasses.page, domain: 'jobs', module: 'authoring', directEntry: 'full', parentTarget: '/jobs/open' },
   '/jobs/manage/$jobId': { routeId: routeIds.jobAuthoringEdit, routeClass: routeClasses.page, domain: 'jobs', module: 'authoring', directEntry: 'full', parentTarget: '/job/$jobId' },

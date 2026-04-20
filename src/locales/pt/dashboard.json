@@ -1,6 +1,14 @@
 {
   "home": {
-    "title": "Dashboard",
-    "detail": "Landing page do shell no R0 registrada como rota `Page`."
+    "title": "Painel",
+    "detail": "Página inicial do shell R0 registrada como rota `Page`."
+  },
+  "platform": {
+    "eyebrow": "Modo de plataforma",
+    "title": "Administração da plataforma",
+    "detail": "A entrada SysAdmin da plataforma usa /dashboard enquanto as famílias de rotas de plataforma são implementadas.",
+    "masterData": "Dados mestres: empresas contratantes, agências de recrutamento e assinaturas",
+    "usersAndRequests": "Usuários e solicitações: usuários da plataforma e fila de solicitações de favoritos",
+    "taxonomy": "Taxonomia: setores e subsetores"
   }
 }

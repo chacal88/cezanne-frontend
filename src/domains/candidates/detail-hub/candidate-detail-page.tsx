@@ -11,7 +11,7 @@ import type { CandidateContextSegments, CandidateDegradedSection, CandidateDetai
 import { buildCandidateActionPath, parseCandidateContextFromPathname, parseCandidateDetailSearchFromUrl } from '../support/routing';
 import { getCandidateRecord, subscribeCandidateStore, uploadCandidateCv } from '../support/store';
 
-function buildCandidateDetailView(context: CandidateContextSegments, degradedSections: CandidateDegradedSection[], entry: 'direct' | 'job' | 'notification', capabilities: ReturnType<typeof useCapabilities>): CandidateDetailView {
+function buildCandidateDetailView(context: CandidateContextSegments, degradedSections: CandidateDegradedSection[], entry: 'direct' | 'job' | 'notification' | 'database', capabilities: ReturnType<typeof useCapabilities>, databaseReturnTarget?: string): CandidateDetailView {
   const record = getCandidateRecord(context.candidateId);
   const resolvedDegradedSections: CandidateDegradedSection[] = record.id === 'candidate-degraded' && !degradedSections.includes('contracts')
     ? [...degradedSections, 'contracts']
@@ -43,9 +43,10 @@ function buildCandidateDetailView(context: CandidateContextSegments, degradedSec
       : undefined,
     workflowState: {
       entryMode: entry,
-      sequenceState: sequence.state,
-      previousCandidatePath: sequence.state === 'available' ? sequence.previousCandidatePath : undefined,
-      nextCandidatePath: sequence.state === 'available' ? sequence.nextCandidatePath : undefined,
+      databaseReturnTarget,
+      sequenceState: entry === 'database' ? 'unavailable' : sequence.state,
+      previousCandidatePath: entry !== 'database' && sequence.state === 'available' ? sequence.previousCandidatePath : undefined,
+      nextCandidatePath: entry !== 'database' && sequence.state === 'available' ? sequence.nextCandidatePath : undefined,
     },
     comments: record.comments,
     formsSummary: {
@@ -94,8 +95,8 @@ export function CandidateDetailRoutePage() {
   const storeSnapshot = useSyncExternalStore(subscribeCandidateStore, () => getCandidateRecord(context.candidateId), () => getCandidateRecord(context.candidateId));
 
   const view = useMemo(
-    () => buildCandidateDetailView(context, search.degrade, search.entry, capabilities),
-    [capabilities, context, search.degrade, search.entry, storeSnapshot],
+    () => buildCandidateDetailView(context, search.degrade, search.entry, capabilities, search.returnTo),
+    [capabilities, context, search.degrade, search.entry, search.returnTo, storeSnapshot],
   );
 
   useEffect(() => {
@@ -113,6 +114,9 @@ export function CandidateDetailRoutePage() {
       },
     });
   }, [search.entry, view.candidateSummary.candidateId, view.jobContext?.jobId, view.workflowState.entryMode]);
+
+  const currentDetailTarget = `${location.pathname}${window.location.search}`;
+  const candidateActionSearch = search.entry === 'database' ? `?entry=database&parent=${encodeURIComponent(currentDetailTarget)}` : '';
 
   function handleUpload() {
     setActiveCorrelationId(createCorrelationId());
@@ -148,6 +152,12 @@ export function CandidateDetailRoutePage() {
       <p data-testid="candidate-detail-headline">{view.candidateSummary.headline}</p>
       <p data-testid="candidate-detail-job">{view.jobContext?.jobId ?? '—'}</p>
       <p data-testid="candidate-detail-sequence-state">{view.workflowState.sequenceState}</p>
+      <p data-testid="candidate-database-return-target">{view.workflowState.databaseReturnTarget ?? '—'}</p>
+      {view.workflowState.databaseReturnTarget ? (
+        <a href={view.workflowState.databaseReturnTarget} data-testid="candidate-database-return-link">
+          Return to candidate database
+        </a>
+      ) : null}
       <div style={{ display: 'flex', gap: 12 }}>
         {view.workflowState.previousCandidatePath ? (
           <a href={view.workflowState.previousCandidatePath} data-testid="candidate-prev-link" onClick={() => trackSequence('candidate_sequence_previous')}>
@@ -162,17 +172,17 @@ export function CandidateDetailRoutePage() {
       </div>
       <div style={{ display: 'flex', gap: 12, marginTop: 12 }}>
         {view.availableActions.schedule ? (
-          <a href={buildCandidateActionPath('schedule', context, view.candidateSummary.cvId)} data-testid="candidate-open-schedule-link">
+          <a href={`${buildCandidateActionPath('schedule', context, view.candidateSummary.cvId)}${candidateActionSearch}`} data-testid="candidate-open-schedule-link">
             Open schedule flow
           </a>
         ) : null}
         {view.availableActions.offer ? (
-          <a href={buildCandidateActionPath('offer', context, view.candidateSummary.cvId)} data-testid="candidate-open-offer-link">
+          <a href={`${buildCandidateActionPath('offer', context, view.candidateSummary.cvId)}${candidateActionSearch}`} data-testid="candidate-open-offer-link">
             Open offer flow
           </a>
         ) : null}
         {view.availableActions.reject ? (
-          <a href={buildCandidateActionPath('reject', context, view.candidateSummary.cvId)} data-testid="candidate-open-reject-link">
+          <a href={`${buildCandidateActionPath('reject', context, view.candidateSummary.cvId)}${candidateActionSearch}`} data-testid="candidate-open-reject-link">
             Open reject flow
           </a>
         ) : null}

@@ -196,3 +196,40 @@ No additional `R4` execution package should open until:
 - its ownership is explicit in `domains.md` or a dedicated open-points doc
 - its capability contract is explicit in `capabilities.md`
 - its return/refresh behavior is explicit when the area introduces stateful pages, overlays, or task flows
+
+## R4.2 candidate database foundation implementation checkpoint
+
+The `r4-candidate-database-contract-foundation` implementation freezes the first candidate database baseline:
+- `/candidates-database` is the canonical candidate database route.
+- `/candidates-old` and `/candidates-new` remain compatibility entries that normalize back to `/candidates-database`.
+- URL-owned state is limited and explicit: `query`, `page`, `sort`, `order`, `stage`, and comma-separated `tags`; invalid values degrade to stable defaults.
+- Candidate detail opened from candidate database uses `entry=database` and a sanitized `returnTo` pointing back to `/candidates-database`.
+- Candidate task routes preserve the database-origin detail URL through the explicit `parent` parameter.
+
+## R4.4 integrations shell implementation checkpoint
+
+The `r4-integrations-shell` implementation freezes the integrations admin foundation:
+- `/integrations` is the internal integrations admin index.
+- `/integrations/:id` is the internal provider detail route and uses `/integrations` as its parent-index fallback.
+- Internal admin setup remains separate from public/token `/integration/*` callback routes.
+- Provider state is explicit: `connected`, `disconnected`, `degraded`, `reauth_required`, and `unavailable`.
+- Provider actions are categorized by concern: `configuration`, `auth`, and `diagnostics`; later provider-family slices must consume this shell/state model instead of redefining status handling.
+
+## R4.5 reports foundation implementation checkpoint
+
+The `r4-reports-foundation` implementation freezes the shared report baseline:
+- `/report` is the canonical report index shell.
+- `/report/:family` is the canonical report family route contract for jobs, hiring-process, teams, candidates, diversity, and source.
+- `/hiring-company/report/:id?` remains explicit compatibility behavior and maps into the new report shell instead of becoming the canonical surface.
+- Shared filters are `period`, `owner`, and `team`; invalid/missing state degrades to stable defaults.
+- Shared result states include loading, empty, denied, error, and data-ready.
+- Export and scheduling use one family-aware command contract with visible availability/success/failure states.
+
+## R4.3 org team/users foundation implementation checkpoint
+
+The `r4-team-users-foundation` implementation freezes the first org-scoped team/users baseline:
+- `/team` is the org team foundation index.
+- `/team/recruiters` is the org-scoped recruiter visibility foundation.
+- `/users/invite` is an org invite foundation placeholder for follow-on invite/membership work.
+- These routes require org-admin context and fall back to `/dashboard`; they do not grant Platform navigation or platform user-management capabilities.
+- Route-heavy `/users*` CRUD and platform favorite-request queues remain outside this R4 foundation and stay reserved for later platform/R5 or dedicated follow-on slices.

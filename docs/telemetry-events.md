@@ -161,6 +161,28 @@ Only add extra fields if they are relevant to the event.
 | `requisition_approval_token_state_resolved` | requisition approval resolved to a token-state outcome after concurrent consumption | `decision`, `tokenState` |
 | `requisition_approval_workflow_drift` | requisition approval resolved to workflow drift instead of generic failure | `decision` |
 
+
+### 9. SysAdmin platform foundation
+
+| Event | Meaning | Typical extra fields |
+|---|---|---|
+| `platform_route_entry_attempted` | platform route direct entry or navigation was attempted | `targetRouteId`, `platformRouteFamily`, `outcome` |
+| `platform_route_denied` | platform route was denied by access or context | `targetRouteId`, `platformRouteFamily`, `denyReason` |
+| `platform_fallback_used` | platform route entry fell back to dashboard | `targetRouteId`, `fallbackTarget`, `fallbackMode` |
+| `platform_nav_group_exposed` | a Platform navigation group became visible | `navGroup` |
+| `platform_placeholder_viewed` | a foundation placeholder route rendered before route-heavy implementation | `targetRouteId`, `platformRouteFamily` |
+
 ## Event taxonomy rule
 
 New events must be added here before they become part of the default product instrumentation contract.
+
+## R5 SysAdmin foundation event payload contract
+
+| Event | Trigger | Required safe payload |
+|---|---|---|
+| `platform_route_entry` | SysAdmin enters `/dashboard` platform mode or a platform placeholder route | `routeId`, `routeFamily`, `capabilityOutcome`; optional `mode` or implementation state |
+| `platform_route_denied` | authenticated user lacks the platform route capability | `routeId`, `routeFamily`, `capability`, `capabilityOutcome`, `fallbackOutcome` |
+| `platform_fallback_used` | denied platform route resolves to `/dashboard` | `targetRouteId`, `fallbackTarget`, `fallbackMode` |
+| `platform_nav_group_exposed` | a Platform child group is visible in shell navigation | `navGroup`, optional `implementationState` |
+
+These events must not include tenant-sensitive identifiers. Platform mutation success/failure events remain reserved for later route-heavy SysAdmin slices.

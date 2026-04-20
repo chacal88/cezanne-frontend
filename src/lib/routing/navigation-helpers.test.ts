@@ -28,3 +28,16 @@ describe('navigation helpers', () => {
     expect(buildCloseTarget('/not-registered')).toBe('/dashboard');
   });
 });
+
+it('preserves explicit database-origin candidate detail parents for task routes', () => {
+  const pathname = '/candidate/candidate-123/cv/cv-123/offer';
+  const explicitParent = '/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database%3Fquery%3Dalex%26page%3D2';
+
+  expect(buildCloseTarget(pathname, '/dashboard', explicitParent)).toBe(explicitParent);
+});
+
+
+it('resolves report family routes to the report index fallback', () => {
+  expect(buildCloseTarget('/report/jobs')).toBe('/report');
+  expect(buildCloseTarget('/hiring-company/report/jobs')).toBe('/report');
+});

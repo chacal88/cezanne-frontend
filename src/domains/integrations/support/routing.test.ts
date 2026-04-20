@@ -17,5 +17,11 @@ describe('integration token routing', () => {
     expect(matchRouteMetadata('/integration/forms/valid-token')?.metadata.routeId).toBe('integrations.token-entry.forms');
     expect(matchRouteMetadata('/integration/job/valid-token')?.metadata.routeId).toBe('integrations.token-entry.job');
     expect(matchRouteMetadata('/integration/job/valid-token/preview')?.metadata.routeId).toBe('integrations.token-entry.job');
+    expect(matchRouteMetadata('/integrations')?.metadata).toMatchObject({ routeId: 'integrations.admin.index', requiredCapability: 'canViewIntegrations' });
+    expect(matchRouteMetadata('/integrations/lever')?.metadata).toMatchObject({ routeId: 'integrations.admin.detail', parentTarget: '/integrations', requiredCapability: 'canManageIntegrationProvider' });
+    expect(matchRouteMetadata('/team/recruiters')?.metadata).toMatchObject({ routeId: 'team.org.recruiter-visibility', parentTarget: '/team', requiredCapability: 'canViewRecruiterVisibility' });
+    expect(matchRouteMetadata('/users/invite')?.metadata).toMatchObject({ routeId: 'team.org.invite-foundation', parentTarget: '/team', requiredCapability: 'canManageOrgInvites' });
+    expect(matchRouteMetadata('/report/jobs')?.metadata).toMatchObject({ routeId: 'reports.family', parentTarget: '/report', requiredCapability: 'canViewReportFamily' });
+    expect(matchRouteMetadata('/hiring-company/report/jobs')?.metadata).toMatchObject({ routeId: 'reports.legacy.compat', parentTarget: '/report', requiredCapability: 'canViewReports' });
   });
 });

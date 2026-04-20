@@ -7,9 +7,10 @@ import type {
   CandidateRouteSearch,
   CandidateTaskSearch,
 } from './models';
+import { sanitizeCandidateDatabaseReturnTarget } from './candidate-database-routing';
 
 const degradedSectionValues = ['documents', 'contracts', 'surveys', 'custom-fields', 'collaboration', 'feedback'] as const;
-const entryModeValues = ['direct', 'job', 'notification'] as const;
+const entryModeValues = ['direct', 'job', 'notification', 'database'] as const;
 
 export function buildCandidateDetailPath(context: CandidateContextSegments): string {
   return ['/candidate', context.candidateId, context.jobId, context.status, context.order, context.filters, context.interview]
@@ -47,7 +48,9 @@ export function validateCandidateDetailSearch(search: Record<string, unknown>): 
           .filter((value): value is CandidateDegradedSection => (degradedSectionValues as readonly string[]).includes(value))
       : [];
 
-  return { entry, degrade };
+  const returnTo = entry === 'database' ? sanitizeCandidateDatabaseReturnTarget(search.returnTo) : undefined;
+
+  return { entry, degrade, returnTo };
 }
 
 export function validateCandidateTaskSearch(search: Record<string, unknown>): CandidateTaskSearch {

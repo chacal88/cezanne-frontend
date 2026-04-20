@@ -1,4 +1,4 @@
-export type CandidateRouteEntryMode = 'direct' | 'job' | 'notification';
+export type CandidateRouteEntryMode = 'direct' | 'job' | 'notification' | 'database';
 export type CandidateActionKind = 'schedule' | 'offer' | 'reject';
 export type CandidateDegradedSection = 'documents' | 'contracts' | 'surveys' | 'custom-fields' | 'collaboration' | 'feedback';
 
@@ -14,6 +14,7 @@ export type CandidateContextSegments = {
 export type CandidateRouteSearch = {
   entry: CandidateRouteEntryMode;
   degrade: CandidateDegradedSection[];
+  returnTo?: string;
 };
 
 export type CandidateTaskSearch = {
@@ -53,6 +54,7 @@ export type CandidateDetailView = {
   };
   workflowState: {
     entryMode: CandidateRouteEntryMode;
+    databaseReturnTarget?: string;
     sequenceState: 'available' | 'stale' | 'unavailable';
     previousCandidatePath?: string;
     nextCandidatePath?: string;

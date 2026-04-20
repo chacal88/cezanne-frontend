@@ -5,6 +5,13 @@
     "inbox": "Inbox",
     "jobs": "Jobs"
   },
+  "platformNavigation": {
+    "label": "Platform",
+    "masterData": "Master data",
+    "usersAndRequests": "Users and requests",
+    "taxonomy": "Taxonomy",
+    "unavailable": "Routes unavailable until the owning R5 slice ships."
+  },
   "authenticatedShell": {
     "title": "Recruit shell"
   },

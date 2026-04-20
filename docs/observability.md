@@ -209,6 +209,20 @@ Do not manually capture:
 - every validation error field by default
 - low-value UI interactions with no operational significance
 
+
+## SysAdmin platform observability rules
+
+The R5 SysAdmin foundation must capture:
+- platform route-entry attempts by route id, route family, and outcome
+- platform denied-route outcomes without tenant-sensitive identifiers
+- platform navigation exposure by group, not by raw session payload
+- fallback from denied platform routes to `/dashboard`
+
+Foundation scope:
+- `/hiring-companies` may emit placeholder/foundation-state telemetry before full platform master-data implementation exists
+- platform mutation success/failure event names are reserved for later route-heavy SysAdmin slices
+- SysAdmin notification workflows are not introduced by the foundation
+
 ## Anti-patterns
 
 Do not:
@@ -244,3 +258,13 @@ The current implementation now includes requisition-approval route instrumentati
 - workflow-drift recovery
 
 This keeps `/job-requisition-approval?token` inside the same public/external observability boundary as the existing public token routes while preserving correlation-aware request reuse for approve/reject submissions.
+
+## Implemented R5 SysAdmin foundation telemetry boundary
+
+The foundation emits/defines safe platform observability points for:
+- platform dashboard route entry;
+- platform placeholder route entry;
+- denied platform route fallback to `/dashboard`;
+- Platform navigation group exposure.
+
+Payloads are limited to route id, route family/nav group, capability outcome, fallback outcome, implementation state, and mode. Tenant-sensitive identifiers, organization ids, and raw session/user objects are not part of the foundation telemetry payload.

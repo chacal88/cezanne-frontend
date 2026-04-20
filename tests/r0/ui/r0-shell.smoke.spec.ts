@@ -289,3 +289,126 @@ test('integration job callback supports normalized direct entry and expired toke
     await expect(page.getByTestId('integration-job-token-state')).toHaveText('expired');
 });
 
+
+test('SysAdmin platform foundation renders dashboard mode and platform placeholder fallback contract', async ({page}) => {
+    await page.addInitScript(() => {
+        window.localStorage.setItem('recruit.accessContextOverride', JSON.stringify({
+            organizationType: 'none',
+            isAdmin: true,
+            isSysAdmin: true,
+            pivotEntitlements: [],
+            subscriptionCapabilities: [],
+            rolloutFlags: [],
+        }));
+    });
+
+    await page.goto('/dashboard');
+    await expect(page.getByRole('heading', {name: 'Platform administration'})).toBeVisible();
+    await expect(page.getByTestId('platform-nav-master-data')).toBeVisible();
+    await expect(page.getByTestId('platform-nav-users-and-requests')).toBeVisible();
+    await expect(page.getByTestId('platform-nav-taxonomy')).toBeVisible();
+
+    await page.goto('/hiring-companies');
+    await expect(page.getByRole('heading', {name: 'Hiring companies unavailable'})).toBeVisible();
+    await expect(page.getByTestId('platform-placeholder-state')).toHaveText('foundation-placeholder');
+});
+
+test('authenticated non-SysAdmin platform placeholder entry falls back to dashboard', async ({page}) => {
+    await page.goto('/hiring-companies');
+
+    await expect(page).toHaveURL(/\/dashboard$/);
+    await expect(page.getByRole('heading', {name: 'Dashboard'})).toBeVisible();
+    await expect(page.getByRole('heading', {name: 'Platform administration'})).not.toBeVisible();
+});
+
+test('candidate database restores URL state and preserves database-origin detail return', async ({page}) => {
+    await page.goto('/candidates-database?query=alex&page=2&sort=name&order=asc&stage=screening&tags=remote,senior');
+
+    await expect(page.getByRole('heading', {name: 'Candidate database'})).toBeVisible();
+    await expect(page.getByTestId('candidate-database-query')).toHaveText('alex');
+    await expect(page.getByTestId('candidate-database-page')).toHaveText('2');
+    await expect(page.getByTestId('candidate-database-sort')).toHaveText('name');
+    await expect(page.getByTestId('candidate-database-order')).toHaveText('asc');
+    await expect(page.getByTestId('candidate-database-stage')).toHaveText('screening');
+    await expect(page.getByTestId('candidate-database-tags')).toHaveText('remote,senior');
+
+    await page.getByTestId('candidate-database-detail-link').click();
+    await expect(page.getByRole('heading', {name: 'Candidate hub'})).toBeVisible();
+    await expect(page.getByTestId('candidate-detail-entry')).toHaveText('database');
+    await expect(page.getByTestId('candidate-database-return-target')).toHaveText('/candidates-database?query=alex&page=2&sort=name&order=asc&stage=screening&tags=remote%2Csenior');
+
+    await page.getByTestId('candidate-open-offer-link').click();
+    await expect(page.getByTestId('candidate-task-entry')).toHaveText('database');
+    await page.getByTestId('candidate-task-close-link').click();
+    await expect(page.getByTestId('candidate-detail-entry')).toHaveText('database');
+    await page.getByTestId('candidate-database-return-link').click();
+    await expect(page).toHaveURL(/\/candidates-database\?query=alex&page=2&sort=name&order=asc&stage=screening&tags=remote%2Csenior$/);
+});
+
+test('integrations admin shell supports direct entry, provider state, and parent-index fallback', async ({page}) => {
+    await page.goto('/integrations');
+
+    await expect(page.getByRole('heading', {name: 'Integrations'})).toBeVisible();
+    await expect(page.getByTestId('integration-provider-state-lever')).toHaveText('degraded');
+
+    await page.getByTestId('integration-provider-link-lever').click();
+    await expect(page).toHaveURL(/\/integrations\/lever$/);
+    await expect(page.getByRole('heading', {name: 'Lever'})).toBeVisible();
+    await expect(page.getByTestId('integration-provider-state')).toHaveText('degraded');
+    await expect(page.getByTestId('integration-provider-action-run_diagnostics')).toContainText('Run diagnostics');
+    await expect(page.getByTestId('integration-provider-action-concern-run_diagnostics')).toHaveText('diagnostics');
+
+    await page.getByTestId('integration-provider-parent-link').click();
+    await expect(page).toHaveURL(/\/integrations$/);
+    await expect(page.getByRole('heading', {name: 'Integrations'})).toBeVisible();
+
+    await page.goto('/integrations/unknown-provider');
+    await expect(page.getByTestId('integration-provider-state')).toHaveText('unavailable');
+    await page.getByTestId('integration-provider-parent-link').click();
+    await expect(page).toHaveURL(/\/integrations$/);
+});
+
+test('reports shell supports direct entry, family fallback, export, and scheduling states', async ({page}) => {
+    await page.goto('/report');
+    await expect(page.getByRole('heading', {name: 'Reports'})).toBeVisible();
+
+    await page.getByTestId('report-family-link-jobs').click();
+    await expect(page).toHaveURL(/\/report\/jobs$/);
+    await expect(page.getByRole('heading', {name: 'Jobs report'})).toBeVisible();
+    await expect(page.getByTestId('report-result-state')).toHaveText('data-ready');
+    await expect(page.getByTestId('report-export-state')).toHaveText('available');
+    await expect(page.getByTestId('report-schedule-state')).toHaveText('available');
+
+    await page.getByTestId('report-export-button').click();
+    await expect(page.getByTestId('report-command-export-state')).toHaveText('success');
+    await page.getByTestId('report-schedule-button').click();
+    await expect(page.getByTestId('report-command-schedule-state')).toHaveText('success');
+
+    await page.getByTestId('report-parent-link').click();
+    await expect(page).toHaveURL(/\/report$/);
+
+    await page.goto('/report/diversity?period=empty&owner=alex');
+    await expect(page.getByRole('heading', {name: 'Diversity report'})).toBeVisible();
+    await expect(page.getByTestId('report-result-state')).toHaveText('empty');
+    await expect(page.getByTestId('report-schedule-state')).toHaveText('unavailable');
+
+    await page.goto('/hiring-company/report/hiring-process');
+    await expect(page).toHaveURL(/\/report\/hiring-process$/);
+});
+
+test('org team foundation stays recruiter-core scoped and exposes invite/recruiter visibility placeholders', async ({page}) => {
+    await page.goto('/team');
+    await expect(page.getByRole('heading', {name: 'Team'})).toBeVisible();
+    await expect(page.getByTestId('org-team-route-kind')).toHaveText('team-index');
+    await expect(page.getByTestId('org-team-platform-scope')).toHaveText('false');
+
+    await page.getByTestId('org-team-recruiters-link').click();
+    await expect(page).toHaveURL(/\/team\/recruiters$/);
+    await expect(page.getByRole('heading', {name: 'Recruiter visibility'})).toBeVisible();
+    await expect(page.getByTestId('org-team-route-kind')).toHaveText('recruiter-visibility');
+
+    await page.getByTestId('org-team-invite-link').click();
+    await expect(page).toHaveURL(/\/users\/invite$/);
+    await expect(page.getByRole('heading', {name: 'Invite foundation'})).toBeVisible();
+    await expect(page.getByTestId('org-team-pending-invite-count')).toHaveText('1');
+});

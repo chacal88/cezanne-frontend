@@ -29,3 +29,16 @@ This document records the unresolved boundary for `R4.3` team/users/favorites pl
 - `r4-invite-and-membership-management`
 - `r4-favorites-management`
 - `r4-favorite-requests`
+
+## Foundation decisions implemented
+
+The R4 team/users foundation resolves the first ownership boundary:
+- Org team index: `/team`.
+- Recruiter visibility: `/team/recruiters`.
+- Invite foundation: `/users/invite`.
+- Org team capabilities are `canViewOrgTeam`, `canViewRecruiterVisibility`, and `canManageOrgInvites`.
+- HC/RA org admins can enter the foundation routes; non-admins fall back to `/dashboard`.
+- Org team access does not grant Platform navigation or `canManagePlatformUsers`.
+- Route-heavy `/users*` CRUD remains out of this foundation and must be re-sliced explicitly if implemented outside R5 platform users.
+
+Recommended follow-on order now starts with `r4-invite-and-membership-management`, then `r4-favorites-management`.

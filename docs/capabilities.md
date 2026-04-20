@@ -86,7 +86,7 @@ Suggested fields:
 | `canOpenAccountArea` | Route access | authenticated identity + org context where applicable | user/company/agency profile | redirect to dashboard |
 | `canLogout` | Route access | authenticated session | logout | force signed-out state |
 | `canOpenShellOverlay` | Route access | authenticated identity | shell overlays | redirect to stable parent |
-| `canViewDashboard` | Route access | `hc OR ra` with sysadmin handoff rule | dashboard | redirect to platform or public entry |
+| `canViewDashboard` | Route access | `hc OR ra OR sysAdmin`; SysAdmin renders dashboard platform mode | dashboard | public entry when unauthenticated; `/dashboard` platform mode for platform fallbacks |
 | `canUseDashboardReentry` | Route access | dashboard availability + typed destination support | dashboard re-entry | redirect to dashboard default state |
 | `canViewInbox` | Route access | `hc OR ra` | inbox | redirect to dashboard |
 | `canOpenConversation` | Entity capability | inbox access + conversation context | inbox deep links, notifications | inbox route without selection or notifications |
@@ -146,7 +146,7 @@ Suggested fields:
 | `canManageHiringFlowSettings` | Action capability | `hc` + admin, requisition capabilities where applicable | hiring flow settings in `R4`, with `/requisition-workflows` remaining a later distinct route | hide subsection or dashboard fallback |
 | `canManageCustomFields` | Action capability | `hc` + admin + `customFieldsBeta` | custom-fields settings as an operational-settings subsection, with candidate/public custom-field usage treated as downstream dependency rather than route scope | hide subsection |
 | `canManageTemplates` | Action capability | `hc`, with admin-only and subtype-specific gates layered on smart questions, diversity questions, and interview scoring where applicable | templates family and template subsections as operational-settings subsections | hide subsection |
-| `canManageRejectReasons` | Action capability | `hc` + admin + `rejectionReason` | reject reasons as an operational-settings subsection | hide subsection |
+| `canManageRejectReasons` | Action capability | `hc` + admin + `rejectionReason` | reject reasons as an operational-settings subsection, with job/candidate reject flows treated as downstream consumers rather than route scope | hide subsection |
 | `canManageApiEndpoints` | Action capability | `hc` + admin | API endpoints settings | hide subsection |
 | `canManageFormsDocsSettings` | Action capability | `hc` + admin + `formsDocs` | forms/docs settings | hide subsection |
 | `canViewIntegrations` | Route access | `hc` + admin | integrations index | hide subsection or dashboard fallback |
@@ -161,12 +161,16 @@ Suggested fields:
 | `canManageSmsBilling` | Action capability | billing access + SMS commercial state | billing SMS flow | billing overview fallback |
 | `canManageBillingCard` | Action capability | billing access + card context | billing card overlay | billing overview fallback |
 | `canViewMarketplace` | Route access | `ra` | marketplace | hide nav or dashboard fallback |
-| `canManageHiringCompanies` | Route access | `sysAdmin` | sysadmin companies | platform dashboard fallback |
-| `canManageRecruitmentAgencies` | Route access | `sysAdmin` | sysadmin agencies | platform dashboard fallback |
-| `canManagePlatformSubscriptions` | Route access | `sysAdmin` | sysadmin subscriptions | platform dashboard fallback |
-| `canManageTaxonomy` | Route access | `sysAdmin` | sectors/subsectors | platform dashboard fallback |
-| `canManagePlatformUsers` | Route access | `sysAdmin` or org-admin user-management context | users | org/platform fallback |
-| `canManageFavoriteRequests` | Route access | `sysAdmin` or favorite entitlements depending on route | favorite requests | route-specific fallback |
+| `canViewPlatformNavigation` | Route access | `sysAdmin` plus at least one platform route capability | shell Platform navigation group | hide Platform group |
+| `canViewPlatformMasterDataNav` | Route access | `sysAdmin` plus `canManageHiringCompanies` or `canManageRecruitmentAgencies` or `canManagePlatformSubscriptions` | Platform / Master data nav group | hide nav group |
+| `canViewPlatformUsersAndRequestsNav` | Route access | `sysAdmin` plus platform-scoped `canManagePlatformUsers` or platform-scoped `canManageFavoriteRequests` | Platform / Users and requests nav group | hide nav group |
+| `canViewPlatformTaxonomyNav` | Route access | `sysAdmin` plus `canManageTaxonomy` | Platform / Taxonomy nav group | hide nav group |
+| `canManageHiringCompanies` | Route access | `sysAdmin` | sysadmin companies | `/dashboard` platform-mode fallback |
+| `canManageRecruitmentAgencies` | Route access | `sysAdmin` | sysadmin agencies | `/dashboard` platform-mode fallback |
+| `canManagePlatformSubscriptions` | Route access | `sysAdmin` | sysadmin subscriptions | `/dashboard` platform-mode fallback |
+| `canManageTaxonomy` | Route access | `sysAdmin` | sectors/subsectors | `/dashboard` platform-mode fallback |
+| `canManagePlatformUsers` | Route access | `sysAdmin` for platform user routes; org-admin user-management context remains a separate contract for org routes | users | org/platform fallback based on route ownership |
+| `canManageFavoriteRequests` | Route access | `sysAdmin` for `/favorites-request*`; org favorite entitlements remain a separate contract for `/favorites*` | favorite requests | route-specific fallback |
 
 ## Deny semantics
 
@@ -179,3 +183,47 @@ All denied decisions must resolve to one of four explicit outcomes:
 ## Planning rule
 
 A route is not ready for implementation unless its primary capability decisions are defined here or in a directly referenced extension to this catalog.
+
+## R5 SysAdmin foundation capability contract
+
+Implemented platform capabilities are platform-scoped, not org-scoped:
+- `canViewPlatformNavigation` requires a SysAdmin platform context plus at least one platform route-family capability.
+- `canViewPlatformMasterDataNav`, `canViewPlatformUsersAndRequestsNav`, and `canViewPlatformTaxonomyNav` gate the `Platform` child groups.
+- `canManageHiringCompanies`, `canManageRecruitmentAgencies`, `canManagePlatformSubscriptions`, `canManagePlatformUsers`, `canManageFavoriteRequests`, and `canManageTaxonomy` are granted only for the SysAdmin platform context in this foundation baseline.
+- Org-admin user-management access and org favorite access must not grant `Platform` navigation.
+- Denied platform-only route entry uses `/dashboard` as the authenticated fallback.
+
+## R4 candidate database implemented capability contract
+
+Candidate database access is now represented in source by:
+- `canViewCandidateDatabase`: route access for HC contexts with `seeCandidates`. Denied direct entry falls back to `/dashboard`.
+- `canSearchCandidates`: search action capability derived from candidate database route access in the foundation baseline. Later advanced search slices may further distinguish boolean/tag search affordances without changing the base route gate.
+
+RA contexts and HC contexts without `seeCandidates` do not receive candidate database access.
+
+## R4 integrations admin implemented capability contract
+
+Integrations admin access is now represented in source by:
+- `canViewIntegrations`: route access for HC admin contexts to `/integrations`.
+- `canManageIntegrationProvider`: provider detail/action access derived from integrations admin access in the foundation baseline.
+
+Denied direct entry falls back to `/dashboard` for the shell route gate. Provider detail itself preserves `/integrations` as the parent-index return target.
+
+## R4 reports implemented capability contract
+
+Reports access is now represented in source by:
+- `canViewReports`: HC admin route access for `/report` and legacy compatibility entries.
+- `canViewReportFamily`: family route access for `/report/:family`, falling back to `/report`.
+- `canExportReport`: shared export command capability in the foundation baseline.
+- `canScheduleReport`: shared scheduling command capability in the foundation baseline.
+
+Family-specific entitlement and beta decisions can narrow these capabilities in later report-family slices without replacing the shared command contract.
+
+## R4 org team/users implemented capability contract
+
+Org team/users access is now represented in source by:
+- `canViewOrgTeam`: HC/RA org-admin access to `/team`.
+- `canViewRecruiterVisibility`: recruiter visibility access derived from org team access.
+- `canManageOrgInvites`: invite foundation access derived from org team access.
+
+These capabilities do not grant `canViewPlatformNavigation` or `canManagePlatformUsers`; platform user administration remains separate.

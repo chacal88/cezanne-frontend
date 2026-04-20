@@ -1,0 +1,11 @@
+{
+  "foundation": {
+    "eyebrow": "Platform foundation placeholder",
+    "routeIdLabel": "Route id",
+    "stateLabel": "Implementation state",
+    "hiringCompanies": {
+      "title": "Hiring companies unavailable",
+      "detail": "This foundation route proves SysAdmin platform fallback and metadata before company CRUD ships."
+    }
+  }
+}
