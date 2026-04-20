@@ -75,4 +75,10 @@ export type Capabilities = {
   canViewOrgTeam: boolean;
   canViewRecruiterVisibility: boolean;
   canManageOrgInvites: boolean;
+  canViewOrgFavorites: boolean;
+  canViewBilling: boolean;
+  canUpgradeSubscription: boolean;
+  canManageSmsBilling: boolean;
+  canManageBillingCard: boolean;
+  canViewMarketplace: boolean;
 };

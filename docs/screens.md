@@ -174,11 +174,11 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/users/edit/:id` | Page | sysadmin | users | HC Admin, RA Admin, SysAdmin | `canManagePlatformUsers` | `admin` and org or platform context | Admin-managed edit page. | M | R5 |
 | `/users/new` | Page | sysadmin | users | HC Admin, RA Admin, SysAdmin | `canManagePlatformUsers` | `admin` and org or platform context | Admin-managed create page. | M | R5 |
 | `/users/:id` | Page | sysadmin | users | HC Admin, RA Admin, SysAdmin | `canManagePlatformUsers` | `admin` and org or platform context | Admin-managed view page. | M | R5 |
-| `/users/invite` | TaskFlow | sysadmin | users | HC Admin, RA Admin | `canManagePlatformUsers` | org admin context | Invite flow should remain distinct from token acceptance. | M | R4 |
+| `/users/invite` | TaskFlow | team | invite-management | HC Admin, RA Admin | `canManageOrgInvites` | org admin context | Org-scoped invite send/resend/revoke and membership readiness surface; consumes `/team` and remains distinct from platform `/users*` CRUD and token acceptance. | M | R4 |
 | `/users/invite-token` | Public/Token | auth | token-flows | Public | `canUseAuthTokenFlow` | valid invite token | Public acceptance side of invite flow. | M | R0 |
-| `/favorites` | Page | sysadmin | favorite-requests | HC User, HC Admin, RA User, RA Admin, contextual SysAdmin | `canManageFavoriteRequests` or org favorite capability | `seeFavorites`, `recruiters`, or `ra` | Access is entitlement-heavy and not pure sysadmin. | L | R4 |
-| `/favorites/:id` | Page | sysadmin | favorite-requests | HC User, HC Admin, RA User, RA Admin, contextual SysAdmin | `canManageFavoriteRequests` or org favorite capability | `seeFavorites`, `recruiters`, or `ra` | Detail page for favorite grouping/request handling. | L | R4 |
-| `/favorites/request/:id?` | TaskFlow | sysadmin | favorite-requests | HC User, HC Admin, RA User, RA Admin | `canManageFavoriteRequests` or org favorite capability | favorite-request entitlement context | Task-style request flow. | L | R4 |
+| `/favorites` | Page | favorites | org-favorites | HC User, HC Admin, RA User, RA Admin | `canViewOrgFavorites` | `seeFavorites`, `recruiters`, or `ra` | Org-scoped favorites list with personal, org-shared, recruiter-linked, empty, and unavailable states; separate from platform favorite-request queues. | L | R4 |
+| `/favorites/:id` | Page | favorites | org-favorites | HC User, HC Admin, RA User, RA Admin | `canViewOrgFavorites` | `seeFavorites`, `recruiters`, or `ra` | Org-scoped favorite detail with unavailable state and `/favorites` return target. | L | R4 |
+| `/favorites/request/:id?` | TaskFlow | favorites | org-favorite-requests | HC User, HC Admin, RA User, RA Admin | `canViewOrgFavorites` | favorite-request entitlement context | Org-scoped favorite request task flow with draft/submitted/pending/approved/rejected/unavailable states; separate from platform `/favorites-request*` queues. | L | R4 |
 | `/favorites-request` | Page | sysadmin | favorite-requests | SysAdmin | `canManageFavoriteRequests` | `sysAdmin` | Platform-admin request queue. | L | R5 |
 | `/favorites-request/:id` | Page | sysadmin | favorite-requests | SysAdmin | `canManageFavoriteRequests` | `sysAdmin` | Platform-admin detail page. | L | R5 |
 | `/recruiters` | Page | settings | agency-settings | HC User, HC Admin | `canManageAgencySettings` or recruiter-visibility capability | `hc`, `seeRecruiters`, `recruiters` | Entitlement-heavy team/recruiter area. | L | R4 |
@@ -280,6 +280,52 @@ The internal integrations admin route family now distinguishes `/integrations` f
 
 Reports now use `/report` as the canonical index and `/report/:family` as the canonical family route. `/hiring-company/report/:id?` is compatibility behavior and maps into the shared report shell. Report families render through shared filter/result state and shared export/scheduling command states.
 
+Billing now uses `/billing` as the canonical HC-admin overview, `/billing/upgrade` as the upgrade task flow, `/billing/sms` as the SMS add-on task flow, and `/billing/card/:id` as the billing-owned card flow. These routes render commercial-state readiness without granting Platform navigation or platform subscription administration.
+
 ## R4 org team/users implemented route contract
 
-Org team/users foundation routes are now separated from platform user CRUD: `/team` owns the org team foundation, `/team/recruiters` owns recruiter visibility, and `/users/invite` is an org invite foundation placeholder. These routes are org-admin scoped and do not grant Platform navigation or platform user-management.
+Org team/users routes are now separated from platform user CRUD: `/team` owns the org team foundation, `/team/recruiters` owns recruiter visibility, and `/users/invite` is an org invite-management compatibility path under the team domain. These routes are org-admin scoped and do not grant Platform navigation or platform user-management.
+
+`/users/invite` now consumes `/team`, `canManageOrgInvites`, and recruiter-core fallback for deterministic invite send/resend/revoke plus membership role/status readiness states. Route-heavy `/users`, `/users/new`, `/users/edit/:id`, and `/users/:id` remain out of this R4 slice.
+
+## R4 org favorites implemented route contract
+
+Favorites routes are now separated from platform favorite-request queues: `/favorites` owns the org favorites list and `/favorites/:id` owns org favorite detail. These routes use `canViewOrgFavorites`, fall back to `/dashboard` when denied, and do not grant Platform navigation or `canManageFavoriteRequests`.
+
+Favorites state models cover personal, org-shared, recruiter-linked, empty, and unavailable cases. `/favorites/request/:id?` and `/favorites-request*` remain out of this slice for explicit favorite-request follow-on work.
+
+## R4 org favorite requests implemented route contract
+
+Org favorite request task-flow routes are now separated from platform queues: `/favorites/request` starts a request and `/favorites/request/:id` opens request state. These routes use `canViewOrgFavorites`, return to `/favorites`, fall back to `/dashboard` when denied, and do not grant `canManageFavoriteRequests`.
+
+Request state models cover draft, submitted, pending, approved, rejected, and unavailable cases with deterministic submit, cancel, and resubmit action readiness. Platform `/favorites-request` and `/favorites-request/:id` remain out of this R4 org task-flow slice.
+
+## R4 billing foundation implemented route contract
+
+Billing routes are separated from SysAdmin subscription administration: `/billing`, `/billing/upgrade`, `/billing/sms`, and `/billing/card/:id` are HC-admin billing routes. Billing overview falls back to `/dashboard` when denied; billing action and card routes use `/billing` as parent/fallback.
+
+Billing foundation state models cover ready, hidden, unavailable, upgrade action readiness, SMS action readiness, and card detail/unavailable states. Platform `/subscriptions*` and `/hiring-company/:id/subscription` remain out of this R4 billing foundation.
+
+## R4 payment method and card-state implemented route contract
+
+Payment-method/card behavior remains inside the billing card route family. `/billing/card/:id` now models primary, backup, expired, missing, add-new (`/billing/card/new`), and unavailable card states. Card actions expose deterministic edit, remove, and make-default readiness while preserving `/billing` as parent/fallback.
+
+These card states do not introduce payment processor persistence or SysAdmin subscription behavior; they are HC-admin billing readiness states for later card, upgrade, and SMS follow-ons.
+
+## R4 subscription upgrade and plan-change implemented route contract
+
+Subscription upgrade behavior remains inside `/billing/upgrade`. The upgrade flow now models current plan, target plan, plan catalog, same-plan blocked state, card-blocked state, confirmation, submitted, success, and failure readiness. Upgrade state consumes payment-method readiness and uses `/billing` as parent/fallback.
+
+These upgrade states do not add billing persistence, checkout, invoices, or SysAdmin subscription administration. Platform `/subscriptions*` and `/hiring-company/:id/subscription` remain outside the R4 HC-admin billing flow.
+
+## R4 SMS add-on implemented route contract
+
+SMS add-on behavior remains inside `/billing/sms`. The SMS flow now models unavailable, inactive, trial, active, suspended, usage-warning, and card-blocked states, plus deterministic enable, disable, and update-limit action readiness. SMS state consumes billing/card readiness and uses `/billing` as parent/fallback.
+
+These SMS states do not add SMS provider configuration, message sending, billing persistence, or SysAdmin subscription administration.
+
+## R4 marketplace RA implemented route contract
+
+Marketplace now uses `/jobmarket/:type` as the RA-owned `PageWithStatefulUrl` route family. Supported marketplace types are `fill`, `bidding`, `cvs`, and `assigned`; unknown types render a stable unavailable state.
+
+Marketplace state models cover ready, empty, and unavailable list states. Marketplace access is RA-scoped through `canViewMarketplace` and does not grant billing, HC-admin, or platform administration capabilities.

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document records the planning boundary for `R4.1` before the operational settings foundation and its follow-on slices move into implementation.
+This document records the R4.1 operational settings closeout boundary after the foundation and follow-on slices moved into implementation.
 
 ## Confirmed baseline
 
@@ -33,11 +33,16 @@ This document records the planning boundary for `R4.1` before the operational se
 - `/parameters/:settings_id?/:section?/:subsection?` only resolves, redirects, or denies at subsection level; it does not become a feature surface of its own.
 - Save behavior stays inside the active subsection after recoverable failure and exposes explicit retry semantics instead of bouncing back to a generic settings landing page.
 
-## Still open
+## R4 closeout status
 
-- how much subsection registry logic lives in `settings-container` versus each route-owning settings slice
-- the minimum reusable admin form/workflow abstraction needed before implementation
-- whether some settings save/retry helpers should be shared with later integrations/billing flows
+Resolved by the R4 operational settings slices:
+- subsection registry logic lives in the shared operational settings substrate, while each route-owning slice keeps its own capability gate, route metadata, and page behavior;
+- the reusable admin workflow baseline is the operational settings readiness/save/retry/stable-outcome contract implemented by hiring flow, custom fields, templates, and reject reasons;
+- integrations and billing reuse the same planning vocabulary for readiness and retry states, but they keep domain-specific helpers instead of sharing settings-only form internals.
+
+Intentionally deferred beyond R4:
+- closed inventory and completion of any remaining `/parameters` subsections; this is tracked by R5 settings leftovers.
+- full requisition workflow administration under `/requisition-workflows`; this stays in R5 requisition/settings planning rather than the R4 hiring-flow settings slice.
 
 ## First change from this area
 

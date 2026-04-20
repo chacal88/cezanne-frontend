@@ -162,5 +162,38 @@ Integrations admin navigation now follows these rules:
 Org team/users navigation now follows these rules:
 - `/team`, `/team/recruiters`, and `/users/invite` support direct entry for eligible org admins.
 - Denied org team route entry falls back to `/dashboard`.
-- Recruiter visibility and invite foundation remain recruiter-core/org scoped, not platform scoped.
+- Recruiter visibility and invite management remain recruiter-core/org scoped, not platform scoped.
+- `/users/invite` presents org-scoped invite send/resend/revoke and membership readiness while keeping `/team` as parent target and `/dashboard` as denied fallback.
 - Follow-on invite/membership and favorites slices should preserve `/team` as the parent foundation context.
+
+## Implemented R4 org favorites fallback behavior
+
+Org favorites navigation now follows these rules:
+- `/favorites` and `/favorites/:id` support direct entry for eligible org users.
+- Denied favorites route entry falls back to `/dashboard`.
+- Favorite detail uses `/favorites` as the parent return target.
+- Org favorites do not route through `/favorites-request*` or the platform favorite-request queue.
+
+## Implemented R4 org favorite request fallback behavior
+
+Org favorite request navigation now follows these rules:
+- `/favorites/request` and `/favorites/request/:id` support direct entry for eligible org favorite users.
+- Denied request route entry falls back to `/dashboard`.
+- Request create/detail routes use `/favorites` as the parent return target.
+- Unknown request ids render an unavailable task-flow state instead of redirecting to `/favorites-request*`.
+
+## Implemented R4 billing fallback behavior
+
+Billing navigation now follows these rules:
+- `/billing` supports direct entry for eligible HC admins and falls back to `/dashboard` when denied.
+- `/billing/upgrade`, `/billing/sms`, and `/billing/card/:id` use `/billing` as parent and fallback.
+- Unknown billing cards render an unavailable billing-card state instead of redirecting to platform subscription administration.
+- Billing routes do not route through `/subscriptions*` or SysAdmin company subscription routes.
+
+## Implemented R4 marketplace RA fallback behavior
+
+Marketplace navigation now follows these rules:
+- `/jobmarket/:type` supports direct entry for eligible RA users/admins.
+- Denied marketplace route entry falls back to `/dashboard`.
+- Supported types are `fill`, `bidding`, `cvs`, and `assigned`.
+- Unknown types render an unavailable marketplace state instead of redirecting to billing, HC-admin, or platform routes.

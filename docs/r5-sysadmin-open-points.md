@@ -140,21 +140,21 @@ Must define:
 
 ### S5 — Platform users versus org users
 
-**Status:** Open
+**Status:** Accepted boundary; route-heavy details remain open
 
-**Decision needed:** Split platform user management from org-admin user management.
+**Decision:** Split platform user management from org-admin user management.
 
 Current evidence:
 - `/users` includes HC Admin, RA Admin, and SysAdmin personas in `screens.md`.
 - `capabilities.md` allows `canManagePlatformUsers` through `sysAdmin` or org-admin user-management context.
-- `r4-team-and-favorites-open-points.md` marks this split as unresolved.
+- R4 team/invite/membership closeout keeps `/team`, `/team/recruiters`, and `/users/invite` org-scoped and explicitly separate from platform user CRUD.
 
-Recommendation:
-- treat platform user management and org user management as separate contracts.
-- keep platform-scoped user administration in `sysadmin.users` for R5.
-- keep org invite/membership behavior in the R4 team/users boundary unless explicitly promoted.
+Accepted boundary:
+- platform-scoped user administration belongs to `sysadmin.users` for R5.
+- org invite/membership behavior stays in the R4 team/users boundary unless explicitly promoted by a future change.
+- `canManagePlatformUsers` must not be granted by R4 org invite, membership, or recruiter visibility behavior.
 
-Must define:
+Still must define for the platform users slice:
 - which `/users` URLs are platform-owned in R5.
 - whether org-admin `/users` access remains a compatibility path or moves to a separate future route family.
 - distinct fallback behavior for org-admin and SysAdmin denial.
@@ -175,20 +175,21 @@ Must define:
 
 ### S7 — Favorite-request queue versus org favorites
 
-**Status:** Open
+**Status:** Accepted boundary; queue details remain open
 
-**Decision needed:** Split platform favorite-request queue behavior from org/user favorite behavior.
+**Decision:** Split platform favorite-request queue behavior from org/user favorite behavior.
 
 Current evidence:
 - `/favorites*` routes are R4 and entitlement-heavy.
-- `/favorites-request*` routes are R5 SysAdmin routes.
-- `r4-team-and-favorites-open-points.md` marks favorites ownership as unresolved.
+- `/favorites/request*` task flows are R4 org-scoped favorite request behavior.
+- `/favorites-request*` routes are R5 SysAdmin platform queue routes.
+- R4 favorites/request closeout freezes personal, org-shared, recruiter-linked, and org request task-flow states outside the platform queue.
 
-Recommendation:
-- keep `/favorites-request` and `/favorites-request/:id` as platform-admin request queue routes.
-- keep org-scoped `/favorites*` behavior outside R5 SysAdmin unless explicitly re-sliced.
+Accepted boundary:
+- `/favorites-request` and `/favorites-request/:id` are platform-admin request queue routes.
+- org-scoped `/favorites*` and `/favorites/request*` behavior stays outside R5 SysAdmin unless explicitly re-sliced.
 
-Must define:
+Still must define for the platform queue slice:
 - whether platform queue can act on org/user favorite requests.
 - route states for pending, resolved, rejected, stale, or inaccessible requests.
 - action success/failure behavior.

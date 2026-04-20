@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document records the planning boundary for `R4.2` candidate database work before implementation starts.
+This document records the R4.2 candidate database closeout boundary after the route, URL-state, and detail-handoff foundation moved into implementation.
 
 ## Confirmed baseline
 
@@ -17,11 +17,21 @@ This document records the planning boundary for `R4.2` candidate database work b
 3. the database → detail handoff contract
 4. degraded behavior when list state or return context becomes stale
 
-## Still open
+## R4 closeout status
 
-- whether sequence navigation exists in a database context or degrades explicitly
-- how much of bulk action behavior belongs in the first candidate database implementation wave
-- the minimum advanced-search/boolean-search contract that must ship in the first database slice
+Resolved by the R4 candidate database foundation:
+- database-origin sequence navigation degrades explicitly instead of reusing job-pipeline previous/next behavior;
+- the first R4 slice is a route, URL-state, and detail-handoff foundation, not a full database product implementation;
+- the baseline preserves `query`, paging, sorting, stage, and tag URL state without freezing advanced boolean-search semantics.
+
+Intentionally deferred beyond R4:
+- advanced search and boolean-query builders;
+- bulk actions from database results;
+- database-specific sequence behavior beyond explicit degradation;
+- deeper list UI/data integration and API-backed result behavior.
+
+R5 sync:
+- no R5 package currently owns these candidate-database product depths; they should be opened as a dedicated later candidate database slice if needed.
 
 ## First change from this area
 

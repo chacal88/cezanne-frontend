@@ -34,7 +34,8 @@ Confirmed:
 Current executable-package status:
 - the first executable OpenSpec package, `r5-sysadmin-foundation`, exists and validates strictly.
 - route-heavy R5 packages are not open yet.
-- several ownership boundaries remain open, especially `/users`, favorite requests, settings leftovers, and tokenized integration leftovers.
+- R4 now closes the org/platform split for team/users/favorites: org invite, membership, `/favorites*`, and `/favorites/request*` stay recruiter-core, while platform `/users*` and `/favorites-request*` remain R5 SysAdmin scope.
+- several route-heavy details remain open, especially platform user CRUD behavior, platform favorite-request queue actions, settings leftovers, and tokenized integration leftovers.
 
 ## Decision statuses
 
@@ -77,11 +78,11 @@ Use these statuses until each decision is promoted into an OpenSpec package:
 
 ### D3 — Separate platform user management from org user management
 
-**Status:** Proposed
+**Status:** Accepted
 
 **Decision:** Treat platform user management and org-admin user management as separate contracts, even if some legacy URLs remain shared or compatibility-routed.
 
-**Rationale:** `/users` currently mixes HC Admin, RA Admin, and SysAdmin use cases. The R4 team/favorites notes already identify this as an unresolved boundary. A single undifferentiated `/users` implementation would blur capability rules and fallback behavior.
+**Rationale:** `/users` currently mixes HC Admin, RA Admin, and SysAdmin use cases. R4 resolved the org-scoped side by keeping `/users/invite` and membership readiness in the team boundary while leaving route-heavy platform `/users*` CRUD to R5. A single undifferentiated `/users` implementation would blur capability rules and fallback behavior.
 
 **Implications:**
 - platform-scoped user administration belongs to `sysadmin.users`.
@@ -90,11 +91,11 @@ Use these statuses until each decision is promoted into an OpenSpec package:
 
 ### D4 — Split favorite ownership from platform favorite-request queues
 
-**Status:** Proposed
+**Status:** Accepted
 
 **Decision:** Keep org/user favorite behavior separate from the platform-level favorite-request queue.
 
-**Rationale:** The screen inventory distinguishes `/favorites*` from `/favorites-request*`, but the open R4 notes still call out favorite ownership as unresolved. R5 should only own the platform queue unless the R5 master plan explicitly moves additional favorite surfaces into the release.
+**Rationale:** The screen inventory distinguishes `/favorites*` from `/favorites-request*`, and R4 now resolves org-scoped favorites plus `/favorites/request*` task flows. R5 should only own the platform queue unless the R5 master plan explicitly moves additional favorite surfaces into the release.
 
 **Implications:**
 - `/favorites-request` and `/favorites-request/:id` are platform-admin surfaces.
@@ -225,14 +226,18 @@ Use these statuses until each decision is promoted into an OpenSpec package:
 
 Resolve these before opening route-heavy implementation work:
 
-1. D3 — platform vs org user management split.
-2. D4 — favorite ownership and platform favorite-request queue boundary.
-3. D8 — inventory of remaining `/parameters` subsections.
-4. D10 — status of tokenized integration entries.
-5. D11 — public/token contract for requisition forms/download.
+1. D8 — inventory of remaining `/parameters` subsections.
+2. D10 — status of tokenized integration entries.
+3. D11 — public/token contract for requisition forms/download.
 
-Resolved for foundation:
+Resolved for foundation and R4/R5 sync:
 - D2 — SysAdmin foundation contract is now represented by the valid `r5-sysadmin-foundation` OpenSpec package.
+- D3 — platform and org user-management split is accepted after R4 org team/invite/membership closeout.
+- D4 — org favorites and platform favorite-request queue split is accepted after R4 favorites/request closeout.
+
+Still open inside later route-heavy packages:
+- platform user list/create/edit/view route behavior.
+- platform favorite-request queue states and actions.
 
 ## Created planning artifacts
 

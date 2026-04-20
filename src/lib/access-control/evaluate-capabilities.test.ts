@@ -128,6 +128,78 @@ describe('evaluateCapabilities', () => {
     expect(hcUser.canViewOrgTeam).toBe(false);
   });
 
+  it('gates org favorites without granting platform favorite request queues', () => {
+    const hcWithFavorites = evaluateCapabilities(buildAccessContext({
+      organizationType: 'hc',
+      isAdmin: false,
+      isSysAdmin: false,
+      pivotEntitlements: ['seeFavorites'],
+    }));
+    const hcWithRecruiters = evaluateCapabilities(buildAccessContext({
+      organizationType: 'hc',
+      isAdmin: false,
+      isSysAdmin: false,
+      pivotEntitlements: ['recruiters'],
+    }));
+    const raUser = evaluateCapabilities(buildAccessContext({ organizationType: 'ra', isAdmin: false, isSysAdmin: false }));
+    const hcWithoutFavorites = evaluateCapabilities(buildAccessContext({
+      organizationType: 'hc',
+      isAdmin: false,
+      isSysAdmin: false,
+      pivotEntitlements: [],
+    }));
+    const platformAdmin = evaluateCapabilities(buildAccessContext({ organizationType: 'none', isSysAdmin: true }));
+
+    expect(hcWithFavorites.canViewOrgFavorites).toBe(true);
+    expect(hcWithFavorites.canManageFavoriteRequests).toBe(false);
+    expect(hcWithFavorites.canViewPlatformNavigation).toBe(false);
+    expect(hcWithRecruiters.canViewOrgFavorites).toBe(true);
+    expect(raUser.canViewOrgFavorites).toBe(true);
+    expect(hcWithoutFavorites.canViewOrgFavorites).toBe(false);
+    expect(platformAdmin.canViewOrgFavorites).toBe(false);
+    expect(platformAdmin.canManageFavoriteRequests).toBe(true);
+  });
+
+  it('gates billing on hiring-company admin context without granting platform subscriptions', () => {
+    const hcAdmin = evaluateCapabilities(buildAccessContext({ organizationType: 'hc', isAdmin: true, isSysAdmin: false }));
+    const hiddenBilling = evaluateCapabilities(buildAccessContext({
+      organizationType: 'hc',
+      isAdmin: true,
+      isSysAdmin: false,
+      rolloutFlags: ['billingHidden'],
+    }));
+    const hcUser = evaluateCapabilities(buildAccessContext({ organizationType: 'hc', isAdmin: false, isSysAdmin: false }));
+    const raAdmin = evaluateCapabilities(buildAccessContext({ organizationType: 'ra', isAdmin: true, isSysAdmin: false }));
+    const platformAdmin = evaluateCapabilities(buildAccessContext({ organizationType: 'none', isSysAdmin: true }));
+
+    expect(hcAdmin.canViewBilling).toBe(true);
+    expect(hcAdmin.canUpgradeSubscription).toBe(true);
+    expect(hcAdmin.canManageSmsBilling).toBe(true);
+    expect(hcAdmin.canManageBillingCard).toBe(true);
+    expect(hcAdmin.canViewPlatformNavigation).toBe(false);
+    expect(hcAdmin.canManagePlatformSubscriptions).toBe(false);
+    expect(hiddenBilling.canViewBilling).toBe(false);
+    expect(hcUser.canViewBilling).toBe(false);
+    expect(raAdmin.canViewBilling).toBe(false);
+    expect(platformAdmin.canViewBilling).toBe(false);
+    expect(platformAdmin.canManagePlatformSubscriptions).toBe(true);
+  });
+
+  it('gates marketplace on RA context without granting billing or platform capabilities', () => {
+    const raUser = evaluateCapabilities(buildAccessContext({ organizationType: 'ra', isAdmin: false, isSysAdmin: false }));
+    const raAdmin = evaluateCapabilities(buildAccessContext({ organizationType: 'ra', isAdmin: true, isSysAdmin: false }));
+    const hcAdmin = evaluateCapabilities(buildAccessContext({ organizationType: 'hc', isAdmin: true, isSysAdmin: false }));
+    const platformAdmin = evaluateCapabilities(buildAccessContext({ organizationType: 'none', isSysAdmin: true }));
+
+    expect(raUser.canViewMarketplace).toBe(true);
+    expect(raUser.canViewBilling).toBe(false);
+    expect(raUser.canViewPlatformNavigation).toBe(false);
+    expect(raAdmin.canViewMarketplace).toBe(true);
+    expect(hcAdmin.canViewMarketplace).toBe(false);
+    expect(platformAdmin.canViewMarketplace).toBe(false);
+    expect(platformAdmin.canViewPlatformNavigation).toBe(true);
+  });
+
   it('gates reports on hiring-company admin context', () => {
     const hcAdmin = evaluateCapabilities(buildAccessContext({ organizationType: 'hc', isAdmin: true }));
     const hcUser = evaluateCapabilities(buildAccessContext({ organizationType: 'hc', isAdmin: false }));

@@ -47,6 +47,13 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
   const canViewIntegrations = canEnterShell && context.organizationType === 'hc' && context.isAdmin;
   const canViewReports = canEnterShell && context.organizationType === 'hc' && context.isAdmin;
   const canViewOrgTeam = canEnterShell && (context.organizationType === 'hc' || context.organizationType === 'ra') && context.isAdmin;
+  const canViewBilling = canEnterShell && context.organizationType === 'hc' && context.isAdmin && !hasRolloutFlag(context, 'billingHidden');
+  const canViewMarketplace = canEnterShell && context.organizationType === 'ra';
+  const canViewOrgFavorites = canUseOrgSurface && (
+    context.organizationType === 'ra'
+    || hasPivotEntitlement(context, 'seeFavorites')
+    || hasPivotEntitlement(context, 'recruiters')
+  );
 
   return {
     canEnterShell,
@@ -113,5 +120,11 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
     canViewOrgTeam,
     canViewRecruiterVisibility: canViewOrgTeam,
     canManageOrgInvites: canViewOrgTeam,
+    canViewOrgFavorites,
+    canViewBilling,
+    canUpgradeSubscription: canViewBilling,
+    canManageSmsBilling: canViewBilling,
+    canManageBillingCard: canViewBilling,
+    canViewMarketplace,
   };
 }

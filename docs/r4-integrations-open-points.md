@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document records the planning boundary for `R4.4` integrations setup.
+This document records the R4.4 integrations closeout boundary after the authenticated admin shell moved into implementation.
 
 ## Confirmed baseline
 
@@ -25,11 +25,21 @@ This document records the planning boundary for `R4.4` integrations setup.
    - diagnostics/health
 4. family-level planning for HRIS, job boards, and other provider types
 
-## Still open
+## R4 closeout status
 
-- whether provider detail remains page-like or becomes a routed overlay over the integrations index
-- which family should become the first functional integrations slice after the shell
-- how much diagnostics behavior belongs in the first provider shell versus a dedicated later slice
+Resolved by the R4 integrations shell:
+- provider detail is a page-like route at `/integrations/:id` with `/integrations` as its parent-index fallback;
+- the R4 shell freezes provider states and action taxonomy, but does not select a first functional provider family;
+- diagnostics are represented as provider actions in the shell and reserved for provider-specific implementation depth.
+
+Intentionally deferred beyond R4:
+- provider-specific setup flows;
+- auth and reauth execution beyond route/action modeling;
+- diagnostics execution, logs, and health checks;
+- job-board and HRIS workflow implementations.
+
+R5 sync:
+- R5 only keeps integration token leftovers as conditional scope after reconciliation; authenticated provider setup depth remains outside R5 unless a new provider-specific change is opened.
 
 ## First change from this area
 

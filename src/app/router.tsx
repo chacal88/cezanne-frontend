@@ -26,6 +26,9 @@ import { RequisitionApprovalPage, validateRequisitionApprovalSearch } from '../d
 import { IntegrationCvTokenEntryPage, IntegrationFormsTokenEntryPage, IntegrationJobTokenEntryPage, IntegrationProviderDetailPage, IntegrationsIndexPage } from '../domains/integrations';
 import { LegacyReportCompatibilityPage, ReportFamilyPage, ReportsIndexPage, isReportFamily } from '../domains/reports';
 import { OrgInviteFoundationPage, OrgRecruiterVisibilityPage, OrgTeamIndexPage } from '../domains/team';
+import { OrgFavoriteDetailPage, OrgFavoriteRequestPage, OrgFavoritesIndexPage } from '../domains/favorites';
+import { BillingCardPage, BillingOverviewPage, BillingSmsPage, BillingUpgradePage } from '../domains/billing';
+import { MarketplaceListPage } from '../domains/marketplace';
 import { UserProfileShellOverlay } from '../shell/account/user-profile-overlay';
 import { observability } from './observability';
 import {
@@ -293,6 +296,108 @@ const orgInviteFoundationRoute = createRoute({
       <OrgInviteFoundationPage />
     </AccessBoundary>
   ),
+});
+
+const orgFavoritesIndexRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/favorites',
+  component: () => (
+    <AccessBoundary capability="canViewOrgFavorites" fallback={dashboardFallback}>
+      <OrgFavoritesIndexPage />
+    </AccessBoundary>
+  ),
+});
+
+const orgFavoriteDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/favorites/$favoriteId',
+  component: () => {
+    const { favoriteId } = orgFavoriteDetailRoute.useParams();
+    return (
+      <AccessBoundary capability="canViewOrgFavorites" fallback={dashboardFallback}>
+        <OrgFavoriteDetailPage favoriteId={favoriteId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const orgFavoriteRequestCreateRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/favorites/request',
+  component: () => (
+    <AccessBoundary capability="canViewOrgFavorites" fallback={dashboardFallback}>
+      <OrgFavoriteRequestPage />
+    </AccessBoundary>
+  ),
+});
+
+const orgFavoriteRequestDetailRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/favorites/request/$requestId',
+  component: () => {
+    const { requestId } = orgFavoriteRequestDetailRoute.useParams();
+    return (
+      <AccessBoundary capability="canViewOrgFavorites" fallback={dashboardFallback}>
+        <OrgFavoriteRequestPage requestId={requestId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const billingOverviewRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/billing',
+  component: () => (
+    <AccessBoundary capability="canViewBilling" fallback={dashboardFallback}>
+      <BillingOverviewPage />
+    </AccessBoundary>
+  ),
+});
+
+const billingUpgradeRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/billing/upgrade',
+  component: () => (
+    <AccessBoundary capability="canUpgradeSubscription" fallback={<Navigate to="/billing" replace />}>
+      <BillingUpgradePage />
+    </AccessBoundary>
+  ),
+});
+
+const billingSmsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/billing/sms',
+  component: () => (
+    <AccessBoundary capability="canManageSmsBilling" fallback={<Navigate to="/billing" replace />}>
+      <BillingSmsPage />
+    </AccessBoundary>
+  ),
+});
+
+const billingCardRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/billing/card/$cardId',
+  component: () => {
+    const { cardId } = billingCardRoute.useParams();
+    return (
+      <AccessBoundary capability="canManageBillingCard" fallback={<Navigate to="/billing" replace />}>
+        <BillingCardPage cardId={cardId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const marketplaceListRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/jobmarket/$type',
+  component: () => {
+    const { type } = marketplaceListRoute.useParams();
+    return (
+      <AccessBoundary capability="canViewMarketplace" fallback={dashboardFallback}>
+        <MarketplaceListPage type={type} />
+      </AccessBoundary>
+    );
+  },
 });
 
 const reportsIndexRoute = createRoute({
@@ -857,6 +962,15 @@ const routeTree = rootRoute.addChildren([
     orgTeamIndexRoute,
     orgRecruitersRoute,
     orgInviteFoundationRoute,
+    orgFavoritesIndexRoute,
+    orgFavoriteRequestCreateRoute,
+    orgFavoriteRequestDetailRoute,
+    orgFavoriteDetailRoute,
+    billingOverviewRoute,
+    billingUpgradeRoute,
+    billingSmsRoute,
+    billingCardRoute,
+    marketplaceListRoute,
     reportsIndexRoute,
     reportFamilyRoute,
     legacyReportIndexRoute,

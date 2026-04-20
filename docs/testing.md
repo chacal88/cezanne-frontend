@@ -195,3 +195,55 @@ Org team/users foundation validation includes:
 - Route metadata coverage for `/team/recruiters` and `/users/invite`.
 - Browser smoke coverage for org team direct entry, recruiter visibility, invite foundation, and non-platform scope proof.
 - HTTP smoke coverage for `/team`, `/team/recruiters`, and `/users/invite`.
+
+Org invite and membership-management validation additionally includes:
+- Vitest coverage for deterministic invite send, resend, revoke, pending, success, and blocked action states.
+- Vitest coverage for org team membership role/status action readiness without requiring `canManagePlatformUsers`.
+- Route metadata proof that `/users/invite` uses the `team` domain, `invite-management` module, `/team` parent target, `canManageOrgInvites`, and `/dashboard` fallback.
+
+## R4 org favorites validation baseline
+
+Org favorites validation includes:
+- Vitest coverage for org favorites capability gating without granting Platform navigation or `canManageFavoriteRequests`.
+- Route metadata coverage for `/favorites` and `/favorites/:id`.
+- Vitest coverage for personal, org-shared, recruiter-linked, empty, and unavailable favorite states.
+- Detail-state proof that unknown favorites return to `/favorites` instead of a platform request queue.
+
+## R4 org favorite requests validation baseline
+
+Org favorite request validation includes:
+- Route metadata coverage for `/favorites/request` and `/favorites/request/:id`.
+- Vitest coverage for draft, submitted, pending, approved, rejected, and unavailable request states.
+- Vitest coverage for submit, cancel, and resubmit action readiness.
+- Platform queue separation proof that org request routes use `/favorites` as parent and never require `canManageFavoriteRequests`.
+
+## R4 billing foundation validation baseline
+
+Billing foundation validation includes:
+- Vitest coverage for billing capability gating without granting Platform navigation or `canManagePlatformSubscriptions`.
+- Route metadata coverage for `/billing`, `/billing/upgrade`, `/billing/sms`, and `/billing/card/:id`.
+- Vitest coverage for ready, hidden, unavailable, action-readiness, and card unavailable commercial states.
+- Platform subscription separation proof that billing routes do not require SysAdmin subscription capabilities.
+
+Payment-method/card validation additionally includes:
+- Vitest coverage for primary, backup, expired, missing, add-new, and unavailable card states.
+- Vitest coverage for edit, remove, and make-default readiness.
+- Route metadata proof that card management stays under `/billing/card/:id` with `/billing` as parent and `canManageBillingCard` as the gate.
+
+Subscription upgrade validation additionally includes:
+- Vitest coverage for current plan, target plan, catalog, same-plan, card-blocked, confirmation, submitted, success, and failure states.
+- Vitest coverage for plan-change action readiness consuming card readiness.
+- Platform subscription separation proof that upgrade behavior stays under `/billing/upgrade` and never requires `canManagePlatformSubscriptions`.
+
+SMS add-on validation additionally includes:
+- Vitest coverage for unavailable, inactive, trial, active, suspended, usage-warning, and card-blocked states.
+- Vitest coverage for enable, disable, and update-limit readiness consuming card readiness.
+- Platform subscription separation proof that SMS behavior stays under `/billing/sms` and never requires `canManagePlatformSubscriptions`.
+
+## R4 marketplace RA validation baseline
+
+Marketplace RA validation includes:
+- Vitest coverage for RA capability gating without granting billing or Platform navigation.
+- Route metadata coverage for `/jobmarket/:type`.
+- Vitest coverage for fill, bidding, cvs, assigned, empty, and unavailable list states.
+- Billing/platform separation proof that marketplace behavior stays under `canViewMarketplace`.

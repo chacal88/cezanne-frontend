@@ -29,7 +29,7 @@ Confirmed:
   - provider integration callbacks
   - careers/application/job-listings settings
 - the previously open provider integration callback family is now represented in source under the `integrations` domain token-entry slice
-- the active **R4** planning package is now consolidated in:
+- **R4 is closed as a frontend foundation release**; its closeout and deferred product-depth boundary are consolidated in:
   - `r4-master-plan.md`
   - `r4-operational-settings-open-points.md`
   - `r4-candidate-database-open-points.md`
@@ -37,7 +37,7 @@ Confirmed:
   - `r4-integrations-open-points.md`
   - `r4-reports-open-points.md`
   - `r4-billing-marketplace-open-points.md`
-- initial **R5** planning has started with:
+- **R5 planning is active** and now consumes the R4 closeout boundary for org/platform users, favorites, settings leftovers, and conditional token leftovers:
   - `r5-decision-register.md`
   - `r5-master-plan.md`
   - `r5-sysadmin-open-points.md`
@@ -85,8 +85,8 @@ Confirmed:
 26. `adrs/README.md` — durable architectural decisions that should not be re-debated feature-by-feature
 27. `roadmap.md` + `modules.md` + `screens.md` — primary starting point for Candidate (`R2`) and later slices
 28. `r4-master-plan.md` — consolidated sequencing, dependencies, and first-change queue for `R4`
-29. `r4-*-open-points.md` — per-area decision registers before opening each `R4` change
-30. `r5-decision-register.md` — initial decision register for platform and long-tail planning before opening executable `R5` changes
+29. `r4-*-open-points.md` — per-area R4 closeout registers, including decisions implemented and product depth intentionally deferred
+30. `r5-decision-register.md` — decision register for platform and long-tail planning before opening executable `R5` changes
 31. `r5-master-plan.md` — consolidated R5 sequencing and first OpenSpec queue
 32. `r5-sysadmin-open-points.md` — SysAdmin foundation, master-data, users, favorite-request, and taxonomy decisions
 33. `r5-requisition-authoring-open-points.md` — requisition authoring and hiring-flow workflow boundary decisions

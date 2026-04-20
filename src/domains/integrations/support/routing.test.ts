@@ -20,7 +20,76 @@ describe('integration token routing', () => {
     expect(matchRouteMetadata('/integrations')?.metadata).toMatchObject({ routeId: 'integrations.admin.index', requiredCapability: 'canViewIntegrations' });
     expect(matchRouteMetadata('/integrations/lever')?.metadata).toMatchObject({ routeId: 'integrations.admin.detail', parentTarget: '/integrations', requiredCapability: 'canManageIntegrationProvider' });
     expect(matchRouteMetadata('/team/recruiters')?.metadata).toMatchObject({ routeId: 'team.org.recruiter-visibility', parentTarget: '/team', requiredCapability: 'canViewRecruiterVisibility' });
-    expect(matchRouteMetadata('/users/invite')?.metadata).toMatchObject({ routeId: 'team.org.invite-foundation', parentTarget: '/team', requiredCapability: 'canManageOrgInvites' });
+    expect(matchRouteMetadata('/users/invite')?.metadata).toMatchObject({
+      routeId: 'team.org.invite-foundation',
+      domain: 'team',
+      module: 'invite-management',
+      parentTarget: '/team',
+      requiredCapability: 'canManageOrgInvites',
+      fallbackTarget: '/dashboard',
+    });
+    expect(matchRouteMetadata('/favorites')?.metadata).toMatchObject({
+      routeId: 'favorites.org.index',
+      domain: 'favorites',
+      module: 'org-favorites',
+      requiredCapability: 'canViewOrgFavorites',
+      fallbackTarget: '/dashboard',
+    });
+    expect(matchRouteMetadata('/favorites/favorite-1')?.metadata).toMatchObject({
+      routeId: 'favorites.org.detail',
+      parentTarget: '/favorites',
+      requiredCapability: 'canViewOrgFavorites',
+      fallbackTarget: '/dashboard',
+    });
+    expect(matchRouteMetadata('/favorites/request')?.metadata).toMatchObject({
+      routeId: 'favorites.org.request.create',
+      routeClass: 'TaskFlow',
+      domain: 'favorites',
+      module: 'org-favorite-requests',
+      parentTarget: '/favorites',
+      requiredCapability: 'canViewOrgFavorites',
+      fallbackTarget: '/dashboard',
+    });
+    expect(matchRouteMetadata('/favorites/request/request-draft')?.metadata).toMatchObject({
+      routeId: 'favorites.org.request.detail',
+      routeClass: 'TaskFlow',
+      parentTarget: '/favorites',
+      requiredCapability: 'canViewOrgFavorites',
+      fallbackTarget: '/dashboard',
+    });
+    expect(matchRouteMetadata('/billing')?.metadata).toMatchObject({
+      routeId: 'billing.overview',
+      domain: 'billing',
+      module: 'overview',
+      requiredCapability: 'canViewBilling',
+      fallbackTarget: '/dashboard',
+    });
+    expect(matchRouteMetadata('/billing/upgrade')?.metadata).toMatchObject({
+      routeId: 'billing.upgrade',
+      routeClass: 'TaskFlow',
+      parentTarget: '/billing',
+      requiredCapability: 'canUpgradeSubscription',
+    });
+    expect(matchRouteMetadata('/billing/sms')?.metadata).toMatchObject({
+      routeId: 'billing.sms',
+      routeClass: 'TaskFlow',
+      parentTarget: '/billing',
+      requiredCapability: 'canManageSmsBilling',
+    });
+    expect(matchRouteMetadata('/billing/card/card-primary')?.metadata).toMatchObject({
+      routeId: 'billing.card',
+      routeClass: 'ShellOverlay',
+      parentTarget: '/billing',
+      requiredCapability: 'canManageBillingCard',
+    });
+    expect(matchRouteMetadata('/jobmarket/fill')?.metadata).toMatchObject({
+      routeId: 'marketplace.ra.list',
+      routeClass: 'PageWithStatefulUrl',
+      domain: 'marketplace',
+      module: 'marketplace-list',
+      requiredCapability: 'canViewMarketplace',
+      fallbackTarget: '/dashboard',
+    });
     expect(matchRouteMetadata('/report/jobs')?.metadata).toMatchObject({ routeId: 'reports.family', parentTarget: '/report', requiredCapability: 'canViewReportFamily' });
     expect(matchRouteMetadata('/hiring-company/report/jobs')?.metadata).toMatchObject({ routeId: 'reports.legacy.compat', parentTarget: '/report', requiredCapability: 'canViewReports' });
   });

@@ -38,8 +38,8 @@ Resolved for `r5-sysadmin-foundation`:
 - SysAdmin landing/fallback and navigation grouping have an accepted foundation baseline in `r5-sysadmin-open-points.md` and `openspec/changes/r5-sysadmin-foundation/`.
 
 Still unresolved for later R5 route-heavy slices:
-- platform user management versus org-admin user management split.
-- favorite ownership versus platform favorite-request queue ownership.
+- platform user route behavior after the accepted org/platform user-management split.
+- platform favorite-request queue behavior after the accepted org-favorites/platform-queue split.
 - closed inventory of remaining `/parameters` subsections.
 - whether tokenized integration entries still have any R5 scope after the R3 provider callback implementation.
 - route-specific public/token contract for `/job-requisition-forms/:id?download`.
@@ -50,7 +50,7 @@ Still unresolved for later R5 route-heavy slices:
 |---|---|---|---|
 | `1` | `R5.1` SysAdmin foundation | establishes platform shell, landing/fallback, navigation grouping, route metadata, and deny behavior before route-heavy SysAdmin implementation | `r5-sysadmin-foundation` |
 | `2` | `R5.2` platform master data | companies, agencies, and subscriptions are clearer platform-only surfaces than `/users` or favorite requests | `r5-platform-master-data` |
-| `3` | `R5.3` platform users and favorite-request queue | depends on explicit split between platform user management, org user management, org favorites, and platform request queues | `r5-platform-users-and-favorite-requests` |
+| `3` | `R5.3` platform users and favorite-request queue | consumes the accepted R4/R5 split and still needs route-heavy platform user and queue behavior | `r5-platform-users-and-favorite-requests` |
 | `4` | `R5.4` taxonomy | sectors/subsectors are platform-only but lower criticality than companies/agencies/subscriptions | `r5-platform-taxonomy` |
 | `5` | `R5.5` requisition authoring completion | completes `jobRequisition` authoring without letting requisition workflows consume the Jobs domain | `r5-requisition-authoring` |
 | `6` | `R5.6` settings leftovers | API endpoints and remaining `/parameters` subsections need a closed inventory before implementation | `r5-settings-leftovers` |
@@ -122,9 +122,13 @@ Scope:
 - `/favorites-request`.
 - `/favorites-request/:id`.
 
-Blocked by:
-- decision on platform versus org user-management ownership.
-- decision on favorite ownership versus platform favorite-request queue ownership.
+Consumes:
+- accepted R4/R5 split: org invite/membership stays in R4 team routes, while platform user CRUD stays in R5 SysAdmin.
+- accepted R4/R5 split: org `/favorites*` and `/favorites/request*` stay recruiter-core, while platform `/favorites-request*` stays in R5 SysAdmin.
+
+Still must define:
+- platform user list/create/edit/view route behavior, filtering, cross-tenant denied states, and return behavior.
+- platform favorite-request queue states, actions, and stale/inaccessible handling.
 
 Planning rule:
 - do not merge org invite/membership flows into platform user management unless the open-points doc explicitly promotes them.
@@ -229,6 +233,7 @@ Plan as explicit token contracts:
 
 Plan only after reconciliation:
 - if R3 already covers the token-entry surface, update roadmap/docs to remove stale R5 scope.
+- do not confuse this conditional token-entry reconciliation with R4 authenticated provider setup depth, which remains outside default R5 scope.
 - if R5 still has missing entries, open a narrow change for those exact route contracts.
 
 ## First OpenSpec queue

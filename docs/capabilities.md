@@ -156,6 +156,7 @@ Suggested fields:
 | `canViewReportFamily` | Route access | report family entitlement | report pages | report index fallback |
 | `canExportReport` | Action capability | report family access + export support | report exports | disable export |
 | `canScheduleReport` | Action capability | report family access + schedule support | report scheduling | disable scheduling |
+| `canViewOrgFavorites` | Route access | org context with `seeFavorites`, `recruiters`, or RA context | favorites list/detail | dashboard fallback |
 | `canViewBilling` | Route access | `hc` + admin + `!billingHidden` | billing | hide nav or dashboard fallback |
 | `canUpgradeSubscription` | Action capability | billing access | billing upgrade | billing overview fallback |
 | `canManageSmsBilling` | Action capability | billing access + SMS commercial state | billing SMS flow | billing overview fallback |
@@ -224,6 +225,30 @@ Family-specific entitlement and beta decisions can narrow these capabilities in 
 Org team/users access is now represented in source by:
 - `canViewOrgTeam`: HC/RA org-admin access to `/team`.
 - `canViewRecruiterVisibility`: recruiter visibility access derived from org team access.
-- `canManageOrgInvites`: invite foundation access derived from org team access.
+- `canManageOrgInvites`: org-scoped invite send/resend/revoke and membership-management readiness access derived from org team access.
 
-These capabilities do not grant `canViewPlatformNavigation` or `canManagePlatformUsers`; platform user administration remains separate.
+These capabilities do not grant `canViewPlatformNavigation` or `canManagePlatformUsers`; platform user administration remains separate. `/users/invite` is retained as the compatibility invite path, but its route metadata and access contract consume `/team`, `canManageOrgInvites`, and recruiter-core fallback instead of route-heavy `/users*` CRUD.
+
+## R4 org favorites implemented capability contract
+
+Org favorites access is now represented in source by:
+- `canViewOrgFavorites`: HC users with `seeFavorites` or `recruiters` entitlement, plus RA users, can access `/favorites`, `/favorites/:id`, `/favorites/request`, and `/favorites/request/:id`.
+
+This capability does not grant `canViewPlatformNavigation` or `canManageFavoriteRequests`; platform favorite-request queues remain separate.
+
+## R4 billing foundation implemented capability contract
+
+Billing access is now represented in source by:
+- `canViewBilling`: HC admin access to `/billing` when billing is not hidden.
+- `canUpgradeSubscription`: upgrade task-flow access derived from billing access.
+- `canManageSmsBilling`: SMS add-on task-flow access derived from billing access.
+- `canManageBillingCard`: card-management access derived from billing access.
+
+These capabilities do not grant `canViewPlatformNavigation` or `canManagePlatformSubscriptions`; platform subscription administration remains separate.
+
+## R4 marketplace RA implemented capability contract
+
+Marketplace access is now represented in source by:
+- `canViewMarketplace`: RA user/admin access to `/jobmarket/:type`.
+
+This capability does not grant billing, HC-admin, or Platform navigation capabilities.
