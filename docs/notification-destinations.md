@@ -45,8 +45,8 @@ NotificationDestination = {
 | Kind | Target route | Required params | Typical notification keys | Capability gate | Fallback |
 |---|---|---|---|---|---|
 | `dashboard` | `/dashboard` | none | generic shell-safe fallback | `canViewDashboard` | public auth entry or platform landing |
-| `notifications` | `/notifications` | none | shell activity fallback | `canOpenNotifications` | dashboard |
-| `inbox.conversation` | `/inbox?conversation=` | `conversationId` | `message` | `canViewInbox`, `canOpenConversation` | inbox without selection, then dashboard |
+| `notifications` | `/notifications` | none | shell activity fallback | `canViewNotifications` | dashboard |
+| `inbox.conversation` | `/inbox?conversation=` | `conversationId` | `message` | `canUseInbox`, `canOpenConversation` | inbox without selection, then dashboard |
 | `job.detail` | `/job/:id?section` | `jobId`, optional `section` | `job-assigned-to`, `new-job`, `integration-warn`, favorite-related keys | `canViewJobDetail` | jobs list, then dashboard |
 | `job.bid.view` | `/job/:id/bid/:bid_id` | `jobId`, `bidId` | `bid-accepted`, `bid-received`, `bid-rejected` | `canOpenJobTask` | `job.detail` |
 | `job.cv.view` | `/job/:id/cv/:cv_id` | `jobId`, `cvId` | `cv-accepted`, `cv-accepted-recruiter`, `cv-accepted-integration`, `cv-rejected` | `canOpenJobTask` | `job.detail` |

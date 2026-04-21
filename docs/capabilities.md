@@ -96,14 +96,13 @@ Suggested fields:
 | `canCompleteSsoCallback` | Route access | callback params, provider status | SSO/SAML routes | auth failure state then public entry |
 | `canEnterShell` | Route access | authenticated identity | authenticated shell | redirect to public entry |
 | `canSeeNavSection` | Route access | identity + entitlements | shell navigation | hide nav item |
-| `canOpenNotifications` | Route access | authenticated identity | notifications | redirect to dashboard |
+| `canViewNotifications` | Route access | authenticated identity | notifications | redirect to dashboard |
 | `canResolveNotificationDestination` | Route access | notification payload + access context | shell notifications | typed fallback destination |
-| `canOpenAccountArea` | Route access | authenticated identity + org context where applicable | user/company/agency profile | redirect to dashboard |
+| `canOpenAccountArea` | Route access | authenticated identity + org context where applicable | user/company/agency profile and shell-owned account overlays | redirect to stable parent or dashboard |
 | `canLogout` | Route access | authenticated session | logout | force signed-out state |
-| `canOpenShellOverlay` | Route access | authenticated identity | shell overlays | redirect to stable parent |
 | `canViewDashboard` | Route access | `hc OR ra OR sysAdmin`; SysAdmin renders dashboard platform mode | dashboard | public entry when unauthenticated; `/dashboard` platform mode for platform fallbacks |
-| `canUseDashboardReentry` | Route access | dashboard availability + typed destination support | dashboard re-entry | redirect to dashboard default state |
-| `canViewInbox` | Route access | `hc OR ra` | inbox | redirect to dashboard |
+| Dashboard re-entry resolver | Internal resolver/fallback affordance | dashboard availability + typed destination support | notification/deep-link return flows | dashboard default state |
+| `canUseInbox` | Route access | `hc OR ra` | inbox | redirect to dashboard |
 | `canOpenConversation` | Entity capability | inbox access + conversation context | inbox deep links, notifications | inbox route without selection or notifications |
 
 ### 2. Jobs capabilities
@@ -152,7 +151,7 @@ Suggested fields:
 | Capability | Layer | Main inputs | Used by | Deny/fallback |
 |---|---|---|---|---|
 | `canEnterSettings` | Route access | authenticated `hc OR ra`, compatibility-route context | `/parameters*` compatibility resolver | resolve to first available recognized subsection, or dashboard fallback when no subsection is available |
-| `canManageUserSettings` | Action capability | authenticated identity | user settings | read-only or deny |
+| `canViewUserSettings` | Route access | authenticated identity | user settings | dashboard fallback or deny |
 | `canManageCompanySettings` | Action capability | `hc` + admin | company settings | hide subsection |
 | `canManageAgencySettings` | Action capability | `ra` or recruiter-visibility entitlement where applicable | agency settings/recruiters | hide subsection |
 | `canManageCareersPage` | Action capability | `hc` + admin | careers page settings | hide subsection |
@@ -355,4 +354,4 @@ Capability keys are ownership and access boundaries, not proof of complete produ
 
 No `canManageEmailDeliverability`, `canManageSenderDomain`, `canVerifySenderDomain`, or `canManageSenderSignature` frontend route capability is currently defined. Sender-domain verification, managed sender-domain lifecycle, DNS/provider setup, manual revalidation, and sender-signature setup remain backend-only/no-UI.
 
-Operational routes may use their existing capabilities (`canUseInbox`, `canOpenConversation`, `canOpenNotifications`, and candidate communication capabilities) to render normalized email readiness states. Those capabilities do not grant setup ownership and must not expose raw provider, DNS, domain, signature, token, or message payload data.
+Operational routes may use their existing capabilities (`canUseInbox`, `canOpenConversation`, `canViewNotifications`, and candidate communication capabilities) to render normalized email readiness states. Those capabilities do not grant setup ownership and must not expose raw provider, DNS, domain, signature, token, or message payload data.

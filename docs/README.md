@@ -15,11 +15,13 @@ It converts the migration analysis in `../../docs/frontend-2/` into an execution
 ## Current execution status
 
 Confirmed:
-- **Final frontend debt inventory is governed by archived OpenSpec change `frontend-all-gap-debt-closeout`; active High-priority implementation closeout is governed by `frontend-high-gap-implementation-closeout`**.
+- **Final frontend debt inventory and High-priority implementation closeout are archived OpenSpec records**.
   - Historical release closeout statements below describe route/spec/foundation milestones already achieved.
-  - They must not be read as proof that every documented product-depth, placeholder, fixture-backed, route metadata, public/token, provider, operational, or long-tail debt is implemented.
+  - They must not be read as proof that every documented product-depth, placeholder, fixture-backed, route metadata, public/token, provider, operational, or long-tail debt is implemented unless the matching archived spec/change and source implementation both exist.
   - The authoritative inventory evidence is the archived registry in `../../openspec/changes/archive/2026-04-21-frontend-all-gap-debt-closeout/closeout-registry.md`.
-  - The authoritative active High-priority implementation/deferred-follow-up evidence is `../../openspec/changes/frontend-high-gap-implementation-closeout/high-priority-closeout-registry.md`.
+  - The authoritative High-priority implementation/deferred-follow-up evidence is `../../openspec/changes/archive/2026-04-21-frontend-high-gap-implementation-closeout/high-priority-closeout-registry.md`.
+  - The latest docs-vs-code cleanup normalized capability aliases under archived OpenSpec change `../../openspec/changes/archive/2026-04-21-frontend-capability-alias-doc-normalization/`.
+  - `openspec list --json` is expected to return no active changes after this closeout unless a new product slice has been intentionally opened.
 - **R0 is closed in code** in `recruit-frontend`
 - the current implementation includes build proof, route metadata coverage, typed-destination safety, smoke validation, and a GitHub Actions smoke workflow
 - the repository now uses a **Git/GitHub workflow with the R0 smoke gate defined in source**
@@ -78,7 +80,7 @@ Confirmed:
 Use these rules when comparing docs to source so future audits do not reopen false gaps:
 
 - **Canonical routes** are the paths registered in `src/lib/routing/route-contracts.ts`, `src/app/router.tsx`, and `src/lib/routing/route-metadata.ts`. Shorthand examples in docs that use `{id}`, `$id`, `...`, `*`, query strings, or optional suffixes are aliases/examples unless this package explicitly marks them as canonical.
-- **Capabilities have categories**. Not every capability in `capabilities.md` is expected to appear as a route metadata `requiredCapability`; action, navigation, resolver, notification, and telemetry-safe internal capabilities can be consumed inside pages/helpers instead.
+- **Capabilities have categories and canonical names**. Not every capability in `capabilities.md` is expected to appear as a route metadata `requiredCapability`; action, navigation, resolver, notification, and telemetry-safe internal capabilities can be consumed inside pages/helpers instead. Documentation should use canonical runtime names such as `canViewNotifications`, `canUseInbox`, `canViewUserSettings`, and `canOpenAccountArea`; dashboard re-entry is resolver/fallback behavior rather than a standalone route capability.
 - **Fixture-backed code can be implementation evidence** when it is an explicit replaceable adapter seam with tests for loading/ready/unavailable/degraded/retry/terminal/unknown-contract states. It is not evidence of a missing backend API unless the owning spec requires a confirmed API contract.
 
 ## Recommended reading order

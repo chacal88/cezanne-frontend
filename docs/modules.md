@@ -45,16 +45,16 @@ Synthesized from:
 |---|---|---|---|---|
 | `frame` | Route-owning | authenticated app frame and route outlets | `canEnterShell` | R0 |
 | `navigation` | Support | role-aware nav, section visibility, active-state rules | `canSeeNavSection` | R0 |
-| `notifications` | Support | notification center, typed destination resolver | `canOpenNotifications`, `canResolveNotificationDestination` | R0 |
+| `notifications` | Support | notification center, typed destination resolver | `canViewNotifications`, `canResolveNotificationDestination` | R0 |
 | `account-context` | Task | user-profile, company/agency profile, logout/session-loss | `canOpenAccountArea`, `canLogout` | R0 |
-| `shell-overlays` | Task | shell-owned overlay classes and close/back policy | `canOpenShellOverlay` | R0 |
+| `shell-overlays` | Task | shell-owned overlay classes and close/back policy | account-specific route capabilities, primarily `canOpenAccountArea` | R0 |
 
 ### `dashboard`
 
 | Module | Type | Owns | Core capabilities | Release |
 |---|---|---|---|---|
 | `landing` | Route-owning | `/dashboard` and dashboard widgets | `canViewDashboard` | R0 |
-| `re-entry` | Support | notification/deep-link return affordances | `canUseDashboardReentry` | R0 |
+| `re-entry` | Support | notification/deep-link return affordances | typed destination resolver and dashboard fallback behavior | R0 |
 
 ### `jobs`
 
@@ -83,7 +83,7 @@ Synthesized from:
 
 | Module | Type | Owns | Core capabilities | Release |
 |---|---|---|---|---|
-| `conversation-list` | Route-owning | inbox list and selected conversation URL state | `canViewInbox` | R0 |
+| `conversation-list` | Route-owning | inbox list and selected conversation URL state | `canUseInbox` | R0 |
 | `conversation-entry` | Support | open specific conversation from notification or linked context | `canOpenConversation` | R0 |
 
 ### `marketplace`
@@ -113,7 +113,7 @@ Synthesized from:
 |---|---|---|---|---|
 | `settings-container` | Route-owning | `/parameters` compatibility entry, closed recognized subsection inventory, matched/unknown/unauthorized/unavailable/unimplemented resolution, stable fallback, and subsection-level deny behavior without owning feature UI | `canEnterSettings` plus resolved subsection capability | R3-R5 |
 | `operational-settings-substrate` | Support | shared subsection registry, compatibility parsing, dedicated-route metadata, and save/retry/readiness workflow helpers for operational settings | `canEnterSettings` plus subsection-specific capabilities | R4 |
-| `user-settings` | Route-owning | profile/preferences/personal controls | `canManageUserSettings` | R4 |
+| `user-settings` | Route-owning | profile/preferences/personal controls | `canViewUserSettings` | R4 |
 | `company-settings` | Route-owning | company-wide recruiter configuration | `canManageCompanySettings` | R4 |
 | `agency-settings` | Route-owning | RA-specific settings | `canManageAgencySettings` | R4 |
 | `careers-application` | Route-owning | careers page, application page, job listings | `canManageCareersPage`, `canManageApplicationPage`, `canManageJobListings` | R3 |
