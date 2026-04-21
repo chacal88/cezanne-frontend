@@ -9,8 +9,8 @@ This document blocks Figma/screen-flow production until every route and flow fro
 | Gate item | Status | Notes |
 |---|---|---|
 | Complete route inventory imported from `screens.md` | Done | 103 canonical route rows imported; 4 alias/reference rows are tracked separately below. |
-| Domain-by-domain flow review | In progress | No domain is fully Figma-ready until its checklist below is complete. |
-| Visual reference confirmation | Not started gate-wide | Existing auth/dashboard references are evidence only; most route families still require canonical visual confirmation. |
+| Domain-by-domain flow review | Done | All route rows are contract-reviewed; no domain is fully Figma-ready until visual evidence is confirmed. |
+| Visual reference confirmation | Ready for evidence capture | Contract review and V0-V5 visual-readiness packages are complete; canonical visual evidence capture is the next gate. |
 | Figma production | Blocked | Do not create/attach canonical Figma frames until the relevant row is marked `Figma-ready`. |
 
 ## Review status values
@@ -40,20 +40,61 @@ This document blocks Figma/screen-flow production until every route and flow fro
 | Domain | Rows | H | M | L | Current status |
 |---|---:|---:|---:|---:|---|
 | `auth` | 9 | 8 | 1 | 0 | Partial: core contract-reviewed; no row is Figma-ready |
-| `shell` | 5 | 1 | 4 | 0 | Partial: notifications/user-profile reviewed; org profile/logout need doc-vs-runtime clarification |
+| `shell` | 5 | 1 | 4 | 0 | Partial: all rows contract-reviewed; canonical visuals still pending |
 | `dashboard` | 1 | 1 | 0 | 0 | Partial: API-backed contract-reviewed; visual parity debt remains |
 | `inbox` | 1 | 1 | 0 | 0 | Partial: fixture-backed contract-reviewed; API/live conversation visuals pending |
 | `jobs` | 12 | 8 | 4 | 0 | Partial: all rows contract-reviewed for route/state; canonical visuals and backend API depth still pending |
 | `candidates` | 7 | 4 | 3 | 0 | Partial: all rows contract-reviewed for route/state; canonical visuals and backend API depth still pending |
 | `public-external` | 9 | 1 | 7 | 1 | Partial: all rows contract-reviewed for token/state/workflow; canonical visuals and backend API depth still pending |
-| `settings` | 17 | 0 | 14 | 3 | Partial: 16 rows contract-reviewed; `/recruiters` needs docs/runtime clarification |
+| `settings` | 17 | 0 | 14 | 3 | Partial: all rows contract-reviewed; canonical visuals and backend contracts still pending |
 | `integrations` | 5 | 0 | 2 | 3 | Partial: all rows contract-reviewed for setup/token contracts; canonical visuals and backend API depth still pending |
 | `reports` | 7 | 0 | 5 | 2 | Partial: all rows contract-reviewed for family/result/export/schedule contracts; canonical visuals and backend schema still pending |
-| `billing` | 4 | 0 | 4 | 0 | Not reviewed |
-| `team` | 3 | 0 | 3 | 0 | Not reviewed |
-| `favorites` | 3 | 0 | 0 | 3 | Not reviewed |
-| `marketplace` | 1 | 0 | 1 | 0 | Not reviewed |
-| `sysadmin` | 19 | 0 | 13 | 6 | Not reviewed |
+| `billing` | 4 | 0 | 4 | 0 | Partial: all rows contract-reviewed for commercial/payment state contracts; canonical visuals and provider API fields still pending |
+| `team` | 3 | 0 | 3 | 0 | Partial: all rows contract-reviewed for org-team/invite contracts; canonical visuals and backend contracts still pending |
+| `favorites` | 3 | 0 | 0 | 3 | Partial: all rows contract-reviewed for org-favorites contracts; canonical visuals and backend contracts still pending |
+| `marketplace` | 1 | 0 | 1 | 0 | Partial: row contract-reviewed for RA marketplace list contract; canonical visuals and backend schema still pending |
+| `sysadmin` | 19 | 0 | 13 | 6 | Partial: all rows contract-reviewed for platform-admin contracts; canonical visuals and backend contracts still pending |
+
+
+## Visual-readiness pass
+
+Contract review is complete, but Figma production remains blocked until each route family has canonical visual evidence. The visual pass must capture source/reference evidence, target screen states, responsive assumptions, and explicit non-goals before any row is promoted to `Figma-ready`.
+
+| Phase | Domain/family | Required visual evidence | Minimum states to confirm | Output before Figma-ready |
+|---|---|---|---|---|
+| V0 | Auth entry | Legacy/source login reference, current greenfield login, typography/spacing/token comparison | empty, filled, invalid credentials, loading, 2FA required, SSO required, session bootstrap failure, redirecting | `v0-auth-shell-dashboard-visual-contract.md` plus accepted deviations and screenshots |
+| V0 | Auth token flows | Current token pages plus any legacy references available for register/confirm/reset/forgot/invite | missing token, invalid, expired, valid, pending approval, submit success, submit failure, retry, return to login | `v0-auth-shell-dashboard-visual-contract.md` token-flow visual state map |
+| V0 | SSO/callback/logout | Current callback/logout pages and provider-launch reference behavior | launch, provider error, missing code, exchange loading, exchange failed, bootstrap failed, logged-out, public-entry fallback | `v0-auth-shell-dashboard-visual-contract.md` SSO/logout transition contract |
+| V0 | Shell/navigation/account | Current authenticated shell, legacy dashboard shell reference, account/profile pages | org mode, platform mode, account menu, notification bell, denied fallback, profile dirty/saved/degraded, logout entry | `v0-auth-shell-dashboard-visual-contract.md` shell layout/account visual contract |
+| V0 | Dashboard + notifications + inbox | Current dashboard and legacy dashboard reference at matching viewport; notification/inbox current pages | loading skeleton, ready, degraded source, unavailable calendar, empty notifications, unknown/denied/stale destination, selected conversation, send failure | `v0-auth-shell-dashboard-visual-contract.md` R0 visual parity debt list |
+| V1 | Jobs | Current job list/detail/task pages plus route/state contracts | list ready/empty/filtered-empty, detail sections, authoring dirty/saved/failed, bid/CV/reject/schedule/offer overlays, provider-blocked states | `v1-jobs-visual-contract.md` jobs screen-flow contract |
+| V2 | Candidates | Current candidate hub/database/action pages plus route/state contracts | hub panels, database filters, advanced/bulk states, action launchers, documents/contracts/surveys/degraded sections, parent return | `v2-candidates-visual-contract.md` candidate screen-flow contract |
+| V3 | Public/external + integrations token | Current public token pages and integration callbacks | token invalid/expired/used/inaccessible, public application upload failures, survey/review validation, chat send failure, requisition terminal states | `v3-public-external-token-visual-contract.md` public/token screen-flow contract |
+| V4 | Settings/integrations/reports/billing/team/favorites/marketplace | Current pages and state contracts by module | ready, empty, denied, unavailable, stale, degraded, validation, save failure, retry, success, provider/payment blocked states | `v4-operations-visual-contract.md` operations visual package |
+| V5 | SysAdmin/platform | Current platform pages and state contracts | platform list/detail/edit, queue pending/resolved/rejected, company subscription mutation, taxonomy list/detail, not-found/stale/denied/error | `v5-sysadmin-platform-visual-contract.md` SysAdmin visual package |
+
+### Visual-pass rules
+
+- Do not infer backend schemas from screenshots; screen contracts may show placeholder labels only when the corresponding route/state contract allows unknown fields.
+- Do not merge public/token flows into authenticated shell frames.
+- Do not merge provider setup screens with operational provider-blocked task states.
+- Do not create standalone legacy alias frames for `/recruiters`, `/candidates-old`, `/candidates-new`, `/parameters*`, or other alias/reference rows; document their canonical target only.
+- Treat auth/dashboard legacy screenshots as visual evidence, not as final product-depth proof.
+- A route may be marked `Figma-ready` only after its visual contract names the evidence source, required states, accepted deviations, viewport assumptions, and unresolved backend/API unknowns.
+
+
+## Visual contract package inventory
+
+| Package | Covered phase | Status | Next evidence action |
+|---|---|---|---|
+| `v0-auth-shell-dashboard-visual-contract.md` | V0 auth, shell, dashboard, notifications, inbox | Prepared | Capture legacy/current app visual evidence and accepted deviations for R0 anchor flows. |
+| `v1-jobs-visual-contract.md` | V1 jobs list, authoring, detail, task overlays, requisitions | Prepared | Capture jobs list/detail/authoring/task state visuals without inventing backend schemas. |
+| `v2-candidates-visual-contract.md` | V2 candidate hub, database, actions, panel boundaries | Prepared | Capture candidate hub/database/action visuals and alias handling. |
+| `v3-public-external-token-visual-contract.md` | V3 public/external and integration token flows | Prepared | Capture public token lifecycle and route-specific public-layout evidence. |
+| `v4-operations-visual-contract.md` | V4 settings, integrations admin, reports, billing, team, favorites, marketplace | Prepared | Capture operational authenticated-shell module evidence and blocked/degraded states. |
+| `v5-sysadmin-platform-visual-contract.md` | V5 SysAdmin/platform users, queues, master data, subscriptions, taxonomy | Prepared | Capture platform admin evidence while preserving org/platform boundaries. |
+
+No package marks any row `Figma-ready` by itself. A row becomes `Figma-ready` only after the relevant package is populated with canonical visual evidence and accepted deviations.
 
 ## Route review inventory
 
@@ -91,9 +132,9 @@ Remaining blockers before `Figma-ready`:
 |---|---|---|---|---|---|---|
 | Contract-reviewed | `/notifications` | Page | notifications | H | R0 | Confirmed in router/metadata and notification-state tests. Covers shell/topbar/direct entry, typed destination resolution, ready/empty/degraded/unavailable, unknown/missing/unsupported/denied/stale targets, unread count, dashboard fallback reason, and safe telemetry. Still fixture-backed; canonical notification list visuals pending. |
 | Contract-reviewed | `/user-profile` | ShellOverlay | account-context | M | R0 | Confirmed in router/metadata, shell account navigation, and account settings page. Uses `canOpenAccountArea`, shell-aware direct entry, close target to dashboard/current shell parent, fixture-backed editable profile states, save/retry/refresh intent, and unknown-field disclosure. Visual overlay reference is confirmed indirectly but final overlay states pending. |
-| Needs clarification | `/hiring-company-profile` | Page | account-context | M | R0 | Runtime route uses `canViewHiringCompanyProfile` plus `canManageCompanySettings` mutation capability and HC org ownership; `screens.md` still lists `canOpenAccountArea`. Code has fixture-backed ready/dirty/saved/denied/unknown-field states and dashboard parent return. Clarify canonical capability naming before Figma-ready. |
-| Needs clarification | `/recruitment-agency-profile` | Page | account-context | M | R0 | Runtime route uses `canViewRecruitmentAgencyProfile` plus `canManageAgencySettings` mutation capability and RA org ownership; `screens.md` still lists `canOpenAccountArea`. Code has fixture-backed ready/dirty/saved/denied/unknown-field states and dashboard parent return. Clarify canonical capability naming before Figma-ready. |
-| Needs clarification | `/logout` | ShellOverlay | account-context | M | R0 | Router places logout under authenticated shell with `canLogout`; route metadata class is `Page`/session while `screens.md` says `ShellOverlay`/account-context. Implementation clears local session, resets access context, tracks safe logout telemetry, and links to `/`. Clarify route class/owner label before Figma-ready. |
+| Contract-reviewed | `/hiring-company-profile` | Page | account-context | M | R0 | Confirmed in router/metadata, organization profile page, account settings state/page tests, and runtime capability evaluation. Uses `canViewHiringCompanyProfile` for route access plus `canManageCompanySettings` as mutation capability, HC org ownership, dashboard parent return, ready/dirty/saved/denied/degraded/stale/retry states, refresh intent, and explicit unknown persistence fields. Visual reference pending. |
+| Contract-reviewed | `/recruitment-agency-profile` | Page | account-context | M | R0 | Confirmed in router/metadata, organization profile page, account settings state tests, and runtime capability evaluation. Uses `canViewRecruitmentAgencyProfile` for route access plus `canManageAgencySettings` as mutation capability, RA org ownership, dashboard parent return, ready/dirty/saved/denied/degraded/stale/retry states, refresh intent, and explicit unknown persistence fields. Visual reference pending. |
+| Contract-reviewed | `/logout` | Page | session | M | R0 | Confirmed in router/metadata and logout implementation. Runtime canonical class is authenticated-shell `Page` under shell/session with `canLogout`; it clears local auth session, resets access context to public, tracks safe logout telemetry, preserves public-entry fallback semantics, and links to `/`. Visual reference pending for logout/session-loss transition. |
 
 
 #### Shell review evidence and remaining blockers
@@ -105,8 +146,8 @@ Confirmed evidence:
 - Organization profile pages reuse the same account settings state model and expose unknown persistence fields instead of inventing APIs.
 
 Remaining blockers before `Figma-ready`:
-- `screens.md` and runtime metadata disagree on canonical capability names for organization profile routes; normalize the doc contract or explicitly record aliases before visual handoff.
-- `/logout` route class/owner differs between `screens.md` (`ShellOverlay`/account-context) and runtime metadata (`Page`/session); choose the canonical design representation.
+- Organization profile route capability names now follow runtime metadata: view capabilities gate route access, while manage capabilities are mutation capabilities.
+- `/logout` now follows runtime metadata as a shell/session page rather than an account-context overlay.
 - Shell visual parity is not complete: sidebar/topbar/account-menu/footer and notification bell interactions need canonical frame/state references.
 
 ### `dashboard`
@@ -242,7 +283,7 @@ Remaining blockers before `Figma-ready`:
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Needs clarification | `/recruiters` | Page | agency-settings | L | R4 | `screens.md` documents `/recruiters`, but runtime canonical recruiter visibility is `/team/recruiters` and agency settings runtime route is `/settings/agency-settings`. Do not create a Figma screen for `/recruiters` until this legacy/docs alias is resolved. |
+| Contract-reviewed | `/settings/agency-settings` | Page | agency-settings | L | R4 | Confirmed in router/metadata, agency settings page, account settings route contract, and account settings state tests. Canonical runtime route is `/settings/agency-settings`; legacy/docs `/recruiters` is not a registered route and must not become a standalone Figma screen. Covers RA org ownership, `canManageAgencySettings`, dashboard parent return, ready/dirty/saved/denied/degraded/stale/retry states, refresh intent, and explicit unknown persistence fields. Visual reference pending. |
 | Contract-reviewed | `/templates` | Page | templates | M | R4 | Confirmed in router/metadata, templates page, routing support, and workflow tests. Covers index entry, capability gate, ready/readiness state, save validation, submission failure/retry, success mutation state, and safe request headers. Visual reference pending. |
 | Contract-reviewed | `/templates/:id` | Page | templates | M | R4 | Confirmed as `/templates/$templateId` route with parent target `/templates`. Covers detail route state, template id display, same template config save/validation/retry model, and direct-entry fallback through access boundary. Visual reference pending. |
 | Contract-reviewed | `/templates/smart-questions` | Page | templates | M | R4 | Confirmed in templates route resolver. Covers subsection entry, admin/sysadmin feature availability, fallback to index when unavailable, save/validation/retry, and parent target `/templates`. Visual reference pending. |
@@ -271,7 +312,7 @@ Confirmed evidence:
 - Requisition workflow settings are documented as configuration ownership only; active requisition execution remains in jobs workflow state.
 
 Remaining blockers before `Figma-ready`:
-- `/recruiters` is a docs/runtime mismatch: choose whether it is a legacy alias for `/team/recruiters`, an agency settings alias for `/settings/agency-settings`, or documentation residue.
+- Legacy `/recruiters` has been resolved as documentation residue: agency settings is `/settings/agency-settings`, and recruiter visibility is `/team/recruiters`. Do not create a standalone `/recruiters` screen.
 - Settings visuals are not canonical for subsection tabs, nested compatibility URLs, validation banners, retry controls, stale/degraded warnings, unknown contract field disclosure, and public reflection status.
 - Forms/docs and API endpoints still expose unknown backend contract fields; do not invent exact backend payloads or credential storage UX before API contracts are confirmed.
 - Careers application and job listings need visual confirmation for public preview/contract panels and provider-blocked publish states.
@@ -333,56 +374,122 @@ Remaining blockers before `Figma-ready`:
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Not reviewed | `/billing` | Page | overview | M | R4 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/billing/upgrade` | TaskFlow | upgrade | M | R4 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/billing/sms` | TaskFlow | sms | M | R4 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/billing/card/:id` | ShellOverlay | cards | M | R4 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
+| Contract-reviewed | `/billing` | Page | overview | M | R4 | Confirmed in router/metadata, billing overview page, route metadata tests, and billing state tests. Covers HC-admin commercial billing outside platform subscription admin, loading/ready/empty/denied/unavailable/stale/degraded/pending-change states, plan/SMS/card summaries, pending changes, direct/parent/notification entry mode, action availability/blocking, dashboard fallback, and refresh intent. Visual reference pending. |
+| Contract-reviewed | `/billing/upgrade` | TaskFlow | upgrade | M | R4 | Confirmed in router/metadata, upgrade page, and billing state tests. Covers parent `/billing`, same-plan blocked, card-blocked with add-card target, confirmation, submitted, success, failure, retry, provider challenge, stale, degraded, denied, unavailable, selected-plan preservation, and refresh intent. Visual reference pending. |
+| Contract-reviewed | `/billing/sms` | TaskFlow | sms | M | R4 | Confirmed in router/metadata, SMS page, and billing state tests. Covers inactive/trial/active/usage-warning/suspended/card-blocked/pending/success/partial-success/failed/retry/stale/degraded/denied/unavailable states, enable/disable/update-limit readiness, usage threshold, parent refresh requirement, add-card target, and `/billing` return. Visual reference pending. |
+| Contract-reviewed | `/billing/card/:id` | ShellOverlay | cards | M | R4 | Confirmed as `/billing/card/$cardId` shell-aware overlay route with parent `/billing`, card page, and billing state tests. Covers existing/backup/primary/new card entry, missing/expired/unavailable/validation-failed/provider-challenge/pending/saved/failed/retry states, edit/remove/make-default readiness, direct/parent/notification entry mode, provider challenge refresh intent, unavailable card fallback, and platform subscription admin separation. Visual reference pending. |
+
+
+#### Billing review evidence and remaining blockers
+
+Confirmed evidence:
+- Billing routes are authenticated shell routes and remain separate from SysAdmin platform subscription administration; all view models force `platformSubscriptionAdmin: false`.
+- Overview state covers commercial hidden/unavailable states, pending changes, refresh intents, and route actions without claiming payment-provider backend contracts.
+- Upgrade flow models plan-change readiness, card dependency, selected-plan preservation, payment challenge, stale/degraded states, retry, success, and return-to-parent behavior.
+- SMS add-on flow models usage-warning, card-blocked activation, suspended/partial-success/pending/retry states, and parent refresh requirements.
+- Card overlay models shell-aware card management with primary/backup/new roles, provider challenge, pending/saved/failed/retry states, and action-specific blocking reasons.
+
+Remaining blockers before `Figma-ready`:
+- Billing visuals are not canonical for overview cards, pending changes, plan picker, confirmation, challenge-required, success/failure/retry, SMS usage thresholds, and shell-overlay card editing.
+- Payment-provider forms, card tokenization fields, challenge provider UI, invoice/payment history, tax/VAT fields, and exact subscription mutation payloads are not confirmed; do not invent them for screen flows.
+- Need final visual decision for whether `/billing/card/:id` is represented as a modal overlay, right drawer, or full shell-aware route frame.
 
 ### `team`
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Not reviewed | `/team` | Page | org-team | M | R4 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/team/recruiters` | Page | recruiter-visibility | M | R4 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/users/invite` | TaskFlow | invite-management | M | R4 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
+| Contract-reviewed | `/team` | Page | org-team | M | R4 | Confirmed in router/metadata, team index page, team foundation state, route metadata tests, and team tests. Covers org-scoped member list, active/pending/disabled members, pending invites, ready/empty/denied/unavailable/degraded/stale/retryable/refresh-required states, membership role/status actions, safe telemetry, dashboard fallback, and explicit `platformScope: false`. Visual reference pending. |
+| Contract-reviewed | `/team/recruiters` | Page | recruiter-visibility | M | R4 | Confirmed in router/metadata, recruiter visibility page, team foundation state, and tests. Covers parent `/team`, filters all/visible/limited/hidden, visible/limited/hidden counts, assignment ready/pending/blocked, ready/empty/denied/unavailable/degraded/stale/retryable/refresh-required states, safe telemetry, and separation from `/recruiters` docs residue. Visual reference pending. |
+| Contract-reviewed | `/users/invite` | TaskFlow | invite-management | M | R4 | Confirmed in router/metadata, invite foundation page, team state, and tests. Covers org-scoped invite send/resend/revoke readiness, draft/pending/sent/revoked/blocked invite states, membership readiness adjacency, parent `/team`, dashboard fallback, and separation from public `/users/invite-token` acceptance and platform `/users*` CRUD. Visual reference pending. |
+
+
+#### Team review evidence and remaining blockers
+
+Confirmed evidence:
+- Team routes are org-scoped authenticated shell routes and do not require platform user administration capabilities.
+- `/team/recruiters` is the runtime canonical recruiter visibility route; legacy `/recruiters` must not be treated as a separate screen.
+- Invite management is the org-admin send/resend/revoke task flow; public invite acceptance remains under auth token flow and platform user CRUD remains under SysAdmin.
+- Team telemetry uses state/persona/count summaries and excludes raw invite/user identifiers.
+
+Remaining blockers before `Figma-ready`:
+- Team visuals are not canonical for member table/cards, pending invites, recruiter visibility filters, blocked assignment states, invite send/resend/revoke, degraded/stale/refresh-required banners, and membership role/status actions.
+- Backend member API, role write policy, and recruiter visibility filter contracts are unknown; do not invent exact backend fields.
 
 ### `favorites`
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Not reviewed | `/favorites` | Page | org-favorites | L | R4 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/favorites/:id` | Page | org-favorites | L | R4 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/favorites/request/:id?` | TaskFlow | org-favorite-requests | L | R4 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
+| Contract-reviewed | `/favorites` | Page | org-favorites | L | R4 | Confirmed in router/metadata, favorites index page, org favorites state, route metadata tests, and favorites tests. Covers org-scoped personal/org-shared/recruiter-linked favorites, ready/empty/unavailable list states, dashboard fallback, create request link, and explicit separation from platform favorite request queues. Visual reference pending. |
+| Contract-reviewed | `/favorites/:id` | Page | org-favorites | L | R4 | Confirmed as `/favorites/$favoriteId` route with parent `/favorites`, favorite detail page, and favorites tests. Covers ready detail, unavailable/outside-org fallback, ownership display, parent return, and `platformRequestQueue: false`. Visual reference pending. |
+| Contract-reviewed | `/favorites/request/:id?` | TaskFlow | org-favorite-requests | L | R4 | Confirmed through `/favorites/request` and `/favorites/request/$requestId` routes, request page, and favorites tests. Covers create/detail entry, draft/submitted/pending/approved/rejected/unavailable states, submit/cancel/resubmit readiness, parent `/favorites`, dashboard fallback, and separation from SysAdmin `/favorites-request*` queue. Visual reference pending. |
+
+
+#### Favorites review evidence and remaining blockers
+
+Confirmed evidence:
+- Favorites are org-scoped and explicitly separate from platform favorite-request queues.
+- Favorite request task flows model draft/submitted/pending/approved/rejected/unavailable states and action readiness without claiming SysAdmin queue behavior.
+- Favorite detail has a route-local unavailable/outside-org fallback and returns to `/favorites`.
+
+Remaining blockers before `Figma-ready`:
+- Favorites visuals are not canonical for personal/org-shared/recruiter-linked ownership, empty/unavailable states, request workflow states, and action blocking reasons.
+- Favorite backend ownership fields and request mutation payloads are unknown; do not invent exact queue/reviewer data.
 
 ### `marketplace`
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Not reviewed | `/jobmarket/:type` | PageWithStatefulUrl | marketplace-list | M | R4 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
+| Contract-reviewed | `/jobmarket/:type` | PageWithStatefulUrl | marketplace-list | M | R4 | Confirmed as `/jobmarket/$type` route with `canViewMarketplace`, marketplace page, state helpers, route metadata tests, and marketplace tests. Covers RA marketplace list types fill/bidding/cvs/assigned, ready/empty/unavailable states, dashboard fallback, unknown type unavailable state, and explicit separation from billing and platform scopes. Visual reference pending. |
+
+
+#### Marketplace review evidence and remaining blockers
+
+Confirmed evidence:
+- Marketplace is RA-scoped list state, not billing or platform administration.
+- Supported type values are explicit: `fill`, `bidding`, `cvs`, and `assigned`; unknown types become unavailable instead of new screen families.
+
+Remaining blockers before `Figma-ready`:
+- Marketplace visuals are not canonical for each list type, empty/unavailable states, and RA-specific item cards/list controls.
+- Item backend schema, bidding actions, CV handoff actions, and assignment collaboration details are unknown; do not invent them for Figma.
 
 ### `sysadmin`
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Not reviewed | `/users?page&search&hiringCompanyId&recruitmentAgencyId` | PageWithStatefulUrl | users | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/users/edit/:id` | Page | users | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/users/new` | Page | users | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/users/:id` | Page | users | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/favorites-request` | PageWithStatefulUrl | favorite-requests | L | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/favorites-request/:id` | Page | favorite-requests | L | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/hiring-companies` | Page | companies | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/hiring-companies/:id` | Page | companies | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/hiring-companies/edit/:id` | Page | companies | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/hiring-company/:id/subscription` | Page | companies | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/recruitment-agencies` | Page | agencies | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/recruitment-agencies/:id` | Page | agencies | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/recruitment-agencies/edit/:id` | Page | agencies | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/subscriptions` | Page | subscriptions | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/subscriptions/:id` | Page | subscriptions | M | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/sectors` | PageWithStatefulUrl | taxonomy | L | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/sectors/:id` | Page | taxonomy | L | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/sectors/:sector_id/subsectors` | PageWithStatefulUrl | taxonomy | L | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
-| Not reviewed | `/subsectors/:id` | Page | taxonomy | L | R5 | Pending review: confirm entry modes, state groups, data/API contract, parent return, telemetry, and visual reference before Figma. |
+| Contract-reviewed | `/users?page&search&hiringCompanyId&recruitmentAgencyId` | PageWithStatefulUrl | users | M | R5 | Confirmed in router/metadata, platform users page, users state helpers, route metadata tests, and platform users tests. Covers platform-scope list filters, sanitized page/search/hiringCompanyId/recruitmentAgencyId state, ready/loading/empty/error/denied states, return target construction, dashboard fallback, and explicit `orgScope: false`. Visual reference pending; backend user list schema and mutation contracts unknown. |
+| Contract-reviewed | `/users/edit/:id` | Page | users | M | R5 | Confirmed as `/users/edit/$userId` route with `canManagePlatformUsers`, edit page, platform users state, and tests. Covers returnTo sanitization, editing/saving/success/cancelled/error/permission-denied states, parent/success/cancel target preservation, and separation from org invite management. Visual reference pending; backend role/tenant assignment payload unknown. |
+| Contract-reviewed | `/users/new` | Page | users | M | R5 | Confirmed in router/metadata and create page using platform user list state with `canManagePlatformUsers`. Covers direct/create entry, optional search-derived return context, platform-only user creation surface, dashboard fallback, and explicit separation from public invite acceptance and org `/users/invite`. Visual reference pending; backend create payload unknown. |
+| Contract-reviewed | `/users/:id` | Page | users | M | R5 | Confirmed as `/users/$userId` route with detail page, returnTo sanitization, platform users state, route metadata, and tests. Covers ready/loading/not-found/permission-denied/stale states, parent target preservation, platform scope, and edit handoff. Visual reference pending; backend user detail schema unknown. |
+| Contract-reviewed | `/favorites-request` | PageWithStatefulUrl | favorite-requests | L | R5 | Confirmed in router/metadata, platform favorite request queue page, favorite request queue state, and tests. Covers platform queue ownership, pending/resolved/rejected/stale/inaccessible/empty/error states, approve/reject/reopen readiness, dashboard fallback, and explicit separation from org `/favorites/request*`. Visual reference pending; backend queue schema/action payload unknown. |
+| Contract-reviewed | `/favorites-request/:id` | Page | favorite-requests | L | R5 | Confirmed as `/favorites-request/$requestId` detail route with `canManageFavoriteRequests`, detail page, queue state, and tests. Covers request detail entry, pending/resolved/rejected/stale/inaccessible/empty/error states, parent `/favorites-request`, and approve/reject/reopen action readiness. Visual reference pending; backend detail/action contract unknown. |
+| Contract-reviewed | `/hiring-companies` | Page | companies | M | R5 | Confirmed in router/metadata, master-data list page, master-data state, and routing tests. Covers platform master-data list states loading/ready/empty/error/denied, count projection, dashboard fallback, and entity ownership `hiring-company`. Visual reference pending; backend company list schema unknown. |
+| Contract-reviewed | `/hiring-companies/:id` | Page | companies | M | R5 | Confirmed as `/hiring-companies/$companyId` route with master-data detail page and state tests. Covers loading/ready/not-found/stale/denied states, parent `/hiring-companies`, dashboard fallback, and edit/subscription handoff. Visual reference pending; backend company detail fields unknown. |
+| Contract-reviewed | `/hiring-companies/edit/:id` | Page | companies | M | R5 | Confirmed as `/hiring-companies/edit/$companyId` route with master-data edit page and state tests. Covers editing/saving/success/cancelled/error/denied states, detail parent/success/cancel targets, and platform company ownership. Visual reference pending; backend update payload unknown. |
+| Contract-reviewed | `/hiring-company/:id/subscription` | Page | companies | M | R5 | Confirmed as `/hiring-company/$companyId/subscription` route with `canManageHiringCompanies`, company subscription page, master-data state, and tests. Covers ready/loading/stale/denied/not-found/mutation-blocked/mutation-success/mutation-error states, route capability vs mutation capability `canManagePlatformSubscriptions`, refresh targets, and parent company detail. Visual reference pending; backend subscription mutation details unknown. |
+| Contract-reviewed | `/recruitment-agencies` | Page | agencies | M | R5 | Confirmed in router/metadata, master-data list page, master-data state, and routing tests. Covers platform master-data list states loading/ready/empty/error/denied, count projection, dashboard fallback, and entity ownership `recruitment-agency`. Visual reference pending; backend agency list schema unknown. |
+| Contract-reviewed | `/recruitment-agencies/:id` | Page | agencies | M | R5 | Confirmed as `/recruitment-agencies/$agencyId` route with master-data detail page and state tests. Covers loading/ready/not-found/stale/denied states, parent `/recruitment-agencies`, dashboard fallback, and edit handoff. Visual reference pending; backend agency detail fields unknown. |
+| Contract-reviewed | `/recruitment-agencies/edit/:id` | Page | agencies | M | R5 | Confirmed as `/recruitment-agencies/edit/$agencyId` route with master-data edit page and state tests. Covers editing/saving/success/cancelled/error/denied states, detail parent/success/cancel targets, and platform agency ownership. Visual reference pending; backend update payload unknown. |
+| Contract-reviewed | `/subscriptions` | Page | subscriptions | M | R5 | Confirmed in router/metadata, master-data list page, master-data state, and routing tests. Covers platform subscription list states loading/ready/empty/error/denied, count projection, dashboard fallback, and separation from authenticated org `/billing` commercial screens. Visual reference pending; backend subscription list schema unknown. |
+| Contract-reviewed | `/subscriptions/:id` | Page | subscriptions | M | R5 | Confirmed as `/subscriptions/$subscriptionId` route with master-data detail page and state tests. Covers loading/ready/not-found/stale/denied states, parent `/subscriptions`, dashboard fallback, and platform subscription ownership. Visual reference pending; backend subscription detail fields unknown. |
+| Contract-reviewed | `/sectors` | PageWithStatefulUrl | taxonomy | L | R5 | Confirmed in router/metadata, taxonomy sector list page, taxonomy state, and routing/state tests. Covers route family `taxonomy`, ready/loading/empty/error/denied/not-found/stale/mutation-success/mutation-error states, dashboard parent, and separation from settings subsections/master-data routes. Visual reference pending; backend taxonomy list schema unknown. |
+| Contract-reviewed | `/sectors/:id` | Page | taxonomy | L | R5 | Confirmed as `/sectors/$sectorId` route with sector detail page, taxonomy state, and tests. Covers sector id state, ready/loading/empty/error/denied/not-found/stale/mutation-success/mutation-error variants, parent `/sectors`, and taxonomy route ownership. Visual reference pending; backend sector detail/update payload unknown. |
+| Contract-reviewed | `/sectors/:sector_id/subsectors` | PageWithStatefulUrl | taxonomy | L | R5 | Confirmed as `/sectors/$sectorId/subsectors` route with subsector list page, taxonomy state, and tests. Covers sector-scoped subsector list, route family `taxonomy`, parent sector detail, list and mutation states, and no settings/master-data ownership. Visual reference pending; backend subsector list schema unknown. |
+| Contract-reviewed | `/subsectors/:id` | Page | taxonomy | L | R5 | Confirmed as `/subsectors/$subsectorId` route with subsector detail page, taxonomy state, and tests. Covers subsector detail, optional sector parent resolution, not-found/stale/denied/error/mutation states, fallback parent `/sectors`, and taxonomy route ownership. Visual reference pending; backend subsector detail/update payload unknown. |
+
+
+#### SysAdmin review evidence and remaining blockers
+
+Confirmed evidence:
+- SysAdmin/platform routes are registered inside the authenticated shell with platform-specific capabilities: `canManagePlatformUsers`, `canManageFavoriteRequests`, `canManageHiringCompanies`, `canManageRecruitmentAgencies`, `canManagePlatformSubscriptions`, and `canManageTaxonomy`.
+- Users and favorite-request queues are implemented under `src/domains/sysadmin/users-and-requests`, with state helpers for URL filters, platform-only scope, return targets, queue states, and action readiness.
+- Company, agency, and subscription master-data routes share `src/domains/sysadmin/master-data`, including list/detail/edit states, dashboard fallback, entity-specific parent targets, and company subscription route-vs-mutation capability separation.
+- Taxonomy routes are implemented under `src/domains/sysadmin/taxonomy`, with explicit sector/subsector surfaces, parent targets, route family ownership, and separation from settings subsections or generic master-data routes.
+- Platform subscription administration is intentionally separate from org billing screens, and platform user CRUD is intentionally separate from org team invite management and public invite-token acceptance.
+
+Remaining blockers before `Figma-ready`:
+- SysAdmin visuals are not canonical for platform list/detail/edit, queue action, company subscription, taxonomy list/detail, denied, stale, not-found, mutation-success, and mutation-error states.
+- Backend schemas and mutation payloads for platform users, favorite request actions, master-data entities, platform subscriptions, and taxonomy entities are unknown; do not invent fields in Figma contracts.
+- Legacy `/recruiters` is not a SysAdmin route and must not be mapped to platform `/users`; recruiter visibility remains `/team/recruiters`.
 
 ## Alias/reference rows from `screens.md`
 
@@ -397,19 +504,21 @@ These rows are not independent canonical screens; they point to registered route
 
 ## Current blockers before Figma
 
-- Full domain-by-domain review has not been completed for all 103 canonical route rows and 4 alias/reference rows.
+- Full domain-by-domain contract review is complete for all 103 canonical route rows and 4 alias/reference rows. No row is `Figma-ready` until canonical visuals are confirmed.
 - Existing auth/dashboard visual references do not cover all token, callback, degraded, denied, stale, retry, and parent-return states.
 - Jobs, candidate, public/external, settings, and integrations exact visual references are still partial; do not start detailed Figma frames until their rows are contract-reviewed and signoff-ready.
 - Shell/dashboard visual parity debt remains tracked in `roadmap.md` and should be handled during visual refinement, not as API/data blocker.
 
 ## Next review order
 
+Contract review is complete. The next pass is visual confirmation and Figma-readiness, in this order:
+
 1. Auth public/token + SSO callback states.
 2. Shell, dashboard, notifications, inbox.
 3. Jobs list/detail/task overlays.
 4. Candidate hub/action launchers/database handoff.
-5. Public/external token flows. (Contract-reviewed; visual confirmation pending.)
-6. Settings, integrations, reports, billing, team/favorites, marketplace. (Settings, integrations, and reports contract-reviewed except `/recruiters` clarification.)
+5. Public/external token flows.
+6. Settings, integrations, reports, billing, team/favorites, marketplace.
 7. SysAdmin/platform long-tail.
 
 ## Generated inventory note

@@ -54,7 +54,7 @@ Transport concerns are centralized in `src/lib/api-client`: configured REST/auth
 | `frame` | Route-owning | authenticated app frame and route outlets | `canEnterShell` | R0 |
 | `navigation` | Support | role-aware nav, section visibility, active-state rules | `canSeeNavSection` | R0 |
 | `notifications` | Support | notification center, typed destination resolver | `canViewNotifications`, `canResolveNotificationDestination` | R0 |
-| `account-context` | Task | user-profile, company/agency profile, logout/session-loss | `canOpenAccountArea`, `canLogout` | R0 |
+| `account-context` | Task | user-profile, company/agency profile, logout/session-loss | `canOpenAccountArea`, `canViewHiringCompanyProfile`, `canViewRecruitmentAgencyProfile`, `canLogout` | R0 |
 | `shell-overlays` | Task | shell-owned overlay classes and close/back policy | account-specific route capabilities, primarily `canOpenAccountArea` | R0 |
 
 ### `dashboard`

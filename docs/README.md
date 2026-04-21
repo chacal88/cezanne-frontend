@@ -74,9 +74,9 @@ Confirmed:
   - `ats-candidate-source-operational-depth`
 - the full sequence is synchronized in `integration-operational-depth-sequence-plan.md`
 - the release-hardening evidence and PR handoff summary are recorded in `integration-operational-depth-closeout.md`
-- the roadmap now marks **design/flow preparation** as the current next phase before Figma + screen-flow contracts
+- the roadmap now marks **visual evidence capture** as the current next phase after contract package creation and before Figma + screen-flow contracts
 - `screen-design-flow-matrix.md` is the active contract-first bridge from implemented route/state depth to canonical Figma references
-- `pre-figma-flow-review.md` is the active gate for reviewing all 103 canonical route rows plus 4 alias/reference rows before any Figma/screen-flow production starts
+- `pre-figma-flow-review.md` is the active gate for visual-readiness: all 103 canonical route rows plus 4 alias/reference rows are contract-reviewed and V0-V5 visual contracts are prepared, but Figma/screen-flow production remains blocked until evidence capture marks the relevant rows `Figma-ready`
 
 ## Post-cleanup documentation semantics
 
@@ -144,7 +144,13 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 43. `ats-candidate-source-operational-depth-plan.md` — completed ATS candidate source operational-depth baseline
 44. `integration-operational-depth-closeout.md` — final validation, safety, diff, and PR handoff evidence for the operational-depth wave
 45. `screen-design-flow-matrix.md` — active contract-first route/flow/state/design-readiness matrix for high-risk operational screens before Figma handoff
-46. `pre-figma-flow-review.md` — mandatory pre-Figma gate covering every route row from `screens.md`, including aliases/reference rows and unresolved flow-review blockers
+46. `pre-figma-flow-review.md` — mandatory pre-Figma gate covering every route row from `screens.md`, including aliases/reference rows, completed contract review, and the visual-readiness pass
+47. `v0-auth-shell-dashboard-visual-contract.md` — first visual-readiness package for auth, shell, dashboard, notifications, and inbox before Figma frames are produced
+48. `v1-jobs-visual-contract.md` — visual-readiness package for jobs list, authoring, detail, task overlays, and requisition routes before Figma frames are produced
+49. `v2-candidates-visual-contract.md` — visual-readiness package for candidate hub, database, action launchers, and panel boundaries before Figma frames are produced
+50. `v3-public-external-token-visual-contract.md` — visual-readiness package for public/external and integration token-entry flows before Figma frames are produced
+51. `v4-operations-visual-contract.md` — visual-readiness package for settings, integrations admin, reports, billing, team, favorites, and marketplace before Figma frames are produced
+52. `v5-sysadmin-platform-visual-contract.md` — visual-readiness package for SysAdmin/platform users, queues, master data, subscriptions, and taxonomy before Figma frames are produced
 
 ## Package roles
 
@@ -194,6 +200,12 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `integration-operational-depth-closeout.md` | records final validation results, safety review, deferred items, and PR-ready handoff for the operational-depth wave |
 | `screen-design-flow-matrix.md` | maps high-risk screens to route ownership, flow states, telemetry, parent return, and design-reference status |
 | `pre-figma-flow-review.md` | tracks route-by-route review readiness and blocks Figma production until flow contracts, state coverage, parent return, API/data expectations, telemetry safety, and visual reference status are confirmed |
+| `v0-auth-shell-dashboard-visual-contract.md` | defines the first visual-readiness package for the R0 auth/shell/dashboard anchor flows before canonical Figma frames are created |
+| `v1-jobs-visual-contract.md` | defines the visual-readiness package for jobs list/detail/authoring/task-overlay/requisition flows before canonical Figma frames are created |
+| `v2-candidates-visual-contract.md` | defines the visual-readiness package for candidate hub/database/action-launcher/panel flows before canonical Figma frames are created |
+| `v3-public-external-token-visual-contract.md` | defines the visual-readiness package for public/external and integration token-entry flows before canonical Figma frames are created |
+| `v4-operations-visual-contract.md` | defines the visual-readiness package for operational authenticated-shell modules before canonical Figma frames are created |
+| `v5-sysadmin-platform-visual-contract.md` | defines the visual-readiness package for SysAdmin/platform routes before canonical Figma frames are created |
 
 ## Source relationship
 

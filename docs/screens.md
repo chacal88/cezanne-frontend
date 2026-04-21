@@ -163,9 +163,9 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/notifications` | Page | shell | notifications | HC User, HC Admin, RA User, RA Admin, contextual SysAdmin | `canViewNotifications` | authenticated shell identity | Destination handling must stay typed and cross-domain. | H | R0 |
 | `/inbox?conversation=` | PageWithStatefulUrl | inbox | conversation-list | HC User, HC Admin, RA User, RA Admin | `canUseInbox`, `canOpenConversation` | `hc` or `ra` | Conversation selection is URL state; optional compose state also exists. | H | R0 |
 | `/user-profile` | ShellOverlay | shell | account-context | HC User, HC Admin, RA User, RA Admin | `canOpenAccountArea` | authenticated shell identity | Route redirects back to current route or dashboard, then opens modal overlay. | M | R0 |
-| `/hiring-company-profile` | Page | shell | account-context | HC Admin | `canOpenAccountArea` | `hc`, org ownership | Organization-scoped profile page. | M | R0 |
-| `/recruitment-agency-profile` | Page | shell | account-context | RA Admin | `canOpenAccountArea` | `ra`, org ownership | Organization-scoped profile page. | M | R0 |
-| `/logout` | ShellOverlay | shell | account-context | HC User, HC Admin, RA User, RA Admin, SysAdmin | `canLogout` | authenticated session | Must preserve redirect-after-login/session-loss semantics. | M | R0 |
+| `/hiring-company-profile` | Page | shell | account-context | HC Admin | `canViewHiringCompanyProfile`; mutation: `canManageCompanySettings` | `hc`, org ownership | Organization-scoped hiring-company profile page with dashboard parent return. | M | R0 |
+| `/recruitment-agency-profile` | Page | shell | account-context | RA Admin | `canViewRecruitmentAgencyProfile`; mutation: `canManageAgencySettings` | `ra`, org ownership | Organization-scoped recruitment-agency profile page with dashboard parent return. | M | R0 |
+| `/logout` | Page | shell | session | HC User, HC Admin, RA User, RA Admin, SysAdmin | `canLogout` | authenticated session | Clears local session, returns to public entry, and preserves session-loss redirect semantics. | M | R0 |
 | `/jobs/:type?page&search&asAdmin&label` | PageWithStatefulUrl | jobs | list | HC User, HC Admin | `canViewJobsList` | `hc`; jobs nav also shaped by `jobRequisition`, `seeJobRequisition` | Dynamic URL state for scope, pagination, search, admin-view, and label is confirmed and now implemented in the first R1 shell. | H | R1 |
 | `/jobs/manage/:id?resetWorkflow` | Page | jobs | authoring | HC Admin, conditional HC User, conditional SysAdmin | `canCreateJob`, `canEditJob`, `canResetJobWorkflow` | `hc`, `admin` or delegated org rights; `jobRequisition` branching | Supports explicit create/edit entry, preserves `resetWorkflow`, serializes through a dedicated draft adapter boundary, and exposes job-board publishing readiness for publishing-adjacent actions without changing draft persistence. | H | R1 |
 | `/job/:id?section` | PageWithStatefulUrl | jobs | detail | HC User, HC Admin, contextual RA User, contextual RA Admin, contextual SysAdmin | `canViewJobDetail`, `canManageJobState` | job-context access; may be affected by `jobRequisition` | Large aggregate hub route with section/deep-link behavior and a normalized hub view-model boundary. | H | R1 |
@@ -204,7 +204,7 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/favorites/request/:id?` | TaskFlow | favorites | org-favorite-requests | HC User, HC Admin, RA User, RA Admin | `canViewOrgFavorites` | favorite-request entitlement context | Org-scoped favorite request task flow with draft/submitted/pending/approved/rejected/unavailable states; separate from platform `/favorites-request*` queues. | L | R4 |
 | `/favorites-request` | PageWithStatefulUrl | sysadmin | favorite-requests | SysAdmin | `canManageFavoriteRequests` | `sysAdmin` | Platform-admin favorite-request queue with pending/resolved/rejected/stale/inaccessible states. | L | R5 |
 | `/favorites-request/:id` | Page | sysadmin | favorite-requests | SysAdmin | `canManageFavoriteRequests` | `sysAdmin` | Platform-admin request detail with approve/reject/reopen readiness. | L | R5 |
-| `/recruiters` | Page | settings | agency-settings | HC User, HC Admin | `canManageAgencySettings` or recruiter-visibility capability | `hc`, `seeRecruiters`, `recruiters` | Entitlement-heavy team/recruiter area. | L | R4 |
+| `/settings/agency-settings` | Page | settings | agency-settings | RA Admin | `canManageAgencySettings` | `ra`, org ownership | RA-specific settings page. Legacy `/recruiters` is not a registered route; recruiter visibility is `/team/recruiters`. | L | R4 |
 | `/hiring-companies` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies` | `sysAdmin` | Platform-admin list with deterministic list states from `r5-platform-master-data`. | M | R5 |
 | `/hiring-companies/:id` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies` | `sysAdmin` | Platform-admin detail page. | M | R5 |
 | `/hiring-companies/edit/:id` | Page | sysadmin | companies | SysAdmin | `canManageHiringCompanies` | `sysAdmin` | Platform-admin edit page. | M | R5 |
@@ -262,7 +262,7 @@ The following route families must be formally registered, typed, and capability-
 - dashboard
 - notifications
 - inbox with stateful conversation selection
-- shell-owned account/logout overlays
+- shell-owned account pages and session/logout route
 - typed destination contracts for jobs, candidates, inbox, and dashboard re-entry
 
 ## Planning rule

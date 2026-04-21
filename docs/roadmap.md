@@ -459,10 +459,11 @@ Current status:
 | Provider-specific integrations depth | Closed | `provider-specific-integrations-depth-plan.md`, `provider-specific-integrations-depth` | Authenticated provider detail setup depth exists for calendar, job-board, and HRIS, with later ATS/assessment expansion. |
 | Provider readiness operational gates | Closed | `provider-readiness-operational-gates-plan.md`, `provider-readiness-operational-gates` | Operational routes consume normalized readiness outputs and preserve provider setup separation. |
 | Operational-depth consumer packages | Closed | `integration-operational-depth-sequence-plan.md` | All eight follow-on packages are implemented and validated. |
-| Design/flow preparation | Current next phase | `screen-design-flow-matrix.md`, `screens.md`, accepted OpenSpec specs | Convert route/state/telemetry contracts into screen-level design handoff rows. |
-| Figma + screen-flow contracts | Next planned phase | future Figma references + screen-flow contracts | Attach canonical Figma nodes/frames to matrix rows without changing route/spec ownership. |
+| Design/flow preparation | Closed for contract package creation | `screen-design-flow-matrix.md`, `pre-figma-flow-review.md`, `v0-auth-shell-dashboard-visual-contract.md` through `v5-sysadmin-platform-visual-contract.md` | All route rows are contract-reviewed and V0-V5 visual-readiness packages exist. |
+| Visual evidence capture | Current next phase | V0-V5 visual contracts + current app/legacy references | Capture canonical screenshots/references, accepted deviations, viewport assumptions, and unresolved visual/API unknowns before marking rows `Figma-ready`. |
+| Figma + screen-flow contracts | Next planned phase | future Figma references + screen-flow contracts | Attach canonical Figma nodes/frames to rows only after visual evidence makes them `Figma-ready`, without changing route/spec ownership. |
 
-Planning rule: do not reopen provider readiness gates as the current implementation package unless a new provider family or operational consumer is intentionally added. The active next phase is design/flow preparation: ensure the screen matrix covers the accepted state groups, entry modes, parent-return behavior, telemetry safety, and public/token boundaries before Figma production starts.
+Planning rule: do not reopen provider readiness gates as the current implementation package unless a new provider family or operational consumer is intentionally added. The active next phase is visual evidence capture against the V0-V5 visual-readiness contracts. Figma production remains blocked until specific rows are promoted to `Figma-ready` by evidence, not by visual preference alone.
 
 ## 11. Contract gaps (backend dependencies)
 
@@ -644,10 +645,10 @@ These items should be resolved when dashboard rows move from contract-ready to F
 
 ## Design/flow preparation implementation note
 
-Design/flow preparation is the active next phase after the operational-depth closeout. Core design-flow preparation rows have been expanded for auth, token flows, SSO callbacks, authenticated shell, dashboard, notifications, inbox, jobs list/detail, and candidate detail before starting Figma production. It is documentation- and contract-driven before visual production: each priority row in `screen-design-flow-matrix.md` must map route ownership, entry modes, accepted OpenSpec state groups, actions, error/retry states, parent return behavior, and telemetry-safe payload expectations. Figma references remain `pending` until a canonical node/frame exists; missing visual references are not implementation gaps by themselves.
+Design/flow preparation has produced route-by-route contract review and V0-V5 visual-readiness packages before Figma production. The packages cover auth/shell/dashboard, jobs, candidates, public/external token flows, operational modules, and SysAdmin/platform routes. Figma references remain `pending` until canonical evidence exists; missing visual references are not implementation gaps by themselves.
 
-The Figma phase starts only after the matrix row for a route/flow is ready enough to prevent design from inventing new routing, access, provider setup, public/token, or telemetry contracts. The `pre-figma-flow-review.md` gate must stay authoritative for this decision: visual references alone do not mark a route as Figma-ready.
+The Figma phase starts only after the relevant V0-V5 contract captures source visual evidence, accepted deviations, viewport assumptions, and unresolved backend/API unknowns for that route/flow. The `pre-figma-flow-review.md` gate must stay authoritative for this decision: visual references alone do not mark a route as Figma-ready.
 
 ## Pre-Figma flow review gate
 
-The pre-Figma review gate is now tracked in `pre-figma-flow-review.md`. It imports 103 canonical route rows plus 4 alias/reference rows from `screens.md` and blocks Figma production until the relevant route rows are reviewed for entry modes, state groups, actions, errors/retry, parent return, data/API contracts, telemetry safety, and canonical visual reference status.
+The pre-Figma review gate is now tracked in `pre-figma-flow-review.md`. It imports 103 canonical route rows plus 4 alias/reference rows from `screens.md`; all rows are contract-reviewed, and V0-V5 visual-readiness packages now define the evidence required before any row can become `Figma-ready`. Figma production remains blocked until the relevant route rows have canonical visual evidence for entry modes, state groups, actions, errors/retry, parent return, data/API contracts, telemetry safety, and visual-reference status.
