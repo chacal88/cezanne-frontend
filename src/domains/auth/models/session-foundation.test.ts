@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import {
+  buildAccessContextForLoginPersona,
   buildAuthTelemetry,
   buildAuthTokenRouteState,
   parseAuthCallbackState,
   resolveAuthTokenState,
+  resolveLoginAttempt,
   resolveLogoutState,
   resolvePostAuthLanding,
 } from './session-foundation';
@@ -20,6 +22,26 @@ describe('auth session foundation', () => {
     expect(resolveAuthTokenState('invalid-abc')).toBe('invalid');
     expect(buildAuthTokenRouteState('valid-token')).toMatchObject({ tokenState: 'valid', canSubmit: true, routeState: { kind: 'ready' } });
     expect(buildAuthTokenRouteState('expired-token')).toMatchObject({ tokenState: 'expired', canSubmit: false, routeState: { kind: 'failed' } });
+  });
+
+
+  it('resolves login attempts into normalized access context and dashboard landing', () => {
+    const result = resolveLoginAttempt({ email: 'admin@example.test', password: 'password', persona: 'hc-admin' });
+
+    expect(result).toMatchObject({ status: 'succeeded', routeState: { kind: 'session-ready', landingTarget: '/dashboard' }, landing: { target: '/dashboard' } });
+    expect(result.accessContext).toMatchObject({ isAuthenticated: true, organizationType: 'hc', isAdmin: true, isSysAdmin: false });
+    expect(JSON.stringify(result)).not.toContain('password');
+    expect(JSON.stringify(result)).not.toContain('admin@example.test');
+  });
+
+  it('keeps failed login attempts public and maps sysadmin to platform landing', () => {
+    const failed = resolveLoginAttempt({ email: 'bad', password: 'fail', persona: 'hc-admin' });
+    expect(failed).toMatchObject({ status: 'failed', routeState: { kind: 'failed' } });
+    expect(failed.accessContext).toBeUndefined();
+    expect(buildAccessContextForLoginPersona('sysadmin')).toMatchObject({ isAuthenticated: true, organizationType: 'none', isSysAdmin: true });
+    expect(resolveLoginAttempt({ email: 'admin@example.test', password: 'password', persona: 'sysadmin' })).toMatchObject({ landing: { target: '/hiring-companies', fallbackKind: 'platform-dashboard' } });
+    expect(resolveLoginAttempt({ email: 'admin@example.test', password: 'password', persona: 'hc-admin', requestedTarget: '/jobs/open' })).toMatchObject({ landing: { target: '/jobs/open', fallbackKind: 'sanitized-return' } });
+    expect(resolveLoginAttempt({ email: 'admin@example.test', password: 'password', persona: 'hc-admin', requestedTarget: '/chat/raw/alex' })).toMatchObject({ landing: { target: '/dashboard', fallbackKind: 'dashboard' } });
   });
 
   it('parses callback outcomes without exposing raw callback codes', () => {

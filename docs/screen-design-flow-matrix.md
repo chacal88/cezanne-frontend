@@ -4,6 +4,20 @@
 
 This matrix bridges route ownership, OpenSpec state depth, and design handoff readiness. It does not replace `screens.md`; `screens.md` remains the route truth. Accepted OpenSpec specs remain the state truth. Figma references are complementary evidence and may be `pending` without blocking route/spec readiness.
 
+## Current phase
+
+The frontend roadmap has moved past R0-R5 implementation/planning, provider-specific integrations depth, provider-readiness operational gates, and the eight operational-depth consumer packages. The active next phase is **design/flow preparation** before Figma production.
+
+Design/flow preparation means every priority route or flow selected for visual design must already have:
+- route ownership from `screens.md` and `modules.md`;
+- accepted state groups from OpenSpec specs;
+- entry-mode coverage for shell, direct URL, notification, token, public, parent task, or provider callback paths as applicable;
+- parent return, refresh, cancel, and retry behavior;
+- telemetry-safe payload expectations;
+- public/token and provider setup boundaries preserved.
+
+Figma work starts after the row has this contract. A pending Figma reference is expected until a canonical Figma frame/node is attached.
+
 ## Source documents
 
 - `screens.md`
@@ -40,7 +54,9 @@ This matrix bridges route ownership, OpenSpec state depth, and design handoff re
 3. Public/token rows must not depend on authenticated shell context.
 4. Provider setup remains separate from operational task execution.
 5. Missing visual references are recorded as `pending`; do not invent Figma links.
-6. `implementation-closeout-release-hardening` is a completed active closeout record, not an archived change at the time this matrix was created.
+6. `implementation-closeout-release-hardening` is a completed closeout record and must not be treated as an active implementation blocker.
+7. Design/flow preparation is contract-first: do not use Figma to invent new routes, capabilities, provider setup behavior, public/token entry rules, telemetry payloads, or backend APIs.
+8. A row is Figma-ready only when its route/state/action/error/parent-return/telemetry cells are specific enough for a designer to produce screens without adding product behavior.
 
 ## Priority operational rows
 
@@ -65,3 +81,36 @@ Public/token routes `/integration/*`, `/chat/:token/:user_id`, `/surveys/*`, `/r
 ## Pending design references
 
 All rows currently mark design reference as `pending`. This records missing Figma/reference mapping without inventing visual evidence.
+
+
+## Design-flow contract checklist
+
+Use this checklist before moving a matrix row from `pending` design reference to a Figma-linked reference:
+
+- [ ] Route pattern matches the canonical router/route metadata shape or is explicitly documented as an alias/example.
+- [ ] Domain and module ownership match `modules.md`.
+- [ ] Capability names match the canonical runtime capability catalog.
+- [ ] Entry modes include all relevant direct-entry, notification, token/public, provider callback, parent task, and shell paths.
+- [ ] State groups include loading/ready/empty/denied/unavailable/degraded/stale/retry/terminal variants required by the accepted specs.
+- [ ] Actions distinguish view-only, save, submit, retry, refresh, cancel, close, and parent-refresh behavior.
+- [ ] Error/retry states distinguish recoverable failures from terminal or read-only states.
+- [ ] Parent return behavior names the stable target and refresh intent.
+- [ ] Telemetry uses allowlisted route/state/action/correlation fields only.
+- [ ] Public/token rows do not depend on authenticated shell.
+- [ ] Operational rows consume normalized readiness/status outputs and do not expose raw provider setup internals.
+- [ ] Figma reference is either `pending` or a canonical frame/node link; screenshots, ad-hoc mockups, and exploratory files are not canonical references.
+
+## Figma handoff contract
+
+When a row becomes ready for visual design, the handoff must include:
+
+| Handoff field | Required content |
+|---|---|
+| Matrix row id | The route pattern or named flow from this matrix. |
+| Canonical owner | Domain/module from `modules.md`. |
+| State set | The exact state groups and error/retry states to represent. |
+| Entry variants | Direct URL, shell, notification, token/public, parent task, or provider callback variants. |
+| Boundary notes | Public/token, provider setup, telemetry, and raw-data exclusions. |
+| Figma reference | Canonical frame/node URL once created; `pending` before creation. |
+
+Figma frames created from this matrix are visual evidence only. If design work reveals missing product behavior, open or update an OpenSpec change before changing route, capability, provider, public/token, telemetry, or backend-contract assumptions.

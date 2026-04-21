@@ -37,7 +37,15 @@ Synthesized from:
 | `entry` | Route-owning | sign-in and auth launch routes | `canStartSession` | R0 |
 | `token-flows` | Route-owning | confirm registration, register, forgot/reset password | `canUseAuthTokenFlow` | R0 |
 | `sso-callbacks` | Route-owning | cezanne + saml callback handling | `canCompleteSsoCallback` | R0 |
-| `session-bootstrap` | Support | session normalization, post-auth handoff | `canResolvePostAuthLanding` | R0 |
+| `session-bootstrap` | Support | auth API token exchange, REST `/authenticate` refresh, GraphQL shell enrichment, session normalization, post-auth handoff | `canResolvePostAuthLanding` | R0 |
+
+## API client and domain adapter strategy
+
+Transport concerns are centralized in `src/lib/api-client`: configured REST/auth/GraphQL base URLs, URL joining, JSON parsing, bearer/language headers, correlation/CSRF preservation, and typed API failures. Product endpoint ownership stays inside each domain adapter (`src/domains/<domain>/api`) so modules own their DTOs, mappers, fallback behavior, and tests. Components should call domain adapters or hooks, not raw `fetch`.
+
+## Auth session bootstrap implementation note
+
+`auth.entry` now uses an API-first adapter by default. The runtime login flow follows the frontend contract validated from `frontend/src/app/domain/login`: auth service `/login` returns a token, REST `/authenticate` returns the base user payload, and GraphQL enriches shell/session state with `monolith.auth`, `monolith.featureFlags`, `monolith.userSettingsUiSession`, and `billing.currentSubscriptionUsage`. The deterministic foundation login adapter remains test/dev-only and must not be treated as production integration.
 
 ### `shell`
 

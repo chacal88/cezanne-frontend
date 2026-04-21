@@ -100,7 +100,7 @@ A release is not "done" just because the code is written. It's done when the gat
 
 ### R0 — Foundation gates
 
-- Auth flows cover success, invalid token, expired token, SSO/SAML callback error
+- Auth flows cover API-first login success (`/login` -> `/authenticate` -> GraphQL enrichment), invalid token, expired token, SSO/SAML callback error
 - Shell renders correctly for every distinct persona: HC user, HC admin, RA user, RA admin, SysAdmin
 - Dashboard is a valid landing route for authenticated recruiter-core users (not a placeholder) — renders role-correctly and supports deep-link / notification-based re-entry
 - Notification router resolves **typed destinations** (entity + action + context); no opaque `referer` redirects
@@ -438,6 +438,32 @@ Recurring failure modes. Every release's test matrix must include these.
 
 `provider-specific-integrations-depth` is the completed post-R5 follow-on package for authenticated provider-specific setup depth. It consumes the R4 integrations shell for the first bounded provider families: `calendar`, `job-board`, and `hris`, and does not reopen public/token `/integration/*` callback routes, API endpoints settings, or R5 SysAdmin scope.
 
+### Current execution path after R0-R5
+
+The implementation roadmap now uses the following post-R5 path as the source of truth for deciding the next work package:
+
+```text
+R0-R5 implementation/planning closeout
+  -> provider-specific integrations depth
+  -> provider-readiness operational gates
+  -> operational-depth consumer packages
+  -> design/flow preparation
+  -> Figma + screen-flow contracts
+```
+
+Current status:
+
+| Step | Status | Owner docs/specs | Notes |
+|---|---|---|---|
+| R0-R5 implementation/planning closeout | Closed | `frontend-all-gap-debt-closeout`, `frontend-high-gap-implementation-closeout`, R0-R5 docs | Route/spec/foundation debt was closed or explicitly classified. |
+| Provider-specific integrations depth | Closed | `provider-specific-integrations-depth-plan.md`, `provider-specific-integrations-depth` | Authenticated provider detail setup depth exists for calendar, job-board, and HRIS, with later ATS/assessment expansion. |
+| Provider readiness operational gates | Closed | `provider-readiness-operational-gates-plan.md`, `provider-readiness-operational-gates` | Operational routes consume normalized readiness outputs and preserve provider setup separation. |
+| Operational-depth consumer packages | Closed | `integration-operational-depth-sequence-plan.md` | All eight follow-on packages are implemented and validated. |
+| Design/flow preparation | Current next phase | `screen-design-flow-matrix.md`, `screens.md`, accepted OpenSpec specs | Convert route/state/telemetry contracts into screen-level design handoff rows. |
+| Figma + screen-flow contracts | Next planned phase | future Figma references + screen-flow contracts | Attach canonical Figma nodes/frames to matrix rows without changing route/spec ownership. |
+
+Planning rule: do not reopen provider readiness gates as the current implementation package unless a new provider family or operational consumer is intentionally added. The active next phase is design/flow preparation: ensure the screen matrix covers the accepted state groups, entry modes, parent-return behavior, telemetry safety, and public/token boundaries before Figma production starts.
+
 ## 11. Contract gaps (backend dependencies)
 
 Frontend cannot work around these. They must be fixed server-side before certain releases can ship.
@@ -560,7 +586,7 @@ The R4 integrations setup baseline includes an internal admin shell for `/integr
 
 ## Provider readiness operational gates implementation note
 
-`provider-readiness-operational-gates` is implemented and archived as the post-provider-depth gate baseline. It does not add provider setup UI and does not change public/token `/integration/*` callbacks. It makes the first operational consumers use normalized provider readiness signals:
+`provider-readiness-operational-gates` is implemented and archived as the post-provider-depth gate baseline; it is no longer the active current step. It does not add provider setup UI and does not change public/token `/integration/*` callbacks. It makes the first operational consumers use normalized provider readiness signals:
 
 - calendar readiness gates job-scoped and candidate-scoped scheduling actions;
 - job-board readiness gates publishing-adjacent job authoring and job listings publish/status actions;
@@ -568,7 +594,7 @@ The R4 integrations setup baseline includes an internal admin shell for `/integr
 
 Operational routes remain route-local on blocked, degraded, unavailable, and unimplemented outcomes. Mutation/submit actions proceed only when readiness is `ready`; degraded states can be shown on status-only surfaces but must not imply the action can succeed.
 
-All eight follow-on changes now deepen the operational models behind those gates and provider setup expansion without changing public/token route ownership. The full synchronized sequence is documented in `integration-operational-depth-sequence-plan.md`:
+All eight follow-on changes now deepen the operational models behind those gates and provider setup expansion without changing public/token route ownership. This means the roadmap has advanced beyond the gate baseline into design/flow preparation. The full synchronized sequence is documented in `integration-operational-depth-sequence-plan.md`:
 - `calendar-scheduling-operational-depth` (authenticated job/candidate scheduling states, conflict/retry, submitted parent-refresh intent, safe telemetry, and public/external route separation);
 - `job-board-publishing-operational-depth`;
 - `hris-requisition-operational-depth`;
@@ -601,3 +627,10 @@ Mapping drift and workflow drift remain separate: HRIS mapping remediation point
 ## ATS candidate source operational depth implementation note
 
 `ats-candidate-source-operational-depth` is implemented as the ATS source/import/sync operational consumer package for candidate database, candidate detail, jobs list, and job authoring status-only surfaces. It preserves candidate/job route state and draft behavior while covering source identity, import/sync, duplicate outcomes, stale-source refresh, provider setup separation, safe telemetry, and unchanged public/token `/integration/*` behavior.
+
+
+## Design/flow preparation implementation note
+
+Design/flow preparation is the active next phase after the operational-depth closeout. It is documentation- and contract-driven before visual production: each priority row in `screen-design-flow-matrix.md` must map route ownership, entry modes, accepted OpenSpec state groups, actions, error/retry states, parent return behavior, and telemetry-safe payload expectations. Figma references remain `pending` until a canonical node/frame exists; missing visual references are not implementation gaps by themselves.
+
+The Figma phase starts only after the matrix row for a route/flow is ready enough to prevent design from inventing new routing, access, provider setup, public/token, or telemetry contracts.

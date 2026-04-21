@@ -74,6 +74,8 @@ Confirmed:
   - `ats-candidate-source-operational-depth`
 - the full sequence is synchronized in `integration-operational-depth-sequence-plan.md`
 - the release-hardening evidence and PR handoff summary are recorded in `integration-operational-depth-closeout.md`
+- the roadmap now marks **design/flow preparation** as the current next phase before Figma + screen-flow contracts
+- `screen-design-flow-matrix.md` is the active contract-first bridge from implemented route/state depth to canonical Figma references
 
 ## Post-cleanup documentation semantics
 
@@ -140,7 +142,7 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 42. `survey-review-scoring-operational-depth-plan.md` — completed survey/review/scoring operational-depth baseline
 43. `ats-candidate-source-operational-depth-plan.md` — completed ATS candidate source operational-depth baseline
 44. `integration-operational-depth-closeout.md` — final validation, safety, diff, and PR handoff evidence for the operational-depth wave
-45. `screen-design-flow-matrix.md` — screen-level route/flow/state/design-readiness matrix for high-risk operational screens
+45. `screen-design-flow-matrix.md` — active contract-first route/flow/state/design-readiness matrix for high-risk operational screens before Figma handoff
 
 ## Package roles
 
@@ -199,4 +201,4 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 
 ## Active implementation-depth package note
 
-Use `screen-design-flow-matrix.md` for design/flow readiness. It complements `screens.md`; it does not replace the route manifest. Active product-depth OpenSpec changes distinguish route registration from complete product behavior.
+Use `screen-design-flow-matrix.md` for design/flow readiness. It complements `screens.md`; it does not replace the route manifest. Active product-depth OpenSpec changes distinguish route registration from complete product behavior. Figma handoff should start from matrix rows that already define route ownership, state groups, actions, error/retry states, parent return behavior, telemetry boundaries, and public/token or provider setup exclusions.

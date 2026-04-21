@@ -10,7 +10,8 @@
     "allowedCreate": "Create entry available",
     "blockedCreate": "Create entry denied",
     "openExample": "Open job detail",
-    "newJob": "Create job"
+    "newJob": "Create job",
+    "clearFilters": "Clear filters"
   },
   "detail": {
     "title": "Job hub",

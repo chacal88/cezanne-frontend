@@ -135,6 +135,7 @@ const resetPasswordRoute = createRoute({
     return <ResetPasswordPage token={token} />;
   },
 });
+const registerIndexRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/register', component: RegisterPage });
 const registerRoute = createRoute({
   getParentRoute: () => publicLayoutRoute,
   path: '/register/$token',
@@ -1429,6 +1430,7 @@ const routeTree = rootRoute.addChildren([
     confirmRegistrationRoute,
     forgotPasswordRoute,
     resetPasswordRoute,
+    registerIndexRoute,
     registerRoute,
     cezanneAuthRoute,
     cezanneCallbackRoute,

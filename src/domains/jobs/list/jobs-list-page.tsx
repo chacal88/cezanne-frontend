@@ -21,11 +21,26 @@ export function validateJobsListScope(scope: unknown): JobsListScope {
   return typeof scope === 'string' && (allowedScopes as readonly string[]).includes(scope) ? (scope as JobsListScope) : 'open';
 }
 
+export function hasJobsListFilters(state: Pick<JobsListState, 'search' | 'asAdmin' | 'label'>): boolean {
+  return Boolean(state.search || state.asAdmin || state.label);
+}
+
+export function buildJobsListClearFiltersSearch(scope: JobsListScope): JobsListState {
+  return {
+    scope,
+    page: 1,
+    search: undefined,
+    asAdmin: false,
+    label: undefined,
+  };
+}
+
 export function JobsListPage({ scope }: { scope: JobsListScope }) {
   const search = useSearch({ strict: false }) as Omit<JobsListState, 'scope'>;
   const capabilities = useCapabilities();
   const { t } = useTranslation('jobs');
   const viewModel = buildJobsListViewModel({ scope, ...search }, capabilities.canCreateJob);
+  const showClearFilters = hasJobsListFilters(viewModel);
 
   return (
     <section>
@@ -50,6 +65,17 @@ export function JobsListPage({ scope }: { scope: JobsListScope }) {
 
       <p data-testid="jobs-list-state-message">{viewModel.state.message}</p>
       <p data-testid="jobs-list-create-state">{viewModel.createPath ? t('list.allowedCreate') : t('list.blockedCreate')}</p>
+
+      {showClearFilters ? (
+        <Link
+          to="/jobs/$scope"
+          params={{ scope }}
+          search={buildJobsListClearFiltersSearch(scope)}
+          data-testid="jobs-list-clear-filters"
+        >
+          {t('list.clearFilters')}
+        </Link>
+      ) : null}
 
       {viewModel.createPath ? (
         <Link to="/jobs/manage" search={{ resetWorkflow: false, copyFromJobId: undefined, saveState: undefined }} data-testid="jobs-create-link">

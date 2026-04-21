@@ -1,6 +1,16 @@
-import { createContext, useContext, type PropsWithChildren } from 'react';
+import { createContext, useContext, useMemo, useState, type PropsWithChildren } from 'react';
 import { evaluateCapabilities } from './evaluate-capabilities';
 import type { AccessContext, Capabilities } from './types';
+
+export const publicAccessContext: AccessContext = {
+  isAuthenticated: false,
+  organizationType: 'none',
+  isAdmin: false,
+  isSysAdmin: false,
+  pivotEntitlements: [],
+  subscriptionCapabilities: [],
+  rolloutFlags: [],
+};
 
 export const defaultAccessContext: AccessContext = {
   isAuthenticated: true,
@@ -37,11 +47,26 @@ function parseAccessContextOverride(): AccessContext | null {
 }
 
 const AccessContextReact = createContext<{ access: AccessContext; capabilities: Capabilities } | null>(null);
+const AccessSessionReact = createContext<{ setAccessContext: (next: AccessContext) => void; resetAccessContext: () => void } | null>(null);
 
-export function AccessProvider({ children, value }: PropsWithChildren<{ value?: AccessContext }>) {
-  const access = value ?? parseAccessContextOverride() ?? defaultAccessContext;
-  const capabilities = evaluateCapabilities(access);
-  return <AccessContextReact.Provider value={{ access, capabilities }}>{children}</AccessContextReact.Provider>;
+export function AccessProvider({ children, value, initialValue }: PropsWithChildren<{ value?: AccessContext; initialValue?: AccessContext }>) {
+  const [uncontrolledAccess, setUncontrolledAccess] = useState<AccessContext>(() => initialValue ?? parseAccessContextOverride() ?? defaultAccessContext);
+  const access = value ?? uncontrolledAccess;
+  const capabilities = useMemo(() => evaluateCapabilities(access), [access]);
+  const sessionActions = useMemo(() => ({
+    setAccessContext: (next: AccessContext) => {
+      if (!value) setUncontrolledAccess(next);
+    },
+    resetAccessContext: () => {
+      if (!value) setUncontrolledAccess(publicAccessContext);
+    },
+  }), [value]);
+
+  return (
+    <AccessSessionReact.Provider value={sessionActions}>
+      <AccessContextReact.Provider value={{ access, capabilities }}>{children}</AccessContextReact.Provider>
+    </AccessSessionReact.Provider>
+  );
 }
 
 export function useAccessContext() {
@@ -54,4 +79,10 @@ export function useCapabilities() {
   const context = useContext(AccessContextReact);
   if (!context) throw new Error('useCapabilities must be used inside AccessProvider');
   return context.capabilities;
+}
+
+export function useAccessSession() {
+  const context = useContext(AccessSessionReact);
+  if (!context) throw new Error('useAccessSession must be used inside AccessProvider');
+  return context;
 }

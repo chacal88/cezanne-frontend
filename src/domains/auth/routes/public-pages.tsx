@@ -1,26 +1,32 @@
-import type { ReactNode } from 'react';
-import { useMemo } from 'react';
+import type { FormEvent, ReactNode } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { observability } from '../../../app/observability';
+import {
+  authApiAdapter,
+  clearLocalAuthSession,
+  completeCezanneCallback,
+  completeSamlCallback,
+  confirmRegistrationToken,
+  registerAccount,
+  requestPasswordResetEmail,
+  resetPassword,
+  resolveAuthBaseUrl,
+  saveLocalAuthSession,
+  validateResetPasswordToken,
+  type AuthLoginAdapter,
+  type PublicAuthActionStatus,
+} from '../api';
+import { publicAccessContext, useAccessSession } from '../../../lib/access-control';
 import { createCorrelationId, ensureCorrelationId, setActiveCorrelationId } from '../../../lib/observability';
-import { buildAuthTelemetry, buildAuthTokenRouteState, parseAuthCallbackState, resolveLogoutState, resolvePostAuthLanding, type AuthProviderFamily } from '../models';
+import { buildAuthTelemetry, buildAuthTokenRouteState, parseAuthCallbackState, resolveLogoutState, resolvePostAuthLanding, type AuthLoginResult, type AuthProviderFamily } from '../models';
+import './public-pages.css';
 
-type PublicRoutePageProps = {
-  title: string;
-  detail: ReactNode;
-  state?: string;
-  landingTarget?: string;
-};
+type PublicRoutePageProps = { title: string; detail: ReactNode; state?: string; landingTarget?: string };
+type ActionState = { status: PublicAuthActionStatus; message?: string; redirectTo?: string };
 
-function PublicRoutePage({ title, detail, state, landingTarget }: PublicRoutePageProps) {
-  return (
-    <section style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 20 }}>
-      <h2 style={{ marginTop: 0 }}>{title}</h2>
-      <div>{detail}</div>
-      {state ? <p data-testid="auth-route-state">{state}</p> : null}
-      {landingTarget ? <p data-testid="auth-landing-target">{landingTarget}</p> : null}
-    </section>
-  );
+function redirectTo(target: string) {
+  window.location.assign(target);
 }
 
 function trackAuthOpen(event: ReturnType<typeof buildAuthTelemetry>) {
@@ -28,11 +34,138 @@ function trackAuthOpen(event: ReturnType<typeof buildAuthTelemetry>) {
   observability.telemetry.track({ ...event, data: { ...event.data, correlationId: ensureCorrelationId() } });
 }
 
-export function PublicHomePage() {
+function PublicRoutePage({ title, detail, state, landingTarget }: PublicRoutePageProps) {
+  return (
+    <main className="auth-public-page auth-public-page--simple">
+      <section className="auth-route-card">
+        <img className="auth-login-logo" src="/assets/img/cezanne/cezanne_recruitment_logo_20261x.png" alt="Cezanne Recruitment logo" />
+        <h2>{title}</h2>
+        <div>{detail}</div>
+        {state ? <p className="auth-debug-state" data-testid="auth-route-state">{state}</p> : null}
+        {landingTarget ? <p className="auth-debug-state" data-testid="auth-landing-target">{landingTarget}</p> : null}
+      </section>
+    </main>
+  );
+}
+
+function PublicFormMessage({ state }: { state: ActionState }) {
+  if (!state.message) return null;
+  const className = state.status === 'succeeded' ? 'auth-login-message auth-login-message--success' : 'auth-login-message';
+  return <p className={className} data-testid="auth-form-message">{state.message}</p>;
+}
+
+function getErrorKind(result: AuthLoginResult | null): string | undefined {
+  return result?.errorKind;
+}
+
+function buildProviderPopupFeatures() {
+  const width = 900;
+  const height = 600;
+  const left = Math.max(0, window.screenX + (window.outerWidth - width) / 2);
+  const top = Math.max(0, window.screenY + (window.outerHeight - height) / 2);
+  return `width=${width},height=${height},left=${left},top=${top}`;
+}
+
+export function PublicHomePage({ authAdapter = authApiAdapter, autoRedirect = true }: { authAdapter?: AuthLoginAdapter; autoRedirect?: boolean } = {}) {
   const { t } = useTranslation('auth');
+  const { setAccessContext } = useAccessSession();
+  const requestedTarget = useMemo(() => new URLSearchParams(window.location.search).get('returnTo') ?? undefined, []);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [code, setCode] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loginResult, setLoginResult] = useState<AuthLoginResult | null>(null);
   const landing = useMemo(() => resolvePostAuthLanding({ isAuthenticated: false }), []);
-  trackAuthOpen(buildAuthTelemetry({ action: 'open', outcome: 'ready', sessionOutcome: 'public-entry', entryMode: 'direct', fallbackKind: landing.fallbackKind }));
-  return <PublicRoutePage title={t('publicHome.title')} detail={t('publicHome.detail')} state="ready" />;
+  const errorKind = getErrorKind(loginResult);
+  const isTwoFactorStep = errorKind === 'two-factor-required' || errorKind === 'two-factor-failed';
+
+  useEffect(() => {
+    trackAuthOpen(buildAuthTelemetry({ action: 'open', outcome: 'ready', sessionOutcome: 'public-entry', entryMode: 'direct', fallbackKind: landing.fallbackKind }));
+  }, [landing.fallbackKind]);
+
+  async function submitLogin(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setIsSubmitting(true);
+    const result = await authAdapter.login({ email, password, code: isTwoFactorStep && code ? code : undefined, requestedTarget });
+    setIsSubmitting(false);
+    setLoginResult(result);
+
+    trackAuthOpen(buildAuthTelemetry({
+      action: 'submit',
+      outcome: result.routeState.kind,
+      sessionOutcome: result.status === 'succeeded' ? 'session-ready' : 'public-entry',
+      entryMode: 'direct',
+      fallbackKind: result.landing?.fallbackKind ?? 'public-entry',
+    }));
+
+    if (result.status === 'succeeded' && result.accessContext && result.landing) {
+      saveLocalAuthSession(result.accessContext, result.landing.target, result.token, result.userSnapshot);
+      setAccessContext(result.accessContext);
+      if (autoRedirect && result.landing.target) redirectTo(result.landing.target);
+    }
+  }
+
+  function launchProvider(provider: 'google' | 'microsoft') {
+    window.open(`${resolveAuthBaseUrl()}/login/${provider}`, 'popup', buildProviderPopupFeatures());
+  }
+
+  function backToLogin() {
+    setCode('');
+    setLoginResult(null);
+  }
+
+  const loginForm = (
+    <form onSubmit={submitLogin} aria-label={t('login.formLabel')} className="auth-login-form">
+      <label className="auth-login-field" aria-label={t('login.email')}>
+        <span className="auth-login-field__icon" aria-hidden="true">👤</span>
+        <input className="auth-login-field__control" value={email} onChange={(event) => setEmail(event.target.value)} name="email" type="email" placeholder={t('login.emailPlaceholder')} autoComplete="email" data-testid="auth-login-email" required />
+      </label>
+      <label className="auth-login-field" aria-label={t('login.password')}>
+        <span className="auth-login-field__icon" aria-hidden="true">🔒</span>
+        <input className="auth-login-field__control" value={password} onChange={(event) => setPassword(event.target.value)} name="password" type={showPassword ? 'text' : 'password'} placeholder={t('login.passwordPlaceholder')} autoComplete="current-password" data-testid="auth-login-password" required />
+        <button className="auth-login-field__toggle" type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? t('login.hidePassword') : t('login.showPassword')}>{showPassword ? '◡' : '◉'}</button>
+      </label>
+      <button type="submit" className="auth-login-btn" data-testid="auth-login-submit" disabled={isSubmitting}>{isSubmitting ? t('login.loading') : t('login.submit')}</button>
+      <div className="auth-login-divider">{t('login.signinOr')}</div>
+      <div className="auth-login-socials">
+        <button type="button" name="login-google" className="auth-login-social" onClick={() => launchProvider('google')}><img src="/assets/img/login/login_gm.png" alt="Google" />{t('login.signinGoogle')}</button>
+        <button type="button" name="login-ms" className="auth-login-social" onClick={() => launchProvider('microsoft')}><img src="/assets/img/login/ms-logo.png" alt="Microsoft" />{t('login.signinMicrosoft')}</button>
+      </div>
+    </form>
+  );
+
+  const twoFactorForm = (
+    <form onSubmit={submitLogin} aria-label={t('login.twoFactor.formLabel')} className="auth-login-form">
+      <div className="auth-verify-header"><span className="auth-verify-title">{t('login.twoFactor.title')}</span><button type="button" className="auth-verify-link" onClick={backToLogin}>{t('login.twoFactor.backToLogin')}</button></div>
+      <div className="auth-verify-separator" />
+      <p className="auth-verify-text">{errorKind === 'two-factor-failed' ? t('login.twoFactor.error') : t('login.twoFactor.confirm', { email })}</p>
+      <label className="auth-login-field" aria-label={t('login.code')}>
+        <span className="auth-login-field__icon" aria-hidden="true">#</span>
+        <input className="auth-login-field__control" value={code} onChange={(event) => setCode(event.target.value)} type="text" inputMode="numeric" autoComplete="one-time-code" placeholder={t('login.twoFactor.placeholder')} data-testid="auth-login-code" required />
+      </label>
+      <button type="submit" className="auth-verify-btn" data-testid="auth-login-submit" disabled={isSubmitting}>{isSubmitting ? t('login.loading') : t('login.twoFactor.verify')}</button>
+    </form>
+  );
+
+  return (
+    <main className="auth-public-page">
+      <div>
+        <div className="auth-login-shell">
+          <section className="auth-login-card" aria-labelledby="auth-login-title">
+            <img className="auth-login-logo" src="/assets/img/cezanne/cezanne_recruitment_logo_20261x.png" alt="Cezanne Recruitment logo" />
+            {!isTwoFactorStep ? <span className="auth-login-title" id="auth-login-title">{t('login.welcomeTitle')}</span> : null}
+            {isTwoFactorStep ? twoFactorForm : loginForm}
+            {loginResult && loginResult.status === 'failed' && !isTwoFactorStep ? <p className="auth-login-message" data-testid="auth-login-message">{loginResult.routeState.message}</p> : null}
+            {loginResult?.landing && !autoRedirect ? <a href={loginResult.landing.target} className="auth-login-continue" data-testid="auth-login-continue">{t('login.continue')}</a> : null}
+            <p className="auth-debug-state" data-testid="auth-route-state">{loginResult?.routeState.kind ?? 'ready'}</p>
+            {loginResult?.landing ? <p className="auth-debug-state" data-testid="auth-landing-target">{loginResult.landing.target}</p> : null}
+          </section>
+        </div>
+        <nav className="auth-login-links" aria-label={t('login.secondaryLinks')}><a href="/forgot-password">{t('login.forgotAccount')}</a><a href="/register/null">{t('login.signup')}</a></nav>
+      </div>
+    </main>
+  );
 }
 
 function AuthTokenPage({ token, titleKey, detailKey }: { token?: string; titleKey: string; detailKey: string }) {
@@ -43,44 +176,141 @@ function AuthTokenPage({ token, titleKey, detailKey }: { token?: string; titleKe
 }
 
 export function ConfirmRegistrationPage({ token }: { token?: string }) {
-  return <AuthTokenPage token={token} titleKey="confirmRegistration.title" detailKey="confirmRegistration.detail" />;
+  const { t } = useTranslation('auth');
+  const { setAccessContext } = useAccessSession();
+  const [state, setState] = useState<ActionState>({ status: 'submitting', message: t('confirmRegistration.checking') });
+
+  useEffect(() => {
+    if (!token) {
+      setState({ status: 'failed', message: t('confirmRegistration.missingToken'), redirectTo: '/' });
+      return;
+    }
+    void confirmRegistrationToken(token).then((result) => {
+      if ('routeState' in result) {
+        setState({ status: result.status === 'succeeded' ? 'succeeded' : 'failed', message: result.routeState.message, redirectTo: result.landing?.target });
+        if (result.status === 'succeeded' && result.accessContext && result.landing) {
+          saveLocalAuthSession(result.accessContext, result.landing.target, result.token, result.userSnapshot);
+          setAccessContext(result.accessContext);
+          if (result.landing.target) redirectTo(result.landing.target);
+        }
+      } else {
+        setState(result);
+        if (result.redirectTo) redirectTo(result.redirectTo);
+      }
+    }).catch(() => setState({ status: 'failed', message: t('confirmRegistration.failed'), redirectTo: '/' }));
+  }, [setAccessContext, t, token]);
+
+  return <PublicRoutePage title={t('confirmRegistration.title')} detail={<PublicFormMessage state={state} />} state={state.status} landingTarget={state.redirectTo} />;
 }
 
 export function ForgotPasswordPage() {
   const { t } = useTranslation('auth');
+  const [email, setEmail] = useState('');
+  const [state, setState] = useState<ActionState>({ status: 'idle' });
   trackAuthOpen(buildAuthTelemetry({ action: 'open', outcome: 'ready', entryMode: 'direct' }));
-  return <PublicRoutePage title={t('forgotPassword.title')} detail={t('forgotPassword.detail')} state="ready" />;
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setState({ status: 'submitting', message: t('forgotPassword.sending') });
+    try {
+      const result = await requestPasswordResetEmail(email);
+      setState(result);
+    } catch {
+      setState({ status: 'failed', message: t('forgotPassword.error') });
+    }
+  }
+
+  return (
+    <PublicRoutePage title={t('forgotPassword.title')} detail={<form className="auth-secondary-form" onSubmit={submit} aria-label={t('forgotPassword.title')}><p>{t('forgotPassword.detail')}</p><input className="auth-login-field__control" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={t('login.emailPlaceholder')} type="email" required /><button className="auth-login-btn" type="submit" disabled={state.status === 'submitting'}>{state.status === 'submitting' ? t('forgotPassword.sending') : t('forgotPassword.submit')}</button><PublicFormMessage state={state} /><a className="auth-login-continue" href="/">{t('login.goToLogin')}</a></form>} state={state.status} />
+  );
 }
 
 export function ResetPasswordPage({ token }: { token?: string }) {
-  return <AuthTokenPage token={token} titleKey="resetPassword.title" detailKey="resetPassword.detail" />;
+  const { t } = useTranslation('auth');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [state, setState] = useState<ActionState>({ status: 'idle' });
+
+  useEffect(() => {
+    if (!token) return;
+    void validateResetPasswordToken(token).then((result) => setState(result)).catch(() => setState({ status: 'failed', message: t('resetPassword.invalidToken'), redirectTo: '/' }));
+  }, [t, token]);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!token) return setState({ status: 'failed', message: t('resetPassword.missingToken') });
+    if (password !== passwordConfirmation) return setState({ status: 'failed', message: t('resetPassword.passwordMismatch') });
+    setState({ status: 'submitting', message: t('resetPassword.submitting') });
+    try {
+      const result = await resetPassword({ token, password, passwordConfirmation });
+      setState(result);
+      if (result.status === 'succeeded' && result.redirectTo) redirectTo(result.redirectTo);
+    } catch {
+      setState({ status: 'failed', message: t('resetPassword.error') });
+    }
+  }
+
+  return <PublicRoutePage title={t('resetPassword.title')} detail={<form className="auth-secondary-form" onSubmit={submit} aria-label={t('resetPassword.title')}><input className="auth-login-field__control" value={password} onChange={(event) => setPassword(event.target.value)} placeholder={t('resetPassword.password')} type="password" autoComplete="new-password" required /><input className="auth-login-field__control" value={passwordConfirmation} onChange={(event) => setPasswordConfirmation(event.target.value)} placeholder={t('resetPassword.passwordConfirmation')} type="password" autoComplete="new-password" required /><button className="auth-login-btn" type="submit" disabled={state.status === 'submitting'}>{state.status === 'submitting' ? t('resetPassword.submitting') : t('resetPassword.submit')}</button><PublicFormMessage state={state} /><a className="auth-login-continue" href="/">{t('login.goToLogin')}</a></form>} state={state.status} landingTarget={state.redirectTo} />;
 }
 
 export function RegisterPage({ token }: { token?: string }) {
-  return <AuthTokenPage token={token} titleKey="register.title" detailKey="register.detail" />;
+  const { t } = useTranslation('auth');
+  const normalizedToken = token === 'null' ? undefined : token;
+  const [organizationType, setOrganizationType] = useState<'hiringCompany' | 'recruitmentAgency'>(normalizedToken === 'ra' || normalizedToken === 'recruitment-agency' ? 'recruitmentAgency' : 'hiringCompany');
+  const [companyName, setCompanyName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [state, setState] = useState<ActionState>({ status: 'idle' });
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (password !== passwordConfirmation) return setState({ status: 'failed', message: t('resetPassword.passwordMismatch') });
+    setState({ status: 'submitting', message: t('register.submitting') });
+    try {
+      const result = await registerAccount({ organizationType, companyName, firstName, lastName, email, password, passwordConfirmation, token: normalizedToken });
+      setState(result);
+      if (result.status === 'succeeded' && result.redirectTo) redirectTo(result.redirectTo);
+    } catch {
+      setState({ status: 'failed', message: t('register.error') });
+    }
+  }
+
+  return <PublicRoutePage title={t('register.title')} detail={<form className="auth-secondary-form" onSubmit={submit} aria-label={t('register.title')}><select className="auth-login-field__control" value={organizationType} onChange={(event) => setOrganizationType(event.target.value as 'hiringCompany' | 'recruitmentAgency')}><option value="hiringCompany">{t('register.hiringCompany')}</option><option value="recruitmentAgency">{t('register.recruitmentAgency')}</option></select><input className="auth-login-field__control" value={companyName} onChange={(event) => setCompanyName(event.target.value)} placeholder={t('register.companyName')} required /><input className="auth-login-field__control" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder={t('register.firstName')} required /><input className="auth-login-field__control" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder={t('register.lastName')} required /><input className="auth-login-field__control" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={t('login.emailPlaceholder')} type="email" required /><input className="auth-login-field__control" value={password} onChange={(event) => setPassword(event.target.value)} placeholder={t('resetPassword.password')} type="password" required /><input className="auth-login-field__control" value={passwordConfirmation} onChange={(event) => setPasswordConfirmation(event.target.value)} placeholder={t('resetPassword.passwordConfirmation')} type="password" required /><button className="auth-login-btn" type="submit" disabled={state.status === 'submitting'}>{state.status === 'submitting' ? t('register.submitting') : t('register.submit')}</button><PublicFormMessage state={state} /><a className="auth-login-continue" href="/">{t('login.goToLogin')}</a></form>} state={state.status} />;
 }
 
 export function CezanneAuthPage({ tenantGuid }: { tenantGuid?: string }) {
   const { t } = useTranslation('auth');
-  const state = tenantGuid ? 'ready' : 'failed';
-  trackAuthOpen(buildAuthTelemetry({ action: 'open', providerFamily: 'cezanne', outcome: state, entryMode: 'direct' }));
-  return <PublicRoutePage title={t('cezanneAuth.title')} detail={tenantGuid ? t('cezanneAuth.detail') : t('callbackStates.callback-failed')} state={state} />;
+  useEffect(() => {
+    if (tenantGuid) window.location.href = `${resolveAuthBaseUrl()}/login/cezanne/${tenantGuid}`;
+  }, [tenantGuid]);
+  return <PublicRoutePage title={t('cezanneAuth.title')} detail={tenantGuid ? t('cezanneAuth.redirecting') : t('callbackStates.callback-failed')} state={tenantGuid ? 'loading' : 'failed'} />;
 }
 
 function CallbackPage({ providerFamily, search, titleKey }: { providerFamily: AuthProviderFamily; search: { code?: unknown; error?: unknown }; titleKey: string }) {
   const { t } = useTranslation('auth');
+  const { setAccessContext } = useAccessSession();
+  const [state, setState] = useState<ActionState>({ status: 'submitting', message: t('callbackStates.callback-exchanging') });
   const callback = parseAuthCallbackState(providerFamily, search);
-  const landing = resolvePostAuthLanding({ isAuthenticated: callback.outcome === 'callback-exchanging', organizationType: 'hc' });
-  trackAuthOpen(buildAuthTelemetry({
-    action: 'callback',
-    providerFamily,
-    outcome: callback.routeState.kind,
-    callbackOutcome: callback.outcome,
-    sessionOutcome: landing.sessionOutcome,
-    entryMode: 'callback',
-    fallbackKind: landing.fallbackKind,
-  }));
-  return <PublicRoutePage title={t(titleKey)} detail={t(`callbackStates.${callback.outcome}`)} state={callback.outcome} landingTarget={landing.target} />;
+
+  useEffect(() => {
+    if (typeof search.error === 'string') return setState({ status: 'failed', message: search.error });
+    if (typeof search.code !== 'string' || !search.code) return setState({ status: 'idle', message: t('callbackStates.callback-failed') });
+    const run = providerFamily === 'cezanne' ? completeCezanneCallback : completeSamlCallback;
+    void run(search.code).then((result) => {
+      setState({ status: result.status === 'succeeded' ? 'succeeded' : 'failed', message: result.routeState.message, redirectTo: result.landing?.target });
+      if (result.status === 'succeeded' && result.accessContext && result.landing) {
+        saveLocalAuthSession(result.accessContext, result.landing.target, result.token, result.userSnapshot);
+        setAccessContext(result.accessContext);
+        if (result.landing.target) redirectTo(result.landing.target);
+      }
+    }).catch(() => setState({ status: 'failed', message: t('callbackStates.callback-failed') }));
+  }, [providerFamily, search.code, search.error, setAccessContext, t]);
+
+  trackAuthOpen(buildAuthTelemetry({ action: 'callback', providerFamily, outcome: callback.routeState.kind, callbackOutcome: callback.outcome, entryMode: 'callback' }));
+  return <PublicRoutePage title={t(titleKey)} detail={<PublicFormMessage state={state} />} state={state.status} landingTarget={state.redirectTo} />;
 }
 
 export function CezanneCallbackPage({ code, error }: { code?: string; error?: string }) {
@@ -88,7 +318,10 @@ export function CezanneCallbackPage({ code, error }: { code?: string; error?: st
 }
 
 export function SamlCallbackPage({ code, error }: { code?: string; error?: string }) {
-  return <CallbackPage providerFamily="saml" search={{ code, error }} titleKey="samlCallback.title" />;
+  const { t } = useTranslation('auth');
+  const [email, setEmail] = useState('');
+  if (code || error) return <CallbackPage providerFamily="saml" search={{ code, error }} titleKey="samlCallback.title" />;
+  return <PublicRoutePage title={t('samlCallback.title')} detail={<form className="auth-secondary-form" onSubmit={(event) => { event.preventDefault(); window.location.href = `${resolveAuthBaseUrl()}/login/saml?profileEmail=${encodeURIComponent(email)}`; }}><input className="auth-login-field__control" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={t('login.emailPlaceholder')} type="email" required /><button className="auth-login-btn" type="submit">{t('samlCallback.launch')}</button><a className="auth-login-continue" href="/">{t('login.goToLogin')}</a></form>} state="ready" />;
 }
 
 export function InviteTokenPage({ token }: { token?: string }) {
@@ -97,11 +330,17 @@ export function InviteTokenPage({ token }: { token?: string }) {
 
 export function LogoutPage() {
   const { t } = useTranslation('auth');
+  const { setAccessContext } = useAccessSession();
   const state = resolveLogoutState();
-  trackAuthOpen(buildAuthTelemetry({ action: 'logout', outcome: state.kind, sessionOutcome: 'logged-out', entryMode: 'logout', fallbackKind: 'public-entry' }));
-  return <PublicRoutePage title={t('logout.title')} detail={t('logout.detail')} state={state.kind} landingTarget={state.landingTarget} />;
-}
 
+  useEffect(() => {
+    clearLocalAuthSession();
+    setAccessContext(publicAccessContext);
+    trackAuthOpen(buildAuthTelemetry({ action: 'logout', outcome: state.kind, sessionOutcome: 'logged-out', entryMode: 'logout', fallbackKind: 'public-entry' }));
+  }, [setAccessContext, state.kind]);
+
+  return <PublicRoutePage title={t('logout.title')} detail={<><p>{t('logout.detail')}</p><a className="auth-login-continue" href="/">{t('login.goToLogin')}</a></>} state={state.kind} landingTarget={state.landingTarget} />;
+}
 
 export function AccessDeniedPage() {
   const { t } = useTranslation('auth');

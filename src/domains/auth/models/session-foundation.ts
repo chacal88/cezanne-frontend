@@ -1,3 +1,4 @@
+import type { AccessContext } from '../../../lib/access-control';
 import { ensureCorrelationId } from '../../../lib/observability';
 
 export type AuthTokenState = 'valid' | 'invalid' | 'expired' | 'used' | 'inaccessible';
@@ -15,6 +16,7 @@ export type AuthRouteStateKind =
 export type AuthCallbackOutcome = 'callback-error' | 'callback-exchanging' | 'callback-succeeded' | 'callback-failed';
 export type AuthProviderFamily = 'cezanne' | 'saml';
 export type AuthAction = 'open' | 'submit' | 'callback' | 'bootstrap' | 'logout' | 'session-expired';
+export type LoginPersona = 'hc-admin' | 'hc-user' | 'ra-admin' | 'ra-user' | 'sysadmin';
 
 export type AuthRouteState = {
   kind: AuthRouteStateKind;
@@ -42,6 +44,24 @@ export type AuthSessionContext = {
   sessionExpired?: boolean;
 };
 
+export type AuthLoginAttempt = {
+  email?: string;
+  password?: string;
+  code?: string;
+  persona?: LoginPersona;
+  requestedTarget?: string;
+};
+
+export type AuthLoginResult = {
+  status: 'succeeded' | 'failed';
+  routeState: AuthRouteState;
+  accessContext?: AccessContext;
+  landing?: ReturnType<typeof resolvePostAuthLanding>;
+  token?: string;
+  userSnapshot?: unknown;
+  errorKind?: string;
+};
+
 export type AuthTelemetryEvent = {
   name: 'auth_session_action';
   data: {
@@ -59,6 +79,68 @@ export type AuthTelemetryEvent = {
 };
 
 const unsafeTargetPrefixes = ['/integration/', '/chat/', '/surveys/', '/review-candidate/', '/interview-feedback/'];
+
+
+const baseOrgEntitlements = ['seeCandidates', 'jobRequisition', 'seeFavorites', 'recruiters'];
+const baseOrgSubscriptions = ['calendarIntegration', 'formsDocs', 'surveys', 'customFields', 'candidateTags', 'reviewRequests', 'interviewFeedback', 'inbox', 'rejectionReason'];
+
+export function buildAccessContextForLoginPersona(persona: LoginPersona): AccessContext {
+  if (persona === 'sysadmin') {
+    return {
+      isAuthenticated: true,
+      organizationType: 'none',
+      isAdmin: true,
+      isSysAdmin: true,
+      pivotEntitlements: [],
+      subscriptionCapabilities: [],
+      rolloutFlags: [],
+    };
+  }
+
+  const organizationType = persona.startsWith('ra') ? 'ra' : 'hc';
+  const isAdmin = persona.endsWith('admin');
+  return {
+    isAuthenticated: true,
+    organizationType,
+    isAdmin,
+    isSysAdmin: false,
+    pivotEntitlements: organizationType === 'hc' ? baseOrgEntitlements : ['recruiters'],
+    subscriptionCapabilities: baseOrgSubscriptions,
+    rolloutFlags: ['customFieldsBeta'],
+  };
+}
+
+function isValidLoginEmail(email?: string): boolean {
+  return typeof email === 'string' && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim());
+}
+
+function isValidLoginPassword(password?: string): boolean {
+  const normalized = typeof password === 'string' ? password.trim() : '';
+  return normalized.length >= 6 && !normalized.toLowerCase().includes('fail');
+}
+
+export function resolveLoginAttempt(input: AuthLoginAttempt): AuthLoginResult {
+  if (!isValidLoginEmail(input.email) || !isValidLoginPassword(input.password)) {
+    return {
+      status: 'failed',
+      routeState: { kind: 'failed', message: 'Login failed. Check your credentials and try again.' },
+    };
+  }
+
+  const accessContext = buildAccessContextForLoginPersona(input.persona ?? 'hc-admin');
+  const landing = resolvePostAuthLanding({
+    isAuthenticated: accessContext.isAuthenticated,
+    organizationType: accessContext.organizationType,
+    requestedTarget: input.requestedTarget,
+  });
+
+  return {
+    status: 'succeeded',
+    accessContext,
+    landing,
+    routeState: { kind: 'session-ready', message: 'Session is ready.', landingTarget: landing.target },
+  };
+}
 
 export function resolveAuthTokenState(token?: string): AuthTokenState {
   const normalized = (token ?? '').toLowerCase();
@@ -135,7 +217,7 @@ export function resolvePostAuthLanding(context: AuthSessionContext) {
   }
 
   if (context.organizationType === 'none') {
-    return { sessionOutcome: 'session-ready' as const, target: '/platform', fallbackKind: 'platform-dashboard' as const };
+    return { sessionOutcome: 'session-ready' as const, target: '/hiring-companies', fallbackKind: 'platform-dashboard' as const };
   }
 
   return { sessionOutcome: 'session-ready' as const, target: '/dashboard', fallbackKind: 'dashboard' as const };

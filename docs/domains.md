@@ -36,7 +36,7 @@ Synthesized from:
 
 | Domain | Primary responsibility | Primary personas | Release center | Notes |
 |---|---|---|---|---|
-| `auth` | unauthenticated entry, token auth flows, SSO/SAML callbacks, session bootstrap | Public, all internal personas | R0 | Public shell only |
+| `auth` | unauthenticated entry, token auth flows, SSO/SAML callbacks, API-first session bootstrap | Public, all internal personas | R0 | Public shell only; login adapts auth `/login`, REST `/authenticate`, and GraphQL enrichment validated from `frontend` |
 | `shell` | authenticated frame, nav, notification resolution, account/context entry, route handoff | HC, RA, SysAdmin | R0 | cross-domain orchestration layer |
 | `dashboard` | authenticated landing and re-entry hub | HC, RA, limited SysAdmin | R0 | valid landing route, not placeholder |
 | `jobs` | job list, authoring, detail hub, job-scoped action entry | HC primary, RA contextual | R1 | recruiter-core domain |
@@ -55,7 +55,7 @@ Synthesized from:
 ### 1. `auth`
 
 Owns:
-- sign-in entry
+- sign-in entry through the API sequence validated from `frontend` (`/login` -> `/authenticate` -> GraphQL enrichment)
 - registration / confirm / reset flows
 - SSO and SAML initiation/callback completion
 - token validation and session bootstrap handoff

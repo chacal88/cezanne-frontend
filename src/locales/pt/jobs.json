@@ -10,7 +10,8 @@
     "allowedCreate": "Entrada de criação disponível",
     "blockedCreate": "Entrada de criação negada",
     "openExample": "Abrir detalhe da vaga",
-    "newJob": "Criar vaga"
+    "newJob": "Criar vaga",
+    "clearFilters": "Limpar filtros"
   },
   "detail": {
     "title": "Hub da vaga",
