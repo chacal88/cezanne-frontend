@@ -86,7 +86,7 @@ function messageFor(input: OperationalReadinessGateInput) {
   if (input.outcome === 'degraded') return `${familyLabel} readiness is degraded. Repair provider setup before submitting ${actionLabel}.`;
   if (input.outcome === 'blocked') return `${familyLabel} readiness is blocked. Review provider setup before submitting ${actionLabel}.`;
   if (input.outcome === 'unavailable') return `${familyLabel} readiness is unavailable for ${actionLabel}.`;
-  return `${familyLabel} readiness is not implemented for this provider family.`;
+  return `${familyLabel} readiness is unsupported for this provider family.`;
 }
 
 export function evaluateOperationalReadinessGate(input: OperationalReadinessGateInput): OperationalReadinessGateResult {

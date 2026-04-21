@@ -39,15 +39,15 @@ export function HiringCompaniesFoundationPage() {
   }
 
   return (
-    <section aria-labelledby="platform-placeholder-title">
+    <section aria-labelledby="platform-foundation-title">
       <p>{t('foundation.eyebrow')}</p>
-      <h1 id="platform-placeholder-title">{t('foundation.hiringCompanies.title')}</h1>
+      <h1 id="platform-foundation-title">{t('foundation.hiringCompanies.title')}</h1>
       <p>{t('foundation.hiringCompanies.detail')}</p>
       <dl>
         <dt>{t('foundation.routeIdLabel')}</dt>
-        <dd data-testid="platform-placeholder-route-id">{fallbackOutcome.routeId}</dd>
+        <dd data-testid="platform-foundation-route-id">{fallbackOutcome.routeId}</dd>
         <dt>{t('foundation.stateLabel')}</dt>
-        <dd data-testid="platform-placeholder-state">foundation-placeholder</dd>
+        <dd data-testid="platform-foundation-state">foundation-state</dd>
       </dl>
     </section>
   );

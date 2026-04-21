@@ -70,7 +70,7 @@ function messageFor(kind: HrisRequisitionOperationalStateKind): string {
     'auth-required': 'HRIS authorization is required before requisition sync can continue.',
     'provider-blocked': 'HRIS provider setup blocks requisition sync.',
     unavailable: 'HRIS requisition sync is unavailable for this route.',
-    unimplemented: 'HRIS requisition sync is not implemented for this provider family.',
+    unimplemented: 'HRIS requisition sync is unsupported for this provider family.',
   };
   return messages[kind];
 }

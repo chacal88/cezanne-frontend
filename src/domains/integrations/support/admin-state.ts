@@ -213,7 +213,7 @@ function buildConfigurationFields(provider: IntegrationProviderSummary): Integra
       { id: 'callback-presence', label: 'Callback presence', value: provider.state === 'connected' ? 'Present' : 'Not confirmed', required: true, secret: true },
     ];
   }
-  return [{ id: 'provider-family', label: 'Provider family', value: 'Setup depth is not implemented for this provider family.' }];
+  return [{ id: 'provider-family', label: 'Provider family', value: 'Setup depth is unsupported for this provider family.' }];
 }
 
 export function buildProviderSetupSections(provider: IntegrationProviderSummary): IntegrationProviderSection[] {
@@ -229,7 +229,7 @@ export function buildProviderSetupSections(provider: IntegrationProviderSummary)
       state: configurationState,
       description: isSupportedProviderFamily(provider.family)
         ? 'Family-specific setup values are modeled without exposing raw credentials or provider payloads.'
-        : 'This provider family is visible in the shell but not implemented in this setup-depth package.',
+        : 'This provider family is visible in the shell but unsupported by this setup-depth package.',
       fields: buildConfigurationFields(provider),
       actions: sectionActions.filter((action) => action.concern === 'configuration'),
     },
@@ -304,7 +304,7 @@ export function buildProviderReadinessSignals(provider: IntegrationProviderSumma
       },
     ];
   }
-  return [{ family: 'sync-workflow', providerFamily: provider.family, outcome: 'unimplemented', reason: 'provider family setup depth is not implemented' }];
+  return [{ family: 'sync-workflow', providerFamily: provider.family, outcome: 'unimplemented', reason: 'provider family setup depth is unsupported' }];
 }
 
 export function listIntegrationProviders(): IntegrationProviderViewModel[] {

@@ -62,7 +62,7 @@ export type IntegrationFormsStep = {
   id: 'identity-document' | 'availability-notes';
   label: string;
   requiresFile: boolean;
-  placeholder: string;
+  prompt: string;
 };
 
 export type IntegrationFormsAnswer = {

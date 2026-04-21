@@ -19,13 +19,13 @@ const integrationFormSteps: IntegrationFormsStep[] = [
     id: 'identity-document',
     label: 'Identity document upload',
     requiresFile: true,
-    placeholder: 'Upload the requested identity document.',
+    prompt: 'Upload the requested identity document.',
   },
   {
     id: 'availability-notes',
     label: 'Availability notes',
     requiresFile: false,
-    placeholder: 'Share any notes required to complete the request.',
+    prompt: 'Share any notes required to complete the request.',
   },
 ];
 

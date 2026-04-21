@@ -99,7 +99,7 @@ const messages: Record<AtsCandidateSourceStateKind, string> = {
   'provider-blocked': 'ATS provider setup blocks this operation.',
   degraded: 'ATS readiness is degraded.',
   unavailable: 'ATS source status is unavailable for this route.',
-  unimplemented: 'ATS source status is not implemented for this provider family.',
+  unimplemented: 'ATS source status is unsupported for this provider family.',
 };
 
 function singleString(value: unknown) {

@@ -102,10 +102,6 @@ export function LogoutPage() {
   return <PublicRoutePage title={t('logout.title')} detail={t('logout.detail')} state={state.kind} landingTarget={state.landingTarget} />;
 }
 
-export function ProfilePlaceholderPage({ titleKey }: { titleKey: 'profilePlaceholder.hiringCompanyTitle' | 'profilePlaceholder.recruitmentAgencyTitle' }) {
-  const { t } = useTranslation('auth');
-  return <PublicRoutePage title={t(titleKey)} detail={t('profilePlaceholder.detail')} state="foundation-unavailable" />;
-}
 
 export function AccessDeniedPage() {
   const { t } = useTranslation('auth');
