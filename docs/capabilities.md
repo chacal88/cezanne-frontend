@@ -35,6 +35,21 @@ Synthesized from:
 | `Action capability` | may perform this action now | `canScheduleInterviewFromJob`, `canRejectCandidate` |
 | `Display/config` | UI-shaping values, not permission | VAT, user settings fragments, available contracts |
 
+## Capability category semantics
+
+Use these categories when auditing docs against route metadata:
+
+| Category | Expected source usage | Examples |
+|---|---|---|
+| Route capability | may appear as `requiredCapability` in route metadata or an `AccessBoundary` | `canViewJobsList`, `canEnterSettings`, `canViewNotifications` |
+| Mutation capability | may appear as `mutationCapability` or task-flow action gate | `canCreateJob`, `canRejectCvFromJob`, `canCreateOfferFromCandidate` |
+| Action capability | consumed inside route-owned pages, workflows, or action launchers | `canCommentOnCandidate`, `canManageJobAssignments`, `canExportReport` |
+| Navigation capability | controls shell/menu exposure without necessarily being route metadata | `canSeeNavSection`, platform navigation visibility capabilities |
+| Resolver/destination capability | used by notification, inbox, redirect, or compatibility resolvers | `canResolveNotificationDestination`, `canOpenConversation` |
+| Public/token capability | route-local public/token access that must not unlock authenticated shell | `canCompletePublicSurvey`, `canUseExternalReviewFlow`, `canApproveRequisitionByToken` |
+
+A capability listed in this document is not missing from implementation merely because it is absent from route metadata as `requiredCapability`. First check whether it is action-level, navigation-level, resolver-level, mutation-level, or public/token route-local. Route metadata remains authoritative for route entry ownership; page modules and helper tests remain authoritative for action and resolver capability usage.
+
 ## Inputs
 
 All capability evaluation must be based on normalized inputs.

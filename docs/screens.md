@@ -36,6 +36,27 @@ Greenfield route classes from the roadmap/architecture set:
 - `EmbeddedFlow`
 - `Public/Token`
 
+## Canonical route path contract
+
+The source of truth for implemented route registration is:
+
+- `src/lib/routing/route-contracts.ts`
+- `src/app/router.tsx`
+- `src/lib/routing/route-metadata.ts`
+
+This screen inventory may include shorthand or legacy examples from the old frontend inventory, such as `{id}`, `$id`, `...`, `*`, query-string examples, or optional suffixes. Treat those as **aliases/examples**, not additional required route registrations, unless a row explicitly says it is canonical.
+
+Examples:
+
+| Documentation shorthand | Canonical interpretation |
+|---|---|
+| `/job/$id/cv/{cv_id}` | use the registered job CV route family in `route-contracts.ts` |
+| `/candidate/$id/.../cv/$cv_id/offer` | use the registered candidate detail/action route arrays |
+| `/integration/cv/$token/$action?` | use the registered integration token-entry paths |
+| `/parameters*` | use the registered `/parameters` compatibility path family |
+
+Route ownership and capability checks must be validated against registered paths and route metadata, not by counting every shorthand example as a separate missing route.
+
 ## Persona legend
 
 - `Public`

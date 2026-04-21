@@ -73,6 +73,14 @@ Confirmed:
 - the full sequence is synchronized in `integration-operational-depth-sequence-plan.md`
 - the release-hardening evidence and PR handoff summary are recorded in `integration-operational-depth-closeout.md`
 
+## Post-cleanup documentation semantics
+
+Use these rules when comparing docs to source so future audits do not reopen false gaps:
+
+- **Canonical routes** are the paths registered in `src/lib/routing/route-contracts.ts`, `src/app/router.tsx`, and `src/lib/routing/route-metadata.ts`. Shorthand examples in docs that use `{id}`, `$id`, `...`, `*`, query strings, or optional suffixes are aliases/examples unless this package explicitly marks them as canonical.
+- **Capabilities have categories**. Not every capability in `capabilities.md` is expected to appear as a route metadata `requiredCapability`; action, navigation, resolver, notification, and telemetry-safe internal capabilities can be consumed inside pages/helpers instead.
+- **Fixture-backed code can be implementation evidence** when it is an explicit replaceable adapter seam with tests for loading/ready/unavailable/degraded/retry/terminal/unknown-contract states. It is not evidence of a missing backend API unless the owning spec requires a confirmed API contract.
+
 ## Recommended reading order
 
 ### 1. Start here: scope and target architecture

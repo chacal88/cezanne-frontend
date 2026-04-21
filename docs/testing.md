@@ -92,6 +92,18 @@ It is meant to make refactors safer without pretending the app already has full 
 - **provider-aware rendering** → Vitest + Testing Library
 - **route and browser contracts** → Playwright
 
+## Fixture-backed adapter seam contract
+
+Deterministic fixtures are allowed when they are explicit replaceable adapter seams. They should be treated as implementation evidence, not hidden placeholders, when all of these are true:
+
+1. The fixture is behind a named adapter/model/helper boundary.
+2. The state model exposes confirmed, unavailable, degraded, retry, terminal, or unknown-contract outcomes as appropriate.
+3. Tests prove the route/page/helper behavior for the meaningful states.
+4. Safe telemetry or unknown-contract handling avoids leaking raw provider payloads, credentials, tokens, signed URLs, or tenant-sensitive data.
+5. The owning spec does not require a confirmed backend API contract for the current slice.
+
+When a future backend contract becomes confirmed, replace the fixture adapter behind the same seam rather than changing route ownership or inventing new route capabilities.
+
 ## Rules
 
 1. Add a Vitest file when changing shared logic in `src/lib/`.
