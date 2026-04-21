@@ -104,7 +104,7 @@ Use these statuses until each decision is promoted into an OpenSpec package:
 
 ### D5 — Implement SysAdmin as multiple slices, not one large change
 
-**Status:** Proposed
+**Status:** Accepted; implemented across R5 platform slices
 
 **Decision:** Split SysAdmin implementation into at least three slices:
 1. SysAdmin foundation.
@@ -117,7 +117,7 @@ Use these statuses until each decision is promoted into an OpenSpec package:
 
 ### D6 — Keep requisition authoring execution in `jobs.workflow-state`
 
-**Status:** Proposed
+**Status:** Accepted for `r5-requisition-authoring`
 
 **Decision:** Keep `/build-requisition` and `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` under the `jobs.workflow-state` contract.
 
@@ -130,7 +130,7 @@ Use these statuses until each decision is promoted into an OpenSpec package:
 
 ### D7 — Keep `/requisition-workflows` in `settings.hiring-flow`
 
-**Status:** Proposed
+**Status:** Accepted for `r5-requisition-authoring`
 
 **Decision:** Treat `/requisition-workflows` as a settings/hiring-flow administration route, not as a Jobs execution route.
 
@@ -142,20 +142,20 @@ Use these statuses until each decision is promoted into an OpenSpec package:
 
 ### D8 — Inventory remaining `/parameters` subsections before implementation
 
-**Status:** Blocked
+**Status:** Accepted for `r5-settings-leftovers`
 
-**Decision needed:** Create a closed inventory of remaining `/parameters` subsections before opening any R5 implementation change for settings leftovers.
+**Decision:** Use a closed R5 settings compatibility inventory for this slice: `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, and `api-endpoints`. Other legacy subsection keys remain unknown compatibility requests until a later subsection-specific package defines ownership, capability, readiness behavior, and downstream consumers.
 
-**Rationale:** The roadmap calls out parameters subsection completion, but a generic `/parameters` implementation would violate the documented compatibility-only rule.
+**Rationale:** The roadmap calls out parameters subsection completion, but a generic `/parameters` implementation would violate the documented compatibility-only rule. The accepted inventory lets `r5-settings-leftovers` implement API endpoints and compatibility resolution without inventing broad company, agency, user, or forms/docs settings behavior.
 
-**Must define:**
-- which subsections still need dedicated routes.
-- which subsections remain compatibility-only.
-- subsection-specific capabilities, deny behavior, save/retry model, and downstream consumers.
+**Implications:**
+- `/parameters` remains a resolver, not a page.
+- `api-endpoints` is the only new dedicated settings route in this change.
+- unknown, unauthorized, unavailable, and unimplemented subsections use deterministic fallback behavior and safe telemetry.
 
 ### D9 — Keep `/settings/api-endpoints` in `settings`, not `sysadmin`
 
-**Status:** Proposed
+**Status:** Accepted for `r5-settings-leftovers`
 
 **Decision:** Implement `/settings/api-endpoints` as an HC Admin settings route, not a SysAdmin route.
 
@@ -168,30 +168,41 @@ Use these statuses until each decision is promoted into an OpenSpec package:
 
 ### D10 — Reconcile tokenized integration entries before opening an R5 change
 
-**Status:** Blocked
+**Status:** Accepted; no R5 implementation change required
 
-**Decision needed:** Determine whether `Integration tokenized entries (cv/forms/job)` are still R5 scope or have already been covered by the R3 provider callback implementation.
+**Decision:** Treat `Integration tokenized entries (cv/forms/job)` as already covered by the R3 integrations token-entry implementation. Do not open `r5-integration-token-leftovers` unless a future audit proves a new missing route family beyond the current `/integration/cv/:token/:action?`, `/integration/forms/:token`, and `/integration/job/:token/:action?` contracts.
 
-**Rationale:** The roadmap still lists tokenized integration entries under R5, while the current documentation status says provider integration callbacks are represented in source under the integrations token-entry slice. This may be a real leftover or a stale planning note.
+**Evidence:**
+- route contracts and metadata register `/integration/cv/$token`, `/integration/cv/$token/$action`, `/integration/forms/$token`, `/integration/job/$token`, and `/integration/job/$token/$action` under `integrations.token-entry.*`.
+- source includes route-owned pages for CV, forms/documents, and job callbacks in `src/domains/integrations/*-token-entry-page.tsx`.
+- integration token-entry helpers model token lifecycle, route-family mismatch, recoverable CV conflicts, forms/documents upload/persistence retry, and job presentation.
+- tests cover route builders, metadata, access decisions, CV workflow recovery, forms upload/persistence failures, and forms completion.
 
-**Must define:**
-- the exact route family still missing, if any.
-- the difference between R3 provider callbacks and R5 tokenized entries.
-- whether this belongs to `integrations`, `public-external`, or a shared token-entry support layer.
+**Rationale:** The R5 roadmap line was a stale carry-forward from planning. Current source and docs already place these routes in R3 as provider/integration callback token entries owned by `integrations.token-entry`.
+
+**Implications:**
+- ST8 is closed as reconciliation-only.
+- no `r5-integration-token-leftovers` OpenSpec package is opened.
+- future provider-specific callback changes must name the missing provider/route family explicitly instead of reopening the generic cv/forms/job line.
 
 ### D11 — Treat `/job-requisition-forms/:id?download` as a separate public/token contract
 
-**Status:** Proposed
+**Status:** Accepted for `r5-public-token-leftovers`
 
-**Decision:** Plan `/job-requisition-forms/:id?download` as a distinct public/token route, not as a minor variant of `/job-requisition-approval?token`.
+**Decision:** Implement `/job-requisition-forms/:id?download` as a distinct public/token route, not as a minor variant of `/job-requisition-approval?token`. The route uses a form id path parameter, optional token search, optional explicit-download mode, route-specific access/readiness states, and `requisition_forms_*` telemetry.
 
 **Rationale:** The screen inventory assigns it to R5 and describes a forms/download contract. Reusing approval semantics without a route-specific contract could blur token handling, download behavior, terminal states, and access failure handling.
 
-**Must define:**
-- token or form-access validation shape.
+**Accepted implementation defines:**
+- token/form-access validation shape.
 - view vs download behavior.
-- invalid, expired, inaccessible, and unavailable states.
+- invalid, expired, inaccessible, unavailable, already-downloaded, not-found, and retryable download-failure states.
 - relationship to requisition approval terminal states.
+
+Implementation notes:
+- shared token-state primitives may be reused for invalid/expired/used/inaccessible messages.
+- approval approve/reject terminal states and `requisition_approval_*` telemetry are not reused.
+- `download` mode never auto-starts a browser download; the page requires explicit user action.
 
 ### D12 — Preserve route-bound capability decisions for R5
 
@@ -207,7 +218,7 @@ Use these statuses until each decision is promoted into an OpenSpec package:
 
 ### D13 — Use several OpenSpec changes for R5
 
-**Status:** Proposed
+**Status:** Accepted; implemented
 
 **Decision:** Do not implement R5 as one large OpenSpec change. Create separate changes for foundation, sysadmin master data, platform users/favorite requests, requisition authoring, settings leftovers, and public/token leftovers.
 
@@ -220,17 +231,18 @@ Use these statuses until each decision is promoted into an OpenSpec package:
 4. `r5-requisition-authoring`
 5. `r5-settings-leftovers`
 6. `r5-public-token-leftovers`
-7. `r5-integration-token-leftovers` only if D10 confirms remaining scope
+7. `r5-integration-token-leftovers` not opened; D10 confirms no remaining generic cv/forms/job scope
 
 ## Blocking decisions before `R5` implementation
 
 Resolve these before opening route-heavy implementation work:
 
-1. D8 — inventory of remaining `/parameters` subsections.
-2. D10 — status of tokenized integration entries.
-3. D11 — public/token contract for requisition forms/download.
+1. D10 closed — generic tokenized integration entries are already covered by R3.
+2. D11 closed — public/token contract for requisition forms/download.
 
 Resolved for foundation and R4/R5 sync:
+- D8 — the settings compatibility inventory is accepted for `r5-settings-leftovers`.
+- D9 — `/settings/api-endpoints` is accepted as a settings-owned HC Admin route for `r5-settings-leftovers`.
 - D2 — SysAdmin foundation contract is now represented by the valid `r5-sysadmin-foundation` OpenSpec package.
 - D3 — platform and org user-management split is accepted after R4 org team/invite/membership closeout.
 - D4 — org favorites and platform favorite-request queue split is accepted after R4 favorites/request closeout.

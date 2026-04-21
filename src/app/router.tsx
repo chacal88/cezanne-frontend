@@ -1,5 +1,5 @@
 import { createRootRoute, createRoute, createRouter, Navigate, Outlet } from '@tanstack/react-router';
-import { AccessBoundary } from '../lib/access-control';
+import { AccessBoundary, useCapabilities } from '../lib/access-control';
 import { RouteTelemetryObserver } from '../lib/observability';
 import { PublicShell } from '../shell/layout/public-shell';
 import { AuthenticatedShell } from '../shell/layout/authenticated-shell';
@@ -23,7 +23,7 @@ import { ExternalChatPage } from '../domains/public-external/external-chat/exter
 import { InterviewRequestPage } from '../domains/public-external/external-review/interview-request-page';
 import { ReviewCandidatePage } from '../domains/public-external/external-review/review-candidate-page';
 import { InterviewFeedbackPage } from '../domains/public-external/external-review/interview-feedback-page';
-import { RequisitionApprovalPage, validateRequisitionApprovalSearch } from '../domains/public-external/requisition-approval';
+import { RequisitionApprovalPage, RequisitionFormsDownloadPage, validateRequisitionApprovalSearch, validateRequisitionFormsDownloadSearch } from '../domains/public-external/requisition-approval';
 import { IntegrationCvTokenEntryPage, IntegrationFormsTokenEntryPage, IntegrationJobTokenEntryPage, IntegrationProviderDetailPage, IntegrationsIndexPage } from '../domains/integrations';
 import { LegacyReportCompatibilityPage, ReportFamilyPage, ReportsIndexPage, isReportFamily } from '../domains/reports';
 import { OrgInviteFoundationPage, OrgRecruiterVisibilityPage, OrgTeamIndexPage } from '../domains/team';
@@ -64,6 +64,8 @@ import { CustomFieldsSettingsPage } from '../domains/settings/custom-fields/cust
 import { TemplatesSettingsPage } from '../domains/settings/templates/templates-settings-page';
 import { RejectReasonsSettingsPage } from '../domains/settings/reject-reasons/reject-reasons-settings-page';
 import { RequisitionWorkflowsPage } from '../domains/settings/requisition-workflows';
+import { ApiEndpointsSettingsPage } from '../domains/settings/api-endpoints';
+import { getAvailableOperationalSettingsSubsections, resolveOperationalSettingsRoute } from '../domains/settings/operational';
 import {
   validateApplicationPageParams,
   validateJobListingEditorSearch,
@@ -201,6 +203,17 @@ const requisitionApprovalRoute = createRoute({
   component: () => {
     const { token } = requisitionApprovalRoute.useSearch();
     return <RequisitionApprovalPage token={token} />;
+  },
+});
+
+const requisitionFormsDownloadRoute = createRoute({
+  getParentRoute: () => publicExternalLayoutRoute,
+  path: '/job-requisition-forms/$formId',
+  validateSearch: validateRequisitionFormsDownloadSearch,
+  component: () => {
+    const { formId } = requisitionFormsDownloadRoute.useParams();
+    const { token, download } = requisitionFormsDownloadRoute.useSearch();
+    return <RequisitionFormsDownloadPage formId={formId} token={token} download={download} />;
   },
 });
 
@@ -451,6 +464,35 @@ const legacyReportDetailRoute = createRoute({
   },
 });
 
+
+function ParametersCompatibilityResolver({ settingsId, section, subsection }: { settingsId?: string; section?: string; subsection?: string }) {
+  const capabilities = useCapabilities();
+  const pathname = ['parameters', settingsId, section, subsection].filter(Boolean).join('/');
+  const normalizedPathname = `/${pathname}`;
+  const resolution = resolveOperationalSettingsRoute(normalizedPathname, getAvailableOperationalSettingsSubsections(capabilities));
+
+  if (!resolution) {
+    observability.telemetry.track({
+      name: 'settings_compat_fallback_used',
+      data: { routeId: 'settings.operational.compat', requestedSubsection: subsection ?? 'hiring-flow', fallbackTarget: '/dashboard', reason: 'no-available-subsection' },
+    });
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  observability.telemetry.track({
+    name: resolution.reason === 'matched' ? 'settings_compat_resolved' : 'settings_compat_fallback_used',
+    data: {
+      routeId: 'settings.operational.compat',
+      requestedSubsection: subsection ?? 'hiring-flow',
+      resolvedSubsection: resolution.active.subsectionId,
+      fallbackTarget: resolution.reason === 'matched' ? undefined : resolution.active.path,
+      reason: resolution.reason,
+    },
+  });
+
+  return <Navigate to={resolution.active.path as '/settings/hiring-flow'} replace />;
+}
+
 const dashboardRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/dashboard',
@@ -510,6 +552,65 @@ const customFieldsSettingsRoute = createRoute({
       <CustomFieldsSettingsPage />
     </AccessBoundary>
   ),
+});
+
+const apiEndpointsSettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/api-endpoints',
+  component: () => (
+    <AccessBoundary capability="canManageApiEndpoints" fallback={dashboardFallback}>
+      <ApiEndpointsSettingsPage />
+    </AccessBoundary>
+  ),
+});
+
+const parametersCompatIndexRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/parameters',
+  component: () => (
+    <AccessBoundary capability="canEnterSettings" fallback={dashboardFallback}>
+      <ParametersCompatibilityResolver />
+    </AccessBoundary>
+  ),
+});
+
+const parametersCompatSettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/parameters/$settingsId',
+  component: () => {
+    const { settingsId } = parametersCompatSettingsRoute.useParams();
+    return (
+      <AccessBoundary capability="canEnterSettings" fallback={dashboardFallback}>
+        <ParametersCompatibilityResolver settingsId={settingsId} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const parametersCompatSectionRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/parameters/$settingsId/$section',
+  component: () => {
+    const { settingsId, section } = parametersCompatSectionRoute.useParams();
+    return (
+      <AccessBoundary capability="canEnterSettings" fallback={dashboardFallback}>
+        <ParametersCompatibilityResolver settingsId={settingsId} section={section} />
+      </AccessBoundary>
+    );
+  },
+});
+
+const parametersCompatSubsectionRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/parameters/$settingsId/$section/$subsection',
+  component: () => {
+    const { settingsId, section, subsection } = parametersCompatSubsectionRoute.useParams();
+    return (
+      <AccessBoundary capability="canEnterSettings" fallback={dashboardFallback}>
+        <ParametersCompatibilityResolver settingsId={settingsId} section={section} subsection={subsection} />
+      </AccessBoundary>
+    );
+  },
 });
 
 const templatesIndexRoute = createRoute({
@@ -1231,6 +1332,7 @@ const routeTree = rootRoute.addChildren([
       reviewCandidateRoute,
       interviewFeedbackRoute,
       requisitionApprovalRoute,
+      requisitionFormsDownloadRoute,
       integrationCvRoute,
       integrationCvActionRoute,
       integrationFormsRoute,
@@ -1263,6 +1365,11 @@ const routeTree = rootRoute.addChildren([
     careersPageSettingsRoute,
     hiringFlowSettingsRoute,
     customFieldsSettingsRoute,
+    apiEndpointsSettingsRoute,
+    parametersCompatIndexRoute,
+    parametersCompatSettingsRoute,
+    parametersCompatSectionRoute,
+    parametersCompatSubsectionRoute,
     templatesIndexRoute,
     templatesSmartQuestionsRoute,
     templatesDiversityQuestionsRoute,

@@ -281,3 +281,41 @@ The `r5-requisition-authoring` validation baseline proves:
 - `canUseJobRequisitionBranching` requires HC admin requisition context.
 - requisition draft/save/workflow-drift state helpers.
 - settings-side `/requisition-workflows` ownership remains separate from Jobs-side authoring execution.
+
+
+## R5 settings leftovers validation baseline
+
+The `r5-settings-leftovers` validation baseline must prove:
+- route metadata for `/settings/api-endpoints` and `/parameters/:settings_id?/:section?/:subsection?`.
+- capability coverage for `canEnterSettings` and HC Admin-only `canManageApiEndpoints`.
+- proof that RA, SysAdmin platform, integrations access, and HC non-admin contexts do not grant API endpoints access.
+- compatibility resolution coverage for matched, unknown, unauthorized, unavailable, and unimplemented subsection keys.
+- the closed recognized compatibility inventory: `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, and `api-endpoints`.
+- API endpoint state-helper coverage for loading, ready, empty, validation-error, saving, saved, save-error, denied, and unavailable states.
+- settings ownership separation proof: `/settings/api-endpoints` does not require integrations or SysAdmin capabilities, and `/parameters*` does not render a monolithic settings page.
+- safe telemetry payload proof for compatibility resolution/fallback and API endpoint validation/save outcomes.
+
+## R5 public/token requisition forms validation baseline
+
+Requisition forms/download validation includes:
+- Route metadata coverage for `/job-requisition-forms/:id`.
+- Search parsing coverage for optional `download` mode and token search.
+- Vitest coverage for valid, invalid, expired, inaccessible, unavailable, already-downloaded, and not-found access states.
+- Vitest coverage for explicit download success, hardened request headers, and retryable same-route download failure.
+- Separation proof that forms/download route id, state helpers, and telemetry are distinct from requisition approval approve/reject behavior.
+
+## R5 integration token reconciliation baseline
+
+ST8 reconciliation confirms no new R5 integration-token implementation is required because the generic tokenized families are already covered by R3 source/tests:
+- `/integration/cv/:token/:action?` route metadata and CV callback workflow coverage.
+- `/integration/forms/:token` route metadata plus sequential upload/persistence/retry workflow coverage.
+- `/integration/job/:token/:action?` route metadata and normalized job callback presentation coverage.
+- access tests for `canUseIntegrationTokenEntry`, token lifecycle, and route-family mismatch/inaccessible outcomes.
+
+## R5 closeout validation baseline
+
+R5 closeout validation includes:
+- OpenSpec validation for archived and active R5 specs/changes through `openspec validate --all --strict`.
+- Vitest coverage for platform route metadata/capabilities, requisition authoring helpers, settings API endpoints, `/parameters` compatibility, requisition forms/download, and integration token reconciliation evidence.
+- Build proof through `npm run build`.
+- Documentation synchronization across roadmap, R5 decision/open-points docs, screens, modules, capabilities, navigation, telemetry, and testing docs.

@@ -160,6 +160,11 @@ Only add extra fields if they are relevant to the event.
 | `requisition_approval_submit_failed` | requisition approval submit failed but remained recoverable in-route | `decision`, `stage` |
 | `requisition_approval_token_state_resolved` | requisition approval resolved to a token-state outcome after concurrent consumption | `decision`, `tokenState` |
 | `requisition_approval_workflow_drift` | requisition approval resolved to workflow drift instead of generic failure | `decision` |
+| `requisition_forms_opened` | requisition forms/download route opened | `tokenState`, `readiness`, `mode` |
+| `requisition_forms_download_started` | explicit requisition forms download action started | `mode` |
+| `requisition_forms_download_completed` | requisition forms download action completed | `documentCount` |
+| `requisition_forms_download_failed` | requisition forms download failed but remained retryable in-route | `stage`, `retryable` |
+| `requisition_forms_token_state_resolved` | requisition forms/download resolved to a token-state outcome | `tokenState` |
 
 
 ### 9. SysAdmin platform foundation
@@ -171,6 +176,19 @@ Only add extra fields if they are relevant to the event.
 | `platform_fallback_used` | platform route entry fell back to dashboard | `targetRouteId`, `fallbackTarget`, `fallbackMode` |
 | `platform_nav_group_exposed` | a Platform navigation group became visible | `navGroup` |
 | `platform_placeholder_viewed` | a foundation placeholder route rendered before route-heavy implementation | `targetRouteId`, `platformRouteFamily` |
+
+
+### 10. R5 settings leftovers
+
+| Event | Meaning | Typical extra fields |
+|---|---|---|
+| `settings_compat_resolved` | `/parameters` compatibility request resolved to a dedicated subsection route | `routeId`, `requestedSubsection`, `resolvedSubsection`, `outcome` |
+| `settings_compat_fallback_used` | `/parameters` compatibility request used fallback for unknown, unauthorized, unavailable, or unimplemented subsection | `routeId`, `requestedSubsection`, `resolvedSubsection`, `fallbackTarget`, `reason` |
+| `api_endpoints_validation_failed` | API endpoints settings validation blocked save | `routeId`, `failureKind` |
+| `api_endpoints_save_failed` | API endpoints settings save failed but remained recoverable in-route | `routeId`, `failureKind` |
+| `api_endpoints_save_succeeded` | API endpoints settings save reached stable success state | `routeId` |
+
+R5 settings events must not include endpoint URLs, credentials, headers, tenant-sensitive identifiers, or raw session payloads.
 
 ## Event taxonomy rule
 

@@ -18,6 +18,7 @@ export type Capabilities = {
   canOpenAccountArea: boolean;
   canLogout: boolean;
   canSeeNavSection: boolean;
+  canEnterSettings: boolean;
   canManageCareersPage: boolean;
   canManageApplicationPage: boolean;
   canManageJobListings: boolean;
@@ -25,6 +26,7 @@ export type Capabilities = {
   canManageCustomFields: boolean;
   canManageTemplates: boolean;
   canManageRejectReasons: boolean;
+  canManageApiEndpoints: boolean;
   canViewPlatformNavigation: boolean;
   canViewPlatformMasterDataNav: boolean;
   canViewPlatformUsersAndRequestsNav: boolean;

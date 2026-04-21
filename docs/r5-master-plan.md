@@ -34,15 +34,10 @@ Confirmed:
 - `/parameters` remains compatibility-only and must not become a monolithic settings page.
 - R5 completes full requisition authoring workflows that were only partially represented by R1 `jobRequisition` branching.
 
-Resolved for `r5-sysadmin-foundation`:
-- SysAdmin landing/fallback and navigation grouping have an accepted foundation baseline in `r5-sysadmin-open-points.md` and `openspec/changes/r5-sysadmin-foundation/`.
-
-Still unresolved for later R5 route-heavy slices:
-- platform user route behavior after the accepted org/platform user-management split.
-- platform favorite-request queue behavior after the accepted org-favorites/platform-queue split.
-- closed inventory of remaining `/parameters` subsections.
-- whether tokenized integration entries still have any R5 scope after the R3 provider callback implementation.
-- route-specific public/token contract for `/job-requisition-forms/:id?download`.
+Resolved R5 closeout:
+- SysAdmin foundation, platform master data, platform users/favorite-request queue, taxonomy, requisition authoring, settings leftovers, and public/token forms-download are implemented and validated.
+- Generic integration tokenized entries were reconciled as already covered by R3 integrations token-entry source/tests; no R5 implementation package is opened for that line.
+- R5 is closed as a set of focused changes rather than a monolithic platform wave.
 
 ## Consolidated sequencing
 
@@ -53,9 +48,9 @@ Still unresolved for later R5 route-heavy slices:
 | `3` | `R5.3` platform users and favorite-request queue | implemented as platform `/users*` CRUD foundation plus platform `/favorites-request*` queue foundation | `r5-platform-users-and-favorite-requests` |
 | `4` | `R5.4` taxonomy | implemented as platform sectors/subsectors foundation with parent-child navigation | `r5-platform-taxonomy` |
 | `5` | `R5.5` requisition authoring completion | implemented as frontend route/state foundation for Jobs-side authoring and settings-side workflow administration | `r5-requisition-authoring` |
-| `6` | `R5.6` settings leftovers | API endpoints and remaining `/parameters` subsections need a closed inventory before implementation | `r5-settings-leftovers` |
-| `7` | `R5.7` public/token leftovers | requisition forms/download and any confirmed tokenized leftovers need distinct route contracts | `r5-public-token-leftovers` |
-| `8` | `R5.8` integration token leftovers | only opens if the decision register confirms scope still exists after R3 provider callbacks | conditional: `r5-integration-token-leftovers` |
+| `6` | `R5.6` settings leftovers | implemented API endpoints and closed `/parameters` compatibility inventory | `r5-settings-leftovers` |
+| `7` | `R5.7` public/token leftovers | implemented requisition forms/download as a distinct public/token route | `r5-public-token-leftovers` |
+| `8` | `R5.8` integration token leftovers | reconciled as already covered by R3 integrations token-entry source/tests | no R5 change opened |
 
 
 ## Planning package status
@@ -68,10 +63,10 @@ Created R5 planning artifacts:
 - `r5-settings-and-token-open-points.md`
 
 Current status:
-- planning coverage exists for all major R5 areas.
-- SysAdmin foundation decisions for landing/fallback, navigation grouping, and validation evidence now have an accepted baseline in `r5-sysadmin-open-points.md`.
-- the `r5-sysadmin-foundation` OpenSpec package has been created and validates strictly.
-- route-heavy platform implementation should still wait until `r5-sysadmin-foundation` is implemented and accepted.
+- R5 planning coverage exists for all major areas and every R5 execution package has completed implementation/validation.
+- `r5-sysadmin-foundation`, `r5-settings-leftovers`, and `r5-public-token-leftovers` are archived.
+- `r5-platform-master-data`, `r5-platform-users-and-favorite-requests`, `r5-platform-taxonomy`, and `r5-requisition-authoring` are complete and ready for archive/closeout.
+- `r5-integration-token-leftovers` is not opened because D10 confirms no remaining generic integration token-entry scope.
 
 ## Dependency map
 
@@ -168,8 +163,8 @@ Scope:
 - `/settings/api-endpoints`.
 - remaining `/parameters/:settings_id?/:section?/:subsection?` subsection completion.
 
-Blocked by:
-- closed inventory of remaining `/parameters` subsections.
+Resolved for `r5-settings-leftovers`:
+- closed compatibility inventory: `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, and `api-endpoints`.
 
 Planning rule:
 - `/settings/api-endpoints` belongs to `settings.api-endpoints`, not `sysadmin`.
@@ -180,22 +175,23 @@ Planning rule:
 
 Scope:
 - `/job-requisition-forms/:id?download`.
-- any public/token leftovers that remain after the R5 decision register is resolved.
+- public/token leftovers confirmed by the R5 decision register. Generic integration token entries are excluded because D10 closed them as R3-covered.
 
-Planning rule:
-- requisition forms/download is a distinct route contract, not a minor variant of `/job-requisition-approval?token`.
-- token lifecycle states must remain explicit: valid, invalid, expired, inaccessible, unavailable, and downloaded/viewed states where relevant.
+Accepted implementation rule:
+- requisition forms/download is implemented as a distinct route contract, not a minor variant of `/job-requisition-approval?token`.
+- token lifecycle states remain explicit: valid, invalid, expired, inaccessible, unavailable, already-downloaded, not-found, and retryable download failure.
+- the `download` query flag selects download-focused mode but requires explicit user action; no automatic browser download is triggered.
 
 ### `R5.8` integration token leftovers
 
-Scope:
-- only the integration tokenized entry routes still proven missing after comparing current source, R3 provider callback implementation, and the R5 roadmap line.
+Status:
+- closed as reconciliation-only. D10 confirms the generic `/integration/cv/:token/:action?`, `/integration/forms/:token`, and `/integration/job/:token/:action?` families are already implemented under R3 integrations token-entry source/tests.
 
-Blocked by:
-- decision register D10.
+Future rule:
+- do not open `r5-integration-token-leftovers` for the generic cv/forms/job line. A future package must name a concrete missing provider or route family.
 
-Planning rule:
-- do not open this change until the route family is confirmed to be real R5 scope rather than stale roadmap language.
+Closeout rule:
+- the generic route family was confirmed to be stale roadmap language, so no R5 implementation package is opened.
 
 ## Area-by-area planning summary
 
@@ -219,38 +215,39 @@ Plan as a Jobs/settings boundary package:
 ### Settings leftovers
 
 Plan as an inventory-driven package:
-- close the list of remaining `/parameters` subsections first.
+- use the accepted closed `/parameters` compatibility inventory for `r5-settings-leftovers`.
 - implement `/settings/api-endpoints` as a dedicated settings module.
 - keep compatibility routing as a resolver, not a page.
+- leave broad company, agency, user, forms/docs, public/token, and integration-token leftovers to later subsection-specific packages unless a route contract is proven.
 
 ### Public/token leftovers
 
-Plan as explicit token contracts:
-- do not infer requisition forms/download behavior from approval behavior.
-- document token-state handling before implementation.
+Closed as explicit token contracts:
+- requisition forms/download is implemented separately from approval behavior.
+- token-state handling and download retry behavior are documented and tested.
 
 ### Integration token leftovers
 
-Plan only after reconciliation:
-- if R3 already covers the token-entry surface, update roadmap/docs to remove stale R5 scope.
-- do not confuse this conditional token-entry reconciliation with R4 authenticated provider setup depth, which remains outside default R5 scope.
-- if R5 still has missing entries, open a narrow change for those exact route contracts.
+Closed after reconciliation:
+- R3 already covers the generic token-entry surface.
+- roadmap/docs mark the old R5 line as reconciled.
+- future work must name an exact missing provider/route contract before opening a new change.
 
-## First OpenSpec queue
+## OpenSpec closeout status
 
-Current first change:
-1. `r5-sysadmin-foundation` — opened and validates strictly.
+Archived:
+1. `r5-sysadmin-foundation`
+2. `r5-settings-leftovers`
+3. `r5-public-token-leftovers`
 
-Next changes to open after the foundation is implemented and accepted:
-2. `r5-platform-master-data`
-3. `r5-platform-users-and-favorite-requests`
-4. `r5-requisition-authoring`
-5. `r5-settings-leftovers`
-6. `r5-public-token-leftovers`
+Complete and ready to archive:
+4. `r5-platform-master-data`
+5. `r5-platform-users-and-favorite-requests`
+6. `r5-platform-taxonomy`
+7. `r5-requisition-authoring`
 
-Conditional:
-- `r5-platform-taxonomy` can open after or alongside platform users if SysAdmin foundation is stable.
-- `r5-integration-token-leftovers` opens only if D10 confirms remaining scope.
+Not opened:
+- `r5-integration-token-leftovers`; D10 confirms no remaining generic integration token-entry scope.
 
 ## Docs that should stay synchronized with this plan
 

@@ -69,7 +69,9 @@ R1 implementation status (confirmed in code): the Jobs route family is now regis
 
 R3 implementation status (confirmed in code): the public/token route family now includes provider integration callbacks in `src/app/router.tsx`, with route metadata coverage plus smoke and Vitest proof for CV callback, forms/documents callback, and job callback direct entry.
 | **R4** | **Operations depth** | Candidate database + search, templates, hiring-flow/custom-fields config, integrations setup, team/users + favorites, reports, marketplace (RA), billing | L |
-| **R5** | **Platform + long-tail** | Sysadmin (companies/agencies/subscriptions/sectors/users), requisition authoring workflows, API endpoints settings, remaining parameters subsections, tokenized integration entries (cv/forms/job) | M |
+| **R5** | **Platform + long-tail** | Sysadmin (companies/agencies/subscriptions/sectors/users), requisition authoring workflows, API endpoints settings, `/parameters` compatibility completion, requisition forms/download, and integration token reconciliation | M |
+
+R5 implementation status (confirmed in code/docs): platform master data, platform users/favorite-request queue, taxonomy, requisition authoring, API endpoints settings, `/parameters` compatibility, and requisition forms/download are implemented and validated. Generic integration tokenized entries were reconciled as already covered by R3 token-entry routes.
 
 ### Why this slicing (and not the original Waves)
 
@@ -166,10 +168,10 @@ Operational settings substrate rule:
 
 ### R5 — Platform + long-tail gates
 
-- Platform (sysadmin) ownership cleanly separated from recruiter-core shell
-- Requisition authoring integrates with Jobs without consuming the Jobs domain (the minimum `jobRequisition` branching in authoring shipped in R1; R5 completes the authoring workflows)
-- All previously mapped route families from the screen inventory are addressable in the new frontend
-- All historical entry contracts (notifications, email tokens, integration callbacks, deep links) are supported with typed destinations — no opaque redirects remain
+- Platform (sysadmin) ownership is cleanly separated from recruiter-core shell.
+- Requisition authoring integrates with Jobs without consuming the Jobs domain; the minimum `jobRequisition` branching shipped in R1 and R5 completes the authoring workflows.
+- R5 route families from the screen inventory are addressable in the new frontend or explicitly reconciled as already covered by earlier releases.
+- Historical entry contracts for R5-owned routes use typed public/token, compatibility, or route metadata behavior instead of opaque redirects.
 
 ---
 
@@ -268,7 +270,7 @@ Prioritized flat list. **Criticality (Crit)**: H = breaks core product if missin
 | Sysadmin: global users | R5 | L |
 | Build-requisition + requisition workflows (completes branching started in R1) | R5 | M |
 | API endpoints settings | R5 | L |
-| Integration tokenized entries (cv/forms/job) | R5 | L |
+| Integration tokenized entries (cv/forms/job) | R3, reconciled during R5 | L |
 
 ---
 
@@ -368,7 +370,7 @@ Every surface that enters from outside the authenticated shell:
 - `/review-candidate/:code` — external reviewer assessment
 - `/interview-feedback/:code` — external interviewer feedback
 - `/job-requisition-approval?token` · `/job-requisition-forms/:id?download` — tokenized requisition approval and download
-- `/integration/cv/:token/:action?` · `/integration/forms/:token` · `/integration/job/:token/:action?` — provider/integration tokenized callbacks
+- `/integration/cv/:token/:action?` · `/integration/forms/:token` · `/integration/job/:token/:action?` — provider/integration tokenized callbacks; implemented under R3 token-entry and reconciled during R5 as no generic leftover
 
 Notification-driven entry currently uses opaque `referer` redirects (cv-interview-feedback, cv-reviewed, user-mentioned). **Must be normalized as a typed destination contract** in R0.
 

@@ -7,6 +7,7 @@ import commonEn from '../locales/en/common.json';
 import dashboardEn from '../locales/en/dashboard.json';
 import inboxEn from '../locales/en/inbox.json';
 import jobsEn from '../locales/en/jobs.json';
+import settingsEn from '../locales/en/settings.json';
 import shellEn from '../locales/en/shell.json';
 import sysadminEn from '../locales/en/sysadmin.json';
 import authPt from '../locales/pt/auth.json';
@@ -15,6 +16,7 @@ import commonPt from '../locales/pt/common.json';
 import dashboardPt from '../locales/pt/dashboard.json';
 import inboxPt from '../locales/pt/inbox.json';
 import jobsPt from '../locales/pt/jobs.json';
+import settingsPt from '../locales/pt/settings.json';
 import shellPt from '../locales/pt/shell.json';
 import sysadminPt from '../locales/pt/sysadmin.json';
 
@@ -28,6 +30,7 @@ export const resources = {
     dashboard: dashboardEn,
     inbox: inboxEn,
     jobs: jobsEn,
+    settings: settingsEn,
     shell: shellEn,
     sysadmin: sysadminEn,
   },
@@ -38,6 +41,7 @@ export const resources = {
     dashboard: dashboardPt,
     inbox: inboxPt,
     jobs: jobsPt,
+    settings: settingsPt,
     shell: shellPt,
     sysadmin: sysadminPt,
   },
@@ -52,7 +56,7 @@ if (!i18n.isInitialized) {
       lng: defaultLocale,
       fallbackLng: defaultLocale,
       defaultNS: 'common',
-      ns: ['common', 'auth', 'shell', 'dashboard', 'inbox', 'jobs', 'candidates', 'sysadmin'],
+      ns: ['common', 'auth', 'shell', 'dashboard', 'inbox', 'jobs', 'candidates', 'settings', 'sysadmin'],
       interpolation: {
         escapeValue: false,
       },

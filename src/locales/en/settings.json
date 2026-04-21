@@ -1,0 +1,15 @@
+{
+  "apiEndpoints": {
+    "eyebrow": "Settings leftovers",
+    "title": "API endpoints",
+    "copy": "Settings-owned API endpoint foundation. Real private-token and webhook persistence is outside this frontend slice.",
+    "stateLabel": "State",
+    "ownerLabel": "Owner",
+    "capabilityLabel": "Capability",
+    "urlLabel": "Endpoint URL",
+    "environmentLabel": "Environment",
+    "simulateFailureLabel": "Simulate recoverable save failure",
+    "save": "Save API endpoints",
+    "retry": "Retry save"
+  }
+}

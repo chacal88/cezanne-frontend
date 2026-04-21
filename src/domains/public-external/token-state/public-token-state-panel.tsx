@@ -39,6 +39,12 @@ const familyTokenMessages: Partial<Record<PublicRouteFamily, Partial<Record<Publ
   'integration-job': {
     inaccessible: 'This job callback token does not match the expected integration route family.',
   },
+  'requisition-forms-download': {
+    used: 'These requisition forms were already downloaded. Request a fresh link if you need another copy.',
+    inaccessible: 'This forms link is not authorized for the requested requisition documents.',
+    invalid: 'The forms link could not be verified. Request a new requisition forms link.',
+    expired: 'This requisition forms link expired. Request a fresh link to download the documents.',
+  },
 };
 
 export function PublicTokenStatePanel({ family, tokenState, reason }: { family: PublicRouteFamily; tokenState: PublicTokenState; reason?: string }) {

@@ -5,6 +5,7 @@ export type PublicRouteFamily =
   | 'public-survey'
   | 'external-tokenized-chat'
   | 'requisition-approval'
+  | 'requisition-forms-download'
   | 'external-interview-request'
   | 'external-review-candidate'
   | 'external-interview-feedback'
@@ -23,7 +24,8 @@ export type PublicRouteDecision = {
     | 'canSubmitPublicApplication'
     | 'canCompletePublicSurvey'
     | 'canUseExternalTokenizedChat'
-    | 'canUseExternalReviewFlow';
+    | 'canUseExternalReviewFlow'
+    | 'canDownloadRequisitionFormsByToken';
   tokenState: PublicTokenState;
   sourceState?: PublicSourceState;
   readiness: PublicRouteReadiness;

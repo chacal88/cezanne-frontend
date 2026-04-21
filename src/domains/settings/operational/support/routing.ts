@@ -1,3 +1,4 @@
+import type { Capabilities } from '../../../../lib/access-control';
 import { routeIds } from '../../../../lib/routing';
 import {
   operationalSettingsSubsectionIds,
@@ -43,6 +44,14 @@ export const operationalSettingsRouteDefinitions: Record<OperationalSettingsSubs
     path: '/reject-reasons',
     compatibilitySection: defaultCompatibilitySection,
     compatibilitySubsection: 'reject-reasons',
+  },
+  'api-endpoints': {
+    subsectionId: 'api-endpoints',
+    routeId: routeIds.settingsApiEndpoints,
+    capability: 'canManageApiEndpoints',
+    path: '/settings/api-endpoints',
+    compatibilitySection: defaultCompatibilitySection,
+    compatibilitySubsection: 'api-endpoints',
   },
 };
 
@@ -100,11 +109,14 @@ export function parseOperationalSettingsSubsectionFromPath(pathname: string): Op
 export function resolveOperationalSettingsRoute(
   pathname: string,
   availableSubsections: readonly OperationalSettingsSubsectionId[] = operationalSettingsSubsectionIds,
+  options: { unimplementedSubsections?: readonly string[] } = {},
 ): OperationalSettingsRouteResolution | null {
   const normalized = pathname.replace(/\/+$/, '') || '/';
   const direct = Object.values(operationalSettingsRouteDefinitions).find((definition) => definition.path === normalized);
+  const unimplemented = options.unimplementedSubsections ?? [];
 
   if (direct) {
+    if (unimplemented.includes(direct.subsectionId)) return fallbackResolution('fallback_unimplemented', availableSubsections);
     if (availableSubsections.includes(direct.subsectionId)) {
       return {
         active: direct,
@@ -117,41 +129,60 @@ export function resolveOperationalSettingsRoute(
       };
     }
 
-    const fallback = availableSubsections[0];
-    if (!fallback) return null;
-    const active = operationalSettingsRouteDefinitions[fallback];
-    return {
-      active,
-      params: {
-        settingsId: defaultSettingsId,
-        section: active.compatibilitySection,
-        subsection: active.compatibilitySubsection,
-      },
-      reason: 'fallback_unavailable',
-    };
+    return fallbackResolution('fallback_unavailable', availableSubsections);
   }
 
   const compatMatch = /^\/parameters(?:\/([^/]+))?(?:\/([^/]+))?(?:\/([^/]+))?$/.exec(normalized);
   if (!compatMatch) return null;
 
-  const params = validateOperationalSettingsCompatParams({
-    settingsId: compatMatch[1],
-    section: compatMatch[2],
-    subsection: compatMatch[3],
-  });
-  const requested = params.subsection as OperationalSettingsSubsectionId;
-  const fallbackSubsection = availableSubsections.includes(requested) ? requested : availableSubsections[0];
-  if (!fallbackSubsection) return null;
+  const settingsId = compatMatch[1] && compatMatch[1].trim() ? compatMatch[1] : defaultSettingsId;
+  const section = compatMatch[2] && compatMatch[2].trim() ? compatMatch[2] : defaultCompatibilitySection;
+  const requestedRaw = compatMatch[3] && compatMatch[3].trim() ? compatMatch[3] : defaultCompatibilitySubsection;
+  const requestedIsKnown = (operationalSettingsSubsectionIds as readonly string[]).includes(requestedRaw);
+  const requested = requestedIsKnown ? (requestedRaw as OperationalSettingsSubsectionId) : null;
 
-  const active = operationalSettingsRouteDefinitions[fallbackSubsection];
+  if (!requested || unimplemented.includes(requested)) {
+    const fallback = fallbackResolution(requested ? 'fallback_unimplemented' : 'fallback_unknown', availableSubsections, settingsId, section);
+    return fallback;
+  }
+
+  if (!availableSubsections.includes(requested)) {
+    return fallbackResolution('fallback_unauthorized', availableSubsections, settingsId, section);
+  }
+
+  const active = operationalSettingsRouteDefinitions[requested];
   return {
     active,
     params: {
-      ...params,
-      subsection: active.compatibilitySubsection,
+      settingsId,
       section: active.compatibilitySection,
+      subsection: active.compatibilitySubsection,
     },
-    reason: requested === fallbackSubsection ? 'matched' : 'fallback_unknown',
+    reason: 'matched',
+  };
+}
+
+export function getAvailableOperationalSettingsSubsections(capabilities: Capabilities): OperationalSettingsSubsectionId[] {
+  return operationalSettingsSubsectionIds.filter((subsectionId) => capabilities[operationalSettingsRouteDefinitions[subsectionId].capability]);
+}
+
+function fallbackResolution(
+  reason: OperationalSettingsRouteResolution['reason'],
+  availableSubsections: readonly OperationalSettingsSubsectionId[],
+  settingsId = defaultSettingsId,
+  section = defaultCompatibilitySection,
+): OperationalSettingsRouteResolution | null {
+  const fallback = availableSubsections[0];
+  if (!fallback) return null;
+  const active = operationalSettingsRouteDefinitions[fallback];
+  return {
+    active,
+    params: {
+      settingsId,
+      section: active.compatibilitySection || section,
+      subsection: active.compatibilitySubsection,
+    },
+    reason,
   };
 }
 

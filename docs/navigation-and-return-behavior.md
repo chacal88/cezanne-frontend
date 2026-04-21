@@ -49,7 +49,7 @@ Synthesized from:
 | candidate detail | full | preserve candidate/job/workflow context as far as encoded in URL | back should respect prior source | child actions return here |
 | job overlays/tasks | direct URL supported | reconstruct parent + task context or parent fallback | one step closes task | return to job detail |
 | candidate tasks | direct URL supported | reconstruct parent + task context or parent fallback | one step closes task | return to candidate detail |
-| settings subsections | full | rebuild subsection and save-state/readiness context from URL when stateful | back should remain within the active admin subsection when meaningful | route navigation or parent subsection |
+| settings subsections | full | rebuild subsection and save-state/readiness context from URL when stateful; `/parameters*` resolves through the compatibility registry | back should remain within the active admin subsection when meaningful; compatibility redirects replace to avoid resolver loops | route navigation or parent subsection |
 | reports | full | preserve family/filter state or explicit fallback | back should return to prior report family/index context | route navigation only |
 | integrations admin | full | rebuild integrations index/detail context | detail close should return to integrations index | route navigation or parent index |
 | user-profile | shell-aware direct entry only | rebuild shell then open overlay | one step closes overlay | return to prior route or dashboard |
@@ -219,3 +219,23 @@ Marketplace navigation now follows these rules:
 - `/job-requisitions/:jobWorkflowUuid/:jobStageUuid` returns to `/job-requisitions/:jobWorkflowUuid`.
 - `/requisition-workflows` returns to `/settings/hiring-flow` and stays settings-owned.
 - workflow drift and stale workflow are explicit states, not generic errors.
+
+
+## Implemented R5 settings leftovers behavior
+
+The `r5-settings-leftovers` planning baseline defines these navigation rules for implementation:
+- `/settings/api-endpoints` supports direct entry for eligible HC Admin users and falls back to `/dashboard` when denied.
+- `/settings/api-endpoints` is a settings-owned route, not an integrations route and not a SysAdmin route.
+- `/parameters/:settings_id?/:section?/:subsection?` remains a compatibility resolver only. It maps known authorized subsection keys to dedicated routes and replaces the compatibility URL when a dedicated route is selected.
+- recognized compatibility subsection keys are `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, and `api-endpoints`.
+- unknown, unauthorized, unavailable, and unimplemented subsection requests fall back to the first available recognized subsection for the actor, or `/dashboard` when no subsection is available.
+- API endpoint validation and save/retry states stay on `/settings/api-endpoints`; failed validation does not navigate away.
+
+## Implemented R5 public/token requisition forms behavior
+
+Requisition forms/download navigation now follows these rules:
+- `/job-requisition-forms/:id` supports direct public entry and refresh.
+- `?download`, `?download=true`, and `?download=1` preserve download-focused mode but do not auto-start a download.
+- the explicit download action keeps success and retryable failure states on the same public route.
+- invalid, expired, inaccessible, unavailable, not-found, and already-downloaded outcomes render in the public/external shell and never redirect to authenticated recruiter-shell navigation.
+- forms/download behavior remains separate from `/job-requisition-approval?token` approve/reject terminal states.

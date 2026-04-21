@@ -1,4 +1,4 @@
-export const operationalSettingsSubsectionIds = ['hiring-flow', 'custom-fields', 'templates', 'reject-reasons'] as const;
+export const operationalSettingsSubsectionIds = ['hiring-flow', 'custom-fields', 'templates', 'reject-reasons', 'api-endpoints'] as const;
 
 export type OperationalSettingsSubsectionId = (typeof operationalSettingsSubsectionIds)[number];
 
@@ -7,13 +7,15 @@ export type OperationalSettingsRouteId =
   | 'settings.operational.hiring-flow'
   | 'settings.operational.custom-fields'
   | 'settings.operational.templates'
-  | 'settings.operational.reject-reasons';
+  | 'settings.operational.reject-reasons'
+  | 'settings.api-endpoints';
 
 export type OperationalSettingsCapability =
   | 'canManageHiringFlowSettings'
   | 'canManageCustomFields'
   | 'canManageTemplates'
-  | 'canManageRejectReasons';
+  | 'canManageRejectReasons'
+  | 'canManageApiEndpoints';
 
 export type OperationalSettingsRouteDefinition = {
   subsectionId: OperationalSettingsSubsectionId;
@@ -30,7 +32,7 @@ export type OperationalSettingsCompatParams = {
   subsection: string;
 };
 
-export type OperationalSettingsResolutionReason = 'matched' | 'fallback_unknown' | 'fallback_unavailable';
+export type OperationalSettingsResolutionReason = 'matched' | 'fallback_unknown' | 'fallback_unavailable' | 'fallback_unauthorized' | 'fallback_unimplemented';
 
 export type OperationalSettingsRouteResolution = {
   active: OperationalSettingsRouteDefinition;

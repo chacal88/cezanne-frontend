@@ -36,6 +36,7 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
   const canViewPlatformTaxonomyNav = canManageTaxonomy;
   const canViewPlatformNavigation = canUsePlatformSurface && (canViewPlatformMasterDataNav || canViewPlatformUsersAndRequestsNav || canViewPlatformTaxonomyNav);
   const isHiringCompany = context.organizationType === 'hc';
+  const canEnterSettings = canUseOrgSurface;
   const canAdministerJobs = canEnterShell && (context.isAdmin || context.isSysAdmin);
   const canUseJobRequisitionBranching = canEnterShell && isHiringCompany && canAdministerJobs && hasPivotEntitlement(context, 'jobRequisition');
   const canViewJobDetail = canUseOrgSurface;
@@ -63,6 +64,7 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
     canOpenAccountArea: canEnterShell,
     canLogout: canEnterShell,
     canSeeNavSection: canEnterShell,
+    canEnterSettings,
     canManageCareersPage: canEnterShell && isHiringCompany && canAdministerJobs,
     canManageApplicationPage: canEnterShell && isHiringCompany && canAdministerJobs,
     canManageJobListings: canEnterShell && isHiringCompany && canAdministerJobs,
@@ -70,6 +72,7 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
     canManageCustomFields: canEnterShell && isHiringCompany && canAdministerJobs && hasRolloutFlag(context, 'customFieldsBeta'),
     canManageTemplates: canEnterShell && isHiringCompany,
     canManageRejectReasons: canEnterShell && isHiringCompany && canAdministerJobs && hasSubscriptionCapability(context, 'rejectionReason'),
+    canManageApiEndpoints: canEnterShell && isHiringCompany && context.isAdmin,
     canViewPlatformNavigation,
     canViewPlatformMasterDataNav,
     canViewPlatformUsersAndRequestsNav,

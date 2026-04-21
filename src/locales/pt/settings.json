@@ -1,0 +1,15 @@
+{
+  "apiEndpoints": {
+    "eyebrow": "Pendências de settings",
+    "title": "Endpoints de API",
+    "copy": "Fundação de endpoints de API pertencente a Settings. Persistência real de private-token e webhook fica fora deste slice frontend.",
+    "stateLabel": "Estado",
+    "ownerLabel": "Dono",
+    "capabilityLabel": "Capacidade",
+    "urlLabel": "URL do endpoint",
+    "environmentLabel": "Ambiente",
+    "simulateFailureLabel": "Simular falha recuperável ao salvar",
+    "save": "Salvar endpoints de API",
+    "retry": "Tentar salvar novamente"
+  }
+}

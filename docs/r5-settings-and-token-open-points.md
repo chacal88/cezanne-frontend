@@ -31,6 +31,7 @@ Confirmed:
 - `/settings/api-endpoints` belongs to `settings.api-endpoints`, not `sysadmin`.
 - `/parameters/:settings_id?/:section?/:subsection?` remains compatibility-only and must not become a monolithic settings page.
 - remaining `/parameters` subsections must be inventoried before implementation.
+- for `r5-settings-leftovers`, the closed compatibility inventory is now `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, and `api-endpoints`.
 - `/job-requisition-forms/:id?download` is a distinct R5 public/token route.
 - provider integration callbacks are already represented in source from the R3 baseline, so R5 integration-token scope must be reconciled before opening a new change.
 
@@ -46,177 +47,145 @@ Potentially stale R5 roadmap item:
 
 ### ST1 — Remaining `/parameters` inventory
 
-**Status:** Open
+**Status:** Accepted for `r5-settings-leftovers`
 
-**Decision needed:** Create a closed inventory of remaining `/parameters` subsections that still require R5 work.
+**Decision:** Use a closed compatibility inventory for this slice. Recognized subsection keys are:
 
-Must define:
-- subsection key and legacy URL shape.
-- owning domain/module.
-- whether it needs a dedicated route or compatibility-only resolution.
-- required capability decision.
-- feature flag or entitlement dependency.
-- save/retry/readiness behavior.
-- downstream consumers.
+| Subsection key | Legacy URL shape | Owning module | Resolution | Capability | Flags / entitlements | Save/retry/readiness | Downstream consumers |
+|---|---|---|---|---|---|---|---|
+| `hiring-flow` | `/parameters/:settings_id/settings/hiring-flow` | `settings.hiring-flow` | dedicated route `/settings/hiring-flow` | `canManageHiringFlowSettings` | `hc`, `admin`; requisition adjacency where relevant | R4 operational settings substrate | Jobs authoring and requisition configuration |
+| `custom-fields` | `/parameters/:settings_id/settings/custom-fields` | `settings.custom-fields` | dedicated route `/settings/custom-fields` | `canManageCustomFields` | `hc`, `admin`, `customFieldsBeta` | R4 operational settings substrate | Candidate/public custom-field consumers |
+| `templates` | `/parameters/:settings_id/settings/templates` | `settings.templates` | dedicated route `/templates` | `canManageTemplates` | `hc`; subtype gates remain inside templates | R4 operational settings substrate | Jobs/candidate/public template consumers |
+| `reject-reasons` | `/parameters/:settings_id/settings/reject-reasons` | `settings.reject-reasons` | dedicated route `/reject-reasons` | `canManageRejectReasons` | `hc`, `admin`, `rejectionReason` | R4 operational settings substrate | Job/candidate reject task flows |
+| `api-endpoints` | `/parameters/:settings_id/settings/api-endpoints` | `settings.api-endpoints` | dedicated route `/settings/api-endpoints` | `canManageApiEndpoints` | `hc`, `admin` | R5 API endpoint readiness/save/retry model | Private-token/webhook configuration consumers |
 
-Recommendation:
-- do not open a generic `/parameters` implementation change.
-- inventory first, then open narrow subsection changes.
+Other legacy subsection keys are not implemented by this change. They are treated as unknown compatibility requests until a later subsection-specific package proves their route contract, capability, readiness behavior, and downstream consumers.
 
 ### ST2 — Compatibility-only `/parameters` behavior
 
-**Status:** Open
+**Status:** Accepted for `r5-settings-leftovers`
 
-**Decision needed:** Freeze compatibility behavior for `/parameters/:settings_id?/:section?/:subsection?` after R4 settings substrate work.
+**Decision:** Preserve `/parameters/:settings_id?/:section?/:subsection?` as a resolver/fallback surface, not a feature-owning page.
 
-Must define:
-- how legacy section/subsection params map to dedicated routes.
-- behavior for unknown subsection keys.
-- behavior for known but unauthorized subsection keys.
-- behavior for known but unimplemented subsection keys.
-- whether redirects replace or preserve the original URL.
-- telemetry for compatibility-route resolution and fallback.
-
-Recommendation:
-- preserve the compatibility route as a resolver/fallback surface, not a feature-owning page.
+Accepted behavior:
+- known and authorized subsection keys resolve to their dedicated routes.
+- unknown subsection keys fall back to the first available recognized subsection for the current actor.
+- known but unauthorized subsection keys do not render subsection controls; they fall back to another available recognized subsection or `/dashboard` when none is available.
+- known but unavailable subsection keys use the same fallback model and record an unavailable outcome.
+- known but unimplemented subsection keys are treated as unknown until a later OpenSpec package adds a dedicated contract.
+- compatibility redirects should replace the compatibility URL when a dedicated route is selected, preventing browser-back loops into the resolver.
+- compatibility telemetry records resolution outcome, requested subsection, resolved subsection when available, and route id without tenant-sensitive payloads.
 
 ### ST3 — `/settings/api-endpoints` route contract
 
-**Status:** Open
+**Status:** Accepted for `r5-settings-leftovers`
 
-**Decision needed:** Define API endpoints settings as a dedicated HC Admin settings route.
+**Decision:** Implement `/settings/api-endpoints` as a dedicated HC Admin settings foundation route owned by `settings.api-endpoints`.
 
-Must define:
-- route entry capability for `canManageApiEndpoints`.
-- whether endpoint management is read-only, editable, or both.
-- list/detail/edit shape, if applicable.
-- validation rules for endpoint URLs, credentials, headers, or environment-specific fields.
-- save/retry/readiness behavior.
-- whether changes affect integrations, public entry, or backend webhooks.
-- denied fallback for HC users, RA users, and SysAdmin users.
-
-Recommendation:
-- implement as `settings.api-endpoints`, not as SysAdmin or generic integrations setup.
+Accepted behavior:
+- route entry uses `canManageApiEndpoints`.
+- `canManageApiEndpoints` is granted to authenticated HC Admin contexts only.
+- HC non-admin, RA, SysAdmin platform, and unauthenticated contexts are denied and fall back through the stable dashboard behavior.
+- the frontend foundation exposes one route-level settings surface rather than separate list/detail/edit routes.
+- endpoint management is modeled as editable foundation state with loading, ready, empty, validation-error, saving, saved, save-error, denied, and unavailable states.
+- validation covers URL shape plus placeholder credential/header/environment fields without logging sensitive values.
+- save failure is recoverable in-route; save success refreshes the route-level endpoint state.
+- real private-token/webhook persistence is outside this frontend foundation slice.
 
 ### ST4 — API endpoints relationship to integrations
 
-**Status:** Open
+**Status:** Accepted for `r5-settings-leftovers`
 
-**Decision needed:** Define whether `/settings/api-endpoints` depends on the integrations domain or only on settings adapters.
+**Decision:** Keep `/settings/api-endpoints` owned by settings and do not require integrations-domain route capabilities for entry.
 
-Must define:
-- whether endpoint configuration is provider-specific.
-- whether endpoint health/validation states are shared with integrations setup.
-- whether endpoint changes create integration diagnostics events.
-- whether failed validation blocks save or creates degraded state.
-
-Recommendation:
-- keep route ownership in settings, but use explicit integration support adapters only if provider-specific state is required.
+Accepted behavior:
+- this slice treats endpoint configuration as settings-owned utility configuration, not provider-specific setup.
+- route entry does not consume `canViewIntegrations` or `canManageIntegrationProvider`.
+- endpoint health/validation states are local API-endpoint readiness states in this slice.
+- integration diagnostics events are not introduced by default; a future provider-specific package may add explicit integration support adapters.
+- failed validation blocks save and creates a route-local `validation-error` state; transport/save failure creates a recoverable `save-error` state.
 
 ### ST5 — `/job-requisition-forms/:id?download` token/access contract
 
-**Status:** Open
+**Status:** Accepted for `r5-public-token-leftovers`
 
-**Decision needed:** Define how requisition forms/download validates access and handles terminal states.
+**Decision:** Implement `/job-requisition-forms/:id?download` as a distinct public/token forms-download route. The path id identifies the requested form/document target, token-derived access is accepted through route search when available, and the optional `download` query flag selects download-focused presentation rather than automatic browser download.
 
-Must define:
-- whether access is token-based, id-based with signed URL, or another form-access model.
-- whether `download` is a boolean query flag, optional route mode, or separate action.
-- valid, invalid, expired, inaccessible, unavailable, already-downloaded, and not-found states.
-- whether the route can render a view before download.
-- whether download should start automatically or require user action.
-- retry behavior for failed downloads.
-
-Recommendation:
-- treat this as a separate public/token route contract, not as a variant of requisition approval.
+Accepted behavior:
+- `/job-requisition-forms/:id?download` is registered separately from `/job-requisition-approval?token`.
+- valid access renders a public-shell view with an explicit `Download forms` action.
+- `download`, `download=true`, and `download=1` set download mode, but the user must still click the action.
+- invalid, expired, inaccessible, unavailable, already-downloaded, and not-found states render route-owned public messages.
+- already-downloaded is document-oriented and maps to shared `used` token-state presentation without approval terminal copy.
+- retryable download failures remain on the same route and expose a retry path.
 
 ### ST6 — Relationship to `/job-requisition-approval?token`
 
-**Status:** Open
+**Status:** Accepted for `r5-public-token-leftovers`
 
-**Decision needed:** Define how requisition forms/download relates to the existing requisition approval public/token route.
+**Decision:** Share public token-state primitives where useful, but keep forms/download state helpers, route id, telemetry names, and workflow outcomes separate from requisition approval.
 
-Must define:
-- whether the same token service is used.
-- whether approval terminal states affect form access.
-- whether forms/download can be opened from approval success screens.
-- whether approval route and forms route share token-state components.
-- whether analytics and telemetry event names are shared or separate.
-
-Recommendation:
-- share token-state primitives where useful, but keep route behavior, telemetry, and acceptance criteria separate.
+Accepted behavior:
+- forms/download does not reuse approval approve/reject terminal states.
+- approval completion does not implicitly consume or unlock forms/download in this frontend foundation slice.
+- forms/download may later be linked from approval success screens, but no approval mutation behavior changes in this package.
+- telemetry uses `requisition_forms_*` events, not `requisition_approval_*` events.
 
 ### ST7 — Public/token shell behavior for forms/download
 
-**Status:** Open
+**Status:** Accepted for `r5-public-token-leftovers`
 
-**Decision needed:** Define public-shell rendering and error behavior for `/job-requisition-forms/:id?download`.
+**Decision:** Render requisition forms/download in the public/external shell with no authenticated recruiter-shell navigation, session route capability dependency, or automatic download side effect.
 
-Must define:
-- public shell layout.
-- internal navigation exclusion.
-- user-facing messages for each token/access state.
-- file/document unavailable states.
-- accessibility and browser behavior for download actions.
-
-Recommendation:
-- use the public/external shell contract and avoid authenticated recruiter-shell dependencies.
+Accepted behavior:
+- direct entry and refresh preserve token/form interpretation.
+- invalid token, expired token, inaccessible link, unavailable document, not-found document, and already-downloaded states render public messages.
+- the explicit download action is accessible, retryable, and keeps transient failures in-route.
+- telemetry payloads omit raw tokens, document contents, signed URLs, and tenant-sensitive identifiers.
 
 ### ST8 — Integration tokenized entries reconciliation
 
-**Status:** Open
+**Status:** Accepted; no R5 implementation change required
 
-**Decision needed:** Determine whether integration tokenized entries remain in R5 scope.
+**Decision:** The generic integration tokenized entries line (`cv/forms/job`) is already covered by the R3 integrations token-entry implementation. R5 does not open `r5-integration-token-leftovers`.
 
-Current tension:
-- `roadmap.md` lists Integration tokenized entries (`cv/forms/job`) under R5.
-- current status says provider integration callbacks are represented in source under the integrations token-entry slice.
+Evidence:
+- `/integration/cv/:token/:action?` is registered as `integrations.token-entry.cv` and renders the CV callback route with interview/offer action handling.
+- `/integration/forms/:token` is registered as `integrations.token-entry.forms` and renders requested forms/documents with sequential upload/persistence/retry behavior.
+- `/integration/job/:token/:action?` is registered as `integrations.token-entry.job` and renders normalized job callback presentation.
+- access and workflow tests cover route metadata, token lifecycle, route-family mismatch, CV conflict recovery, forms upload/persistence failure, and stable forms completion.
 
-Must define:
-- routes already implemented by R3 provider callbacks.
-- route families still missing, if any.
-- whether missing entries are callback routes, token entry routes, or direct public/external document routes.
-- owning domain: `integrations`, `public-external`, or shared token support.
-- whether roadmap/docs should be updated to remove stale R5 scope.
-
-Recommendation:
-- do not open `r5-integration-token-leftovers` unless a concrete missing route family is proven.
+Accepted behavior:
+- treat the roadmap R5 line as stale planning text, not a missing implementation slice.
+- keep ownership under `integrations.token-entry`; do not move these routes into `public-external`.
+- only open a future integration-token change when a concrete missing provider/route family is named.
 
 ### ST9 — Token lifecycle consistency
 
-**Status:** Open
+**Status:** Accepted for `r5-public-token-leftovers`
 
-**Decision needed:** Ensure any R5 public/token route uses the same lifecycle vocabulary as prior public/external surfaces.
-
-Must define:
-- valid.
-- invalid.
-- expired.
-- used or consumed, if applicable.
-- inaccessible.
-- unavailable.
-- stale target state.
-- retryable transport failure.
-
-Recommendation:
-- reuse public/external token-state primitives, but keep route-specific copy and actions explicit.
+**Decision:** Reuse shared `valid`, `invalid`, `expired`, `used`, and `inaccessible` token-state vocabulary while adding route-specific forms/download readiness for `ready`, `unavailable`, `already-downloaded`, `not-found`, `download-failed`, and `downloaded`. Retryable transport failures stay in-route and do not change token state.
 
 ### ST10 — Validation evidence and telemetry
 
-**Status:** Open
+**Status:** Accepted for `r5-settings-leftovers` and `r5-public-token-leftovers`
 
-**Decision needed:** Define validation and telemetry requirements for settings and token leftovers.
+**Decision:** Require route-specific validation and telemetry evidence before closing each R5 leftover package.
 
-Must define:
-- route metadata coverage.
-- capability unit tests for `/settings/api-endpoints` and any compatibility resolutions.
-- compatibility-route tests for `/parameters` mappings.
-- public/token state tests for requisition forms/download.
-- smoke proof for direct entry and denied/error states.
-- telemetry for compatibility resolution, settings save failure, token invalid/expired/inaccessible, and download success/failure.
+Accepted settings evidence:
+- route metadata coverage for `/settings/api-endpoints` and `/parameters*` compatibility entries.
+- capability tests for `canEnterSettings` and `canManageApiEndpoints`.
+- compatibility-route tests for matched, unknown, unauthorized, unavailable, and unimplemented subsection requests.
+- API endpoint state tests for loading, ready, empty, validation-error, saving, saved, save-error, denied, and unavailable states.
+- smoke proof for direct entry and denied/fallback behavior where the existing smoke surface supports it.
+- telemetry for compatibility resolution, compatibility fallback, API endpoint validation failure, save failure, and save success.
 
-Recommendation:
-- require token-state and compatibility-resolution proof before closing any R5 settings/token change.
+Accepted public/token evidence for `r5-public-token-leftovers`:
+- route metadata coverage for `/job-requisition-forms/:id`.
+- search parsing tests for token and optional `download` mode.
+- token/form access tests for valid, invalid, expired, inaccessible, unavailable, already-downloaded, and not-found states.
+- explicit download workflow tests for success, hardened request headers, and retryable same-route failure.
+- telemetry docs for `requisition_forms_opened`, `requisition_forms_download_started`, `requisition_forms_download_completed`, `requisition_forms_download_failed`, and `requisition_forms_token_state_resolved`.
 
 ## Proposed OpenSpec split
 
@@ -258,35 +227,20 @@ Expected affected areas:
 
 ### `r5-integration-token-leftovers`
 
-Goal:
-- implement only confirmed missing integration tokenized entries after reconciliation.
+Status:
+- not opened. ST8 confirms the generic cv/forms/job route families are already covered by R3 integrations token-entry source and tests.
 
-Should resolve:
-- ST8
-- ST9
-- ST10
-
-Expected affected areas:
-- `src/domains/integrations/**` if owned by integrations
-- `src/domains/public-external/**` if owned by public/token routes
-- `src/lib/routing/**`
-
-Open only if:
-- ST8 proves a real missing route family remains after R3 provider callbacks.
+Future rule:
+- open only if a later audit identifies a concrete missing provider/route family beyond `/integration/cv/:token/:action?`, `/integration/forms/:token`, and `/integration/job/:token/:action?`.
 
 ## Blocking items before implementation
 
-Before opening `r5-settings-leftovers`:
-- ST1 must produce a closed subsection inventory.
-- ST2 must define compatibility behavior.
-- ST3 must be route-contract ready.
-- ST4 must clarify integrations dependency.
+Before implementing `r5-settings-leftovers`:
+- the OpenSpec package must validate strictly.
+- implementation must preserve the accepted ST1-ST4 and ST10 settings decisions above.
 
 Before opening `r5-public-token-leftovers`:
-- ST5 must define token/access behavior.
-- ST6 must define relationship to requisition approval.
-- ST7 must define public-shell behavior.
-- ST9 must define token lifecycle states.
+- ST5-ST7 and ST9 are accepted for `r5-public-token-leftovers` and implemented through the route-specific forms/download contract.
 
-Before opening `r5-integration-token-leftovers`:
-- ST8 must prove remaining scope exists.
+Before opening any future integration-token leftover:
+- name the concrete missing provider/route family. The generic ST8 cv/forms/job line is closed as already covered by R3.

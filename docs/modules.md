@@ -104,13 +104,14 @@ Synthesized from:
 | `token-state-support` | Support | canonical `valid`/`invalid`/`expired`/`used`/`inaccessible` interpretation and recovery messaging | public route decision keys | R3 |
 | `public-route-support` | Support | route helpers, adapters, serializers, notification-ownership rules, upload/submission workflow contract, correlation-aware request reuse | public route decision keys | R3 |
 | `external-review` | Route-owning | interview request decision flow, review-candidate serializer/bootstrap, interview-feedback serializer/bootstrap, stable terminal read-only states | `canUseExternalReviewFlow` | R3 |
-| `requisition-approval` | Route-owning | tokenized requisition approval route bootstrap, workflow-aware access/readiness, approve/reject submission, workflow-drift recovery, and stable terminal outcomes for `/job-requisition-approval?token` (forms/download remains R5) | `canApproveRequisitionByToken` | R3-R5 |
+| `requisition-approval` | Route-owning | tokenized requisition approval route bootstrap, workflow-aware access/readiness, approve/reject submission, workflow-drift recovery, and stable terminal outcomes for `/job-requisition-approval?token` | `canApproveRequisitionByToken` | R3-R5 |
+| `requisition-forms-download` | Route-owning | public requisition forms/download route bootstrap, token/form access states, explicit download action, same-route retry, and document-oriented already-downloaded state for `/job-requisition-forms/:id?download` | `canDownloadRequisitionFormsByToken` | R5 |
 
 ### `settings`
 
 | Module | Type | Owns | Core capabilities | Release |
 |---|---|---|---|---|
-| `settings-container` | Route-owning | `/parameters` compatibility entry, subsection resolution, stable fallback, and subsection-level deny behavior | `canEnterSettings` | R3-R5 |
+| `settings-container` | Route-owning | `/parameters` compatibility entry, closed recognized subsection inventory, matched/unknown/unauthorized/unavailable/unimplemented resolution, stable fallback, and subsection-level deny behavior without owning feature UI | `canEnterSettings` plus resolved subsection capability | R3-R5 |
 | `operational-settings-substrate` | Support | shared subsection registry, compatibility parsing, dedicated-route metadata, and save/retry/readiness workflow helpers for operational settings | `canEnterSettings` plus subsection-specific capabilities | R4 |
 | `user-settings` | Route-owning | profile/preferences/personal controls | `canManageUserSettings` | R4 |
 | `company-settings` | Route-owning | company-wide recruiter configuration | `canManageCompanySettings` | R4 |
@@ -120,7 +121,7 @@ Synthesized from:
 | `custom-fields` | Route-owning | custom-field admin as a consumer of the operational settings substrate, with downstream candidate/public consumers kept explicit but outside this route slice | `canManageCustomFields` | R4 |
 | `templates` | Route-owning | shared templates family, including list/detail plus smart-questions, diversity, and interview-scoring subsections as substrate consumers | `canManageTemplates` | R4 |
 | `reject-reasons` | Route-owning | reject reasons list/edit flow as a consumer of the operational settings substrate, with downstream reject task flows kept explicit but outside this route slice | `canManageRejectReasons` | R4 |
-| `api-endpoints` | Route-owning | API endpoints settings | `canManageApiEndpoints` | R5 |
+| `api-endpoints` | Route-owning | API endpoints settings foundation, route-local readiness/validation/save/retry states, and private-token/webhook configuration surface without provider setup ownership | `canManageApiEndpoints` | R5 |
 | `forms-docs-controls` | Route-owning | settings subsections for forms/documents and related controls | `canManageFormsDocsSettings` | R4-R5 |
 
 ### `integrations`

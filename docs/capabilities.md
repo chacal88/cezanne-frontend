@@ -136,7 +136,7 @@ Suggested fields:
 
 | Capability | Layer | Main inputs | Used by | Deny/fallback |
 |---|---|---|---|---|
-| `canEnterSettings` | Route access | `hc OR ra`, subsection-specific entitlements, compatibility-route context | parameters/templates/settings | subsection deny or stable subsection fallback, then dashboard fallback when no subsection is available |
+| `canEnterSettings` | Route access | authenticated `hc OR ra`, compatibility-route context | `/parameters*` compatibility resolver | resolve to first available recognized subsection, or dashboard fallback when no subsection is available |
 | `canManageUserSettings` | Action capability | authenticated identity | user settings | read-only or deny |
 | `canManageCompanySettings` | Action capability | `hc` + admin | company settings | hide subsection |
 | `canManageAgencySettings` | Action capability | `ra` or recruiter-visibility entitlement where applicable | agency settings/recruiters | hide subsection |
@@ -147,7 +147,7 @@ Suggested fields:
 | `canManageCustomFields` | Action capability | `hc` + admin + `customFieldsBeta` | custom-fields settings as an operational-settings subsection, with candidate/public custom-field usage treated as downstream dependency rather than route scope | hide subsection |
 | `canManageTemplates` | Action capability | `hc`, with admin-only and subtype-specific gates layered on smart questions, diversity questions, and interview scoring where applicable | templates family and template subsections as operational-settings subsections | hide subsection |
 | `canManageRejectReasons` | Action capability | `hc` + admin + `rejectionReason` | reject reasons as an operational-settings subsection, with job/candidate reject flows treated as downstream consumers rather than route scope | hide subsection |
-| `canManageApiEndpoints` | Action capability | `hc` + admin | API endpoints settings | hide subsection |
+| `canManageApiEndpoints` | Route/action capability | authenticated `hc` + admin; not granted by RA, SysAdmin, or integrations capabilities | `/settings/api-endpoints` and `api-endpoints` compatibility resolution | hide subsection or dashboard fallback; validation/save failures stay in-route |
 | `canManageFormsDocsSettings` | Action capability | `hc` + admin + `formsDocs` | forms/docs settings | hide subsection |
 | `canViewIntegrations` | Route access | `hc` + admin | integrations index | hide subsection or dashboard fallback |
 | `canManageIntegrationProvider` | Action capability | integration access + provider entitlement | integration detail/edit | return to integrations index |
@@ -184,6 +184,26 @@ All denied decisions must resolve to one of four explicit outcomes:
 ## Planning rule
 
 A route is not ready for implementation unless its primary capability decisions are defined here or in a directly referenced extension to this catalog.
+
+
+## R5 public/token requisition forms capability contract
+
+For `r5-public-token-leftovers`:
+- `canDownloadRequisitionFormsByToken` is the public/token route capability key for `/job-requisition-forms/:id?download`.
+- Access is derived from route token/form context, not authenticated shell roles, SysAdmin status, integrations admin access, or approval workflow mutation rights.
+- Valid links can render the forms view and enable the explicit download action.
+- Invalid, expired, inaccessible, unavailable, already-downloaded, and not-found states render public/external route-local messages.
+- Retryable download failures remain in-route and do not consume or mutate approval terminal state.
+
+## R5 settings leftovers capability contract
+
+For `r5-settings-leftovers`:
+- `canEnterSettings` is the route gate for `/parameters/:settings_id?/:section?/:subsection?` compatibility entry.
+- `canEnterSettings` allows authenticated HC/RA contexts to enter the resolver, but the resolver must still evaluate the resolved subsection capability before exposing controls.
+- Recognized compatibility subsection keys are `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, and `api-endpoints`.
+- Unknown, unauthorized, unavailable, and unimplemented subsection keys fall back to the first available recognized subsection for the actor, or `/dashboard` when none is available.
+- `canManageApiEndpoints` is granted only to authenticated HC Admin contexts. It is not granted by `canViewIntegrations`, `canManageIntegrationProvider`, SysAdmin platform capabilities, or RA context.
+- API endpoint validation and save failures remain route-local states; components must not inspect raw role/session payloads directly.
 
 ## R5 SysAdmin foundation capability contract
 

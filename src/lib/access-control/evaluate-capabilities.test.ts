@@ -275,3 +275,20 @@ describe('evaluateCapabilities', () => {
     expect(capabilities.canViewPlatformNavigation).toBe(false);
     expect(capabilities.canManageHiringCompanies).toBe(false);
   });
+
+it('gates settings entry and API endpoints without integrations or SysAdmin grants', () => {
+  const hcAdmin = evaluateCapabilities(buildAccessContext({ organizationType: 'hc', isAdmin: true, isSysAdmin: false }));
+  const hcUser = evaluateCapabilities(buildAccessContext({ organizationType: 'hc', isAdmin: false, isSysAdmin: false }));
+  const raAdmin = evaluateCapabilities(buildAccessContext({ organizationType: 'ra', isAdmin: true, isSysAdmin: false }));
+  const platformAdmin = evaluateCapabilities(buildAccessContext({ organizationType: 'none', isAdmin: true, isSysAdmin: true }));
+
+  expect(hcAdmin.canEnterSettings).toBe(true);
+  expect(hcAdmin.canManageApiEndpoints).toBe(true);
+  expect(hcAdmin.canViewIntegrations).toBe(true);
+  expect(hcUser.canEnterSettings).toBe(true);
+  expect(hcUser.canManageApiEndpoints).toBe(false);
+  expect(raAdmin.canEnterSettings).toBe(true);
+  expect(raAdmin.canManageApiEndpoints).toBe(false);
+  expect(platformAdmin.canEnterSettings).toBe(false);
+  expect(platformAdmin.canManageApiEndpoints).toBe(false);
+});

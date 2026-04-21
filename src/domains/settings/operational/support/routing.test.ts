@@ -11,6 +11,7 @@ describe('operational settings routing helpers', () => {
   it('builds canonical compatibility and dedicated subsection paths', () => {
     expect(buildOperationalSettingsCompatPath({ settingsId: 'company-1', subsection: 'templates' })).toBe('/parameters/company-1/settings/templates');
     expect(buildOperationalSettingsDedicatedPath('reject-reasons')).toBe('/reject-reasons');
+    expect(buildOperationalSettingsDedicatedPath('api-endpoints')).toBe('/settings/api-endpoints');
   });
 
   it('normalizes compatibility params with stable defaults', () => {
@@ -24,6 +25,7 @@ describe('operational settings routing helpers', () => {
   it('parses subsection identity from compatibility and dedicated paths', () => {
     expect(parseOperationalSettingsSubsectionFromPath('/parameters/company-1/settings/custom-fields')).toBe('custom-fields');
     expect(parseOperationalSettingsSubsectionFromPath('/templates')).toBe('templates');
+    expect(parseOperationalSettingsSubsectionFromPath('/settings/api-endpoints')).toBe('api-endpoints');
   });
 
   it('falls back to the first visible subsection when compatibility entry is unknown', () => {
@@ -60,3 +62,30 @@ describe('operational settings routing helpers', () => {
     });
   });
 });
+
+
+  it('includes API endpoints in the closed R5 compatibility inventory', () => {
+    const resolution = resolveOperationalSettingsRoute('/parameters/company-1/settings/api-endpoints', ['api-endpoints']);
+    expect(resolution).toEqual({
+      active: expect.objectContaining({
+        subsectionId: 'api-endpoints',
+        path: '/settings/api-endpoints',
+        routeId: 'settings.api-endpoints',
+        capability: 'canManageApiEndpoints',
+      }),
+      params: {
+        settingsId: 'company-1',
+        section: 'settings',
+        subsection: 'api-endpoints',
+      },
+      reason: 'matched',
+    });
+  });
+
+
+  it('distinguishes unauthorized and unimplemented compatibility fallback outcomes', () => {
+    expect(resolveOperationalSettingsRoute('/parameters/company-1/settings/api-endpoints', ['templates'])?.reason).toBe('fallback_unauthorized');
+    expect(
+      resolveOperationalSettingsRoute('/parameters/company-1/settings/api-endpoints', ['templates'], { unimplementedSubsections: ['api-endpoints'] })?.reason,
+    ).toBe('fallback_unimplemented');
+  });
