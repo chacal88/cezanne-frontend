@@ -319,3 +319,15 @@ R5 closeout validation includes:
 - Vitest coverage for platform route metadata/capabilities, requisition authoring helpers, settings API endpoints, `/parameters` compatibility, requisition forms/download, and integration token reconciliation evidence.
 - Build proof through `npm run build`.
 - Documentation synchronization across roadmap, R5 decision/open-points docs, screens, modules, capabilities, navigation, telemetry, and testing docs.
+
+## Provider-specific integrations depth validation baseline
+
+Validation covers:
+- provider-family configuration sections for calendar, job-board, and HRIS;
+- deterministic configuration states for ready, validation-error, saving, saved, save-error, unavailable, and unimplemented outcomes;
+- auth lifecycle states for connect, reauthorize, auth-pending, auth-failed, connected, disconnected, degraded, and reauth-required outcomes;
+- diagnostics states for running, passed, failed, logs-ready, degraded, unavailable, and retry outcomes;
+- normalized scheduling, publishing, and HRIS sync/workflow readiness signals;
+- separation between authenticated provider setup capabilities and unsigned token-entry capability assumptions;
+- safe telemetry payloads for configuration, auth, and diagnostics events that exclude credentials, tokens, secrets, raw logs, signed URLs, and tenant-sensitive identifiers;
+- route metadata preserving `/integrations/:id` direct entry and `/integrations` parent return while leaving public/token `/integration/*` route metadata unchanged.

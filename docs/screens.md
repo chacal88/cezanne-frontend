@@ -226,7 +226,7 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/billing/sms` | TaskFlow | billing | sms | HC Admin | `canManageSmsBilling` | `hc`, `admin`, `!billingHidden`, `smsBeta` as applicable | Dedicated SMS billing flow. | M | R4 |
 | `/billing/card/:id` | ShellOverlay | billing | cards | HC Admin | `canManageBillingCard` | `hc`, `admin`, `!billingHidden` | Nested routed modal under billing that returns to parent on close. | M | R4 |
 | `/integrations` | Page | integrations | provider-index | HC Admin | `canViewIntegrations` | `hc`, `admin` | Internal admin index with resolved integrations list. | M | R4 |
-| `/integrations/:id` | Page | integrations | provider-detail | HC Admin | `canManageIntegrationProvider` | `hc`, `admin`, provider-specific entitlements | Edit/detail is currently modal-style overlay launched from the index. | M | R4 |
+| `/integrations/:id` | Page | integrations | provider-detail | HC Admin | `canManageIntegrationProvider` | `hc`, `admin`, provider-specific entitlements; post-R5 setup depth starts with `calendar`, `job-board`, and `hris` | Provider detail route with `/integrations` parent return; post-R5 provider-specific depth adds configuration, auth, and diagnostics sections without changing public/token `/integration/*` callbacks. | M | R4 + post-R5 |
 | `/integration/cv/:token/:action?` | Public/Token | integrations | token-entry | External, system actors | `canUseIntegrationTokenEntry` | valid integration token; explicit invalid/expired/used/inaccessible handling | Unsigned token flow for CV callback contract with interview confirmation, conflict recovery, and offer accept/reject outcomes. | L | R3 |
 | `/integration/forms/:token` | Public/Token | integrations | token-entry | External, system actors | `canUseIntegrationTokenEntry` | valid integration token; explicit invalid/expired/used/inaccessible handling | Unsigned token flow for requested forms/documents with sequential upload/persistence/retry behavior and stable completion on reload. | L | R3 |
 | `/integration/job/:token/:action?` | Public/Token | integrations | token-entry | External, system actors | `canUseIntegrationTokenEntry` | valid integration token; explicit invalid/expired/used/inaccessible handling | Unsigned token flow for normalized job callback presentation without recruiter-shell bootstrap. | L | R3 |
@@ -329,3 +329,7 @@ These SMS states do not add SMS provider configuration, message sending, billing
 Marketplace now uses `/jobmarket/:type` as the RA-owned `PageWithStatefulUrl` route family. Supported marketplace types are `fill`, `bidding`, `cvs`, and `assigned`; unknown types render a stable unavailable state.
 
 Marketplace state models cover ready, empty, and unavailable list states. Marketplace access is RA-scoped through `canViewMarketplace` and does not grant billing, HC-admin, or platform administration capabilities.
+
+## Provider-specific integrations depth screen contract
+
+`/integrations/:id` now renders provider-family setup sections for configuration, auth, and diagnostics. Calendar, job-board, and HRIS providers expose family-specific setup fields and readiness signals; unsupported families remain visible as unavailable/unimplemented provider-family states with `/integrations` as the parent return. Public/token `/integration/*` routes are unchanged.

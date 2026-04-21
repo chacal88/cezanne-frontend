@@ -91,6 +91,7 @@ Confirmed:
 32. `r5-sysadmin-open-points.md` — SysAdmin foundation, master-data, users, favorite-request, and taxonomy decisions
 33. `r5-requisition-authoring-open-points.md` — requisition authoring and hiring-flow workflow boundary decisions
 34. `r5-settings-and-token-open-points.md` — settings leftovers, public/token leftovers, and integration token reconciliation decisions
+35. `provider-specific-integrations-depth-plan.md` — post-R5 provider-specific integrations setup depth plan
 
 ## Package roles
 
@@ -126,6 +127,7 @@ Confirmed:
 | `r5-sysadmin-open-points.md` | records SysAdmin open decisions before R5 platform implementation starts |
 | `r5-requisition-authoring-open-points.md` | records requisition authoring and hiring-flow workflow open decisions before R5 implementation starts |
 | `r5-settings-and-token-open-points.md` | records settings leftovers, public/token leftovers, and integration token reconciliation decisions before R5 implementation starts |
+| `provider-specific-integrations-depth-plan.md` | records the next authenticated integrations setup-depth package after R4/R5 closeout |
 
 ## Source relationship
 

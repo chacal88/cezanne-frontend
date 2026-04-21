@@ -56,3 +56,19 @@ The R4 integrations shell resolves the first route/state decisions:
 - Public/token callback routes under `/integration/*` remain separate from authenticated admin setup routes.
 
 Follow-on provider-family implementation must consume this shell/state model and add provider-specific configuration/auth/diagnostics behavior without collapsing all providers into one generic form.
+
+## Provider-specific depth package
+
+The follow-on package `provider-specific-integrations-depth` implements this scoped depth.
+
+Scope:
+- first provider families: `calendar`, `job-board`, and `hris`;
+- provider sections: `configuration`, `auth`, and `diagnostics`;
+- deterministic route-local states for configuration save/retry, auth/reauth readiness, diagnostics execution, safe logs, degraded state, and unavailable providers;
+- safe telemetry that excludes credentials, secrets, private tokens, raw logs, signed URLs, and tenant-sensitive identifiers.
+
+Out of scope:
+- public/token `/integration/*` callbacks;
+- API endpoints settings;
+- generic provider setup forms;
+- ATS, assessment, and custom-provider implementation depth until a later provider-family package names concrete behavior.

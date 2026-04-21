@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { evaluateCapabilities } from '../../../lib/access-control';
 import { evaluateIntegrationTokenEntry } from './access';
 
 describe('integration token access', () => {
@@ -43,5 +44,30 @@ describe('integration token access', () => {
 
     expect(decision.tokenState).toBe('inaccessible');
     expect(decision.readiness).toBe('token-state');
+  });
+
+  it('does not let public token-entry assumptions grant authenticated provider setup', () => {
+    const capabilities = evaluateCapabilities({
+      isAuthenticated: false,
+      organizationType: 'none',
+      isAdmin: false,
+      isSysAdmin: false,
+      pivotEntitlements: [],
+      subscriptionCapabilities: [],
+      rolloutFlags: [],
+    });
+
+    const tokenDecision = evaluateIntegrationTokenEntry({
+      family: 'integration-cv',
+      token: 'valid-token',
+      workflowType: 'cv-action',
+      matchesRouteFamily: true,
+      isAvailable: true,
+      isReadyForSubmission: true,
+    });
+
+    expect(tokenDecision.capabilityKey).toBe('canUseIntegrationTokenEntry');
+    expect(capabilities.canManageIntegrationProvider).toBe(false);
+    expect(capabilities.canViewIntegrations).toBe(false);
   });
 });

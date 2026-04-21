@@ -434,6 +434,10 @@ Recurring failure modes. Every release's test matrix must include these.
 
 ---
 
+## Post-R5 follow-on package status
+
+`provider-specific-integrations-depth` is the completed post-R5 follow-on package for authenticated provider-specific setup depth. It consumes the R4 integrations shell for the first bounded provider families: `calendar`, `job-board`, and `hris`, and does not reopen public/token `/integration/*` callback routes, API endpoints settings, or R5 SysAdmin scope.
+
 ## 11. Contract gaps (backend dependencies)
 
 Frontend cannot work around these. They must be fixed server-side before certain releases can ship.
@@ -548,4 +552,8 @@ R2 implementation status (confirmed in code): the Candidate route family is now 
 
 ## R4 integrations shell implementation note
 
-The R4 integrations setup baseline now includes an internal admin shell for `/integrations` and `/integrations/:id`, with explicit provider states and parent-index fallback. Provider-specific setup slices remain follow-on work.
+The R4 integrations setup baseline includes an internal admin shell for `/integrations` and `/integrations/:id`, with explicit provider states and parent-index fallback. Provider-specific setup depth is delivered by `provider-specific-integrations-depth`.
+
+## Provider-specific integrations depth implementation note
+
+`provider-specific-integrations-depth` is implemented as a post-R5 follow-on in `recruit-frontend`. It deepens the authenticated `/integrations/:id` provider detail route for the first provider families (`calendar`, `job-board`, and `hris`) while keeping public/token `/integration/*` callback routes unchanged.

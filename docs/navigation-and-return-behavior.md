@@ -239,3 +239,14 @@ Requisition forms/download navigation now follows these rules:
 - the explicit download action keeps success and retryable failure states on the same public route.
 - invalid, expired, inaccessible, unavailable, not-found, and already-downloaded outcomes render in the public/external shell and never redirect to authenticated recruiter-shell navigation.
 - forms/download behavior remains separate from `/job-requisition-approval?token` approve/reject terminal states.
+
+## Implemented provider-specific integrations depth behavior
+
+For `provider-specific-integrations-depth`:
+- `/integrations/:id` remains the direct-entry provider detail route.
+- configuration, auth, and diagnostics sections preserve `/integrations` as parent return.
+- unsupported provider families render unavailable/unimplemented states instead of redirecting.
+- configuration validation/save failures, auth retry/failure states, and diagnostics remediation stay local to the provider detail route.
+- refresh and parent-return behavior stay local to the provider detail route, with `/integrations` as the only parent return target.
+- public/token `/integration/*` routes remain separate and do not reuse authenticated admin setup state.
+- if section state becomes URL-owned later, it must sanitize invalid section values and preserve provider direct-entry behavior.

@@ -150,7 +150,7 @@ Suggested fields:
 | `canManageApiEndpoints` | Route/action capability | authenticated `hc` + admin; not granted by RA, SysAdmin, or integrations capabilities | `/settings/api-endpoints` and `api-endpoints` compatibility resolution | hide subsection or dashboard fallback; validation/save failures stay in-route |
 | `canManageFormsDocsSettings` | Action capability | `hc` + admin + `formsDocs` | forms/docs settings | hide subsection |
 | `canViewIntegrations` | Route access | `hc` + admin | integrations index | hide subsection or dashboard fallback |
-| `canManageIntegrationProvider` | Action capability | integration access + provider entitlement | integration detail/edit | return to integrations index |
+| `canManageIntegrationProvider` | Action capability | integration access + provider entitlement | integration detail/edit plus provider-specific configuration/auth/diagnostics actions | return to integrations index |
 | `canUseIntegrationTokenEntry` | Route access | token validity + integration contract | unsigned integration routes | token error state |
 | `canViewReports` | Route access | `hc` + admin | reports index | hide nav or dashboard fallback |
 | `canViewReportFamily` | Route access | report family entitlement | report pages | report index fallback |
@@ -272,3 +272,13 @@ Marketplace access is now represented in source by:
 - `canViewMarketplace`: RA user/admin access to `/jobmarket/:type`.
 
 This capability does not grant billing, HC-admin, or Platform navigation capabilities.
+
+## Provider-specific integrations depth capability contract
+
+For `provider-specific-integrations-depth`:
+- `canViewIntegrations` remains the route gate for `/integrations`.
+- `canManageIntegrationProvider` remains the route/action gate for `/integrations/:id`, including configuration, auth, and diagnostics sections.
+- `canUseIntegrationTokenEntry` must not grant access to authenticated provider setup actions.
+- first implemented provider-family depth is limited to `calendar`, `job-board`, and `hris`; unsupported families render unavailable/unimplemented provider-family states.
+- provider configuration/auth/diagnostics failures remain route-local and return to `/integrations` as parent.
+- Provider setup exposes normalized readiness signals for scheduling, publishing, and HRIS sync/workflow consumers; operational routes must not inspect raw provider setup details.

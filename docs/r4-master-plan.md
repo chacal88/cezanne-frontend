@@ -220,7 +220,7 @@ R4 is closed as an operations-depth foundation release, not as full product pari
 - implemented: operational settings substrate and four settings slices, candidate database route/detail foundation, integrations shell, reports shell, org team/invite/favorites/request foundations, HC-admin billing/card/upgrade/SMS foundations, and RA marketplace foundation;
 - intentionally not implemented: candidate database advanced search/bulk actions/database-specific sequence behavior, provider-specific integrations setup/auth/diagnostics/job-board/HRIS workflows, actual report-family data products and scheduling CRUD depth, billing persistence/payment/API integration, and marketplace API/bidding/CV handoff;
 - handed to R5: platform SysAdmin foundations, platform `/users*` CRUD, platform `/favorites-request*` queues, platform subscriptions/master data, requisition authoring completion, settings leftovers, and public/token leftovers;
-- not handed to R5 by default: candidate-database product depth, provider setup depth, report-family depth, HC billing payment integration, and RA marketplace workflow depth. Those require dedicated future changes if they become priority.
+- not handed to R5 by default: candidate-database product depth, provider setup depth, report-family depth, HC billing payment integration, and RA marketplace workflow depth. Provider setup depth is now planned through `provider-specific-integrations-depth`; the other depths still require dedicated future changes if prioritized.
 
 ## R4.1 operational settings implementation checkpoint
 
@@ -291,3 +291,7 @@ The R4 billing/marketplace implementation closes frontend foundation behavior on
 - card, upgrade, and SMS add-on states are deterministic frontend readiness/action models without payment-processor persistence.
 - `/jobmarket/:type` is an RA-owned marketplace route for `fill`, `bidding`, `cvs`, and `assigned` states.
 - Real billing persistence/API/payment integration and marketplace API/bidding/CV handoff remain intentionally outside R4 and outside the default R5 SysAdmin scope.
+
+## Post-R5 provider-specific integrations package
+
+The first post-R5 follow-on package is `provider-specific-integrations-depth`. It consumes the R4 integrations shell and adds authenticated provider-family setup depth for `calendar`, `job-board`, and `hris` providers only. Public/token `/integration/*` callback routes remain R3 token-entry behavior and are not part of this package.

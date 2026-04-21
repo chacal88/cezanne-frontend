@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { listIntegrationProviders, resolveIntegrationProvider } from './support/admin-state';
+import { runProviderAuthAction, runProviderDiagnostics, saveProviderConfiguration } from './support/provider-setup-workflow';
 
 export function IntegrationsIndexPage() {
   const providers = listIntegrationProviders();
@@ -24,6 +26,15 @@ export function IntegrationsIndexPage() {
 
 export function IntegrationProviderDetailPage({ providerId }: { providerId: string }) {
   const provider = resolveIntegrationProvider(providerId);
+  const [message, setMessage] = useState('');
+  const [lastTelemetryName, setLastTelemetryName] = useState('');
+  const [lastSectionState, setLastSectionState] = useState('');
+
+  function record(result: { message: string; status: string; telemetry: { name: string } }) {
+    setMessage(result.message);
+    setLastSectionState(result.status);
+    setLastTelemetryName(result.telemetry.name);
+  }
 
   return (
     <section>
@@ -40,6 +51,52 @@ export function IntegrationProviderDetailPage({ providerId }: { providerId: stri
           </li>
         ))}
       </ul>
+
+      <div aria-label="Provider setup sections">
+        {provider.sections.map((section) => (
+          <section key={section.id} data-testid={`integration-provider-section-${section.id}`}>
+            <h2>{section.title}</h2>
+            <p data-testid={`integration-provider-section-state-${section.id}`}>{section.state}</p>
+            <p>{section.description}</p>
+            <dl>
+              {section.fields.map((field) => (
+                <div key={field.id} data-testid={`integration-provider-field-${section.id}-${field.id}`}>
+                  <dt>{field.label}</dt>
+                  <dd>{field.secret ? 'Configured securely' : field.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ))}
+      </div>
+
+      <div aria-label="Provider readiness signals">
+        {provider.readinessSignals.map((signal) => (
+          <p key={signal.family} data-testid={`integration-provider-readiness-${signal.family}`}>
+            {signal.outcome}: {signal.reason}
+          </p>
+        ))}
+      </div>
+
+      <div aria-label="Provider setup actions">
+        <button type="button" onClick={() => record(saveProviderConfiguration(provider, { requiredFieldsComplete: true }))} data-testid="integration-provider-save">
+          Save configuration
+        </button>
+        <button type="button" onClick={() => record(saveProviderConfiguration(provider, { requiredFieldsComplete: false }))} data-testid="integration-provider-save-invalid">
+          Try invalid save
+        </button>
+        <button type="button" onClick={() => record(runProviderAuthAction(provider, provider.state === 'reauth_required' ? 'reauthorize' : 'connect'))} data-testid="integration-provider-auth">
+          {provider.state === 'reauth_required' ? 'Reauthorize' : 'Connect'}
+        </button>
+        <button type="button" onClick={() => record(runProviderDiagnostics(provider))} data-testid="integration-provider-diagnostics">
+          Run diagnostics
+        </button>
+      </div>
+
+      {message ? <p data-testid="integration-provider-workflow-message">{message}</p> : null}
+      {lastSectionState ? <p data-testid="integration-provider-workflow-state">{lastSectionState}</p> : null}
+      {lastTelemetryName ? <p data-testid="integration-provider-telemetry-event">{lastTelemetryName}</p> : null}
+
       <Link to={provider.parentTarget} data-testid="integration-provider-parent-link">
         Back to integrations
       </Link>

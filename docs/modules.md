@@ -129,7 +129,8 @@ Synthesized from:
 | Module | Type | Owns | Core capabilities | Release |
 |---|---|---|---|---|
 | `provider-index` | Route-owning | integrations list | `canViewIntegrations` | R4 |
-| `provider-detail` | Route-owning | provider setup/detail/validation | `canManageIntegrationProvider` | R4 |
+| `provider-detail` | Route-owning | provider setup/detail/validation plus provider-specific configuration/auth/diagnostics depth for scoped provider families | `canManageIntegrationProvider` | R4 + post-R5 follow-on |
+| `provider-family-support` | Support | calendar, job-board, and HRIS configuration schemas, auth lifecycle states, diagnostics summaries, safe log/readiness models | `canManageIntegrationProvider` | post-R5 follow-on |
 | `token-entry` | Route-owning | `/integration/cv`, `/integration/forms`, `/integration/job` | `canUseIntegrationTokenEntry` | R3 |
 
 ### `reports`
@@ -211,3 +212,7 @@ The reports modules now have source-level foundation coverage: `report-index` ow
 ## R4 org team/users foundation module note
 
 The team/users foundation now has a source-level route-owning module boundary: org team index (`/team`), recruiter visibility (`/team/recruiters`), and invite foundation (`/users/invite`). Invite/membership and favorites follow-on modules must consume this foundation.
+
+## Provider-specific integrations depth implementation note
+
+The `integrations.provider-detail` and `integrations.provider-family-support` modules now include family-aware configuration, auth lifecycle, diagnostics, safe telemetry helpers, and normalized readiness signals for scheduling, publishing, and HRIS sync/workflow consumers. `integrations.token-entry` remains separate and unchanged.

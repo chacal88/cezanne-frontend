@@ -120,6 +120,12 @@ Only add extra fields if they are relevant to the event.
 | `billing_viewed` | billing overview opened | none |
 | `billing_upgrade_started` | upgrade flow started | `plan` if known |
 | `integration_provider_opened` | integration provider detail opened | `providerId` |
+| `integration_provider_configuration_saved` | provider-specific configuration saved | `providerFamily`, `providerState`, `section`, `outcome` |
+| `integration_provider_configuration_failed` | provider-specific configuration failed validation or save | `providerFamily`, `providerState`, `section`, `failureKind` |
+| `integration_provider_auth_started` | provider connect or reauthorize started | `providerFamily`, `providerState`, `action` |
+| `integration_provider_auth_failed` | provider connect or reauthorize failed | `providerFamily`, `providerState`, `failureKind` |
+| `integration_provider_diagnostics_started` | provider diagnostics run started | `providerFamily`, `providerState` |
+| `integration_provider_diagnostics_completed` | provider diagnostics completed | `providerFamily`, `providerState`, `outcome`, `maxSeverity` |
 | `integration_token_entry_opened` | token integration route opened | `integrationType` |
 
 
@@ -204,3 +210,11 @@ New events must be added here before they become part of the default product ins
 | `platform_nav_group_exposed` | a Platform child group is visible in shell navigation | `navGroup`, optional `implementationState` |
 
 These events must not include tenant-sensitive identifiers. Platform mutation success/failure events remain reserved for later route-heavy SysAdmin slices.
+
+### Provider-specific integration telemetry safety
+
+Provider-specific integration telemetry must not include credentials, OAuth secrets, private tokens, webhook secrets, signed URLs, raw logs, tenant-sensitive identifiers, or provider callback payloads. Use provider family, state, section, action, outcome, safe diagnostic severity/check id, and correlation id only.
+
+## Provider-specific integrations depth implementation note
+
+Provider setup events are emitted only from authenticated `/integrations/:id` configuration, auth, and diagnostics actions. The implemented safe payload shape is limited to provider family, provider state, section, action, outcome, safe diagnostic check id/severity, failure kind, and correlation id. It must not include credentials, OAuth secrets, private tokens, webhook secrets, signed URLs, raw logs, tenant-sensitive identifiers, provider callback payloads, or public/token route tokens.
