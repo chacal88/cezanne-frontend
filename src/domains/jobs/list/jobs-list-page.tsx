@@ -42,6 +42,8 @@ export function JobsListPage({ scope }: { scope: JobsListScope }) {
         <dd data-testid="jobs-list-as-admin">{String(viewModel.asAdmin)}</dd>
         <dt>{t('list.label')}</dt>
         <dd data-testid="jobs-list-label">{viewModel.label ?? '—'}</dd>
+        <dt>ATS sync</dt>
+        <dd data-testid="jobs-list-ats-state">{viewModel.atsStatus?.kind ?? 'unavailable'}</dd>
       </dl>
       <p data-testid="jobs-list-create-state">{viewModel.createPath ? t('list.allowedCreate') : t('list.blockedCreate')}</p>
       <div style={{ display: 'flex', gap: 12 }}>

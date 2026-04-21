@@ -218,3 +218,52 @@ Provider-specific integration telemetry must not include credentials, OAuth secr
 ## Provider-specific integrations depth implementation note
 
 Provider setup events are emitted only from authenticated `/integrations/:id` configuration, auth, and diagnostics actions. The implemented safe payload shape is limited to provider family, provider state, section, action, outcome, safe diagnostic check id/severity, failure kind, and correlation id. It must not include credentials, OAuth secrets, private tokens, webhook secrets, signed URLs, raw logs, tenant-sensitive identifiers, provider callback payloads, or public/token route tokens.
+
+## Provider readiness operational gate telemetry
+
+| Event | Meaning | Key attributes |
+|---|---|---|
+| `provider_readiness_gate_evaluated` | operational route evaluated normalized provider readiness before a scheduling, publishing, or HRIS workflow action/status | `readinessFamily`, `providerFamily`, `outcome`, `actionContext`, `recoveryTargetType`, `correlationId` |
+
+Safety rule:
+- this event must not include credentials, OAuth secrets, private tokens, webhook secrets, signed URLs, raw diagnostics logs, tenant-sensitive identifiers, provider callback payloads, public route tokens, provider setup form values, board mapping payloads, or HRIS sync payloads.
+- `recoveryTargetType` may be `provider-setup` or `none`; the event should not require concrete tenant/provider setup identifiers beyond allowlisted provider family data.
+
+## Integration operational-depth telemetry
+
+The operational-depth sequence is synchronized in `integration-operational-depth-sequence-plan.md`; all eight packages are implemented and validated.
+
+| Event | Meaning | Key attributes |
+|---|---|---|
+| `calendar_scheduling_action` | authenticated calendar scheduling slot selection, submit start, conflict, submit failure, or submitted success outcome for job/candidate task routes | `routeFamily`, `action`, `schedulingState`, `readinessOutcome`, `correlationId` |
+| `job_board_publishing_action` | publish/unpublish, partial, retry, failure, or success outcome | `routeFamily`, `action`, `publishingState`, `readinessOutcome`, `targetType`, `correlationId` |
+| `hris_requisition_sync_action` | HRIS mapping, sync, drift, retry, or remediation outcome | `routeFamily`, `action`, `hrisState`, `readinessOutcome`, `driftType`, `correlationId` |
+| `messaging_conversation_action` | inbox destination resolution, conversation open, send, retry, stale refresh, or sent outcome | `routeFamily`, `action`, `messagingState`, `entryMode`, `fallbackKind`, `correlationId` |
+| `contract_signing_action` | contract launch, send, retry, status refresh, downstream handoff, or terminal outcome | `routeFamily`, `action`, `contractState`, `taskContext`, `terminalOutcome`, `correlationId` |
+| `survey_review_scoring_action` | survey/review/scoring open, submit, retry, terminal, or scoring refresh outcome | `routeFamily`, `action`, `operationalState`, `tokenState`, `taskContext`, `terminalOutcome`, `correlationId` |
+| `ats_candidate_source_action` | ATS source resolution, import/sync, duplicate outcome, retry, refresh, or failure | `routeFamily`, `action`, `atsState`, `sourceState`, `duplicateOutcome`, `syncImportOutcome`, `correlationId` |
+
+Safety rule: operational-depth telemetry must not include credentials, OAuth secrets, private tokens, signed URLs, diagnostics logs, tenant-sensitive identifiers, provider callback payloads, raw provider records, message bodies, attachment contents, contract documents, signature data, survey answers, scoring rubrics, reviewer private notes, raw schemas, raw ATS records, webhook payloads, or candidate-identifying external ids.
+
+### Job-board publishing safety
+
+`job_board_publishing_action` is allowlisted to route family, action, publishing state, normalized readiness outcome, target type, and correlation id. It must not include credentials, OAuth secrets, webhook secrets, signed URLs, raw provider payloads, board mappings, tenant-sensitive identifiers, provider callback payloads, or public route tokens.
+
+## HRIS requisition operational depth telemetry
+
+| Event | Meaning | Key attributes |
+|---|---|---|
+| `hris_requisition_sync_action` | HRIS readiness evaluation, sync intent, retry, mapping drift, blocked action, or remediation outcome | `routeFamily`, `action`, `hrisState`, `readinessOutcome`, `recoveryTargetType`, `driftType`, `correlationId` |
+
+Safety rule:
+- this event must use the allowlisted payload above and must not include OAuth secrets, private tokens, webhook secrets, signed URLs, raw HRIS payloads, raw mappings, diagnostics logs, tenant-sensitive identifiers, provider callback payloads, or public route tokens.
+- mapping drift is reported as `driftType: mapping`; workflow drift remains represented by requisition workflow state and is not overwritten by HRIS-ready success telemetry.
+
+## Contract signing telemetry
+
+`contract_signing_action` is an allowlisted event for recruiter-side contract launch, send start, send failure, retry, status refresh, downstream handoff, and terminal outcomes. Payloads include only route family, action, contract state, task context, normalized terminal outcome when available, and correlation id. Document contents, signature data, signed URLs, tokens, credentials, raw contract/provider payloads, tenant-sensitive identifiers, and public callback payloads are excluded.
+
+
+## ATS and assessment provider setup telemetry note
+
+ATS and assessment setup reuses provider setup telemetry events for configuration, auth, and diagnostics. Payloads are allowlisted to provider family, provider state, section, action, outcome, safe check id/severity, failure kind, and correlation id. They must not include credentials, webhook secrets, callback tokens, raw ATS records, candidate/job payloads, assessment submissions, scoring payloads, tenant identifiers, raw logs, or public route tokens.

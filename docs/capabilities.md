@@ -282,3 +282,44 @@ For `provider-specific-integrations-depth`:
 - first implemented provider-family depth is limited to `calendar`, `job-board`, and `hris`; unsupported families render unavailable/unimplemented provider-family states.
 - provider configuration/auth/diagnostics failures remain route-local and return to `/integrations` as parent.
 - Provider setup exposes normalized readiness signals for scheduling, publishing, and HRIS sync/workflow consumers; operational routes must not inspect raw provider setup details.
+
+## Provider readiness operational gates capability contract
+
+Provider readiness gates are action-readiness checks, not route-access capabilities.
+
+Rules:
+- Existing route capabilities still decide whether the user can enter the operational route.
+- Readiness gates decide whether a scheduling, publishing, or HRIS workflow action can proceed inside an already-authorized route. Calendar scheduling then keeps validation, conflict, retry, submit-failed, and submitted parent-refresh behavior route-local for authenticated job/candidate task flows.
+- `blocked`, `degraded`, `unavailable`, and `unimplemented` outcomes do not grant or remove route access; they render route-local remediation.
+- Operational routes must not derive provider setup permissions from raw provider configuration, credentials, diagnostics, OAuth payloads, or token-entry capabilities.
+- Recovery actions may link to `/integrations/:providerId` only when the normalized signal supplies a safe setup target and the current user can access integrations setup.
+
+## Integration operational-depth capability contract
+
+The operational-depth sequence is synchronized in `integration-operational-depth-sequence-plan.md`; all eight packages are implemented and validated.
+
+Rules:
+- Operational-depth checks are action-readiness or status-readiness decisions; they do not replace existing route access capabilities.
+- Scheduling, publishing, HRIS, messaging, contract/signing, survey/review/scoring, and ATS source/sync packages must preserve the existing route capabilities listed above.
+- Non-ready operational states such as blocked, degraded, unavailable, unimplemented, schema-required, template-required, document-required, reviewer-required, stale-source, status-stale, duplicate-detected, send-failed, publish-failed, submit-failed, and sync-failed must render route-local recovery without granting new route access.
+- Recovery links to `/integrations/:providerId` are allowed only when a normalized readiness/status signal supplies a safe setup target and the actor already has the relevant integrations capability.
+- Public/token capabilities remain separate from authenticated recruiter-shell capabilities; internal inbox, contract, ATS, or candidate review capabilities must not grant access to `/chat/*`, `/surveys/*`, `/review-candidate/*`, `/interview-feedback/*`, or `/integration/*` beyond their existing token contracts.
+
+### Job-board publishing operational depth
+
+Publishing depth does not introduce new route capabilities. Job Authoring continues to use job authoring capabilities for draft create/edit, and Job Listings continues to use `canManageJobListings`. Provider readiness gates are preconditions for publish/unpublish actions only and never authorize provider setup outside `/integrations/:providerId`.
+
+## HRIS requisition operational depth implementation note
+
+`hris-requisition-operational-depth` is implemented as the HRIS-specific follow-on to provider readiness gates. It scopes `/build-requisition` and `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` as Jobs-side consumers and `/requisition-workflows` as a Settings-side administration consumer. The model covers ready, mapping-required, mapping-drift, sync-pending, sync-degraded, sync-failed, retrying, synced, auth-required, provider-blocked, unavailable, and unimplemented outcomes without exposing raw HRIS mappings, OAuth payloads, provider diagnostics, or tenant-sensitive data.
+
+Mapping drift and workflow drift remain separate: HRIS mapping remediation points to HRIS/workflow administration, while existing requisition workflow drift remains authoritative for removed stages, changed required fields, reassigned approvals, and stale workflow route repair. Public/token `/job-requisition-approval`, `/job-requisition-forms`, and `/integration/*` routes remain unchanged.
+
+## Contract signing operational depth capabilities
+
+Offer/contract actions continue to use the existing candidate and job task capabilities, but now consume contract prerequisites before proceeding. Missing template, missing document, provider-blocked, degraded, unavailable, and status-stale outcomes deny send/launch locally without re-authorizing standalone signer or public token routes.
+
+
+## ATS and assessment provider setup capability note
+
+ATS and assessment setup uses the existing authenticated integrations capabilities (`canViewIntegrations` and `canManageIntegrationProvider`). These capabilities do not grant public/token route access and do not implement custom provider setup.

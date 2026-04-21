@@ -23,3 +23,35 @@ describe('candidate document and action workflows', () => {
     expect(headers.get(requestedWithHeaderName)).toBe('XMLHttpRequest');
   });
 });
+
+import { buildCandidateContractSummary } from './contract-summary';
+
+describe('candidate contract signing summaries', () => {
+  it('keeps document metadata visible while signing actionability is blocked', () => {
+    const summary = buildCandidateContractSummary({
+      candidateId: 'candidate-123',
+      count: 1,
+      status: 'ready',
+      parentTarget: '/candidate/candidate-123/cv/cv-123/offer',
+      document: { documentId: 'doc-1', fileName: 'contract.pdf' },
+      signing: { providerBlocked: true },
+    });
+
+    expect(summary.document).toEqual({ documentId: 'doc-1', fileName: 'contract.pdf' });
+    expect(summary.signingState).toMatchObject({ kind: 'template-required', canSend: false });
+  });
+
+  it('marks candidate summary refresh intent after terminal contract status', () => {
+    const summary = buildCandidateContractSummary({
+      candidateId: 'candidate-123',
+      count: 1,
+      status: 'signed',
+      parentTarget: '/candidate/candidate-123/cv/cv-123/offer',
+      document: { documentId: 'doc-1' },
+      signing: { templateId: 'template-1', providerReady: true, terminalOutcome: 'signed' },
+    });
+
+    expect(summary.signingState).toMatchObject({ kind: 'signed', terminalOutcome: 'signed', parentRefresh: { refreshCandidate: true } });
+    expect(summary.refreshRequired).toBe(true);
+  });
+});

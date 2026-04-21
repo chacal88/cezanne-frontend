@@ -1,3 +1,5 @@
+import { buildOperationalGateInput, evaluateOperationalReadinessGate } from '../../../integrations/support';
+import type { IntegrationProviderReadinessSignal } from '../../../integrations/support';
 import { withCorrelationHeaders } from '../../../../lib/api-client';
 import {
   saveApplicationPageConfig,
@@ -14,6 +16,7 @@ import {
   toPublicJobListingContract,
 } from './adapters';
 import type { ApplicationPageConfigView, CareersPageConfigView, JobListingEditorDraft } from './models';
+import { buildJobBoardPublishingResult, buildJobBoardPublishingStatus, buildJobBoardPublishingTelemetry, normalizeJobBoardPublishTarget } from '../../../jobs/support/publishing';
 
 function headersToRecord(headers: Headers) {
   return Object.fromEntries(headers.entries());
@@ -73,16 +76,35 @@ export async function runJobListingSaveWorkflow(draft: JobListingEditorDraft) {
   };
 }
 
-export async function runJobListingPublishWorkflow(uuid: string) {
+export async function runJobListingPublishWorkflow(uuid: string, readinessSignal?: IntegrationProviderReadinessSignal) {
   const request = withCorrelationHeaders({ method: 'POST' });
   const requestHeaders = headersToRecord(new Headers(request.headers));
   const items = getJobListings();
   const listing = items.find((item) => item.uuid === uuid);
+  const readinessGate = readinessSignal ? evaluateOperationalReadinessGate(buildOperationalGateInput(readinessSignal, 'job-listing-publishing')) : undefined;
+  const target = normalizeJobBoardPublishTarget({ routeFamily: 'job-listings', targetType: 'job-listing', hasExistingTarget: Boolean(listing) });
+
+  if (readinessGate && !readinessGate.canProceed) {
+    const publishingStatus = buildJobBoardPublishingStatus({ readinessGate });
+    return {
+      status: 'blocked' as const,
+      message: readinessGate.message,
+      readinessGate,
+      publishingStatus,
+      publishingTarget: target,
+      telemetry: buildJobBoardPublishingTelemetry({ routeFamily: 'job-listings', action: 'publish', publishingState: publishingStatus.state, readinessGate, targetType: 'job-listing' }),
+      requestHeaders,
+    };
+  }
 
   if (!listing || !listing.publishReady) {
+    const result = buildJobBoardPublishingResult({ action: 'publish', kind: 'retryable-failure', message: 'Listing is not ready to publish.' });
     return {
       status: 'failed' as const,
-      message: 'Listing is not ready to publish.',
+      message: result.status.message,
+      publishingStatus: result.status,
+      publishingTarget: target,
+      telemetry: buildJobBoardPublishingTelemetry({ routeFamily: 'job-listings', action: 'publish', publishingState: result.status.state, targetType: 'job-listing' }),
       requestHeaders,
     };
   }
@@ -90,10 +112,42 @@ export async function runJobListingPublishWorkflow(uuid: string) {
   const next = items.map((item) => (item.uuid === uuid ? { ...item, status: 'published' as const } : item));
   saveJobListings(next);
 
+  const result = buildJobBoardPublishingResult({ action: 'publish', kind: 'success', readinessGate, publicReflectionIntent: 'confirmed' });
+
   return {
     status: 'completed' as const,
     publicContract: toPublicJobListingContract({ ...listing, uuid, status: 'published', description: '', publishReady: true }),
+    readinessGate,
+    publishingStatus: result.status,
+    publishingTarget: target,
+    telemetry: buildJobBoardPublishingTelemetry({ routeFamily: 'job-listings', action: 'publish', publishingState: result.status.state, readinessGate, targetType: 'job-listing' }),
     requestHeaders,
   };
 }
 
+
+
+export async function runJobListingUnpublishWorkflow(uuid: string, readinessSignal?: IntegrationProviderReadinessSignal) {
+  const request = withCorrelationHeaders({ method: 'POST' });
+  const requestHeaders = headersToRecord(new Headers(request.headers));
+  const items = getJobListings();
+  const listing = items.find((item) => item.uuid === uuid);
+  const readinessGate = readinessSignal ? evaluateOperationalReadinessGate(buildOperationalGateInput(readinessSignal, 'job-listing-publishing')) : undefined;
+  const target = normalizeJobBoardPublishTarget({ routeFamily: 'job-listings', targetType: 'job-listing', hasExistingTarget: Boolean(listing) });
+
+  if (readinessGate && !readinessGate.canProceed) {
+    const publishingStatus = buildJobBoardPublishingStatus({ readinessGate });
+    return { status: 'blocked' as const, message: readinessGate.message, readinessGate, publishingStatus, publishingTarget: target, requestHeaders };
+  }
+
+  if (!listing || listing.status !== 'published') {
+    const result = buildJobBoardPublishingResult({ action: 'unpublish', kind: 'retryable-failure', message: 'Listing is not published.' });
+    return { status: 'failed' as const, message: result.status.message, publishingStatus: result.status, publishingTarget: target, requestHeaders };
+  }
+
+  const next = items.map((item) => (item.uuid === uuid ? { ...item, status: 'draft' as const } : item));
+  saveJobListings(next);
+  const result = buildJobBoardPublishingResult({ action: 'unpublish', kind: 'success', readinessGate, publicReflectionIntent: 'confirmed' });
+
+  return { status: 'completed' as const, readinessGate, publishingStatus: result.status, publishingTarget: target, requestHeaders };
+}

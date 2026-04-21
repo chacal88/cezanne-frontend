@@ -146,17 +146,17 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/recruitment-agency-profile` | Page | shell | account-context | RA Admin | `canOpenAccountArea` | `ra`, org ownership | Organization-scoped profile page. | M | R0 |
 | `/logout` | ShellOverlay | shell | account-context | HC User, HC Admin, RA User, RA Admin, SysAdmin | `canLogout` | authenticated session | Must preserve redirect-after-login/session-loss semantics. | M | R0 |
 | `/jobs/:type?page&search&asAdmin&label` | PageWithStatefulUrl | jobs | list | HC User, HC Admin | `canViewJobsList` | `hc`; jobs nav also shaped by `jobRequisition`, `seeJobRequisition` | Dynamic URL state for scope, pagination, search, admin-view, and label is confirmed and now implemented in the first R1 shell. | H | R1 |
-| `/jobs/manage/:id?resetWorkflow` | Page | jobs | authoring | HC Admin, conditional HC User, conditional SysAdmin | `canCreateJob`, `canEditJob`, `canResetJobWorkflow` | `hc`, `admin` or delegated org rights; `jobRequisition` branching | Supports explicit create/edit entry, preserves `resetWorkflow`, and serializes through a dedicated draft adapter boundary. | H | R1 |
+| `/jobs/manage/:id?resetWorkflow` | Page | jobs | authoring | HC Admin, conditional HC User, conditional SysAdmin | `canCreateJob`, `canEditJob`, `canResetJobWorkflow` | `hc`, `admin` or delegated org rights; `jobRequisition` branching | Supports explicit create/edit entry, preserves `resetWorkflow`, serializes through a dedicated draft adapter boundary, and exposes job-board publishing readiness for publishing-adjacent actions without changing draft persistence. | H | R1 |
 | `/job/:id?section` | PageWithStatefulUrl | jobs | detail | HC User, HC Admin, contextual RA User, contextual RA Admin, contextual SysAdmin | `canViewJobDetail`, `canManageJobState` | job-context access; may be affected by `jobRequisition` | Large aggregate hub route with section/deep-link behavior and a normalized hub view-model boundary. | H | R1 |
 | `/job/:id/bid` | RoutedOverlay | jobs | task-overlays | HC User, HC Admin | `canOpenJobTask` | authenticated job access | Opens modal-style flow and returns to parent route on close. | M | R1 |
 | `/job/:id/bid/:bid_id` | RoutedOverlay | jobs | task-overlays | HC User, HC Admin | `canOpenJobTask` | authenticated job access | View overlay with parent-return behavior. | M | R1 |
 | `/job/:id/cv` | RoutedOverlay | jobs | task-overlays | HC User, HC Admin | `canOpenJobTask` | authenticated job access | Modal-style CV create/entry flow; right-side presentation today. | H | R1 |
 | `/job/:id/cv/:cv_id` | RoutedOverlay | jobs | task-overlays | HC User, HC Admin | `canOpenJobTask` | authenticated job + candidate context | Modal view flow with resolved CV payload and parent return. | H | R1 |
 | `/job/:id/cv-reject/:cv_id` | TaskFlow | jobs | task-overlays | HC User, HC Admin, contextual RA collaborators | `canRejectCvFromJob` | reject policy; `rejectionReason` may change flow | Reject flow is route-owned and returns to job on close. | H | R1 |
-| `/job/:id/cv/:cv_id/schedule` | TaskFlow | jobs | task-overlays | HC User, HC Admin, contextual RA collaborators | `canScheduleInterviewFromJob` | `calendarIntegration`, `bulkSchedule`, `smsBeta` as applicable | Scheduling flow resolves canonical task context first, then returns to an explicit parent route on close/success. | H | R1 |
+| `/job/:id/cv/:cv_id/schedule` | TaskFlow | jobs | task-overlays | HC User, HC Admin, contextual RA collaborators | `canScheduleInterviewFromJob` | `calendarIntegration`, `bulkSchedule`, `smsBeta` as applicable | Scheduling flow resolves canonical task context first, consumes calendar readiness gates before submit, and returns to an explicit parent route on close/success or blocked/degraded/unavailable remediation. | H | R1 |
 | `/job/:id/cv/:cv_id/offer` | TaskFlow | jobs | task-overlays | HC User, HC Admin, contextual RA collaborators | `canCreateOfferFromJob` | offer capability and downstream commercial state | Offer flow is route-owned with modal-style parent return. | H | R1 |
 | `/candidate/:id/:job?/:status?/:order?/:filters?/:interview?` | PageWithStatefulUrl | candidates | detail-hub | HC User, HC Admin, contextual RA User, contextual RA Admin, contextual SysAdmin | `canViewCandidateDetail`, `canNavigateCandidateSequence` | candidate/job access; dense entitlement mix starts here | Dense aggregate route with job/step context, comments, templates, settings, calendar integration, `smsBeta`, and custom fields. | H | R2 |
-| `/candidate/:id/.../cv/:cv_id/schedule` | TaskFlow | candidates | action-launchers | HC User, HC Admin, contextual RA collaborators | `canScheduleInterviewFromCandidate` | `calendarIntegration`, `bulkSchedule`, `smsBeta` | Mirrors job-side scheduling pattern with parent-return behavior. | H | R2 |
+| `/candidate/:id/.../cv/:cv_id/schedule` | TaskFlow | candidates | action-launchers | HC User, HC Admin, contextual RA collaborators | `canScheduleInterviewFromCandidate` | `calendarIntegration`, `bulkSchedule`, `smsBeta` | Mirrors job-side scheduling pattern with parent-return behavior and consumes calendar readiness gates before submit; blocked/degraded/unavailable states remain route-local with provider setup recovery when known. | H | R2 |
 | `/candidate/:id/.../cv/:cv_id/offer` | TaskFlow | candidates | action-launchers | HC User, HC Admin, contextual RA collaborators | `canCreateOfferFromCandidate` | offer capability and downstream commercial state | Mirrors job-side offer pattern with parent-return behavior. | H | R2 |
 | `/candidate/:id/.../cv-reject/:cv_id` | TaskFlow | candidates | action-launchers | HC User, HC Admin, contextual RA collaborators | `canRejectCandidate` | `rejectionReason` | Mirrors job-side reject pattern with parent-return behavior. | H | R2 |
 | `/candidates-old?query&page` | PageWithStatefulUrl | candidates | database-search | HC User, HC Admin | `canViewCandidateDatabase`, `canSearchCandidates` | `hc`, `seeCandidates` | Explicit `seeCandidates` permission gate in route definition. | M | R4 |
@@ -203,8 +203,8 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/parameters/:settings_id?/:section?/:subsection?` | PageWithStatefulUrl | settings | settings-container | HC User, HC Admin, RA User, RA Admin | `canEnterSettings` plus subsection-specific capabilities | `hc` or `ra`; recognized R5 keys are `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, and `api-endpoints` | Compatibility resolver only: maps known and authorized subsections to dedicated routes, falls back for unknown/unauthorized/unavailable/unimplemented keys, replaces compatibility URLs when resolving, and does not become a monolithic settings page. | M | R4-R5 |
 | `/settings/careers-page` | Page | settings | careers-application | HC Admin | `canManageCareersPage` | `hc`, `admin` | Separate admin route backed by company settings resolve. | M | R3 |
 | `/settings/application-page/:settings_id?/:section?/:subsection?` | PageWithStatefulUrl | settings | careers-application | HC Admin | `canManageApplicationPage` | `hc`, `admin` | Stateful admin surface for application-page configuration. | M | R3 |
-| `/settings/job-listings?tab&brand` | PageWithStatefulUrl | settings | careers-application | HC Admin | `canManageJobListings` | `hc`, `admin` | Stateful list route with `tab` and `brand` params plus company/settings resolves. | M | R3 |
-| `/settings/job-listings/edit/:uuid?new&brand` | Page | settings | careers-application | HC Admin | `canManageJobListings` | `hc`, `admin` | Editor entry supports new/edit variants. | M | R3 |
+| `/settings/job-listings?tab&brand` | PageWithStatefulUrl | settings | careers-application | HC Admin | `canManageJobListings` | `hc`, `admin` | Stateful list route with `tab` and `brand` params plus company/settings resolves; publish/status actions consume job-board readiness gates without rendering provider setup UI. | M | R3 |
+| `/settings/job-listings/edit/:uuid?new&brand` | Page | settings | careers-application | HC Admin | `canManageJobListings` | `hc`, `admin` | Editor entry supports new/edit variants and keeps provider setup recovery as a link to integrations when publish readiness blocks action. | M | R3 |
 | `/settings/hiring-flow` | Page | settings | hiring-flow | HC Admin | `canManageHiringFlowSettings` | `hc`, `admin`, plus `jobRequisition` where relevant | Dedicated subsection route that consumes the operational settings substrate, keeps save/retry inside the route, and stops before `/requisition-workflows` authoring scope. | M | R4 |
 | `/settings/custom-fields` | Page | settings | custom-fields | HC Admin | `canManageCustomFields` | `hc`, `admin`, `customFieldsBeta` | Dedicated subsection route that consumes the operational settings substrate, keeps beta gating explicit, and freezes custom-field admin without absorbing downstream candidate/public rendering. | M | R4 |
 | `/settings/api-endpoints` | Page | settings | api-endpoints | HC Admin | `canManageApiEndpoints` | `hc`, `admin`; no integrations or SysAdmin capability grants route entry | Dedicated API endpoints settings foundation route with loading, ready, empty, validation-error, saving, saved, save-error, denied, and unavailable states; real private-token/webhook persistence remains outside the frontend foundation slice. | L | R5 |
@@ -332,4 +332,48 @@ Marketplace state models cover ready, empty, and unavailable list states. Market
 
 ## Provider-specific integrations depth screen contract
 
-`/integrations/:id` now renders provider-family setup sections for configuration, auth, and diagnostics. Calendar, job-board, and HRIS providers expose family-specific setup fields and readiness signals; unsupported families remain visible as unavailable/unimplemented provider-family states with `/integrations` as the parent return. Public/token `/integration/*` routes are unchanged.
+`/integrations/:id` now renders provider-family setup sections for configuration, auth, and diagnostics. Calendar, job-board, HRIS, ATS, and assessment providers expose family-specific setup fields and readiness signals; custom/unsupported families remain visible as unavailable/unimplemented provider-family states with `/integrations` as the parent return. Public/token `/integration/*` routes are unchanged.
+
+## Provider readiness operational gates screen contract
+
+Scheduling, publishing, and HRIS/requisition screens must render operational readiness states from normalized provider signals:
+
+- `ready`: action can proceed through the existing route/action helper.
+- `blocked`: route-local remediation with provider setup recovery when known.
+- `degraded`: non-proceeding for mutation/submit actions; status-only surfaces may show warning context.
+- `unavailable`: route-local unavailable state without automatic redirect.
+- `unimplemented`: explicit unsupported provider-family or action state.
+
+These states apply first to job scheduling, candidate scheduling, job authoring/publishing adjacency, job listings publish/status, and requisition/workflow HRIS adjacency. Public/token `/integration/*` route behavior is unchanged.
+
+## Integration operational-depth screen contract
+
+The operational-depth sequence is synchronized in `integration-operational-depth-sequence-plan.md`; all eight packages are implemented and validated.
+
+Screen and route implications:
+- Scheduling screens under job and candidate task routes must show loading, ready, validation-error, slot-unavailable, conflict, retry, submitting, submit-failed, submitted, and parent-refresh states after calendar readiness is ready.
+- Job authoring and job-listings screens must show publish/unpublish, partially-published, retry, and provider-blocked states without coupling draft persistence to publishing.
+- Requisition screens must distinguish HRIS mapping drift from workflow drift and keep sync retry/remediation route-local.
+- Inbox and notification-entry screens must preserve `/inbox?conversation=` as URL-owned selected conversation state and keep `/chat/:token/:user_id` public-token behavior separate.
+- Candidate contract and offer-adjacent screens must separate document metadata from signing status and expose status-stale/downstream handoff behavior without rendering signer workflow internals.
+- Survey/review/scoring screens must preserve public-token boundaries for `/surveys/*`, `/review-candidate/*`, and `/interview-feedback/*` while exposing schema readiness, submit/retry, read-only terminal, and scoring-pending/scored states.
+- Candidate database, candidate detail, jobs list, and job authoring screens may expose ATS source/sync status, duplicate outcomes, stale-source refresh, and status-only ATS context without changing core route ownership.
+
+### Job-board publishing operational depth
+
+Job Authoring and Job Listings now share a publishing lifecycle model for not-ready, ready, validating, publishing, published, publish-failed, partially-published, unpublish-ready, unpublishing, unpublished, unpublish-failed, provider-blocked, degraded, and unavailable. Job Authoring keeps draft save/create/edit persistence separate. Job Listings keeps list/editor continuity. Public shared job routes remain downstream read-only consumers.
+
+## HRIS requisition operational depth implementation note
+
+`hris-requisition-operational-depth` is implemented as the HRIS-specific follow-on to provider readiness gates. It scopes `/build-requisition` and `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` as Jobs-side consumers and `/requisition-workflows` as a Settings-side administration consumer. The model covers ready, mapping-required, mapping-drift, sync-pending, sync-degraded, sync-failed, retrying, synced, auth-required, provider-blocked, unavailable, and unimplemented outcomes without exposing raw HRIS mappings, OAuth payloads, provider diagnostics, or tenant-sensitive data.
+
+Mapping drift and workflow drift remain separate: HRIS mapping remediation points to HRIS/workflow administration, while existing requisition workflow drift remains authoritative for removed stages, changed required fields, reassigned approvals, and stale workflow route repair. Public/token `/job-requisition-approval`, `/job-requisition-forms`, and `/integration/*` routes remain unchanged.
+
+## Contract signing operational depth screens
+
+Candidate document/contract summaries show document context separately from signing state. Candidate offer/contract launchers and job offer/contract overlays show route-local blocked, retry, status-stale, sent, signing-pending, and terminal signing outcomes while preserving parent return. Standalone signer and public/token integration screens remain unchanged.
+
+
+## ATS and assessment provider setup screen note
+
+`/integrations/:id` supports ATS and assessment provider detail setup sections for eligible integration admins. The screen keeps `/integrations` as its parent return target, keeps custom providers unavailable/unimplemented, and does not alter public survey, review, interview-feedback, or `/integration/*` token-entry screens.

@@ -33,6 +33,7 @@ export function resolveTypedDestinationForR0(destination: TypedDestination): Typ
     case 'public.shared-job':
     case 'public.application':
     case 'public.survey':
+    case 'inbox.conversation':
       return {
         destination,
         target: resolveTypedDestination(destination),

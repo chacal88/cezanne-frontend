@@ -1,4 +1,5 @@
-import { buildRequisitionDraftState, buildRequisitionMutationState, buildWorkflowDriftState } from './requisition-state';
+import { buildProviderReadinessSignals } from '../../../integrations/support';
+import { buildRequisitionDraftState, buildRequisitionHrisReadinessState, buildRequisitionMutationState, buildWorkflowDriftState, resolveRequisitionWorkflowAndHrisState } from './requisition-state';
 
 describe('requisition authoring state', () => {
   it('models local draft state with explicit save and data-loss warning', () => {
@@ -25,6 +26,32 @@ describe('requisition authoring state', () => {
       kind: 'workflow-drift',
       driftReason: 'removed-stage',
       canRetry: true,
+    });
+  });
+
+  it('models HRIS readiness without replacing workflow drift handling', () => {
+    const [signal] = buildProviderReadinessSignals({ id: 'workday', name: 'Workday', family: 'hris', state: 'reauth_required' });
+    const state = buildRequisitionHrisReadinessState(signal, { workflowUuid: 'workflow-1' });
+
+    expect(state).toMatchObject({ kind: 'recoverable-failure', parentTarget: '/jobs/open' });
+    expect(state.readinessGate).toMatchObject({ state: 'blocked', canProceed: false });
+    expect(state.hrisOperationalState).toMatchObject({ kind: 'auth-required', routeFamily: 'requisition-workflow' });
+    expect(buildWorkflowDriftState('removed-stage', { workflowUuid: 'workflow-1' })).toMatchObject({ kind: 'workflow-drift' });
+  });
+
+  it('preserves workflow drift precedence when HRIS is otherwise ready', () => {
+    const [signal] = buildProviderReadinessSignals({ id: 'workday', name: 'Workday', family: 'hris', state: 'connected' });
+    const hrisState = buildRequisitionHrisReadinessState(signal, { workflowUuid: 'workflow-1', syncStatus: 'synced' });
+    const workflowDrift = buildWorkflowDriftState('changed-required-fields', { workflowUuid: 'workflow-1' });
+
+    expect(resolveRequisitionWorkflowAndHrisState({ workflowDrift, hrisState })).toEqual({ authority: 'workflow-drift', workflowDrift });
+  });
+
+  it('keeps build requisition HRIS failures on the dashboard fallback', () => {
+    const [signal] = buildProviderReadinessSignals({ id: 'workday', name: 'Workday', family: 'hris', state: 'reauth_required' });
+    expect(buildRequisitionHrisReadinessState(signal)).toMatchObject({
+      parentTarget: '/dashboard',
+      hrisOperationalState: { kind: 'auth-required', routeFamily: 'requisition-authoring' },
     });
   });
 });

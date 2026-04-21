@@ -23,6 +23,7 @@ export type TypedDestination =
   | ({ kind: 'public.shared-job' } & SharedJobRouteParams)
   | ({ kind: 'public.application' } & PublicApplicationRouteParams)
   | ({ kind: 'public.survey' } & PublicSurveyRouteParams)
+  | { kind: 'inbox.conversation'; conversationId: string }
   | { kind: 'billing.overview' };
 
 export const typedDestinationKinds = [
@@ -39,6 +40,7 @@ export const typedDestinationKinds = [
   'public.shared-job',
   'public.application',
   'public.survey',
+  'inbox.conversation',
   'billing.overview',
 ] as const;
 
@@ -72,6 +74,8 @@ export function resolveTypedDestination(destination: TypedDestination): string {
       return buildPublicApplicationPath(destination);
     case 'public.survey':
       return buildPublicSurveyPath(destination);
+    case 'inbox.conversation':
+      return `/inbox?conversation=${encodeURIComponent(destination.conversationId)}`;
     case 'billing.overview':
       return '/billing';
   }

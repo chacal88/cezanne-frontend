@@ -19,6 +19,8 @@ describe('integration token routing', () => {
     expect(matchRouteMetadata('/integration/job/valid-token/preview')?.metadata.routeId).toBe('integrations.token-entry.job');
     expect(matchRouteMetadata('/integrations')?.metadata).toMatchObject({ routeId: 'integrations.admin.index', requiredCapability: 'canViewIntegrations' });
     expect(matchRouteMetadata('/integrations/lever')?.metadata).toMatchObject({ routeId: 'integrations.admin.detail', parentTarget: '/integrations', requiredCapability: 'canManageIntegrationProvider' });
+    expect(matchRouteMetadata('/integration/cv/valid-token')?.metadata).toMatchObject({ routeClass: 'Public/Token', module: 'token-entry' });
+    expect(matchRouteMetadata('/integration/cv/valid-token')?.metadata).not.toHaveProperty('requiredCapability', 'canManageIntegrationProvider');
     expect(matchRouteMetadata('/team/recruiters')?.metadata).toMatchObject({ routeId: 'team.org.recruiter-visibility', parentTarget: '/team', requiredCapability: 'canViewRecruiterVisibility' });
     expect(matchRouteMetadata('/users/invite')?.metadata).toMatchObject({
       routeId: 'team.org.invite-foundation',
@@ -92,5 +94,29 @@ describe('integration token routing', () => {
     });
     expect(matchRouteMetadata('/report/jobs')?.metadata).toMatchObject({ routeId: 'reports.family', parentTarget: '/report', requiredCapability: 'canViewReportFamily' });
     expect(matchRouteMetadata('/hiring-company/report/jobs')?.metadata).toMatchObject({ routeId: 'reports.legacy.compat', parentTarget: '/report', requiredCapability: 'canViewReports' });
+  });
+
+  it('keeps public survey, review, interview-feedback, and integration callback routes separate from authenticated provider setup', () => {
+    const publicPaths = ['/surveys/survey-1/job-1/cv-1', '/review-candidate/valid-review', '/interview-feedback/valid-feedback'];
+    const integrationCallbackPaths = ['/integration/cv/valid-token', '/integration/forms/valid-token', '/integration/job/valid-token'];
+
+    for (const path of publicPaths) {
+      expect(matchRouteMetadata(path)?.metadata).toMatchObject({ routeClass: 'Public/Token', domain: 'public-external' });
+      expect(matchRouteMetadata(path)?.metadata).not.toHaveProperty('requiredCapability', 'canManageIntegrationProvider');
+      expect(matchRouteMetadata(path)?.metadata).not.toMatchObject({ routeId: 'integrations.admin.detail', parentTarget: '/integrations' });
+    }
+
+    for (const path of integrationCallbackPaths) {
+      expect(matchRouteMetadata(path)?.metadata).toMatchObject({ routeClass: 'Public/Token', domain: 'integrations', module: 'token-entry' });
+      expect(matchRouteMetadata(path)?.metadata).not.toHaveProperty('requiredCapability', 'canManageIntegrationProvider');
+      expect(matchRouteMetadata(path)?.metadata).not.toMatchObject({ routeId: 'integrations.admin.detail', parentTarget: '/integrations' });
+    }
+
+    expect(matchRouteMetadata('/integrations/greenhouse')?.metadata).toMatchObject({
+      routeId: 'integrations.admin.detail',
+      routeClass: 'Page',
+      requiredCapability: 'canManageIntegrationProvider',
+      parentTarget: '/integrations',
+    });
   });
 });

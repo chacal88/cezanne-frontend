@@ -1,3 +1,7 @@
+import type { OperationalReadinessGateResult } from '../../integrations/support';
+import type { CalendarSchedulingState } from '../../scheduling/support';
+import type { ContractSigningState } from '../../contracts/signing';
+import type { AtsCandidateSourceOperationalState } from '../../integrations/support';
 export type JobsListScope = 'open' | 'draft' | 'archived' | 'assigned';
 export type JobHubSection = 'overview' | 'candidates' | 'workflow' | 'activity';
 export type JobTaskKind = 'bid-create' | 'bid-view' | 'cv-create' | 'cv-view' | 'schedule' | 'offer' | 'reject';
@@ -12,6 +16,7 @@ export type JobsListState = {
 
 export type JobsListViewModel = JobsListState & {
   createPath: '/jobs/manage' | null;
+  atsStatus?: AtsCandidateSourceOperationalState;
 };
 
 export type JobHubViewModel = {
@@ -31,6 +36,17 @@ export type JobAuthoringDraft = {
   favoritesEnabled: boolean;
 };
 
+export type JobPublishingReadiness = OperationalReadinessGateResult;
+
+export type JobAuthoringPublishingView = {
+  draftId?: string;
+  canSaveDraft: true;
+  canPublish: boolean;
+  target: import('./publishing').JobBoardPublishingTarget;
+  status: import('./publishing').JobBoardPublishingStatus;
+  atsStatus?: AtsCandidateSourceOperationalState;
+};
+
 export type JobAuthoringSerializedDraft = {
   id?: string;
   name: string;
@@ -47,4 +63,19 @@ export type JobTaskContext = {
   bidId?: string;
   section?: JobHubSection;
   parentTarget: string;
+  readinessGate?: OperationalReadinessGateResult;
+  schedulingState?: CalendarSchedulingState;
+  contractSigningState?: ContractSigningState;
 };
+
+export type {
+  JobBoardPublishingAction,
+  JobBoardPublishingPublicReflectionIntent,
+  JobBoardPublishingResult,
+  JobBoardPublishingRouteFamily,
+  JobBoardPublishingState,
+  JobBoardPublishingStatus,
+  JobBoardPublishingTarget,
+  JobBoardPublishingTargetType,
+  JobBoardPublishingTelemetryEvent,
+} from './publishing';

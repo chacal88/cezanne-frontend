@@ -250,3 +250,47 @@ For `provider-specific-integrations-depth`:
 - refresh and parent-return behavior stay local to the provider detail route, with `/integrations` as the only parent return target.
 - public/token `/integration/*` routes remain separate and do not reuse authenticated admin setup state.
 - if section state becomes URL-owned later, it must sanitize invalid section values and preserve provider direct-entry behavior.
+
+## Provider readiness operational gate return behavior
+
+For `provider-readiness-operational-gates`:
+
+- readiness failures stay inside the current operational route; no automatic redirect to integrations occurs.
+- job-scoped scheduling preserves the job parent return target.
+- candidate-scoped scheduling preserves the candidate direct-entry context and parent return target.
+- publishing and job-listing readiness failures preserve the current authoring/settings route.
+- HRIS/requisition readiness failures preserve the existing authoring, workflow, or dashboard parent/fallback target.
+- provider setup repair is an explicit recovery action to `/integrations/:providerId` only when a safe setup target is known.
+- unknown provider recovery renders copy locally and must not construct guessed provider URLs.
+
+## Integration operational-depth return behavior
+
+The operational-depth sequence is synchronized in `integration-operational-depth-sequence-plan.md`; all eight packages are implemented and validated.
+
+Return and refresh rules:
+- Calendar scheduling preserves job or candidate parent return and records parent-refresh intent after submitted success; validation, conflict, retry, submit-failed, provider-blocked, degraded, and unavailable states remain in-route without redirecting public/token flows.
+- Job-board publishing preserves job authoring, job listings list, or editor context and never treats draft-save success as publish success.
+- HRIS requisition operational states preserve requisition authoring/workflow parent routes and distinguish mapping drift from workflow drift.
+- Messaging preserves `/inbox?conversation=` URL selection; notification fallback resolves to inbox without selection and then dashboard; candidate conversation handoff preserves candidate recovery context when no conversation can be opened.
+- Contract/signing launchers preserve job or candidate parent return and refresh visible summaries after send, downstream handoff, or terminal status refresh.
+- Survey/review/scoring public routes remain same-route for retry and read-only terminal states; authenticated candidate review launchers return to candidate parent context with refresh intent.
+- ATS candidate/source operations preserve candidate database list state, candidate detail context, jobs list filters, and job authoring draft context; ATS status-only surfaces must not redirect to provider setup automatically.
+
+### Job-board publishing operational depth
+
+Job Authoring publish failures, partial outcomes, and provider-blocked states preserve the current authoring context and do not mark draft persistence as failed. Job Listings publish/unpublish status preserves the active list tab, brand filter, editor mode, and return target. Public-reflection intent can be displayed as status, but `/shared/:jobOrRole/:token/:source` navigation remains public-token owned.
+
+## HRIS requisition operational depth implementation note
+
+`hris-requisition-operational-depth` is implemented as the HRIS-specific follow-on to provider readiness gates. It scopes `/build-requisition` and `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` as Jobs-side consumers and `/requisition-workflows` as a Settings-side administration consumer. The model covers ready, mapping-required, mapping-drift, sync-pending, sync-degraded, sync-failed, retrying, synced, auth-required, provider-blocked, unavailable, and unimplemented outcomes without exposing raw HRIS mappings, OAuth payloads, provider diagnostics, or tenant-sensitive data.
+
+Mapping drift and workflow drift remain separate: HRIS mapping remediation points to HRIS/workflow administration, while existing requisition workflow drift remains authoritative for removed stages, changed required fields, reassigned approvals, and stale workflow route repair. Public/token `/job-requisition-approval`, `/job-requisition-forms`, and `/integration/*` routes remain unchanged.
+
+## Contract signing parent return and refresh
+
+Contract send, retry, status refresh, downstream handoff, and terminal outcomes preserve the active candidate or job parent target. Successful send/handoff/terminal outcomes record parent-refresh intent before the route claims the latest visible summary state.
+
+
+## ATS and assessment provider setup return behavior
+
+For `ats-assessment-provider-setup-depth`, ATS and assessment provider setup stays under `/integrations/:id` with `/integrations` as the parent return target. Readiness recovery targets may point back to provider setup, but public/token survey, review, interview-feedback, and `/integration/*` routes remain route-owned and are not redirected through authenticated setup.

@@ -12,6 +12,7 @@ import type {
   PublicJobListingContract,
 } from './models';
 import { getJobListings } from './store';
+import { buildJobBoardPublishingStatus, normalizeJobBoardPublishTarget } from '../../../jobs/support/publishing';
 
 export function serializeCareersPageConfig(config: CareersPageConfigView): CareersPageSerializedPayload {
   return {
@@ -68,7 +69,14 @@ export function buildJobListingsListView(route: JobListingsRouteState): JobListi
   return {
     selectedTab: route.tab,
     brand: route.brand,
-    items,
+    publishingTarget: normalizeJobBoardPublishTarget({ routeFamily: 'job-listings', targetType: 'job-listing', hasExistingTarget: true }),
+    publishingStatus: buildJobBoardPublishingStatus({ state: items.some((item) => item.status === 'published') ? 'published' : 'ready' }),
+    items: items.map((item) => ({
+      ...item,
+      publishingStatus: buildJobBoardPublishingStatus({
+        state: item.status === 'published' ? 'published' : item.publishReady ? 'ready' : 'not-ready',
+      }),
+    })),
   };
 }
 

@@ -28,6 +28,7 @@ import type {
   InterviewRequestSerializedPayload,
   ExternalReviewDraft,
 } from './models';
+import { buildSurveyReviewScoringState } from '../../candidates/surveys-custom-fields/support';
 
 function toTitle(jobOrRole: string) {
   return jobOrRole
@@ -126,14 +127,29 @@ export function buildPublicSurveyViewModel(input: { surveyuuid: string; jobuuid:
     isAvailable: !input.surveyuuid.toLowerCase().includes('closed'),
     isCompleted: Boolean(completion),
   });
+  const savedAnswer = getSurveyAnswer(input.surveyuuid, input.jobuuid, input.cvuuid);
+  const operationalState = buildSurveyReviewScoringState({
+    routeFamily: 'public-survey',
+    taskContext: 'public-survey',
+    readiness: {
+      tokenBoundary: 'public',
+      tokenState: decision.tokenState,
+      schemaReady: !input.surveyuuid.toLowerCase().includes('missing-schema'),
+      degraded: input.surveyuuid.toLowerCase().includes('degraded'),
+      unavailable: decision.readiness === 'unavailable',
+      terminalOutcome: completion ? 'submitted' : undefined,
+    },
+    draft: { answerCount: savedAnswer.trim() ? 1 : 0, requiredAnswerCount: 1 },
+  });
 
   return {
     route: input,
     decision,
     title: 'Candidate survey continuation',
     prompt: 'Tell us why this role matches your current priorities.',
-    savedAnswer: getSurveyAnswer(input.surveyuuid, input.jobuuid, input.cvuuid),
+    savedAnswer,
     completion,
+    operationalState,
   };
 }
 
@@ -181,6 +197,20 @@ export function buildReviewCandidateViewModel(input: { code: string }): External
     isReadyForSubmission: !input.code.toLowerCase().includes('missing-schema'),
   });
 
+  const operationalState = buildSurveyReviewScoringState({
+    routeFamily: 'external-review-candidate',
+    taskContext: 'external-review-candidate',
+    readiness: {
+      tokenBoundary: 'public',
+      tokenState: decision.tokenState,
+      schemaReady: !input.code.toLowerCase().includes('missing-schema'),
+      reviewerReady: Boolean(buildParticipantName(input.code)),
+      unavailable: decision.readiness === 'unavailable',
+      terminalOutcome: completion ? 'read-only' : undefined,
+    },
+    draft: { answerCount: [defaults.score, defaults.summary, defaults.recommendation].filter(Boolean).length, requiredAnswerCount: 3, hasScore: Boolean(defaults.score), hasRecommendation: Boolean(defaults.recommendation) },
+  });
+
   return {
     route: input,
     decision,
@@ -195,6 +225,7 @@ export function buildReviewCandidateViewModel(input: { code: string }): External
     ],
     defaults,
     completion,
+    operationalState,
   };
 }
 
@@ -211,6 +242,21 @@ export function buildInterviewFeedbackViewModel(input: { code: string }): Extern
     isReadyForSubmission: !input.code.toLowerCase().includes('missing-schema'),
   });
 
+  const operationalState = buildSurveyReviewScoringState({
+    routeFamily: 'external-interview-feedback',
+    taskContext: 'external-interview-feedback',
+    readiness: {
+      tokenBoundary: 'public',
+      tokenState: decision.tokenState,
+      schemaReady: !input.code.toLowerCase().includes('missing-schema'),
+      templateReady: !input.code.toLowerCase().includes('missing-template'),
+      reviewerReady: Boolean(buildParticipantName(input.code)),
+      unavailable: decision.readiness === 'unavailable',
+      terminalOutcome: completion ? (completion.kind === 'feedback-scored' ? 'scored' : 'scoring-pending') : undefined,
+    },
+    draft: { answerCount: [defaults.score, defaults.summary, defaults.recommendation].filter(Boolean).length, requiredAnswerCount: 3, hasScore: Boolean(defaults.score), hasRecommendation: Boolean(defaults.recommendation) },
+  });
+
   return {
     route: input,
     decision,
@@ -225,6 +271,7 @@ export function buildInterviewFeedbackViewModel(input: { code: string }): Extern
     ],
     defaults,
     completion,
+    operationalState,
   };
 }
 

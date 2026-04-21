@@ -4,12 +4,15 @@ import { useCapabilities } from '../../../lib/access-control';
 import { createCorrelationId, ensureCorrelationId, setActiveCorrelationId } from '../../../lib/observability';
 import { observability } from '../../../app/observability';
 import { CandidateDocumentsPanel } from '../documents-contracts/candidate-documents-panel';
+import { buildCandidateContractSummary } from '../documents-contracts/contract-summary';
 import { CandidateInsightsPanel } from '../surveys-custom-fields/candidate-insights-panel';
 import { CandidateCollaborationPanel } from '../communication-collaboration/candidate-collaboration-panel';
 import { resolveCandidateSequence } from '../workflow-navigation/sequence';
 import type { CandidateContextSegments, CandidateDegradedSection, CandidateDetailView } from '../support/models';
 import { buildCandidateActionPath, parseCandidateContextFromPathname, parseCandidateDetailSearchFromUrl } from '../support/routing';
 import { getCandidateRecord, subscribeCandidateStore, uploadCandidateCv } from '../support/store';
+import { buildCandidateDetailAtsStatus } from '../support/ats-operational-adapters';
+import { normalizeAtsSourceIdentity } from '../../integrations/support';
 
 function buildCandidateDetailView(context: CandidateContextSegments, degradedSections: CandidateDegradedSection[], entry: 'direct' | 'job' | 'notification' | 'database', capabilities: ReturnType<typeof useCapabilities>, databaseReturnTarget?: string): CandidateDetailView {
   const record = getCandidateRecord(context.candidateId);
@@ -17,6 +20,14 @@ function buildCandidateDetailView(context: CandidateContextSegments, degradedSec
     ? [...degradedSections, 'contracts']
     : degradedSections;
   const sequence = resolveCandidateSequence(context);
+  const atsStatus = buildCandidateDetailAtsStatus({
+    context,
+    sourceIdentity: normalizeAtsSourceIdentity({ providerId: 'greenhouse', providerLabel: 'Greenhouse', sourceState: record.id.includes('stale') ? 'stale' : 'linked' }),
+    sourceState: record.id.includes('stale') ? 'stale' : 'linked',
+    hasDuplicate: record.tags.includes('duplicate'),
+    wasMerged: record.tags.includes('merged'),
+    syncStatus: record.id === 'candidate-degraded' ? 'degraded' : undefined,
+  });
 
   return {
     candidateSummary: {
@@ -60,10 +71,12 @@ function buildCandidateDetailView(context: CandidateContextSegments, degradedSec
       downloadPath: record.downloadPath,
       lastUpdatedLabel: record.updatedAt,
     },
-    contractsSummary: {
+    contractsSummary: buildCandidateContractSummary({
+      candidateId: record.id,
       status: record.contractsStatus,
       count: record.contractsCount,
-    },
+      parentTarget: buildCandidateActionPath('offer', context, record.cvId),
+    }),
     interviewsSummary: {
       status: record.interviewsStatus,
       count: record.interviewsCount,
@@ -84,6 +97,7 @@ function buildCandidateDetailView(context: CandidateContextSegments, degradedSec
       upload: capabilities.canManageCandidateDocuments,
     },
     degradedSections: resolvedDegradedSections,
+    atsSourceStatus: atsStatus.atsState,
   };
 }
 
@@ -152,6 +166,8 @@ export function CandidateDetailRoutePage() {
       <p data-testid="candidate-detail-headline">{view.candidateSummary.headline}</p>
       <p data-testid="candidate-detail-job">{view.jobContext?.jobId ?? '—'}</p>
       <p data-testid="candidate-detail-sequence-state">{view.workflowState.sequenceState}</p>
+      <p data-testid="candidate-detail-ats-state">{view.atsSourceStatus?.kind ?? 'unavailable'}</p>
+      <p data-testid="candidate-detail-ats-refresh">{view.atsSourceStatus?.refreshIntent ?? 'none'}</p>
       <p data-testid="candidate-database-return-target">{view.workflowState.databaseReturnTarget ?? '—'}</p>
       {view.workflowState.databaseReturnTarget ? (
         <a href={view.workflowState.databaseReturnTarget} data-testid="candidate-database-return-link">

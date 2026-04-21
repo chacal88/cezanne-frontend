@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useCapabilities } from '../../../lib/access-control';
 import { evaluateJobListingsAccess } from './support/access';
-import { toPublicJobListingContract } from './support/adapters';
+import { buildJobListingsListView, toPublicJobListingContract } from './support/adapters';
 import { getJobListingDraft } from './support/store';
 import type { JobListingEditorRouteState } from './support/models';
 import { buildJobListingReturnTarget } from './support/routing';
@@ -58,6 +58,7 @@ export function JobListingEditorPage({ routeState }: { routeState: JobListingEdi
   }
 
   const returnTarget = buildJobListingReturnTarget(routeState);
+  const publishingView = buildJobListingsListView({ tab: draft.status, brand: draft.brand });
   const publicContract = uuid ? toPublicJobListingContract({ ...draft, uuid }) : null;
 
   return (
@@ -70,6 +71,8 @@ export function JobListingEditorPage({ routeState }: { routeState: JobListingEdi
         <dd data-testid="job-listing-editor-brand">{draft.brand}</dd>
         <dt>Readiness</dt>
         <dd data-testid="job-listing-editor-readiness">{decision.readiness}</dd>
+        <dt>Publishing state</dt>
+        <dd data-testid="job-listing-editor-publishing-state">{publishingView.publishingStatus.state}</dd>
       </dl>
       <label>
         Title

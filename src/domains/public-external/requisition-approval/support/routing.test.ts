@@ -37,4 +37,22 @@ describe('requisition approval routing', () => {
     expect(validateRequisitionApprovalSearch({ token: 'abc-123' })).toEqual({ token: 'abc-123' });
     expect(validateRequisitionApprovalSearch({})).toEqual({ token: '' });
   });
+
+  it('keeps public requisition routes separate from authenticated HRIS operational state', () => {
+    expect(matchRouteMetadata('/job-requisition-approval')?.metadata).toMatchObject({
+      routeId: 'public-external.requisition-approval',
+      routeClass: 'Public/Token',
+      domain: 'public-external',
+      module: 'requisition-approval',
+    });
+    expect(matchRouteMetadata('/job-requisition-forms/form-123')?.metadata).toMatchObject({
+      routeId: 'public-external.requisition-forms.download',
+      routeClass: 'Public/Token',
+      domain: 'public-external',
+      module: 'requisition-forms-download',
+    });
+    expect(matchRouteMetadata('/job-requisition-approval')?.metadata).not.toHaveProperty('parentTarget', '/integrations');
+    expect(matchRouteMetadata('/job-requisition-forms/form-123')?.metadata).not.toHaveProperty('requiredCapability', 'canManageIntegrationProvider');
+  });
+
 });

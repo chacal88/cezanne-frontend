@@ -1,8 +1,13 @@
 import { describe, expect, it } from 'vitest';
+import { buildProviderReadinessSignals } from '../../../integrations/support';
 import { resetCorrelationId, setActiveCorrelationId } from '../../../../lib/observability';
-import { getJobListings } from './store';
-import { runApplicationPageSaveWorkflow, runCareersPageSaveWorkflow, runJobListingPublishWorkflow, runJobListingSaveWorkflow } from './workflow';
+import { getJobListings, saveJobListings } from './store';
+import { runApplicationPageSaveWorkflow, runCareersPageSaveWorkflow, runJobListingPublishWorkflow, runJobListingSaveWorkflow, runJobListingUnpublishWorkflow } from './workflow';
 import { trackCareersApplicationRouteOpen, trackCareersApplicationRouteResolution, trackCareersApplicationWorkflow } from './telemetry';
+import { buildJobListingEditorPath, buildJobListingReturnTarget } from './routing';
+import { buildJobListingsListView } from './adapters';
+import { buildIntegrationJobPath } from '../../../integrations/support/routing';
+import { buildSharedJobPath } from '../../../public-external/support/routing';
 
 describe('careers-application workflow', () => {
   it('serializes save workflows through the hardened request boundary', async () => {
@@ -48,6 +53,66 @@ describe('careers-application workflow', () => {
     expect(publishResult.status).toBe('completed');
     if (publishResult.status !== 'completed') return;
     expect(publishResult.publicContract.isPublished).toBe(true);
+    expect(publishResult.publishingStatus).toMatchObject({ state: 'published', publicReflectionIntent: 'confirmed' });
+    expect(publishResult.telemetry.data).toMatchObject({ routeFamily: 'job-listings', action: 'publish', publishingState: 'published', targetType: 'job-listing' });
+  });
+
+  it('blocks job listing publish through job-board readiness without provider setup UI', async () => {
+    const saveResult = await runJobListingSaveWorkflow({
+      title: 'Product Designer',
+      brand: 'acme',
+      description: 'Own product design.',
+      status: 'draft',
+      publishReady: true,
+    });
+    const [signal] = buildProviderReadinessSignals({ id: 'lever', name: 'Lever', family: 'job-board', state: 'degraded' });
+
+    const publishResult = await runJobListingPublishWorkflow(saveResult.uuid, signal);
+
+    expect(publishResult.status).toBe('blocked');
+    if (publishResult.status !== 'blocked') return;
+    expect(publishResult.readinessGate).toMatchObject({ state: 'degraded', canProceed: false });
+    expect(publishResult.publishingStatus).toMatchObject({ state: 'degraded', canProceed: false });
+    expect(publishResult.readinessGate.setupTarget?.path).toBe('/integrations/lever');
+  });
+
+  it('preserves job listings list/editor context around publishing status', async () => {
+    saveJobListings([{ uuid: 'listing-context', title: 'Context role', brand: 'acme', status: 'draft', publishReady: false }]);
+
+    const view = buildJobListingsListView({ tab: 'draft', brand: 'acme' });
+    const failedPublish = await runJobListingPublishWorkflow('listing-context');
+
+    expect(view).toMatchObject({ selectedTab: 'draft', brand: 'acme', publishingTarget: { routeFamily: 'job-listings' } });
+    expect(view.items[0].publishingStatus).toMatchObject({ state: 'not-ready' });
+    expect(buildJobListingEditorPath({ mode: 'edit', uuid: 'listing-context', brand: 'acme', returnTab: 'draft' })).toBe(
+      '/settings/job-listings/edit/listing-context?brand=acme&returnTab=draft',
+    );
+    expect(buildJobListingReturnTarget({ mode: 'edit', uuid: 'listing-context', brand: 'acme', returnTab: 'draft' })).toBe('/settings/job-listings?tab=draft&brand=acme');
+    expect(failedPublish).toMatchObject({ status: 'failed', publishingStatus: { state: 'publish-failed', canRetry: true } });
+  });
+
+  it('models unpublish success without changing list/editor routing contracts', async () => {
+    saveJobListings([{ uuid: 'listing-published', title: 'Published role', brand: 'acme', status: 'published', publishReady: true }]);
+
+    const result = await runJobListingUnpublishWorkflow('listing-published');
+
+    expect(result).toMatchObject({ status: 'completed', publishingStatus: { state: 'unpublished' } });
+    expect(getJobListings().find((item) => item.uuid === 'listing-published')?.status).toBe('draft');
+    expect(buildJobListingReturnTarget({ mode: 'edit', uuid: 'listing-published', brand: 'acme', returnTab: 'published' })).toBe('/settings/job-listings?tab=published&brand=acme');
+  });
+
+  it('keeps provider setup and public token routes outside publishing helpers', async () => {
+    saveJobListings([{ uuid: 'listing-separation', title: 'Separated role', brand: 'acme', status: 'draft', publishReady: true }]);
+    const [signal] = buildProviderReadinessSignals({ id: 'lever', name: 'Lever', family: 'job-board', state: 'reauth_required' });
+
+    const result = await runJobListingPublishWorkflow('listing-separation', signal);
+
+    expect(result.status).toBe('blocked');
+    if (result.status !== 'blocked') return;
+    expect(result.publishingStatus.remediation).toMatchObject({ type: 'provider-setup', path: '/integrations/lever' });
+    expect(result).not.toHaveProperty('providerSetupFields');
+    expect(buildIntegrationJobPath({ token: 'public-token', action: 'preview' })).toBe('/integration/job/public-token/preview');
+    expect(buildSharedJobPath({ jobOrRole: 'designer', token: 'shared-token', source: 'email' })).toBe('/shared/designer/shared-token/email');
   });
 });
 

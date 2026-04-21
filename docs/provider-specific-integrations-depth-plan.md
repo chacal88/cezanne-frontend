@@ -158,3 +158,40 @@ Implemented in `src/domains/integrations`:
 - unsupported provider-family rendering through unavailable/unimplemented state rather than redirecting to settings or token-entry routes.
 
 The implementation keeps public/token `/integration/*` callbacks owned by `integrations.token-entry` and does not change API endpoints settings or SysAdmin behavior.
+
+## Operational readiness gates follow-up
+
+`provider-readiness-operational-gates` is the completed and archived immediate follow-up package that consumes the normalized readiness signals from this provider-specific implementation.
+
+First operational consumers:
+- job-scoped scheduling consumes calendar scheduling readiness;
+- candidate-scoped scheduling consumes calendar scheduling readiness;
+- job authoring and publishing-adjacent helpers consume job-board publishing readiness;
+- job listings publish/status surfaces consume job-board publishing readiness;
+- requisition authoring and workflow-state helpers consume HRIS sync/workflow readiness.
+
+The completed follow-up keeps provider setup under `/integrations/:providerId`, keeps public/token `/integration/*` callbacks unchanged, and requires operational routes to render route-local blocked/degraded/unavailable/unimplemented states instead of reading provider credentials, OAuth payloads, diagnostics logs, or setup forms.
+
+Companion plan: `provider-readiness-operational-gates-plan.md`.
+
+
+## Provider and operational-depth follow-ons
+
+After `provider-readiness-operational-gates`, the OpenSpec sequence is synchronized in `integration-operational-depth-sequence-plan.md`; all eight packages are implemented and validated:
+- `calendar-scheduling-operational-depth` for authenticated job/candidate scheduling conflict, retry, submit, and parent-refresh behavior;
+- `job-board-publishing-operational-depth` for publish/unpublish lifecycle, partial outcomes, retry, and public-reflection intent;
+- `hris-requisition-operational-depth` for HRIS-linked requisition state, mapping drift, sync retry, and workflow drift separation;
+- `messaging-communication-operational-depth` for inbox conversation identity, notification entry, candidate handoff, send/retry, and external chat separation;
+- `contract-signing-operational-depth` for candidate contract summaries, offer-adjacent launchers, send/retry/status refresh, and downstream signer separation;
+- `ats-assessment-provider-setup-depth` for the implemented authenticated provider setup expansion beyond calendar/job-board/HRIS;
+- `survey-review-scoring-operational-depth` for survey/review/scoring schema readiness, submit/retry, read-only terminal states, and scoring refresh;
+- `ats-candidate-source-operational-depth` for ATS source identity, import/sync status, duplicate outcomes, stale-source refresh, and status-only jobs context.
+
+These changes must preserve provider setup ownership under `/integrations/:providerId` unless their own accepted specs explicitly say otherwise. Public/token routes remain owned by their existing route families unless an accepted spec explicitly changes them.
+
+
+## ATS and assessment provider setup depth implementation note
+
+`ats-assessment-provider-setup-depth` is implemented as the next authenticated provider setup expansion beyond calendar, job-board, and HRIS. ATS and assessment providers now expose family-specific configuration, auth lifecycle, diagnostics summaries, and normalized readiness signals under `/integrations/:providerId` without exposing raw ATS sync payloads, webhook secrets, candidate/job payloads, assessment submissions, scoring payloads, or callback tokens.
+
+Custom providers remain explicit as unavailable or unimplemented until a dedicated custom-provider package names concrete behavior. Public/token `/surveys/*`, `/review-candidate/*`, `/interview-feedback/*`, and `/integration/*` routes remain separate from authenticated setup.

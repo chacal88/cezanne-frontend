@@ -45,6 +45,8 @@ export function JobTaskPage({
         <dd data-testid="job-task-bid">{context.bidId ?? '—'}</dd>
         <dt>{t('tasks.parent')}</dt>
         <dd data-testid="job-task-parent">{context.parentTarget}</dd>
+        <dt>Contract state</dt>
+        <dd data-testid="job-contract-task-state">{context.contractSigningState?.kind ?? 'not-contract-task'}</dd>
       </dl>
       <div style={{ display: 'flex', gap: 12 }}>
         <a href={context.parentTarget} data-testid="job-task-close-link">

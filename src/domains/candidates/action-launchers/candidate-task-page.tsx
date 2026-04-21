@@ -6,6 +6,8 @@ import { resolveCandidateActionContext } from './candidate-action-context';
 import { completeCandidateAction, getCandidateRecord } from '../support/store';
 import { parseCandidateContextFromPathname, parseCandidateTaskSearchFromUrl } from '../support/routing';
 import type { CandidateActionKind } from '../support/models';
+import { buildContractSigningTelemetry, resolveContractSendResult, startContractSend } from '../../contracts/signing';
+import { buildSurveyReviewScoringTelemetry, resolveSurveyReviewScoringSubmitResult, startSurveyReviewScoringSubmit } from '../surveys-custom-fields/support';
 
 function getActionKind(pathname: string): CandidateActionKind {
   if (pathname.endsWith('/schedule')) return 'schedule';
@@ -64,7 +66,40 @@ export function CandidateTaskRoutePage() {
 
   function handleComplete() {
     setActiveCorrelationId(createCorrelationId());
+    const sendingState = actionContext.contractSigningState ? startContractSend(actionContext.contractSigningState) : undefined;
+    const sentState = sendingState ? resolveContractSendResult(actionContext.contractSigningState!, 'sent') : undefined;
+    const submittingReviewState = actionContext.surveyReviewScoringState ? startSurveyReviewScoringSubmit(actionContext.surveyReviewScoringState) : undefined;
+    const submittedReviewState = submittingReviewState ? resolveSurveyReviewScoringSubmitResult(actionContext.surveyReviewScoringState!, 'submitted') : undefined;
     completeCandidateAction(actionContext.candidateId, actionContext.kind);
+    if (sentState) {
+      observability.telemetry.track(buildContractSigningTelemetry({
+        routeFamily: sentState.routeFamily,
+        action: 'send-start',
+        contractState: sendingState!.kind,
+        taskContext: sentState.taskContext,
+      }));
+      observability.telemetry.track(buildContractSigningTelemetry({
+        routeFamily: sentState.routeFamily,
+        action: 'status-refresh',
+        contractState: sentState.kind,
+        taskContext: sentState.taskContext,
+      }));
+    }
+    if (submittedReviewState) {
+      observability.telemetry.track(buildSurveyReviewScoringTelemetry({
+        routeFamily: submittedReviewState.routeFamily,
+        action: 'submit-start',
+        operationalState: submittingReviewState!.kind,
+        taskContext: submittedReviewState.taskContext,
+      }));
+      observability.telemetry.track(buildSurveyReviewScoringTelemetry({
+        routeFamily: submittedReviewState.routeFamily,
+        action: 'terminal-outcome',
+        operationalState: submittedReviewState.kind,
+        taskContext: submittedReviewState.taskContext,
+        terminalOutcome: submittedReviewState.terminalOutcome,
+      }));
+    }
     observability.telemetry.track({
       name: 'candidate_action_succeeded',
       data: {
@@ -105,6 +140,10 @@ export function CandidateTaskRoutePage() {
       <p data-testid="candidate-task-recovery">{actionContext.recoveryTarget}</p>
       <p data-testid="candidate-task-entry">{actionContext.entryMode}</p>
       <p data-testid="candidate-task-last-action">{record.lastAction}</p>
+      <p data-testid="candidate-contract-task-state">{actionContext.contractSigningState?.kind ?? 'not-contract-task'}</p>
+      <p data-testid="candidate-contract-task-refresh">{actionContext.contractSigningState?.parentRefresh ? 'refresh required' : 'refresh pending action'}</p>
+      <p data-testid="candidate-review-task-state">{actionContext.surveyReviewScoringState?.kind ?? 'not-review-task'}</p>
+      <p data-testid="candidate-review-task-return">{actionContext.surveyReviewScoringState?.parentContext?.returnTarget ?? actionContext.returnTarget}</p>
       {failure ? <p data-testid="candidate-task-failure">{failure}</p> : null}
       <div style={{ display: 'flex', gap: 12 }}>
         <button type="button" onClick={() => handleClose('cancel')} data-testid="candidate-task-close-link">

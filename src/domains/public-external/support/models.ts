@@ -1,3 +1,4 @@
+import type { SurveyReviewScoringState } from '../../candidates/surveys-custom-fields/support';
 export type PublicTokenState = 'valid' | 'invalid' | 'expired' | 'used' | 'inaccessible';
 export type PublicRouteFamily =
   | 'shared-job'
@@ -117,7 +118,7 @@ export type PublicCompletionState = {
 };
 
 export type ExternalCompletionState = {
-  kind: 'interview-request-accepted' | 'interview-request-declined' | 'review-submitted' | 'feedback-submitted';
+  kind: 'interview-request-accepted' | 'interview-request-declined' | 'review-submitted' | 'feedback-submitted' | 'feedback-scoring-pending' | 'feedback-scored';
   message: string;
 };
 
@@ -145,6 +146,7 @@ export type PublicSurveyViewModel = {
   prompt: string;
   savedAnswer: string;
   completion: PublicCompletionState | null;
+  operationalState: SurveyReviewScoringState;
 };
 
 export type InterviewRequestDecisionChoice = 'accept' | 'decline';
@@ -217,6 +219,7 @@ export type ExternalReviewViewModel = {
   questions: ExternalReviewQuestion[];
   defaults: ExternalReviewDraft;
   completion: ExternalCompletionState | null;
+  operationalState: SurveyReviewScoringState;
 };
 
 export type ExternalReviewWorkflowResult =

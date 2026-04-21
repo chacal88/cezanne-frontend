@@ -1,4 +1,4 @@
-export type IntegrationProviderState = 'connected' | 'disconnected' | 'degraded' | 'reauth_required' | 'unavailable';
+export type IntegrationProviderState = 'connected' | 'disconnected' | 'blocked' | 'degraded' | 'reauth_required' | 'unavailable';
 export type IntegrationProviderFamily = 'calendar' | 'ats' | 'job-board' | 'hris' | 'assessment' | 'custom';
 export type IntegrationProviderAction = 'configure' | 'connect' | 'reauthorize' | 'run_diagnostics' | 'view_logs';
 export type IntegrationProviderConcern = 'configuration' | 'auth' | 'diagnostics';
@@ -22,7 +22,7 @@ export type IntegrationProviderAuthState =
   | 'degraded'
   | 'reauth-required';
 export type IntegrationProviderDiagnosticsState = 'idle' | 'running' | 'passed' | 'failed' | 'logs-ready' | 'degraded' | 'unavailable' | 'retry';
-export type IntegrationProviderReadinessFamily = 'scheduling' | 'publishing' | 'sync-workflow';
+export type IntegrationProviderReadinessFamily = 'scheduling' | 'publishing' | 'sync-workflow' | 'ats-sync-import' | 'assessment-review-scoring';
 export type IntegrationProviderReadinessOutcome = 'ready' | 'blocked' | 'degraded' | 'unavailable' | 'unimplemented';
 
 export type IntegrationProviderSummary = {
@@ -41,10 +41,18 @@ export type IntegrationProviderSection = {
   actions: Array<{ id: IntegrationProviderAction; label: string; concern: IntegrationProviderConcern }>;
 };
 
+export type IntegrationProviderSetupTarget = {
+  providerId: string;
+  path: `/integrations/${string}`;
+  label: string;
+};
+
 export type IntegrationProviderReadinessSignal = {
   family: IntegrationProviderReadinessFamily;
+  providerFamily: IntegrationProviderFamily;
   outcome: IntegrationProviderReadinessOutcome;
   reason: string;
+  setupTarget?: IntegrationProviderSetupTarget;
 };
 
 export type IntegrationProviderViewModel = IntegrationProviderSummary & {
@@ -55,7 +63,7 @@ export type IntegrationProviderViewModel = IntegrationProviderSummary & {
   parentTarget: '/integrations';
 };
 
-const supportedProviderFamilies = ['calendar', 'job-board', 'hris'] as const satisfies readonly IntegrationProviderFamily[];
+const supportedProviderFamilies = ['calendar', 'ats', 'job-board', 'hris', 'assessment'] as const satisfies readonly IntegrationProviderFamily[];
 
 const providers: IntegrationProviderSummary[] = [
   { id: 'google-calendar', name: 'Google Calendar', family: 'calendar', state: 'connected' },
@@ -63,12 +71,14 @@ const providers: IntegrationProviderSummary[] = [
   { id: 'lever', name: 'Lever', family: 'job-board', state: 'degraded' },
   { id: 'workday', name: 'Workday', family: 'hris', state: 'reauth_required' },
   { id: 'indeed', name: 'Indeed', family: 'job-board', state: 'disconnected' },
+  { id: 'codility', name: 'Codility', family: 'assessment', state: 'disconnected' },
   { id: 'custom-provider', name: 'Custom provider', family: 'custom', state: 'unavailable' },
 ];
 
 const stateLabels: Record<IntegrationProviderState, string> = {
   connected: 'Connected',
   disconnected: 'Disconnected',
+  blocked: 'Blocked',
   degraded: 'Degraded',
   reauth_required: 'Reauth required',
   unavailable: 'Unavailable',
@@ -82,6 +92,10 @@ const actionsByState: Record<IntegrationProviderState, IntegrationProviderViewMo
   disconnected: [
     { id: 'connect', label: 'Connect', concern: 'auth' },
     { id: 'configure', label: 'Configure', concern: 'configuration' },
+  ],
+  blocked: [
+    { id: 'configure', label: 'Configure', concern: 'configuration' },
+    { id: 'run_diagnostics', label: 'Run diagnostics', concern: 'diagnostics' },
   ],
   degraded: [
     { id: 'run_diagnostics', label: 'Run diagnostics', concern: 'diagnostics' },
@@ -176,10 +190,27 @@ function buildConfigurationFields(provider: IntegrationProviderSummary): Integra
       { id: 'publishing-eligibility', label: 'Publishing eligibility', value: provider.state === 'disconnected' ? 'Blocked' : 'Eligible', required: true },
     ];
   }
+  if (provider.family === 'ats') {
+    return [
+      { id: 'source-ownership', label: 'Source ownership', value: provider.state === 'connected' ? 'Owned by ATS integration' : 'Needs source owner review', required: true },
+      { id: 'candidate-sync-readiness', label: 'Candidate sync readiness', value: provider.state === 'connected' ? 'Ready' : 'Blocked until connected', required: true },
+      { id: 'job-sync-readiness', label: 'Job sync readiness', value: provider.state === 'connected' ? 'Ready' : 'Mapping required', required: true },
+      { id: 'webhook-presence', label: 'Webhook presence', value: provider.state === 'connected' ? 'Present' : 'Not confirmed', required: true, secret: true },
+      { id: 'duplicate-import-policy', label: 'Duplicate/import policy', value: 'Normalize duplicates before operational import', required: true },
+    ];
+  }
   if (provider.family === 'hris') {
     return [
       { id: 'sync-mapping', label: 'Sync mapping', value: provider.state === 'reauth_required' ? 'Paused until reauthorized' : 'Mapped', required: true },
       { id: 'workflow-readiness', label: 'Workflow readiness', value: provider.state === 'reauth_required' ? 'Blocked' : 'Ready', required: true },
+    ];
+  }
+  if (provider.family === 'assessment') {
+    return [
+      { id: 'template-catalog-readiness', label: 'Template/catalog readiness', value: provider.state === 'connected' ? 'Ready' : 'Template mapping required', required: true },
+      { id: 'candidate-handoff-readiness', label: 'Candidate handoff readiness', value: provider.state === 'connected' ? 'Ready' : 'Blocked until connected', required: true },
+      { id: 'reviewer-scoring-readiness', label: 'Reviewer/scoring callback readiness', value: provider.state === 'connected' ? 'Ready' : 'Callback readiness not confirmed', required: true },
+      { id: 'callback-presence', label: 'Callback presence', value: provider.state === 'connected' ? 'Present' : 'Not confirmed', required: true, secret: true },
     ];
   }
   return [{ id: 'provider-family', label: 'Provider family', value: 'Setup depth is not implemented for this provider family.' }];
@@ -224,23 +255,56 @@ export function buildProviderSetupSections(provider: IntegrationProviderSummary)
   ];
 }
 
+function buildProviderSetupTarget(provider: IntegrationProviderSummary): IntegrationProviderSetupTarget | undefined {
+  if (provider.state === 'connected') return undefined;
+  if (provider.state === 'unavailable') return undefined;
+  return { providerId: provider.id, path: `/integrations/${provider.id}`, label: `Review ${provider.name} setup` };
+}
+
 export function buildProviderReadinessSignals(provider: IntegrationProviderSummary): IntegrationProviderReadinessSignal[] {
+  const setupTarget = buildProviderSetupTarget(provider);
   if (provider.family === 'calendar') {
     const outcome: IntegrationProviderReadinessOutcome =
       provider.state === 'connected' ? 'ready' : provider.state === 'degraded' ? 'degraded' : provider.state === 'unavailable' ? 'unavailable' : 'blocked';
-    return [{ family: 'scheduling', outcome, reason: outcome === 'ready' ? 'calendar booking is available' : 'calendar setup requires attention' }];
+    return [{ family: 'scheduling', providerFamily: provider.family, outcome, reason: outcome === 'ready' ? 'calendar booking is available' : 'calendar setup requires attention', setupTarget }];
   }
   if (provider.family === 'job-board') {
     const outcome: IntegrationProviderReadinessOutcome =
       provider.state === 'connected' ? 'ready' : provider.state === 'degraded' ? 'degraded' : provider.state === 'unavailable' ? 'unavailable' : 'blocked';
-    return [{ family: 'publishing', outcome, reason: outcome === 'ready' ? 'job-board publishing is available' : 'job-board credentials or mapping require attention' }];
+    return [{ family: 'publishing', providerFamily: provider.family, outcome, reason: outcome === 'ready' ? 'job-board publishing is available' : 'job-board credentials or mapping require attention', setupTarget }];
   }
   if (provider.family === 'hris') {
     const outcome: IntegrationProviderReadinessOutcome =
       provider.state === 'connected' ? 'ready' : provider.state === 'degraded' ? 'degraded' : provider.state === 'reauth_required' ? 'blocked' : 'unavailable';
-    return [{ family: 'sync-workflow', outcome, reason: outcome === 'ready' ? 'HRIS sync/workflow is available' : 'HRIS authorization or mapping requires attention' }];
+    return [{ family: 'sync-workflow', providerFamily: provider.family, outcome, reason: outcome === 'ready' ? 'HRIS sync/workflow is available' : 'HRIS authorization or mapping requires attention', setupTarget }];
   }
-  return [{ family: 'sync-workflow', outcome: 'unimplemented', reason: 'provider family setup depth is not implemented' }];
+  if (provider.family === 'ats') {
+    const outcome: IntegrationProviderReadinessOutcome =
+      provider.state === 'connected' ? 'ready' : provider.state === 'degraded' ? 'degraded' : provider.state === 'unavailable' ? 'unavailable' : 'blocked';
+    return [
+      {
+        family: 'ats-sync-import',
+        providerFamily: provider.family,
+        outcome,
+        reason: outcome === 'ready' ? 'ATS sync/import handoff is available' : 'ATS source ownership, mapping, webhook, or authorization requires attention',
+        setupTarget,
+      },
+    ];
+  }
+  if (provider.family === 'assessment') {
+    const outcome: IntegrationProviderReadinessOutcome =
+      provider.state === 'connected' ? 'ready' : provider.state === 'degraded' ? 'degraded' : provider.state === 'unavailable' ? 'unavailable' : 'blocked';
+    return [
+      {
+        family: 'assessment-review-scoring',
+        providerFamily: provider.family,
+        outcome,
+        reason: outcome === 'ready' ? 'Assessment review/scoring handoff is available' : 'Assessment template, handoff, callback, or authorization requires attention',
+        setupTarget,
+      },
+    ];
+  }
+  return [{ family: 'sync-workflow', providerFamily: provider.family, outcome: 'unimplemented', reason: 'provider family setup depth is not implemented' }];
 }
 
 export function listIntegrationProviders(): IntegrationProviderViewModel[] {

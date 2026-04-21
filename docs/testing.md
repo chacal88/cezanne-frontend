@@ -331,3 +331,53 @@ Validation covers:
 - separation between authenticated provider setup capabilities and unsigned token-entry capability assumptions;
 - safe telemetry payloads for configuration, auth, and diagnostics events that exclude credentials, tokens, secrets, raw logs, signed URLs, and tenant-sensitive identifiers;
 - route metadata preserving `/integrations/:id` direct entry and `/integrations` parent return while leaving public/token `/integration/*` route metadata unchanged.
+
+## Provider readiness operational gates validation baseline
+
+`provider-readiness-operational-gates` requires focused validation for:
+
+- shared gate mapping for `ready`, `blocked`, `degraded`, `unavailable`, and `unimplemented` outcomes;
+- mutation/submit actions not proceeding for `blocked`, `degraded`, `unavailable`, or `unimplemented` outcomes;
+- route-local recovery targets for known and unknown provider setup targets;
+- safe `provider_readiness_gate_evaluated` payloads;
+- job-scoped scheduling consuming calendar readiness while preserving job parent return;
+- candidate-scoped scheduling consuming calendar readiness while preserving candidate direct entry and parent return;
+- job authoring/publishing-adjacent helpers consuming job-board readiness without changing draft persistence;
+- job listings publish/status helpers consuming job-board readiness without rendering provider setup UI;
+- requisition/workflow helpers consuming HRIS readiness without replacing workflow drift states;
+- public/token `/integration/*` callbacks remaining unchanged.
+
+## Integration operational-depth validation baseline
+
+The operational-depth sequence is synchronized in `integration-operational-depth-sequence-plan.md`; all eight packages are implemented and validated.
+
+Validation must cover:
+- `calendar-scheduling-operational-depth`: scheduling states, slot/draft helpers, conflict/retry/submit outcomes, parent refresh, readiness-gate consumption, safe telemetry payloads, and public/external route separation.
+- `job-board-publishing-operational-depth`: publish/unpublish lifecycle, partial outcomes, draft/publish separation, job-listings continuity, public shared-job separation, and safe telemetry.
+- `hris-requisition-operational-depth`: HRIS states, mapping drift, workflow drift separation, sync retry, requisition/workflow route continuity, and safe telemetry.
+- `messaging-communication-operational-depth`: inbox URL selection, typed notification destination resolution, candidate conversation handoff, send/retry/stale refresh, external chat separation, and safe telemetry.
+- `contract-signing-operational-depth`: contract states, document/signing separation, job/candidate parent refresh, downstream signer separation, retry/status-stale behavior, and safe telemetry.
+- `ats-assessment-provider-setup-depth`: ATS and assessment provider configuration/auth/diagnostics/readiness setup depth, unsupported-family behavior, and provider setup safety boundaries.
+- `survey-review-scoring-operational-depth`: schema/template readiness, candidate parent refresh, public token route separation, retry/read-only terminal behavior, scoring refresh, provider setup separation, and safe telemetry.
+- `ats-candidate-source-operational-depth`: ATS source/sync states, import and duplicate outcomes, candidate database list-state preservation, candidate detail refresh intent, jobs status-only behavior, provider setup separation, and safe telemetry.
+
+The synchronized validation gate is `openspec validate --all --strict`; implementation validation also requires focused Vitest coverage, `npm test`, and `npm run build` for each applied package.
+
+### Job-board publishing operational depth validation
+
+`job-board-publishing-operational-depth` validation covers shared lifecycle states, target/status normalization, publish/unpublish results, partial outcomes, public-reflection intent, safe telemetry payloads, Job Authoring draft/publish separation, Job Listings list/editor continuity, provider setup separation, and unchanged public/token `/integration/*` plus `/shared/:jobOrRole/:token/:source` routing.
+
+## HRIS requisition operational depth implementation note
+
+`hris-requisition-operational-depth` is implemented as the HRIS-specific follow-on to provider readiness gates. It scopes `/build-requisition` and `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` as Jobs-side consumers and `/requisition-workflows` as a Settings-side administration consumer. The model covers ready, mapping-required, mapping-drift, sync-pending, sync-degraded, sync-failed, retrying, synced, auth-required, provider-blocked, unavailable, and unimplemented outcomes without exposing raw HRIS mappings, OAuth payloads, provider diagnostics, or tenant-sensitive data.
+
+Mapping drift and workflow drift remain separate: HRIS mapping remediation points to HRIS/workflow administration, while existing requisition workflow drift remains authoritative for removed stages, changed required fields, reassigned approvals, and stale workflow route repair. Public/token `/job-requisition-approval`, `/job-requisition-forms`, and `/integration/*` routes remain unchanged.
+
+## Contract signing operational validation
+
+Contract signing operational-depth validation covers shared signing states, prerequisite helpers, send/retry/status-refresh outcomes, parent-refresh intent, safe telemetry payloads, candidate summaries, candidate launchers, job overlays, downstream signer separation, and unchanged standalone signer/public token behavior.
+
+
+## ATS and assessment provider setup validation baseline
+
+`ats-assessment-provider-setup-depth` validation covers ATS and assessment setup sections, auth lifecycle, diagnostics summaries, normalized readiness signals, safe telemetry payloads, unchanged calendar/job-board/HRIS behavior, custom-provider unavailable/unimplemented behavior, and public route separation for `/surveys/*`, `/review-candidate/*`, `/interview-feedback/*`, and `/integration/*` routes.

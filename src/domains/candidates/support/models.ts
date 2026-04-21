@@ -1,3 +1,8 @@
+import type { OperationalReadinessGateResult } from '../../integrations/support';
+import type { CalendarSchedulingState } from '../../scheduling/support';
+import type { ContractSigningState } from '../../contracts/signing';
+import type { SurveyReviewScoringState } from '../surveys-custom-fields/support';
+import type { AtsCandidateSourceOperationalState } from '../../integrations/support';
 export type CandidateRouteEntryMode = 'direct' | 'job' | 'notification' | 'database';
 export type CandidateActionKind = 'schedule' | 'offer' | 'reject';
 export type CandidateDegradedSection = 'documents' | 'contracts' | 'surveys' | 'custom-fields' | 'collaboration' | 'feedback';
@@ -29,6 +34,10 @@ export type CandidateActionContext = CandidateContextSegments & {
   returnTarget: string;
   recoveryTarget: string;
   capabilityKey: 'canScheduleInterviewFromCandidate' | 'canCreateOfferFromCandidate' | 'canRejectCandidate';
+  readinessGate?: OperationalReadinessGateResult;
+  schedulingState?: CalendarSchedulingState;
+  contractSigningState?: ContractSigningState;
+  surveyReviewScoringState?: SurveyReviewScoringState;
 };
 
 export type CandidateDetailView = {
@@ -74,6 +83,9 @@ export type CandidateDetailView = {
   contractsSummary: {
     status: string;
     count: number;
+    document: import('../../contracts/signing').ContractDocumentMetadata;
+    signingState: ContractSigningState;
+    refreshRequired: boolean;
   };
   interviewsSummary: {
     status: string;
@@ -95,4 +107,5 @@ export type CandidateDetailView = {
     upload: boolean;
   };
   degradedSections: CandidateDegradedSection[];
+  atsSourceStatus?: AtsCandidateSourceOperationalState;
 };

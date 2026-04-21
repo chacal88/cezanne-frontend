@@ -30,6 +30,8 @@ export function JobListingsSettingsPage({ routeState }: { routeState: JobListing
         <dd data-testid="job-listings-brand">{view.brand ?? '—'}</dd>
         <dt>Readiness</dt>
         <dd data-testid="job-listings-readiness">{decision.readiness}</dd>
+        <dt>Publishing state</dt>
+        <dd data-testid="job-listings-publishing-state">{view.publishingStatus.state}</dd>
       </dl>
       <a
         href={buildJobListingEditorPath({ mode: 'create', brand: routeState.brand, returnTab: routeState.tab })}
@@ -41,6 +43,7 @@ export function JobListingsSettingsPage({ routeState }: { routeState: JobListing
         {view.items.map((item) => (
           <li key={item.uuid}>
             <span data-testid={`job-listing-title-${item.uuid}`}>{item.title}</span>{' '}
+            <span data-testid={`job-listing-publishing-state-${item.uuid}`}>{item.publishingStatus?.state}</span>{' '}
             <a
               href={buildJobListingEditorPath({ mode: 'edit', uuid: item.uuid, brand: routeState.brand ?? item.brand, returnTab: routeState.tab })}
               data-testid={`job-listings-edit-link-${item.uuid}`}

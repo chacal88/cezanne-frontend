@@ -557,3 +557,47 @@ The R4 integrations setup baseline includes an internal admin shell for `/integr
 ## Provider-specific integrations depth implementation note
 
 `provider-specific-integrations-depth` is implemented as a post-R5 follow-on in `recruit-frontend`. It deepens the authenticated `/integrations/:id` provider detail route for the first provider families (`calendar`, `job-board`, and `hris`) while keeping public/token `/integration/*` callback routes unchanged.
+
+## Provider readiness operational gates implementation note
+
+`provider-readiness-operational-gates` is implemented and archived as the post-provider-depth gate baseline. It does not add provider setup UI and does not change public/token `/integration/*` callbacks. It makes the first operational consumers use normalized provider readiness signals:
+
+- calendar readiness gates job-scoped and candidate-scoped scheduling actions;
+- job-board readiness gates publishing-adjacent job authoring and job listings publish/status actions;
+- HRIS readiness gates requisition authoring and workflow-adjacent actions.
+
+Operational routes remain route-local on blocked, degraded, unavailable, and unimplemented outcomes. Mutation/submit actions proceed only when readiness is `ready`; degraded states can be shown on status-only surfaces but must not imply the action can succeed.
+
+All eight follow-on changes now deepen the operational models behind those gates and provider setup expansion without changing public/token route ownership. The full synchronized sequence is documented in `integration-operational-depth-sequence-plan.md`:
+- `calendar-scheduling-operational-depth` (authenticated job/candidate scheduling states, conflict/retry, submitted parent-refresh intent, safe telemetry, and public/external route separation);
+- `job-board-publishing-operational-depth`;
+- `hris-requisition-operational-depth`;
+- `messaging-communication-operational-depth`;
+- `contract-signing-operational-depth`;
+- `ats-assessment-provider-setup-depth`;
+- `survey-review-scoring-operational-depth`;
+- `ats-candidate-source-operational-depth`.
+
+## HRIS requisition operational depth implementation note
+
+`hris-requisition-operational-depth` is implemented as the HRIS-specific follow-on to provider readiness gates. It scopes `/build-requisition` and `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` as Jobs-side consumers and `/requisition-workflows` as a Settings-side administration consumer. The model covers ready, mapping-required, mapping-drift, sync-pending, sync-degraded, sync-failed, retrying, synced, auth-required, provider-blocked, unavailable, and unimplemented outcomes without exposing raw HRIS mappings, OAuth payloads, provider diagnostics, or tenant-sensitive data.
+
+Mapping drift and workflow drift remain separate: HRIS mapping remediation points to HRIS/workflow administration, while existing requisition workflow drift remains authoritative for removed stages, changed required fields, reassigned approvals, and stale workflow route repair. Public/token `/job-requisition-approval`, `/job-requisition-forms`, and `/integration/*` routes remain unchanged.
+
+## Contract signing operational depth implementation note
+
+`contract-signing-operational-depth` is implemented as a recruiter-side operational-depth package for candidate contract summaries plus candidate/job offer-adjacent launchers. It models signing states, explicit status refresh, downstream signer handoff, and document/signing separation without changing standalone `e-signer` or public/token `/integration/*` behavior.
+
+
+## ATS and assessment provider setup depth implementation note
+
+`ats-assessment-provider-setup-depth` is implemented as a post-R5 provider setup expansion. The authenticated integrations detail route now covers ATS and assessment setup sections, auth lifecycle, diagnostics, normalized readiness signals, and safe telemetry while keeping custom provider setup deferred and public/token routes unchanged.
+
+
+## Survey review scoring operational depth implementation note
+
+`survey-review-scoring-operational-depth` is implemented as the survey/review/scoring operational consumer package for candidate review launchers and public/external review, feedback, and survey routes. It preserves public/token boundaries while covering schema/template readiness, submit/retry, read-only terminal behavior, scoring refresh, parent-refresh intent, safe telemetry, and unchanged `/integration/*` behavior.
+
+## ATS candidate source operational depth implementation note
+
+`ats-candidate-source-operational-depth` is implemented as the ATS source/import/sync operational consumer package for candidate database, candidate detail, jobs list, and job authoring status-only surfaces. It preserves candidate/job route state and draft behavior while covering source identity, import/sync, duplicate outcomes, stale-source refresh, provider setup separation, safe telemetry, and unchanged public/token `/integration/*` behavior.

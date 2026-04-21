@@ -1,16 +1,26 @@
+import { buildAtsCandidateSourceState, buildOperationalGateInput, evaluateOperationalReadinessGate, resolveAtsSyncImportOutcome } from '../../integrations/support';
+import type { IntegrationProviderReadinessSignal } from '../../integrations/support';
 import type {
   JobAuthoringDraft,
   JobAuthoringSerializedDraft,
+  JobAuthoringPublishingView,
   JobHubSection,
   JobHubViewModel,
   JobsListState,
   JobsListViewModel,
 } from './models';
+import { buildJobBoardPublishingStatus, normalizeJobBoardPublishTarget } from './publishing';
 
-export function buildJobsListViewModel(state: JobsListState, canCreateJob: boolean): JobsListViewModel {
+export function buildJobsListViewModel(state: JobsListState, canCreateJob: boolean, atsInput: { readinessGate?: ReturnType<typeof buildJobPublishingReadiness>; syncStatus?: 'idle' | 'pending' | 'failed' | 'degraded'; stale?: boolean } = {}): JobsListViewModel {
   return {
     ...state,
     createPath: canCreateJob ? '/jobs/manage' : null,
+    atsStatus: buildAtsCandidateSourceState({
+      routeFamily: 'jobs-list',
+      gate: atsInput.readinessGate,
+      sourceState: atsInput.stale ? 'stale' : undefined,
+      syncImportOutcome: resolveAtsSyncImportOutcome({ kind: 'sync', status: atsInput.syncStatus }),
+    }),
   };
 }
 
@@ -43,5 +53,39 @@ export function serializeJobAuthoringDraft(draft: JobAuthoringDraft): JobAuthori
     sectorCodes: draft.sectors,
     assignments: draft.assigneeIds.map((userId) => ({ userId })),
     favoriteFlow: draft.favoritesEnabled ? 'enabled' : 'disabled',
+  };
+}
+
+
+export function buildJobPublishingReadiness(signal: IntegrationProviderReadinessSignal) {
+  return evaluateOperationalReadinessGate(buildOperationalGateInput(signal, 'job-publishing'));
+}
+
+export function buildJobAuthoringPublishingView(input: {
+  draft: JobAuthoringDraft;
+  readinessGate?: ReturnType<typeof buildJobPublishingReadiness>;
+  atsReadinessGate?: ReturnType<typeof buildJobPublishingReadiness>;
+  atsSyncStatus?: 'idle' | 'pending' | 'failed' | 'degraded';
+  atsStale?: boolean;
+}): JobAuthoringPublishingView {
+  const target = normalizeJobBoardPublishTarget({
+    routeFamily: 'job-authoring',
+    targetType: 'job',
+    hasExistingTarget: Boolean(input.draft.id),
+  });
+  const status = buildJobBoardPublishingStatus({ readinessGate: input.readinessGate });
+
+  return {
+    draftId: input.draft.id,
+    canSaveDraft: true,
+    canPublish: status.canProceed,
+    target,
+    status,
+    atsStatus: buildAtsCandidateSourceState({
+      routeFamily: 'job-authoring',
+      gate: input.atsReadinessGate,
+      sourceState: input.atsStale ? 'stale' : undefined,
+      syncImportOutcome: resolveAtsSyncImportOutcome({ kind: 'sync', status: input.atsSyncStatus }),
+    }),
   };
 }

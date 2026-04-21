@@ -1,3 +1,4 @@
+import type { JobBoardPublishingStatus, JobBoardPublishingTarget } from '../../../jobs/support/publishing';
 export const applicationSections = ['intro', 'questions', 'consent'] as const;
 export const applicationSubsections = ['header', 'fields', 'privacy'] as const;
 export const jobListingsTabs = ['draft', 'published', 'archived'] as const;
@@ -64,11 +65,14 @@ export type JobListingSummary = {
   brand: string;
   status: JobListingsTab;
   publishReady: boolean;
+  publishingStatus?: JobBoardPublishingStatus;
 };
 
 export type JobListingsListView = {
   selectedTab: JobListingsTab;
   brand?: string;
+  publishingTarget: JobBoardPublishingTarget;
+  publishingStatus: JobBoardPublishingStatus;
   items: JobListingSummary[];
 };
 

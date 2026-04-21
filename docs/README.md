@@ -37,12 +37,33 @@ Confirmed:
   - `r4-integrations-open-points.md`
   - `r4-reports-open-points.md`
   - `r4-billing-marketplace-open-points.md`
-- **R5 planning is active** and now consumes the R4 closeout boundary for org/platform users, favorites, settings leftovers, and conditional token leftovers:
+- **R5 is closed in code/docs** and its planning/closeout records remain in:
   - `r5-decision-register.md`
   - `r5-master-plan.md`
   - `r5-sysadmin-open-points.md`
   - `r5-requisition-authoring-open-points.md`
   - `r5-settings-and-token-open-points.md`
+- post-R5 provider setup and operational readiness now have completed baselines:
+  - `provider-specific-integrations-depth-plan.md`
+  - `provider-readiness-operational-gates-plan.md`
+  - `calendar-scheduling-operational-depth-plan.md`
+  - `job-board-publishing-operational-depth-plan.md`
+  - `hris-requisition-operational-depth-plan.md`
+  - `messaging-communication-operational-depth-plan.md`
+  - `contract-signing-operational-depth-plan.md`
+  - `ats-assessment-provider-setup-depth-plan.md`
+  - `survey-review-scoring-operational-depth-plan.md`
+  - `ats-candidate-source-operational-depth-plan.md`
+- all eight post-gate operational-depth/provider-setup changes are implemented and validated:
+  - `calendar-scheduling-operational-depth`
+  - `job-board-publishing-operational-depth`
+  - `hris-requisition-operational-depth`
+  - `messaging-communication-operational-depth`
+  - `contract-signing-operational-depth`
+  - `ats-assessment-provider-setup-depth`
+  - `survey-review-scoring-operational-depth`
+  - `ats-candidate-source-operational-depth`
+- the full sequence is synchronized in `integration-operational-depth-sequence-plan.md`
 
 ## Recommended reading order
 
@@ -92,6 +113,14 @@ Confirmed:
 33. `r5-requisition-authoring-open-points.md` — requisition authoring and hiring-flow workflow boundary decisions
 34. `r5-settings-and-token-open-points.md` — settings leftovers, public/token leftovers, and integration token reconciliation decisions
 35. `provider-specific-integrations-depth-plan.md` — post-R5 provider-specific integrations setup depth plan
+36. `provider-readiness-operational-gates-plan.md` — completed operational gate baseline
+37. `calendar-scheduling-operational-depth-plan.md` — completed calendar scheduling operational-depth baseline
+38. `job-board-publishing-operational-depth-plan.md` — completed job-board publishing operational-depth baseline
+39. `hris-requisition-operational-depth-plan.md` — completed HRIS requisition operational-depth baseline
+40. `messaging-communication-operational-depth-plan.md` — completed messaging communication operational-depth baseline
+41. `integration-operational-depth-sequence-plan.md` — synchronized operational-depth implementation sequence
+42. `survey-review-scoring-operational-depth-plan.md` — completed survey/review/scoring operational-depth baseline
+43. `ats-candidate-source-operational-depth-plan.md` — completed ATS candidate source operational-depth baseline
 
 ## Package roles
 
@@ -128,6 +157,16 @@ Confirmed:
 | `r5-requisition-authoring-open-points.md` | records requisition authoring and hiring-flow workflow open decisions before R5 implementation starts |
 | `r5-settings-and-token-open-points.md` | records settings leftovers, public/token leftovers, and integration token reconciliation decisions before R5 implementation starts |
 | `provider-specific-integrations-depth-plan.md` | records the next authenticated integrations setup-depth package after R4/R5 closeout |
+| `provider-readiness-operational-gates-plan.md` | defines the operational follow-up that consumes provider readiness in scheduling, publishing, and HRIS workflow routes |
+| `calendar-scheduling-operational-depth-plan.md` | defines the scoped authenticated job/candidate scheduling lifecycle, conflict/retry, submitted parent-refresh intent, and safety boundaries |
+| `job-board-publishing-operational-depth-plan.md` | defines the scoped Job Authoring and Job Listings publishing lifecycle, retry, partial outcome, public-reflection intent, and safety boundaries |
+| `hris-requisition-operational-depth-plan.md` | defines the scoped HRIS requisition sync, mapping drift, workflow drift separation, route ownership, and safety boundaries |
+| `messaging-communication-operational-depth-plan.md` | defines the scoped authenticated inbox, notification entry, candidate handoff, send/retry/stale refresh, and external chat separation boundaries |
+| `contract-signing-operational-depth-plan.md` | scopes authenticated candidate/job contract signing states, downstream signer separation, and parent refresh intent |
+| `ats-assessment-provider-setup-depth-plan.md` | records the implemented ATS and assessment authenticated provider setup expansion while keeping custom provider setup deferred |
+| `survey-review-scoring-operational-depth-plan.md` | defines the scoped survey/review/scoring readiness, submit/retry, terminal read-only, scoring refresh, public-boundary, and telemetry baseline |
+| `ats-candidate-source-operational-depth-plan.md` | defines the scoped ATS source identity, import/sync, duplicate, stale-source, jobs status-only, and telemetry baseline |
+| `integration-operational-depth-sequence-plan.md` | synchronizes all post-gate operational-depth changes, flow boundaries, validation rules, and sequencing |
 
 ## Source relationship
 

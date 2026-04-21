@@ -130,7 +130,7 @@ Synthesized from:
 |---|---|---|---|---|
 | `provider-index` | Route-owning | integrations list | `canViewIntegrations` | R4 |
 | `provider-detail` | Route-owning | provider setup/detail/validation plus provider-specific configuration/auth/diagnostics depth for scoped provider families | `canManageIntegrationProvider` | R4 + post-R5 follow-on |
-| `provider-family-support` | Support | calendar, job-board, and HRIS configuration schemas, auth lifecycle states, diagnostics summaries, safe log/readiness models | `canManageIntegrationProvider` | post-R5 follow-on |
+| `provider-family-support` | Support | calendar, job-board, HRIS, ATS, and assessment configuration schemas, auth lifecycle states, diagnostics summaries, safe log/readiness models; custom remains unavailable/unimplemented | `canManageIntegrationProvider` | post-R5 follow-on |
 | `token-entry` | Route-owning | `/integration/cv`, `/integration/forms`, `/integration/job` | `canUseIntegrationTokenEntry` | R3 |
 
 ### `reports`
@@ -216,3 +216,51 @@ The team/users foundation now has a source-level route-owning module boundary: o
 ## Provider-specific integrations depth implementation note
 
 The `integrations.provider-detail` and `integrations.provider-family-support` modules now include family-aware configuration, auth lifecycle, diagnostics, safe telemetry helpers, and normalized readiness signals for scheduling, publishing, and HRIS sync/workflow consumers. `integrations.token-entry` remains separate and unchanged.
+
+## Provider readiness operational gates module note
+
+`provider-readiness-operational-gates` adds a shared operational gate support contract consumed by existing modules instead of creating a new route-owning domain.
+
+Consumers:
+- `jobs.task-overlays` consumes calendar scheduling readiness for job-scoped schedule actions.
+- `candidates.action-launchers` consumes calendar scheduling readiness for candidate-scoped schedule actions.
+- `jobs.authoring` consumes job-board publishing readiness without changing draft persistence.
+- `settings.job-listings` consumes job-board publishing readiness without rendering provider setup UI.
+- `jobs.workflow-state` consumes HRIS sync/workflow readiness without replacing workflow drift states.
+
+The source of truth for provider setup remains `integrations.provider-detail` and `integrations.provider-family-support`.
+
+## Integration operational-depth module synchronization
+
+The post-gate operational-depth sequence is synchronized in `integration-operational-depth-sequence-plan.md`; all eight packages are implemented and validated.
+
+Module ownership by package:
+- `calendar-scheduling-operational-depth` deepens `jobs.task-overlays` and `candidates.action-launchers` scheduling helpers after readiness gates with shared route-local states for loading, ready, validation-error, slot-unavailable, conflict, submitting, submitted, submit-failed, provider-blocked, degraded, and unavailable outcomes.
+- `job-board-publishing-operational-depth` deepens `jobs.authoring` and `settings.job-listings` publishing/status helpers while keeping draft persistence separate.
+- `hris-requisition-operational-depth` deepens requisition authoring and workflow-state helpers while keeping HRIS setup outside Jobs/Requisition modules.
+- `messaging-communication-operational-depth` deepens `inbox.conversation-list`, `inbox.conversation-entry`, `shell.notifications`, and `candidates.communication-collaboration` without changing external token chat.
+- `contract-signing-operational-depth` deepens `candidates.documents-contracts`, candidate offer/contract launchers, and job offer/contract overlays while keeping signer-facing UI downstream-owned.
+- `ats-assessment-provider-setup-depth` deepens authenticated integrations provider setup for ATS and assessment families.
+- `survey-review-scoring-operational-depth` deepens `candidates.surveys-custom-fields`, candidate review launchers, public survey, external review, external interview feedback, and template/scoring readiness consumers.
+- `ats-candidate-source-operational-depth` deepens candidate database, candidate detail, jobs list, and job authoring status-only ATS source/sync helpers.
+
+All packages must preserve domain isolation: operational modules consume normalized readiness/status contracts and must not import raw provider setup, credentials, diagnostics logs, callback payloads, message bodies, contract documents, survey answers, scoring rubrics, or ATS records.
+
+### Job-board publishing operational depth
+
+`job-board-publishing-operational-depth` is implemented as a shared support contract consumed by `jobs.authoring` and `settings.job-listings`. It adds deterministic publish/unpublish states, partial outcomes, retry guidance, safe publishing telemetry, and public-reflection intent while keeping draft persistence, provider setup, and public/token routes separate.
+
+## HRIS requisition operational depth implementation note
+
+`hris-requisition-operational-depth` is implemented as the HRIS-specific follow-on to provider readiness gates. It scopes `/build-requisition` and `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` as Jobs-side consumers and `/requisition-workflows` as a Settings-side administration consumer. The model covers ready, mapping-required, mapping-drift, sync-pending, sync-degraded, sync-failed, retrying, synced, auth-required, provider-blocked, unavailable, and unimplemented outcomes without exposing raw HRIS mappings, OAuth payloads, provider diagnostics, or tenant-sensitive data.
+
+Mapping drift and workflow drift remain separate: HRIS mapping remediation points to HRIS/workflow administration, while existing requisition workflow drift remains authoritative for removed stages, changed required fields, reassigned approvals, and stale workflow route repair. Public/token `/job-requisition-approval`, `/job-requisition-forms`, and `/integration/*` routes remain unchanged.
+
+## Contract signing operational depth alignment
+
+Candidate documents/contracts, candidate action launchers, and job task overlays consume the shared contract signing operational model. The module boundary keeps document metadata, signing status, downstream signer handoff, and parent refresh intent explicit and separate.
+
+
+## ATS and assessment provider setup module note
+
+The `integrations.provider-detail` module includes ATS and assessment provider-family setup depth. It owns normalized configuration/auth/diagnostics/readiness models for these families, while ATS source/import operations and survey/review/scoring execution remain in later operational modules.
