@@ -9,6 +9,7 @@ export function PublicSurveyPage({ surveyuuid, jobuuid, cvuuid }: { surveyuuid: 
   const view = buildPublicSurveyViewModel({ surveyuuid, jobuuid, cvuuid });
   const [answer, setAnswer] = useState(view.savedAnswer);
   const [error, setError] = useState<string | null>(null);
+  const [completion, setCompletion] = useState(view.completion);
 
   useEffect(() => {
     setActiveCorrelationId(createCorrelationId());
@@ -68,14 +69,14 @@ export function PublicSurveyPage({ surveyuuid, jobuuid, cvuuid }: { surveyuuid: 
       name: 'public_survey_submit_completed',
       data: { surveyuuid, operationalState: completedState.kind, correlationId: ensureCorrelationId() },
     });
-    window.location.reload();
+    setCompletion(result.completion);
   }
 
-  if (view.completion) {
+  if (completion) {
     return (
       <section style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 20 }}>
         <h1>Survey complete</h1>
-        <p data-testid="public-survey-completion">{view.completion.message}</p>
+        <p data-testid="public-survey-completion">{completion.message}</p>
         <p data-testid="public-survey-completion-state">{view.operationalState.kind}</p>
       </section>
     );

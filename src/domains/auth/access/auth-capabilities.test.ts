@@ -21,10 +21,10 @@ describe('auth route capability boundaries', () => {
   });
 
   it('does not alter non-auth public token route contracts', () => {
-    expect(matchRouteMetadata('/integration/cv/valid-token')?.metadata).toMatchObject({ routeClass: 'Public/Token', domain: 'integrations', module: 'token-entry' });
-    expect(matchRouteMetadata('/chat/valid-chat-token/alex')?.metadata).toMatchObject({ routeClass: 'Public/Token', domain: 'public-external', module: 'external-chat' });
-    expect(matchRouteMetadata('/surveys/survey/job/cv')?.metadata).toMatchObject({ routeClass: 'Public/Token', module: 'public-survey' });
-    expect(matchRouteMetadata('/review-candidate/review-code')?.metadata).toMatchObject({ routeClass: 'Public/Token', module: 'external-review' });
-    expect(matchRouteMetadata('/interview-feedback/feedback-code')?.metadata).toMatchObject({ routeClass: 'Public/Token', module: 'external-review' });
+    expect(matchRouteMetadata('/integration/cv/valid-token')?.metadata).toMatchObject({ routeClass: 'Public/Token', domain: 'integrations', module: 'token-entry', requiredCapability: 'canUseIntegrationTokenEntry', implementationState: 'implemented' });
+    expect(matchRouteMetadata('/chat/valid-chat-token/alex')?.metadata).toMatchObject({ routeClass: 'Public/Token', domain: 'public-external', module: 'external-chat', requiredCapability: 'canUseExternalTokenizedChat', implementationState: 'implemented' });
+    expect(matchRouteMetadata('/surveys/survey/job/cv')?.metadata).toMatchObject({ routeClass: 'Public/Token', module: 'public-survey', requiredCapability: 'canCompletePublicSurvey', implementationState: 'implemented' });
+    expect(matchRouteMetadata('/review-candidate/review-code')?.metadata).toMatchObject({ routeClass: 'Public/Token', module: 'external-review', requiredCapability: 'canUseExternalReviewFlow', implementationState: 'implemented' });
+    expect(matchRouteMetadata('/interview-feedback/feedback-code')?.metadata).toMatchObject({ routeClass: 'Public/Token', module: 'external-review', requiredCapability: 'canUseExternalReviewFlow', implementationState: 'implemented' });
   });
 });

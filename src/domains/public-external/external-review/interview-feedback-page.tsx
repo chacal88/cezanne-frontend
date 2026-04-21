@@ -9,6 +9,7 @@ export function InterviewFeedbackPage({ code }: { code: string }) {
   const view = buildInterviewFeedbackViewModel({ code });
   const [draft, setDraft] = useState<ExternalReviewDraft>(view.defaults);
   const [error, setError] = useState<string | null>(null);
+  const [completion, setCompletion] = useState(view.completion);
 
   useEffect(() => {
     setActiveCorrelationId(createCorrelationId());
@@ -73,18 +74,18 @@ export function InterviewFeedbackPage({ code }: { code: string }) {
       name: 'external_interview_feedback_submission_completed',
       data: { outcome: result.completion.kind, operationalState: completedState.kind, correlationId: ensureCorrelationId() },
     });
-    window.location.reload();
+    setCompletion(result.completion);
   }
 
-  if (view.completion) {
+  if (completion) {
     observability.telemetry.track({
       name: 'external_interview_feedback_terminal_viewed',
-      data: { outcome: view.completion.kind, operationalState: view.operationalState.kind, correlationId: ensureCorrelationId() },
+      data: { outcome: completion.kind, operationalState: view.operationalState.kind, correlationId: ensureCorrelationId() },
     });
     return (
       <section style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 20, display: 'grid', gap: 12 }}>
         <h1>Interview feedback submitted</h1>
-        <p data-testid="interview-feedback-completion">{view.completion.message}</p>
+        <p data-testid="interview-feedback-completion">{completion.message}</p>
         <p data-testid="interview-feedback-completion-state">{view.operationalState.kind}</p>
       </section>
     );

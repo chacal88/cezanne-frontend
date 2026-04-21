@@ -12,6 +12,7 @@ describe('shell navigation depth state', () => {
     expect(org.accountEntries.find((entry) => entry.id === 'hiring-company-profile')?.state).toBe('available');
     expect(org.accountEntries.find((entry) => entry.id === 'company-settings')?.state).toBe('available');
     expect(org.accountEntries.find((entry) => entry.id === 'recruitment-agency-profile')).toBeUndefined();
+    expect(org.hiddenTargets).toEqual(expect.arrayContaining(['/candidates-database', '/settings/forms-docs']));
 
     const platform = buildShellNavigationState({ accessContext: platformContext, capabilities: evaluateCapabilities(platformContext), pathname: '/hiring-companies' });
     expect(platform.mode).toBe('platform');

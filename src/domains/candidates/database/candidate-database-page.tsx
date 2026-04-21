@@ -1,7 +1,7 @@
 import { useLocation, Navigate } from '@tanstack/react-router';
 import { buildCandidateDatabaseDetailPath, candidateDatabaseCanonicalPath, parseCandidateDatabaseSearchFromUrl } from '../support/candidate-database-routing';
 import { buildCandidateDatabaseAtsRow } from '../support/ats-operational-adapters';
-import { resolveCandidateDatabaseProductState } from '../support/product-depth';
+import { resolveCandidateDatabaseAdvancedSearchState, resolveCandidateDatabaseBulkActionState, resolveCandidateDatabaseProductState } from '../support/product-depth';
 
 export function CandidateDatabasePage() {
   const location = useLocation();
@@ -17,6 +17,18 @@ export function CandidateDatabasePage() {
     stale: state.tags.includes('stale'),
     degraded: state.tags.includes('degraded'),
     retryable: state.tags.includes('retry'),
+  });
+  const advancedSearchState = resolveCandidateDatabaseAdvancedSearchState({
+    advancedMode: state.advancedMode,
+    queryState: state.advancedQueryState,
+    advancedQueryId: state.advancedQueryId,
+  });
+  const bulkActionState = resolveCandidateDatabaseBulkActionState({
+    selectedCount: state.tags.includes('bulk') ? 2 : 0,
+    eligibleCount: state.tags.includes('bulk-partial') ? 1 : state.tags.includes('bulk') ? 2 : 0,
+    failed: state.tags.includes('bulk-failed'),
+    retryable: state.tags.includes('bulk-retry'),
+    blocked: state.tags.includes('bulk-blocked'),
   });
   const detailPath = buildCandidateDatabaseDetailPath('candidate-123', state);
   const atsRow = buildCandidateDatabaseAtsRow({
@@ -38,6 +50,10 @@ export function CandidateDatabasePage() {
       <p data-testid="candidate-database-stage">{state.stage ?? '—'}</p>
       <p data-testid="candidate-database-tags">{state.tags.join(',') || '—'}</p>
       <p data-testid="candidate-database-product-state">{productState.kind}</p>
+      <p data-testid="candidate-database-advanced-state">{advancedSearchState.kind}</p>
+      <p data-testid="candidate-database-advanced-query-id">{advancedSearchState.advancedQueryId ?? '—'}</p>
+      <p data-testid="candidate-database-bulk-state">{bulkActionState.kind}</p>
+      <p data-testid="candidate-database-bulk-selection">{bulkActionState.selectedCount}/{bulkActionState.eligibleCount}</p>
       <p data-testid="candidate-database-ats-state">{atsRow.atsState.kind}</p>
       <p data-testid="candidate-database-ats-return">{atsRow.candidatePath}</p>
       {productState.kind === 'empty' ? (

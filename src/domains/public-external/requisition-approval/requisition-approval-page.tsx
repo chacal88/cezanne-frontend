@@ -28,6 +28,15 @@ export function RequisitionApprovalPage({ token }: { token: string }) {
   const [comment, setComment] = useState('');
   const [error, setError] = useState<string | null>(null);
   const view = useMemo(() => buildRequisitionApprovalViewModel({ token }), [token]);
+  const [terminalState, setTerminalState] = useState<{ state: 'approved' | 'rejected'; reason?: string } | null>(
+    view.access.readiness === 'completed' && view.access.terminalState ? { state: view.access.terminalState, reason: view.access.reason } : null,
+  );
+  const [workflowDriftReason, setWorkflowDriftReason] = useState<string | null>(
+    view.access.readiness === 'workflow-drift' ? view.access.reason ?? 'The workflow changed before this route could continue.' : null,
+  );
+  const [tokenOutcome, setTokenOutcome] = useState<{ tokenState: typeof view.access.tokenState; reason?: string } | null>(
+    view.access.readiness === 'token-state' ? { tokenState: view.access.tokenState, reason: view.access.reason } : null,
+  );
 
   useEffect(() => {
     setActiveCorrelationId(createCorrelationId());
@@ -71,7 +80,7 @@ export function RequisitionApprovalPage({ token }: { token: string }) {
         name: 'requisition_approval_workflow_drift',
         data: { decision, correlationId: ensureCorrelationId() },
       });
-      window.location.reload();
+      setWorkflowDriftReason(result.message);
       return;
     }
 
@@ -80,7 +89,7 @@ export function RequisitionApprovalPage({ token }: { token: string }) {
         name: 'requisition_approval_token_state_resolved',
         data: { decision, tokenState: result.tokenState, correlationId: ensureCorrelationId() },
       });
-      window.location.reload();
+      setTokenOutcome({ tokenState: result.tokenState, reason: result.message });
       return;
     }
 
@@ -88,7 +97,19 @@ export function RequisitionApprovalPage({ token }: { token: string }) {
       name: 'requisition_approval_submit_completed',
       data: { decision, terminalState: result.terminalState, correlationId: ensureCorrelationId() },
     });
-    window.location.reload();
+    setTerminalState({ state: result.terminalState });
+  }
+
+  if (terminalState) {
+    return <TerminalOutcome state={terminalState.state} reason={terminalState.reason} />;
+  }
+
+  if (workflowDriftReason) {
+    return <WorkflowDriftPanel reason={workflowDriftReason} />;
+  }
+
+  if (tokenOutcome) {
+    return <PublicTokenStatePanel family="requisition-approval" tokenState={tokenOutcome.tokenState} reason={tokenOutcome.reason} />;
   }
 
   if (view.access.readiness === 'completed' && view.access.terminalState) {

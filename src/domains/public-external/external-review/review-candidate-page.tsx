@@ -9,6 +9,7 @@ export function ReviewCandidatePage({ code }: { code: string }) {
   const view = buildReviewCandidateViewModel({ code });
   const [draft, setDraft] = useState<ExternalReviewDraft>(view.defaults);
   const [error, setError] = useState<string | null>(null);
+  const [completion, setCompletion] = useState(view.completion);
 
   useEffect(() => {
     setActiveCorrelationId(createCorrelationId());
@@ -73,18 +74,18 @@ export function ReviewCandidatePage({ code }: { code: string }) {
       name: 'external_review_candidate_submission_completed',
       data: { outcome: result.completion.kind, operationalState: completedState.kind, correlationId: ensureCorrelationId() },
     });
-    window.location.reload();
+    setCompletion(result.completion);
   }
 
-  if (view.completion) {
+  if (completion) {
     observability.telemetry.track({
       name: 'external_review_candidate_terminal_viewed',
-      data: { outcome: view.completion.kind, operationalState: view.operationalState.kind, correlationId: ensureCorrelationId() },
+      data: { outcome: completion.kind, operationalState: view.operationalState.kind, correlationId: ensureCorrelationId() },
     });
     return (
       <section style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 20, display: 'grid', gap: 12 }}>
         <h1>Candidate review submitted</h1>
-        <p data-testid="review-candidate-completion">{view.completion.message}</p>
+        <p data-testid="review-candidate-completion">{completion.message}</p>
         <p data-testid="review-candidate-completion-state">{view.operationalState.kind}</p>
       </section>
     );

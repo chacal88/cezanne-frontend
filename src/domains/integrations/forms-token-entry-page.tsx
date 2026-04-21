@@ -6,11 +6,13 @@ import { buildIntegrationFormsViewModel, runIntegrationFormsWorkflow } from './s
 
 export function IntegrationFormsTokenEntryPage({ token }: { token: string }) {
   const view = useMemo(() => buildIntegrationFormsViewModel({ token }), [token]);
-  const currentStep = view.steps[view.currentStepIndex];
+  const [currentStepIndex, setCurrentStepIndex] = useState(view.currentStepIndex);
+  const currentStep = view.steps[currentStepIndex];
   const existingAnswer = view.draft.answers.find((answer) => answer.stepId === currentStep?.id);
   const [answer, setAnswer] = useState(existingAnswer?.answer ?? '');
   const [fileName, setFileName] = useState(existingAnswer?.fileName ?? 'document.pdf');
   const [error, setError] = useState<string | null>(null);
+  const [completion, setCompletion] = useState(view.completion);
 
   useEffect(() => {
     setActiveCorrelationId(createCorrelationId());
@@ -40,14 +42,21 @@ export function IntegrationFormsTokenEntryPage({ token }: { token: string }) {
       name: 'integration_forms_submission_completed',
       data: { stepId: currentStep.id, state: result.status, correlationId: ensureCorrelationId() },
     });
-    window.location.reload();
+    if (result.status === 'completed') {
+      setCompletion(result.completion);
+      return;
+    }
+
+    setCurrentStepIndex(result.nextStepIndex);
+    setAnswer('');
+    setFileName('document.pdf');
   }
 
-  if (view.completion) {
+  if (completion) {
     return (
       <section style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 20, display: 'grid', gap: 12 }}>
         <h1>Requested forms/documents complete</h1>
-        <p data-testid="integration-forms-completion">{view.completion.message}</p>
+        <p data-testid="integration-forms-completion">{completion.message}</p>
       </section>
     );
   }
@@ -63,7 +72,7 @@ export function IntegrationFormsTokenEntryPage({ token }: { token: string }) {
       <p data-testid="integration-forms-candidate">{view.candidateName}</p>
       <p data-testid="integration-forms-job">{view.jobTitle}</p>
       <p data-testid="integration-forms-current-step">{currentStep.label}</p>
-      <p data-testid="integration-forms-progress">{view.currentStepIndex + 1}/{view.steps.length}</p>
+      <p data-testid="integration-forms-progress">{currentStepIndex + 1}/{view.steps.length}</p>
       <label>
         Response
         <textarea value={answer} onChange={(event) => setAnswer(event.target.value)} data-testid="integration-forms-answer" />

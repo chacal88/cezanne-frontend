@@ -16,6 +16,9 @@ describe('candidate database routing helpers', () => {
         order: 'asc',
         stage: 'screening',
         tags: 'remote,senior',
+        advanced: 'true',
+        advancedQueryId: 'query-1<script>',
+        advancedQueryState: 'invalid',
       }),
     ).toEqual({
       query: 'product',
@@ -24,6 +27,9 @@ describe('candidate database routing helpers', () => {
       order: 'asc',
       stage: 'screening',
       tags: ['remote', 'senior'],
+      advancedMode: true,
+      advancedQueryId: 'query-1script',
+      advancedQueryState: 'invalid',
     });
   });
 
@@ -35,12 +41,15 @@ describe('candidate database routing helpers', () => {
       order: 'desc',
       stage: undefined,
       tags: ['one', 'two'],
+      advancedMode: false,
+      advancedQueryId: undefined,
+      advancedQueryState: 'valid',
     });
   });
 
   it('builds canonical database paths and database-origin detail handoff URLs', () => {
-    expect(buildCandidateDatabasePath({ query: 'alex', page: 2, sort: 'name', order: 'asc', tags: ['senior'] })).toBe(
-      '/candidates-database?query=alex&page=2&sort=name&order=asc&tags=senior',
+    expect(buildCandidateDatabasePath({ query: 'alex', page: 2, sort: 'name', order: 'asc', tags: ['senior'], advancedMode: true, advancedQueryId: 'query-1', advancedQueryState: 'unsupported' })).toBe(
+      '/candidates-database?query=alex&page=2&sort=name&order=asc&tags=senior&advanced=true&advancedQueryId=query-1&advancedQueryState=unsupported',
     );
 
     expect(buildCandidateDatabaseDetailPath('candidate-123', { query: 'alex', page: 2 })).toBe(

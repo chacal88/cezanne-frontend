@@ -2,6 +2,8 @@ import type { CandidateActionKind, CandidateDegradedSection, CandidateRouteEntry
 
 export type CandidateHubProductStateKind = 'loading' | 'ready' | 'partial-degraded' | 'denied' | 'not-found' | 'stale-context' | 'unavailable';
 export type CandidateDatabaseProductStateKind = 'loading' | 'ready' | 'empty' | 'denied' | 'unavailable' | 'stale' | 'degraded' | 'retryable';
+export type CandidateDatabaseAdvancedSearchStateKind = 'simple' | 'advanced-ready' | 'invalid-query' | 'unsupported-query';
+export type CandidateDatabaseBulkActionStateKind = 'none-selected' | 'eligible' | 'partially-eligible' | 'blocked' | 'submitting' | 'succeeded' | 'failed' | 'retryable';
 export type CandidateSequenceProductStateKind = 'direct' | 'job-context' | 'database-return' | 'notification' | 'stale-ordering' | 'unavailable-sequence';
 export type CandidateActionProductStateKind = 'ready' | 'blocked' | 'saving' | 'submitting' | 'succeeded' | 'failed' | 'retryable' | 'terminal' | 'parent-refresh-required';
 export type CandidateSummaryProductStateKind = 'ready' | 'degraded' | 'stale' | 'unauthorized' | 'unavailable' | 'parent-refresh-required' | 'downstream-owned';
@@ -25,6 +27,27 @@ export function resolveCandidateDatabaseProductState(input: { loading?: boolean;
   if (input.degraded) return { kind: 'degraded' as const };
   if (input.resultCount === 0) return { kind: 'empty' as const };
   return { kind: 'ready' as const, resultCount: input.resultCount };
+}
+
+export function resolveCandidateDatabaseAdvancedSearchState(input: { advancedMode?: boolean; queryState?: 'valid' | 'invalid' | 'unsupported'; advancedQueryId?: string }) {
+  if (!input.advancedMode) return { kind: 'simple' as CandidateDatabaseAdvancedSearchStateKind };
+  if (input.queryState === 'invalid') return { kind: 'invalid-query' as CandidateDatabaseAdvancedSearchStateKind, advancedQueryId: input.advancedQueryId };
+  if (input.queryState === 'unsupported') return { kind: 'unsupported-query' as CandidateDatabaseAdvancedSearchStateKind, advancedQueryId: input.advancedQueryId };
+  return { kind: 'advanced-ready' as CandidateDatabaseAdvancedSearchStateKind, advancedQueryId: input.advancedQueryId };
+}
+
+export function resolveCandidateDatabaseBulkActionState(input: { selectedCount?: number; eligibleCount?: number; submitting?: boolean; succeeded?: boolean; failed?: boolean; retryable?: boolean; blocked?: boolean }) {
+  const selectedCount = input.selectedCount ?? 0;
+  const eligibleCount = input.eligibleCount ?? 0;
+  if (input.submitting) return { kind: 'submitting' as CandidateDatabaseBulkActionStateKind, selectedCount, eligibleCount };
+  if (input.succeeded) return { kind: 'succeeded' as CandidateDatabaseBulkActionStateKind, selectedCount, eligibleCount };
+  if (input.retryable) return { kind: 'retryable' as CandidateDatabaseBulkActionStateKind, selectedCount, eligibleCount };
+  if (input.failed) return { kind: 'failed' as CandidateDatabaseBulkActionStateKind, selectedCount, eligibleCount };
+  if (input.blocked) return { kind: 'blocked' as CandidateDatabaseBulkActionStateKind, selectedCount, eligibleCount };
+  if (selectedCount === 0) return { kind: 'none-selected' as CandidateDatabaseBulkActionStateKind, selectedCount, eligibleCount };
+  if (eligibleCount > 0 && eligibleCount < selectedCount) return { kind: 'partially-eligible' as CandidateDatabaseBulkActionStateKind, selectedCount, eligibleCount };
+  if (eligibleCount === selectedCount) return { kind: 'eligible' as CandidateDatabaseBulkActionStateKind, selectedCount, eligibleCount };
+  return { kind: 'blocked' as CandidateDatabaseBulkActionStateKind, selectedCount, eligibleCount };
 }
 
 export function resolveCandidateSequenceProductState(input: { entryMode: CandidateRouteEntryMode; hasSequence?: boolean; stale?: boolean; databaseReturnTarget?: string }) {

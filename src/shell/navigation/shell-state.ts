@@ -13,7 +13,32 @@ export type ShellNavigationState = {
   accountEntries: Array<{ id: 'user-profile' | 'hiring-company-profile' | 'recruitment-agency-profile' | 'user-settings' | 'company-settings' | 'agency-settings' | 'logout'; target: string; state: ShellAccountEntryState }>;
 };
 
-const orgTargets = ['/dashboard', '/notifications', '/inbox', '/jobs/$scope', '/user-profile', '/settings/user-settings', '/hiring-company-profile', '/recruitment-agency-profile', '/settings/company-settings', '/settings/agency-settings'];
+const orgTargets = [
+  '/dashboard',
+  '/notifications',
+  '/inbox',
+  '/jobs/$scope',
+  '/candidates-database',
+  '/integrations',
+  '/report',
+  '/team',
+  '/favorites',
+  '/billing',
+  '/jobmarket/$type',
+  '/settings/careers-page',
+  '/settings/hiring-flow',
+  '/settings/custom-fields',
+  '/templates',
+  '/reject-reasons',
+  '/settings/api-endpoints',
+  '/settings/forms-docs',
+  '/user-profile',
+  '/settings/user-settings',
+  '/hiring-company-profile',
+  '/recruitment-agency-profile',
+  '/settings/company-settings',
+  '/settings/agency-settings',
+];
 const platformTargets = ['/hiring-companies', '/recruitment-agencies', '/subscriptions', '/users', '/favorites-request', '/sectors', '/user-profile', '/settings/user-settings'];
 
 function resolveShellMode(context: AccessContext): ShellMode {

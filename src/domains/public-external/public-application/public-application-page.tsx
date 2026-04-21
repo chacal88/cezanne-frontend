@@ -9,6 +9,7 @@ export function PublicApplicationPage({ jobOrRole, token, source }: { jobOrRole:
   const view = buildPublicApplicationViewModel({ jobOrRole, token, source });
   const [draft, setDraft] = useState<PublicApplicationDraft>(() => ({ ...view.defaults, fileName: 'cv.pdf' }));
   const [error, setError] = useState<string | null>(null);
+  const [completion, setCompletion] = useState(view.completion);
 
   useEffect(() => {
     setActiveCorrelationId(createCorrelationId());
@@ -49,14 +50,14 @@ export function PublicApplicationPage({ jobOrRole, token, source }: { jobOrRole:
         correlationId: ensureCorrelationId(),
       },
     });
-    window.location.reload();
+    setCompletion(result.completion);
   }
 
-  if (view.completion) {
+  if (completion) {
     return (
       <section style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 20 }}>
         <h1>Application complete</h1>
-        <p data-testid="public-application-completion">{view.completion.message}</p>
+        <p data-testid="public-application-completion">{completion.message}</p>
         <Link to={buildSharedJobPath({ jobOrRole, token, source })} data-testid="public-application-back-link">
           Back to shared job
         </Link>

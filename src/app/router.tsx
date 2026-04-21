@@ -1412,7 +1412,15 @@ const recruitmentAgencyProfileRoute = createRoute({
     </AccessBoundary>
   ),
 });
-const logoutRoute = createRoute({ getParentRoute: () => shellLayoutRoute, path: '/logout', component: LogoutPage });
+const logoutRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/logout',
+  component: () => (
+    <AccessBoundary capability="canLogout" fallback={<Navigate to="/" replace />}>
+      <LogoutPage />
+    </AccessBoundary>
+  ),
+});
 const accessDeniedRoute = createRoute({ getParentRoute: () => rootRoute, path: '/access-denied', component: AccessDeniedPage });
 
 const routeTree = rootRoute.addChildren([

@@ -9,6 +9,7 @@ export function IntegrationCvTokenEntryPage({ token, action }: { token: string; 
   const [error, setError] = useState<string | null>(null);
   const [selection, setSelection] = useState<'slot-1' | 'slot-2' | 'unavailable'>('slot-1');
   const [reason, setReason] = useState('');
+  const [completion, setCompletion] = useState(view.completion);
 
   useEffect(() => {
     setActiveCorrelationId(createCorrelationId());
@@ -33,7 +34,7 @@ export function IntegrationCvTokenEntryPage({ token, action }: { token: string; 
       return;
     }
     observability.telemetry.track({ name: 'integration_cv_submission_completed', data: { mode: 'interview', outcome: result.completion.kind, correlationId: ensureCorrelationId() } });
-    window.location.reload();
+    setCompletion(result.completion);
   }
 
   async function handleOfferSubmit(next: 'accept' | 'reject') {
@@ -47,14 +48,14 @@ export function IntegrationCvTokenEntryPage({ token, action }: { token: string; 
       return;
     }
     observability.telemetry.track({ name: 'integration_cv_submission_completed', data: { mode: 'offer', outcome: result.completion.kind, correlationId: ensureCorrelationId() } });
-    window.location.reload();
+    setCompletion(result.completion);
   }
 
-  if (view.completion) {
+  if (completion) {
     return (
       <section style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 20, display: 'grid', gap: 12 }}>
         <h1>Integration CV callback complete</h1>
-        <p data-testid="integration-cv-completion">{view.completion.message}</p>
+        <p data-testid="integration-cv-completion">{completion.message}</p>
       </section>
     );
   }

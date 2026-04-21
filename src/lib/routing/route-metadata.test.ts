@@ -72,6 +72,27 @@ describe('route metadata registry', () => {
     });
   });
 
+  it('registers public/token routes with route-local capabilities and implementation states', () => {
+    expect(matchRouteMetadata('/surveys/survey-1/job-1/cv-1')?.metadata).toMatchObject({ requiredCapability: 'canCompletePublicSurvey', implementationState: 'implemented' });
+    expect(matchRouteMetadata('/chat/token/user-1')?.metadata).toMatchObject({ requiredCapability: 'canUseExternalTokenizedChat', implementationState: 'implemented' });
+    expect(matchRouteMetadata('/job-requisition-approval')?.metadata).toMatchObject({ requiredCapability: 'canApproveRequisitionByToken', implementationState: 'implemented' });
+    expect(matchRouteMetadata('/interview-request/schedule-1/cv-token')?.metadata).toMatchObject({ requiredCapability: 'canUseExternalReviewFlow', implementationState: 'implemented' });
+    expect(matchRouteMetadata('/review-candidate/code')?.metadata).toMatchObject({ requiredCapability: 'canUseExternalReviewFlow', implementationState: 'implemented' });
+    expect(matchRouteMetadata('/interview-feedback/code')?.metadata).toMatchObject({ requiredCapability: 'canUseExternalReviewFlow', implementationState: 'implemented' });
+    expect(matchRouteMetadata('/integration/forms/token')?.metadata).toMatchObject({ domain: 'integrations', requiredCapability: 'canUseIntegrationTokenEntry', implementationState: 'implemented' });
+  });
+
+  it('registers operational settings and template routes with matching capabilities', () => {
+    expect(getRouteMetadata('/settings/hiring-flow')).toMatchObject({ requiredCapability: 'canManageHiringFlowSettings', implementationState: 'implemented' });
+    expect(getRouteMetadata('/settings/custom-fields')).toMatchObject({ requiredCapability: 'canManageCustomFields', implementationState: 'implemented' });
+    expect(getRouteMetadata('/templates')).toMatchObject({ requiredCapability: 'canManageTemplates', implementationState: 'implemented' });
+    expect(getRouteMetadata('/templates/smart-questions')).toMatchObject({ requiredCapability: 'canManageTemplates', implementationState: 'implemented' });
+    expect(getRouteMetadata('/templates/diversity-questions')).toMatchObject({ requiredCapability: 'canManageTemplates', implementationState: 'implemented' });
+    expect(getRouteMetadata('/templates/interview-scoring')).toMatchObject({ requiredCapability: 'canManageTemplates', implementationState: 'implemented' });
+    expect(getRouteMetadata('/templates/template-1')).toMatchObject({ requiredCapability: 'canManageTemplates', implementationState: 'implemented' });
+    expect(getRouteMetadata('/reject-reasons')).toMatchObject({ requiredCapability: 'canManageRejectReasons', implementationState: 'implemented' });
+  });
+
   it('registers requisition forms download separately from approval', () => {
     expect(matchRouteMetadata('/job-requisition-forms/form-123')).toMatchObject({
       pattern: '/job-requisition-forms/$formId',
@@ -122,6 +143,24 @@ describe('route metadata registry', () => {
     expect(getRouteMetadata('/settings/agency-settings')).toMatchObject({ routeId: 'settings.agency-settings', requiredCapability: 'canManageAgencySettings', implementationState: 'implemented' });
     expect(getRouteMetadata('/hiring-company-profile')).toMatchObject({ routeId: 'shell.hiring-company-profile', requiredCapability: 'canViewHiringCompanyProfile', mutationCapability: 'canManageCompanySettings' });
     expect(getRouteMetadata('/recruitment-agency-profile')).toMatchObject({ routeId: 'shell.recruitment-agency-profile', requiredCapability: 'canViewRecruitmentAgencyProfile', mutationCapability: 'canManageAgencySettings' });
+  });
+
+  it('registers logout and access-denied with explicit closeout metadata', () => {
+    expect(getRouteMetadata('/logout')).toMatchObject({
+      routeId: 'shell.logout',
+      domain: 'shell',
+      module: 'session',
+      requiredCapability: 'canLogout',
+      fallbackTarget: '/',
+      implementationState: 'implemented',
+    });
+
+    expect(getRouteMetadata('/access-denied')).toMatchObject({
+      routeId: 'system.access-denied',
+      domain: 'system',
+      module: 'fallback',
+      implementationState: 'implemented',
+    });
   });
 
 

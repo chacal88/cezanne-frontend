@@ -7,6 +7,7 @@ import { PublicTokenStatePanel } from '../token-state/public-token-state-panel';
 export function InterviewRequestPage({ scheduleUuid, cvToken }: { scheduleUuid: string; cvToken: string }) {
   const view = buildInterviewRequestViewModel({ scheduleUuid, cvToken });
   const [error, setError] = useState<string | null>(null);
+  const [terminalOutcome, setTerminalOutcome] = useState(view.terminalOutcome);
 
   useEffect(() => {
     setActiveCorrelationId(createCorrelationId());
@@ -46,18 +47,18 @@ export function InterviewRequestPage({ scheduleUuid, cvToken }: { scheduleUuid: 
       name: 'external_interview_request_submission_completed',
       data: { outcome: result.completion.kind, correlationId: ensureCorrelationId() },
     });
-    window.location.reload();
+    setTerminalOutcome(result.completion);
   }
 
-  if (view.terminalOutcome) {
+  if (terminalOutcome) {
     observability.telemetry.track({
       name: 'external_interview_request_terminal_viewed',
-      data: { outcome: view.terminalOutcome.kind, correlationId: ensureCorrelationId() },
+      data: { outcome: terminalOutcome.kind, correlationId: ensureCorrelationId() },
     });
     return (
       <section style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 20, display: 'grid', gap: 12 }}>
         <h1>Interview request complete</h1>
-        <p data-testid="interview-request-completion">{view.terminalOutcome.message}</p>
+        <p data-testid="interview-request-completion">{terminalOutcome.message}</p>
       </section>
     );
   }

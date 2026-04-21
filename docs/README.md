@@ -15,6 +15,11 @@ It converts the migration analysis in `../../docs/frontend-2/` into an execution
 ## Current execution status
 
 Confirmed:
+- **Final frontend debt inventory is governed by archived OpenSpec change `frontend-all-gap-debt-closeout`; active High-priority implementation closeout is governed by `frontend-high-gap-implementation-closeout`**.
+  - Historical release closeout statements below describe route/spec/foundation milestones already achieved.
+  - They must not be read as proof that every documented product-depth, placeholder, fixture-backed, route metadata, public/token, provider, operational, or long-tail debt is implemented.
+  - The authoritative inventory evidence is the archived registry in `../../openspec/changes/archive/2026-04-21-frontend-all-gap-debt-closeout/closeout-registry.md`.
+  - The authoritative active High-priority implementation/deferred-follow-up evidence is `../../openspec/changes/frontend-high-gap-implementation-closeout/high-priority-closeout-registry.md`.
 - **R0 is closed in code** in `recruit-frontend`
 - the current implementation includes build proof, route metadata coverage, typed-destination safety, smoke validation, and a GitHub Actions smoke workflow
 - the repository now uses a **Git/GitHub workflow with the R0 smoke gate defined in source**

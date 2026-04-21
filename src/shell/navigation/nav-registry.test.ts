@@ -1,5 +1,5 @@
 import { evaluateCapabilities } from '../../lib/access-control';
-import { getVisibleAccountNavigation, getVisiblePlatformNavigation } from './nav-registry';
+import { getVisibleAccountNavigation, getVisiblePlatformNavigation, getVisibleShellNavigation } from './nav-registry';
 import type { AccessContext } from '../../lib/access-control';
 
 function buildAccessContext(overrides: Partial<AccessContext> = {}): AccessContext {
@@ -16,6 +16,49 @@ function buildAccessContext(overrides: Partial<AccessContext> = {}): AccessConte
 }
 
 describe('platform navigation registry', () => {
+  it('exposes all authenticated org route families without public token routes', () => {
+    const hcContext = buildAccessContext({
+      organizationType: 'hc',
+      isSysAdmin: false,
+      pivotEntitlements: ['seeCandidates', 'seeFavorites'],
+      subscriptionCapabilities: ['inbox', 'formsDocs', 'rejectionReason'],
+      rolloutFlags: ['customFieldsBeta'],
+    });
+    const links = getVisibleShellNavigation(evaluateCapabilities(hcContext));
+    const targets = links.map((link) => link.to);
+
+    expect(targets).toEqual(expect.arrayContaining([
+      '/dashboard',
+      '/notifications',
+      '/inbox',
+      '/jobs/$scope',
+      '/candidates-database',
+      '/integrations',
+      '/report',
+      '/team',
+      '/favorites',
+      '/billing',
+      '/settings/careers-page',
+      '/settings/hiring-flow',
+      '/settings/custom-fields',
+      '/templates',
+      '/reject-reasons',
+      '/settings/api-endpoints',
+      '/settings/forms-docs',
+    ]));
+    expect(targets.some((target) => target.startsWith('/integration/') || target.startsWith('/chat/') || target.startsWith('/surveys/'))).toBe(false);
+    expect(links.find((link) => link.to === '/jobs/$scope')).toMatchObject({ implementationState: 'partial' });
+  });
+
+  it('exposes RA marketplace without HC-only settings or billing', () => {
+    const raContext = buildAccessContext({ organizationType: 'ra', isSysAdmin: false, isAdmin: true });
+    const targets = getVisibleShellNavigation(evaluateCapabilities(raContext)).map((link) => link.to);
+
+    expect(targets).toContain('/jobmarket/$type');
+    expect(targets).not.toContain('/billing');
+    expect(targets).not.toContain('/settings/hiring-flow');
+  });
+
   it('exposes live master-data links while later platform groups stay hidden', () => {
     const capabilities = evaluateCapabilities(buildAccessContext());
     const groups = getVisiblePlatformNavigation(capabilities);

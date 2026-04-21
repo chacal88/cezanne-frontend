@@ -8,6 +8,9 @@ export type CandidateDatabaseRouteState = {
   order: CandidateDatabaseOrder;
   stage?: string;
   tags: string[];
+  advancedMode: boolean;
+  advancedQueryId?: string;
+  advancedQueryState: 'valid' | 'invalid' | 'unsupported';
 };
 
 export const candidateDatabaseCanonicalPath = '/candidates-database' as const;
@@ -58,6 +61,11 @@ export function validateCandidateDatabaseSearch(search: Record<string, unknown>)
     order: sanitizeOrder(search.order),
     stage,
     tags: sanitizeTags(search.tags),
+    advancedMode: search.advanced === true || search.advanced === 'true' || search.advancedMode === true || search.advancedMode === 'true',
+    advancedQueryId: singleString(search.advancedQueryId).replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 80) || undefined,
+    advancedQueryState: ['valid', 'invalid', 'unsupported'].includes(singleString(search.advancedQueryState))
+      ? (singleString(search.advancedQueryState) as CandidateDatabaseRouteState['advancedQueryState'])
+      : 'valid',
   };
 }
 
@@ -75,6 +83,9 @@ export function buildCandidateDatabaseSearch(state: Partial<CandidateDatabaseRou
   if (sanitized.order !== 'desc') params.set('order', sanitized.order);
   if (sanitized.stage) params.set('stage', sanitized.stage);
   if (sanitized.tags.length > 0) params.set('tags', sanitized.tags.join(','));
+  if (sanitized.advancedMode) params.set('advanced', 'true');
+  if (sanitized.advancedQueryId) params.set('advancedQueryId', sanitized.advancedQueryId);
+  if (sanitized.advancedQueryState !== 'valid') params.set('advancedQueryState', sanitized.advancedQueryState);
   return params.toString();
 }
 

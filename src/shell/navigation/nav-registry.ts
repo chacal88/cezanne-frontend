@@ -1,11 +1,12 @@
 import type { AccessContext, Capabilities } from '../../lib/access-control';
 
 export type ShellNavigationItem = {
-  labelKey: 'navigation.dashboard' | 'navigation.notifications' | 'navigation.inbox' | 'navigation.jobs';
-  to: '/dashboard' | '/notifications' | '/inbox' | '/jobs/$scope';
+  labelKey: string;
+  to: string;
   search?: { conversation?: string };
-  params?: { scope: string };
-  capability: keyof Pick<Capabilities, 'canViewDashboard' | 'canViewNotifications' | 'canUseInbox' | 'canViewJobsList'>;
+  params?: Record<string, string>;
+  capability: keyof Capabilities;
+  implementationState: 'implemented' | 'partial' | 'resolver-only';
 };
 
 export type AccountNavigationLink = {
@@ -38,10 +39,24 @@ export type PlatformNavigationGroup = {
 };
 
 const shellNavigationItems: ShellNavigationItem[] = [
-  { labelKey: 'navigation.dashboard', to: '/dashboard', capability: 'canViewDashboard' },
-  { labelKey: 'navigation.notifications', to: '/notifications', capability: 'canViewNotifications' },
-  { labelKey: 'navigation.inbox', to: '/inbox', capability: 'canUseInbox' },
-  { labelKey: 'navigation.jobs', to: '/jobs/$scope', params: { scope: 'open' }, capability: 'canViewJobsList' },
+  { labelKey: 'navigation.dashboard', to: '/dashboard', capability: 'canViewDashboard', implementationState: 'implemented' },
+  { labelKey: 'navigation.notifications', to: '/notifications', capability: 'canViewNotifications', implementationState: 'implemented' },
+  { labelKey: 'navigation.inbox', to: '/inbox', capability: 'canUseInbox', implementationState: 'implemented' },
+  { labelKey: 'navigation.jobs', to: '/jobs/$scope', params: { scope: 'open' }, capability: 'canViewJobsList', implementationState: 'partial' },
+  { labelKey: 'navigation.candidateDatabase', to: '/candidates-database', capability: 'canViewCandidateDatabase', implementationState: 'partial' },
+  { labelKey: 'navigation.integrations', to: '/integrations', capability: 'canViewIntegrations', implementationState: 'partial' },
+  { labelKey: 'navigation.reports', to: '/report', capability: 'canViewReports', implementationState: 'partial' },
+  { labelKey: 'navigation.team', to: '/team', capability: 'canViewOrgTeam', implementationState: 'partial' },
+  { labelKey: 'navigation.favorites', to: '/favorites', capability: 'canViewOrgFavorites', implementationState: 'partial' },
+  { labelKey: 'navigation.billing', to: '/billing', capability: 'canViewBilling', implementationState: 'partial' },
+  { labelKey: 'navigation.marketplace', to: '/jobmarket/$type', params: { type: 'fill' }, capability: 'canViewMarketplace', implementationState: 'partial' },
+  { labelKey: 'navigation.settingsCareers', to: '/settings/careers-page', capability: 'canManageCareersPage', implementationState: 'partial' },
+  { labelKey: 'navigation.settingsHiringFlow', to: '/settings/hiring-flow', capability: 'canManageHiringFlowSettings', implementationState: 'partial' },
+  { labelKey: 'navigation.settingsCustomFields', to: '/settings/custom-fields', capability: 'canManageCustomFields', implementationState: 'partial' },
+  { labelKey: 'navigation.templates', to: '/templates', capability: 'canManageTemplates', implementationState: 'partial' },
+  { labelKey: 'navigation.rejectReasons', to: '/reject-reasons', capability: 'canManageRejectReasons', implementationState: 'partial' },
+  { labelKey: 'navigation.settingsApiEndpoints', to: '/settings/api-endpoints', capability: 'canManageApiEndpoints', implementationState: 'partial' },
+  { labelKey: 'navigation.settingsFormsDocs', to: '/settings/forms-docs', capability: 'canManageFormsDocsSettings', implementationState: 'partial' },
 ];
 
 const accountNavigationLinks: AccountNavigationLink[] = [

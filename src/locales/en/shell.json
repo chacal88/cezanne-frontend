@@ -3,7 +3,21 @@
     "dashboard": "Dashboard",
     "notifications": "Notifications",
     "inbox": "Inbox",
-    "jobs": "Jobs"
+    "jobs": "Jobs",
+    "candidateDatabase": "Candidate database",
+    "integrations": "Integrations",
+    "reports": "Reports",
+    "team": "Team",
+    "favorites": "Favorites",
+    "billing": "Billing",
+    "marketplace": "Marketplace",
+    "settingsCareers": "Careers settings",
+    "settingsHiringFlow": "Hiring flow",
+    "settingsCustomFields": "Custom fields",
+    "templates": "Templates",
+    "rejectReasons": "Reject reasons",
+    "settingsApiEndpoints": "API endpoints",
+    "settingsFormsDocs": "Forms and documents"
   },
   "platformNavigation": {
     "label": "Platform",
@@ -44,9 +58,8 @@
     "title": "User profile",
     "detail": "This route is registered as a shell-owned overlay and stays distinct from domain task flows.",
     "close": "Close overlay"
-  }
-
-  ,"accountNavigation": {
+  },
+  "accountNavigation": {
     "label": "Account",
     "links": {
       "userProfile": "User profile",
@@ -70,12 +83,27 @@
     "retry": "Retry",
     "refreshIntent": "Saved. Parent route should refresh account context.",
     "returnToParent": "Return to dashboard",
-    "user": { "title": "User settings", "detail": "Personal preferences and account metadata are separate from organization settings." },
-    "company": { "title": "Company settings", "detail": "Hiring-company settings are scoped to the authenticated organization." },
-    "agency": { "title": "Agency settings", "detail": "Recruitment-agency settings are scoped to the authenticated organization." }
+    "user": {
+      "title": "User settings",
+      "detail": "Personal preferences and account metadata are separate from organization settings."
+    },
+    "company": {
+      "title": "Company settings",
+      "detail": "Hiring-company settings are scoped to the authenticated organization."
+    },
+    "agency": {
+      "title": "Agency settings",
+      "detail": "Recruitment-agency settings are scoped to the authenticated organization."
+    }
   },
   "organizationProfile": {
-    "hiringCompany": { "title": "Hiring company profile", "detail": "State-aware organization profile for hiring-company users." },
-    "recruitmentAgency": { "title": "Recruitment agency profile", "detail": "State-aware organization profile for recruitment-agency users." }
+    "hiringCompany": {
+      "title": "Hiring company profile",
+      "detail": "State-aware organization profile for hiring-company users."
+    },
+    "recruitmentAgency": {
+      "title": "Recruitment agency profile",
+      "detail": "State-aware organization profile for recruitment-agency users."
+    }
   }
 }
