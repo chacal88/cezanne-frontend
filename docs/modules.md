@@ -61,8 +61,12 @@ Transport concerns are centralized in `src/lib/api-client`: configured REST/auth
 
 | Module | Type | Owns | Core capabilities | Release |
 |---|---|---|---|---|
-| `landing` | Route-owning | `/dashboard` and dashboard widgets | `canViewDashboard` | R0 |
+| `landing` | Route-owning | `/dashboard`, validated GraphQL aggregate summary cards, calendar/activity first-pass widgets | `canViewDashboard` | R0 |
 | `re-entry` | Support | notification/deep-link return affordances | typed destination resolver and dashboard fallback behavior | R0 |
+| `dashboard-api` | Support | GraphQL `dashboard` aggregate plus `monolith.auth/users` normalization through `src/lib/api-client` | `canViewDashboard` | R0 |
+
+
+Dashboard now has a first real API-backed flow. The dashboard domain owns the validated GraphQL aggregate query from `frontend/src/app/pages/dashboard/dashboard.route.js`; `src/lib/api-client` owns only transport concerns. Calendar, notification activity, and inbox depth remain bounded first-pass states until their own domain APIs are migrated.
 
 ### `jobs`
 

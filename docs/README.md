@@ -76,6 +76,7 @@ Confirmed:
 - the release-hardening evidence and PR handoff summary are recorded in `integration-operational-depth-closeout.md`
 - the roadmap now marks **design/flow preparation** as the current next phase before Figma + screen-flow contracts
 - `screen-design-flow-matrix.md` is the active contract-first bridge from implemented route/state depth to canonical Figma references
+- `pre-figma-flow-review.md` is the active gate for reviewing all 103 canonical route rows plus 4 alias/reference rows before any Figma/screen-flow production starts
 
 ## Post-cleanup documentation semantics
 
@@ -143,6 +144,7 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 43. `ats-candidate-source-operational-depth-plan.md` — completed ATS candidate source operational-depth baseline
 44. `integration-operational-depth-closeout.md` — final validation, safety, diff, and PR handoff evidence for the operational-depth wave
 45. `screen-design-flow-matrix.md` — active contract-first route/flow/state/design-readiness matrix for high-risk operational screens before Figma handoff
+46. `pre-figma-flow-review.md` — mandatory pre-Figma gate covering every route row from `screens.md`, including aliases/reference rows and unresolved flow-review blockers
 
 ## Package roles
 
@@ -191,6 +193,7 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `integration-operational-depth-sequence-plan.md` | synchronizes all post-gate operational-depth changes, flow boundaries, validation rules, and sequencing |
 | `integration-operational-depth-closeout.md` | records final validation results, safety review, deferred items, and PR-ready handoff for the operational-depth wave |
 | `screen-design-flow-matrix.md` | maps high-risk screens to route ownership, flow states, telemetry, parent return, and design-reference status |
+| `pre-figma-flow-review.md` | tracks route-by-route review readiness and blocks Figma production until flow contracts, state coverage, parent return, API/data expectations, telemetry safety, and visual reference status are confirmed |
 
 ## Source relationship
 
@@ -201,4 +204,4 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 
 ## Active implementation-depth package note
 
-Use `screen-design-flow-matrix.md` for design/flow readiness. It complements `screens.md`; it does not replace the route manifest. Active product-depth OpenSpec changes distinguish route registration from complete product behavior. Figma handoff should start from matrix rows that already define route ownership, state groups, actions, error/retry states, parent return behavior, telemetry boundaries, and public/token or provider setup exclusions.
+Use `screen-design-flow-matrix.md` for design/flow readiness and `pre-figma-flow-review.md` as the mandatory gate before Figma production. They complement `screens.md`; they do not replace the route manifest. Active product-depth OpenSpec changes distinguish route registration from complete product behavior. Figma handoff should start only from rows that already define route ownership, state groups, actions, error/retry states, parent return behavior, telemetry boundaries, public/token or provider setup exclusions, data/API expectations, and visual-reference status.

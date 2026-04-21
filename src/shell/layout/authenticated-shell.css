@@ -1,0 +1,112 @@
+.recruit-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  background: #f9fafc;
+  color: #333;
+  font-family: "Source Sans Pro", "Open Sans", Arial, sans-serif;
+}
+
+.recruit-shell__sidebar {
+  background: #151744;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.recruit-shell__logo {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: #151744;
+}
+
+.recruit-shell__logo img {
+  max-width: 100px;
+  max-height: 36px;
+}
+
+.recruit-shell__org {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 8px 18px;
+  color: #fff;
+  font-size: 11px;
+}
+
+.recruit-shell__org-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e5f9f6;
+}
+
+.recruit-shell__org strong,
+.recruit-shell__org span {
+  display: block;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recruit-shell__nav,
+.recruit-shell__account {
+  display: grid;
+  gap: 0;
+}
+
+.recruit-shell__nav a,
+.recruit-shell__account a {
+  display: flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 7px 12px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.recruit-shell__nav a:hover,
+.recruit-shell__account a:hover,
+.recruit-shell__nav a.active {
+  background: #402778;
+}
+
+.recruit-shell__account h3 {
+  margin: 14px 12px 6px;
+  color: #fff;
+  font-size: 12px;
+}
+
+.recruit-shell__topbar {
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 18px;
+  padding: 0 16px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  color: #777;
+  font-size: 12px;
+}
+
+.recruit-shell__main {
+  min-width: 0;
+}
+
+.recruit-shell__content {
+  padding: 15px;
+}
+
+@media screen and (max-width: 900px) {
+  .recruit-shell {
+    grid-template-columns: 1fr;
+  }
+  .recruit-shell__sidebar {
+    min-height: auto;
+  }
+}

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { getVisibleAccountNavigation, getVisiblePlatformNavigation, getVisibleShellNavigation } from '../navigation/nav-registry';
 import { useAccessContext, useCapabilities } from '../../lib/access-control';
 import { observability } from '../../app/observability';
+import './authenticated-shell.css';
 
 export function AuthenticatedShell({ children }: PropsWithChildren) {
   const capabilities = useCapabilities();
@@ -23,55 +24,33 @@ export function AuthenticatedShell({ children }: PropsWithChildren) {
   }, [platformGroups]);
 
   return (
-    <div style={{ minHeight: '100vh', display: 'grid', gridTemplateColumns: '240px 1fr' }}>
-      <aside style={{ borderRight: '1px solid #e5e7eb', padding: 16 }}>
-        <h2 style={{ marginTop: 0 }}>{t('authenticatedShell.title')}</h2>
-        <nav style={{ display: 'grid', gap: 8 }}>
+    <div className="recruit-shell">
+      <aside className="recruit-shell__sidebar">
+        <a className="recruit-shell__logo" href="/dashboard" aria-label="Cezanne Recruitment">
+          <img src="/assets/img/cezanne/cezanne_recruitment_logo_2026_white1x.png" alt="Cezanne Recruitment" />
+        </a>
+        <div className="recruit-shell__org">
+          <span className="recruit-shell__org-avatar" />
+          <span><strong>{accessContext.organizationType === 'ra' ? 'Recruitment agency' : accessContext.organizationType === 'hc' ? 'Hiring company' : 'Platform'}</strong><span>{accessContext.isSysAdmin ? 'SysAdmin' : 'Recruiter'}</span></span>
+        </div>
+        <nav className="recruit-shell__nav" aria-label={t('authenticatedShell.title')}>
           {navItems.map((item) => (
             <Link key={`${item.to}-${item.labelKey}`} to={item.to as never} params={item.params as never} search={item.search as never}>
               {t(item.labelKey)}
             </Link>
           ))}
-          {accountItems.length > 0 ? (
-            <section aria-labelledby="account-navigation-heading" style={{ display: 'grid', gap: 6, marginTop: 16 }}>
-              <h3 id="account-navigation-heading" style={{ margin: 0 }}>
-                {t('accountNavigation.label')}
-              </h3>
-              <ul style={{ margin: '4px 0 0', paddingLeft: 18 }}>
-                {accountItems.map((link) => (
-                  <li key={link.to}>
-                    <Link to={link.to as never}>{t(link.labelKey)}</Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
-          {platformGroups.length > 0 ? (
-            <section aria-labelledby="platform-navigation-heading" style={{ display: 'grid', gap: 6, marginTop: 16 }}>
-              <h3 id="platform-navigation-heading" style={{ margin: 0 }}>
-                {t('platformNavigation.label')}
-              </h3>
-              {platformGroups.map((group) => (
-                <div key={group.navGroup} data-testid={`platform-nav-${group.navGroup}`}>
-                  <strong>{t(group.labelKey)}</strong>
-                  {group.links.length > 0 ? (
-                    <ul style={{ margin: '4px 0 0', paddingLeft: 18 }}>
-                      {group.links.map((link) => (
-                        <li key={link.to}>
-                          <Link to={link.to as never}>{t(link.labelKey)}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p style={{ margin: '2px 0 0', fontSize: 12 }}>{t('platformNavigation.unavailable')}</p>
-                  )}
-                </div>
-              ))}
-            </section>
-          ) : null}
         </nav>
+        {accountItems.length > 0 ? (
+          <section className="recruit-shell__account" aria-labelledby="account-navigation-heading">
+            <h3 id="account-navigation-heading">{t('accountNavigation.label')}</h3>
+            {accountItems.map((link) => <Link key={link.to} to={link.to as never}>{t(link.labelKey)}</Link>)}
+          </section>
+        ) : null}
       </aside>
-      <main style={{ padding: 24 }}>{children}</main>
+      <div className="recruit-shell__main">
+        <header className="recruit-shell__topbar"><a>Get help</a><span>🔔</span><span>👤</span></header>
+        <main className="recruit-shell__content">{children}</main>
+      </div>
     </div>
   );
 }

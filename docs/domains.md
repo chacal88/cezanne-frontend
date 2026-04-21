@@ -38,7 +38,7 @@ Synthesized from:
 |---|---|---|---|---|
 | `auth` | unauthenticated entry, token auth flows, SSO/SAML callbacks, API-first session bootstrap | Public, all internal personas | R0 | Public shell only; login adapts auth `/login`, REST `/authenticate`, and GraphQL enrichment validated from `frontend` |
 | `shell` | authenticated frame, nav, notification resolution, account/context entry, route handoff | HC, RA, SysAdmin | R0 | cross-domain orchestration layer |
-| `dashboard` | authenticated landing and re-entry hub | HC, RA, limited SysAdmin | R0 | valid landing route, not placeholder |
+| `dashboard` | authenticated landing and re-entry hub | HC, RA, limited SysAdmin | R0 | API-backed first dashboard flow with validated aggregate query; not placeholder |
 | `jobs` | job list, authoring, detail hub, job-scoped action entry | HC primary, RA contextual | R1 | recruiter-core domain |
 | `candidates` | candidate detail, workflow context, candidate actions, docs/contracts/surveys summaries | HC primary, RA contextual | R2 | recruiter-core domain |
 | `inbox` | conversation selection and recruiter messaging entry | HC, RA | R0 | shell-adjacent but operationally distinct |
@@ -91,7 +91,7 @@ Depends on:
 Owns:
 - authenticated landing experience
 - role-correct quick entry and re-entry surfaces
-- dashboard-specific summaries and widgets
+- dashboard-specific summaries and widgets backed by the validated GraphQL dashboard aggregate
 
 Does not own:
 - notification routing

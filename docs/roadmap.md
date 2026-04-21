@@ -629,8 +629,25 @@ Mapping drift and workflow drift remain separate: HRIS mapping remediation point
 `ats-candidate-source-operational-depth` is implemented as the ATS source/import/sync operational consumer package for candidate database, candidate detail, jobs list, and job authoring status-only surfaces. It preserves candidate/job route state and draft behavior while covering source identity, import/sync, duplicate outcomes, stale-source refresh, provider setup separation, safe telemetry, and unchanged public/token `/integration/*` behavior.
 
 
+
+## Dashboard visual parity debt
+
+The first real auth -> dashboard delivery is implemented and validated: cards now use the real dashboard aggregate for matching user/org context, and the dashboard shell consumes bounded calendar/activity contracts. Remaining differences against `frontend` are tracked as visual refinement debt for the design/flow preparation phase, not as current data/API blockers:
+
+- card wrapping and exact responsive breakpoints;
+- FullCalendar parity, including toolbar positioning, pending-schedule checkbox, and event rendering details;
+- activity feed spacing/scroll height and message formatting parity;
+- shell/sidebar/topbar/footer 1:1 styling and iconography;
+- canonical Figma/screen-flow references for dashboard states.
+
+These items should be resolved when dashboard rows move from contract-ready to Figma-linked visual refinement. Do not reopen dashboard API integration unless the raw dashboard aggregate differs for the same authenticated user and organization context.
+
 ## Design/flow preparation implementation note
 
-Design/flow preparation is the active next phase after the operational-depth closeout. It is documentation- and contract-driven before visual production: each priority row in `screen-design-flow-matrix.md` must map route ownership, entry modes, accepted OpenSpec state groups, actions, error/retry states, parent return behavior, and telemetry-safe payload expectations. Figma references remain `pending` until a canonical node/frame exists; missing visual references are not implementation gaps by themselves.
+Design/flow preparation is the active next phase after the operational-depth closeout. Core design-flow preparation rows have been expanded for auth, token flows, SSO callbacks, authenticated shell, dashboard, notifications, inbox, jobs list/detail, and candidate detail before starting Figma production. It is documentation- and contract-driven before visual production: each priority row in `screen-design-flow-matrix.md` must map route ownership, entry modes, accepted OpenSpec state groups, actions, error/retry states, parent return behavior, and telemetry-safe payload expectations. Figma references remain `pending` until a canonical node/frame exists; missing visual references are not implementation gaps by themselves.
 
-The Figma phase starts only after the matrix row for a route/flow is ready enough to prevent design from inventing new routing, access, provider setup, public/token, or telemetry contracts.
+The Figma phase starts only after the matrix row for a route/flow is ready enough to prevent design from inventing new routing, access, provider setup, public/token, or telemetry contracts. The `pre-figma-flow-review.md` gate must stay authoritative for this decision: visual references alone do not mark a route as Figma-ready.
+
+## Pre-Figma flow review gate
+
+The pre-Figma review gate is now tracked in `pre-figma-flow-review.md`. It imports 103 canonical route rows plus 4 alias/reference rows from `screens.md` and blocks Figma production until the relevant route rows are reviewed for entry modes, state groups, actions, errors/retry, parent return, data/API contracts, telemetry safety, and canonical visual reference status.

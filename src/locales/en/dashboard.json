@@ -1,7 +1,21 @@
 {
   "home": {
     "title": "Dashboard",
-    "detail": "R0 shell landing page registered as a `Page` route with operational re-entry states."
+    "detail": "Authenticated dashboard landing.",
+    "welcome": "Welcome back",
+    "greeting": "It's good to see you again."
+  },
+  "cards": {
+    "label": "Dashboard summary cards"
+  },
+  "calendar": {
+    "title": "Calendar",
+    "firstPass": "Calendar readiness is shown here while the full scheduling calendar is migrated.",
+    "users": "{{count}} scheduler users available"
+  },
+  "activity": {
+    "title": "Activity",
+    "emailConfirmationRequired": "Email confirmation is required."
   },
   "operational": {
     "sourceHealth": "Source health",

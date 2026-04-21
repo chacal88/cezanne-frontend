@@ -1,22 +1,36 @@
 {
   "home": {
-    "title": "Painel",
-    "detail": "A página inicial do shell R0 está registrada como rota `Page` com estados operacionais de reentrada."
+    "title": "Dashboard",
+    "detail": "Entrada autenticada do dashboard.",
+    "welcome": "Bem-vindo de volta",
+    "greeting": "É bom ver você novamente."
+  },
+  "cards": {
+    "label": "Cards de resumo do dashboard"
+  },
+  "calendar": {
+    "title": "Calendário",
+    "firstPass": "A prontidão do calendário aparece aqui enquanto o calendário completo de agendamento é migrado.",
+    "users": "{{count}} usuários de agenda disponíveis"
+  },
+  "activity": {
+    "title": "Atividade",
+    "emailConfirmationRequired": "A confirmação de email é necessária."
   },
   "operational": {
     "sourceHealth": "Saúde da fonte",
     "calendarReadiness": "Prontidão do calendário",
     "notifications": "Notificações",
-    "inbox": "Caixa de entrada",
+    "inbox": "Inbox",
     "refreshRequired": "Atualização necessária",
-    "adapter": "Contrato do adaptador"
+    "adapter": "Contrato do adapter"
   },
   "platform": {
     "eyebrow": "Modo plataforma",
     "title": "Administração da plataforma",
-    "detail": "A entrada SysAdmin da plataforma usa /dashboard enquanto as famílias de rotas de plataforma são implementadas.",
-    "masterData": "Dados mestres: empresas contratantes, agências de recrutamento e assinaturas",
-    "usersAndRequests": "Usuários e solicitações: usuários da plataforma e fila de solicitações de favoritos",
+    "detail": "A entrada SysAdmin usa /dashboard enquanto as famílias de rotas da plataforma são implementadas.",
+    "masterData": "Dados mestres: hiring companies, recruitment agencies e assinaturas",
+    "usersAndRequests": "Usuários e solicitações: usuários da plataforma e fila de favorite-request",
     "taxonomy": "Taxonomia: setores e subsetores"
   }
 }
