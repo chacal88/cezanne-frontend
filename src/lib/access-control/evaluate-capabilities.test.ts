@@ -22,6 +22,7 @@ describe('evaluateCapabilities', () => {
     expect(capabilities.canManageApplicationPage).toBe(true);
     expect(capabilities.canManageJobListings).toBe(true);
     expect(capabilities.canManageHiringFlowSettings).toBe(true);
+    expect(capabilities.canManageFormsDocsSettings).toBe(true);
     expect(capabilities.canManageCustomFields).toBe(false);
     expect(capabilities.canManageTemplates).toBe(true);
     expect(capabilities.canManageRejectReasons).toBe(false);
@@ -31,6 +32,11 @@ describe('evaluateCapabilities', () => {
     expect(capabilities.canViewJobDetail).toBe(true);
     expect(capabilities.canScheduleInterviewFromJob).toBe(true);
     expect(capabilities.canUseJobRequisitionBranching).toBe(true);
+    expect(capabilities.canViewUserSettings).toBe(true);
+    expect(capabilities.canManageCompanySettings).toBe(true);
+    expect(capabilities.canManageAgencySettings).toBe(false);
+    expect(capabilities.canViewHiringCompanyProfile).toBe(true);
+    expect(capabilities.canViewRecruitmentAgencyProfile).toBe(false);
   });
 
 
@@ -67,6 +73,11 @@ describe('evaluateCapabilities', () => {
     );
 
     expect(capabilities.canViewJobsList).toBe(false);
+    expect(capabilities.canViewUserSettings).toBe(true);
+    expect(capabilities.canManageCompanySettings).toBe(false);
+    expect(capabilities.canManageAgencySettings).toBe(false);
+    expect(capabilities.canViewHiringCompanyProfile).toBe(false);
+    expect(capabilities.canViewRecruitmentAgencyProfile).toBe(true);
     expect(capabilities.canManageHiringFlowSettings).toBe(false);
     expect(capabilities.canManageCustomFields).toBe(false);
     expect(capabilities.canManageTemplates).toBe(false);
@@ -97,6 +108,20 @@ describe('evaluateCapabilities', () => {
     expect(capabilities.canOpenCandidateConversation).toBe(true);
   });
 
+  it('gates forms/docs settings on authenticated HC admin plus formsDocs subscription', () => {
+    const withFormsDocs = evaluateCapabilities(buildAccessContext({ subscriptionCapabilities: ['formsDocs'] }));
+    const withoutFormsDocs = evaluateCapabilities(buildAccessContext({ subscriptionCapabilities: [] }));
+    const nonAdmin = evaluateCapabilities(buildAccessContext({ isAdmin: false, subscriptionCapabilities: ['formsDocs'] }));
+    const recruitmentAgency = evaluateCapabilities(buildAccessContext({ organizationType: 'ra', subscriptionCapabilities: ['formsDocs'] }));
+
+    expect(withFormsDocs.canManageFormsDocsSettings).toBe(true);
+    expect(withoutFormsDocs.canManageFormsDocsSettings).toBe(false);
+    expect(nonAdmin.canManageFormsDocsSettings).toBe(false);
+    expect(recruitmentAgency.canManageFormsDocsSettings).toBe(false);
+    expect(withFormsDocs.canManageCandidateDocuments).toBe(true);
+    expect(withoutFormsDocs.canManageCandidateDocuments).toBe(true);
+  });
+
   it('gates custom-fields admin on the customFieldsBeta rollout flag', () => {
     const withoutFlag = evaluateCapabilities(buildAccessContext());
     const withFlag = evaluateCapabilities(buildAccessContext({ rolloutFlags: ['customFieldsBeta'] }));
@@ -111,6 +136,19 @@ describe('evaluateCapabilities', () => {
 
     expect(withoutEntitlement.canManageRejectReasons).toBe(false);
     expect(withEntitlement.canManageRejectReasons).toBe(true);
+  });
+
+  it('keeps authenticated candidate capabilities separate from public token routes and provider setup', () => {
+    const unsigned = evaluateCapabilities(buildAccessContext({ isAuthenticated: false, pivotEntitlements: [], subscriptionCapabilities: [] }));
+    const candidateUser = evaluateCapabilities(buildAccessContext({ organizationType: 'hc', isAdmin: false, pivotEntitlements: ['seeCandidates'] }));
+
+    expect(unsigned.canViewCandidateDetail).toBe(false);
+    expect(unsigned.canViewCandidateDatabase).toBe(false);
+    expect(unsigned.canUseExternalReviewFlow).toBe(true);
+    expect(unsigned.canCompletePublicSurvey).toBe(true);
+    expect(candidateUser.canViewCandidateDatabase).toBe(true);
+    expect(candidateUser.canViewIntegrations).toBe(false);
+    expect(candidateUser.canManageIntegrationProvider).toBe(false);
   });
 
   it('removes premium candidate affordances when the backing subscriptions are absent', () => {

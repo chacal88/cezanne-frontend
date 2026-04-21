@@ -267,3 +267,19 @@ Safety rule:
 ## ATS and assessment provider setup telemetry note
 
 ATS and assessment setup reuses provider setup telemetry events for configuration, auth, and diagnostics. Payloads are allowlisted to provider family, provider state, section, action, outcome, safe check id/severity, failure kind, and correlation id. They must not include credentials, webhook secrets, callback tokens, raw ATS records, candidate/job payloads, assessment submissions, scoring payloads, tenant identifiers, raw logs, or public route tokens.
+
+## Auth session foundation telemetry
+
+`auth_session_action` records auth entry, token flow, callback, session bootstrap, logout, and session-expired outcomes. Allowed payload fields are `routeFamily`, `action`, `providerFamily`, normalized `outcome`, `tokenState`, `callbackOutcome`, `sessionOutcome`, `entryMode`, `fallbackKind`, and `correlationId`. Payloads must not include passwords, raw tokens, authorization codes, refresh tokens, session payloads, provider callback payloads, tenant-sensitive identifiers, email addresses, or private user identifiers.
+
+## Implementation-depth safe telemetry note
+
+Auth/session, shell notifications, Jobs, Candidate, and public/token product-depth telemetry must use allowlisted normalized fields only: route family, action, normalized state/outcome, fallback kind, entry mode, and correlation id. Raw tokens, auth codes, credentials, message bodies, survey answers, provider payloads, signed URLs, document contents, and tenant-sensitive identifiers are disallowed.
+
+## Email deliverability readiness telemetry
+
+| Event | Meaning | Key attributes |
+|---|---|---|
+| `email_deliverability_readiness_evaluated` | Inbox, notification, or candidate communication surface evaluated normalized email deliverability readiness before showing blocked/degraded/unavailable send state | `routeId`, `capabilityOutcome`, `readinessState`, `providerFamily`, `domainCategory`, `correlationId` |
+
+Safety rule: email deliverability readiness telemetry must not include raw domains, email addresses, DNS records, DKIM selectors, Return-Path values, verification tokens, sender-signature secrets, provider payloads, Route53/Postmark retry internals, message bodies, attachment contents, tenant-sensitive identifiers, or public route tokens. Domain information is limited to redacted category values such as `managed`, `fallback`, `owned`, or `unknown`.

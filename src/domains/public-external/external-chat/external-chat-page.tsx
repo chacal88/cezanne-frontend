@@ -9,7 +9,6 @@ export function ExternalChatPage({ token, userId }: { token: string; userId: str
   const view = useMemo(() => buildExternalChatViewModel({ token, userId }), [token, userId, refreshNonce]);
   const [draft, setDraft] = useState(view.draft);
   const [error, setError] = useState<string | null>(null);
-  const [payloadPreview, setPayloadPreview] = useState('');
 
   useEffect(() => {
     setDraft(view.draft);
@@ -19,15 +18,15 @@ export function ExternalChatPage({ token, userId }: { token: string; userId: str
     setActiveCorrelationId(createCorrelationId());
     observability.telemetry.track({
       name: 'external_tokenized_chat_opened',
-      data: { token, userId, tokenState: view.decision.tokenState, correlationId: ensureCorrelationId() },
+      data: { tokenState: view.decision.tokenState, correlationId: ensureCorrelationId() },
     });
     observability.telemetry.track({
       name: 'external_tokenized_chat_bootstrapped',
-      data: { token, userId, readiness: view.decision.readiness, correlationId: ensureCorrelationId() },
+      data: { readiness: view.decision.readiness, correlationId: ensureCorrelationId() },
     });
     observability.telemetry.track({
       name: 'external_tokenized_chat_token_state_resolved',
-      data: { token, userId, tokenState: view.decision.tokenState, correlationId: ensureCorrelationId() },
+      data: { tokenState: view.decision.tokenState, correlationId: ensureCorrelationId() },
     });
   }, [token, userId, view.decision.readiness, view.decision.tokenState]);
 
@@ -36,7 +35,7 @@ export function ExternalChatPage({ token, userId }: { token: string; userId: str
     setActiveCorrelationId(createCorrelationId());
     observability.telemetry.track({
       name: 'external_tokenized_chat_send_started',
-      data: { token, userId, correlationId: ensureCorrelationId() },
+      data: { correlationId: ensureCorrelationId() },
     });
 
     const result = await runExternalChatMessageWorkflow({ token, userId }, view.participantName, view.partnerName, draft);
@@ -44,17 +43,16 @@ export function ExternalChatPage({ token, userId }: { token: string; userId: str
       setError(result.message);
       observability.telemetry.track({
         name: 'external_tokenized_chat_send_failed',
-        data: { token, userId, stage: result.stage, correlationId: ensureCorrelationId() },
+        data: { stage: result.stage, correlationId: ensureCorrelationId() },
       });
       return;
     }
 
-    setPayloadPreview(JSON.stringify(result.payload, null, 2));
     setDraft('');
     setRefreshNonce((current) => current + 1);
     observability.telemetry.track({
       name: 'external_tokenized_chat_send_completed',
-      data: { token, userId, correlationId: ensureCorrelationId() },
+      data: { correlationId: ensureCorrelationId() },
     });
   }
 
@@ -82,7 +80,7 @@ export function ExternalChatPage({ token, userId }: { token: string; userId: str
             <p style={{ margin: '4px 0 0' }}>{new Date(group.createdAt).toLocaleString()}</p>
             <div style={{ display: 'grid', gap: 6, marginTop: 8 }}>
               {group.messages.map((message, index) => (
-                <p key={`${group.senderId}-${index}`} data-testid="external-chat-message" dangerouslySetInnerHTML={{ __html: message }} />
+                <p key={`${group.senderId}-${index}`} data-testid="external-chat-message">{message}</p>
               ))}
             </div>
           </article>
@@ -103,7 +101,6 @@ export function ExternalChatPage({ token, userId }: { token: string; userId: str
         Send message
       </button>
       {error ? <p data-testid="external-chat-error">{error}</p> : null}
-      {payloadPreview ? <pre data-testid="external-chat-payload-preview">{payloadPreview}</pre> : null}
     </section>
   );
 }

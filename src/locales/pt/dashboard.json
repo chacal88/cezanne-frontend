@@ -1,10 +1,18 @@
 {
   "home": {
     "title": "Painel",
-    "detail": "Página inicial do shell R0 registrada como rota `Page`."
+    "detail": "A página inicial do shell R0 está registrada como rota `Page` com estados operacionais de reentrada."
+  },
+  "operational": {
+    "sourceHealth": "Saúde da fonte",
+    "calendarReadiness": "Prontidão do calendário",
+    "notifications": "Notificações",
+    "inbox": "Caixa de entrada",
+    "refreshRequired": "Atualização necessária",
+    "adapter": "Contrato do adaptador"
   },
   "platform": {
-    "eyebrow": "Modo de plataforma",
+    "eyebrow": "Modo plataforma",
     "title": "Administração da plataforma",
     "detail": "A entrada SysAdmin da plataforma usa /dashboard enquanto as famílias de rotas de plataforma são implementadas.",
     "masterData": "Dados mestres: empresas contratantes, agências de recrutamento e assinaturas",

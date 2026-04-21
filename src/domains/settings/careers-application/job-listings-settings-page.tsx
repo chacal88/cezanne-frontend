@@ -5,6 +5,7 @@ import { buildJobListingsListView } from './support/adapters';
 import { buildJobListingEditorPath } from './support/routing';
 import type { JobListingsRouteState } from './support/models';
 import { trackCareersApplicationRouteOpen, trackCareersApplicationRouteResolution } from './support/telemetry';
+import { buildJobListingsCloseoutSnapshot } from './support/closeout';
 
 export function JobListingsSettingsPage({ routeState }: { routeState: JobListingsRouteState }) {
   const capabilities = useCapabilities();
@@ -14,6 +15,7 @@ export function JobListingsSettingsPage({ routeState }: { routeState: JobListing
     featureEnabled: true,
     publishReady: true,
   });
+  const closeout = buildJobListingsCloseoutSnapshot(decision, routeState, view.publishingStatus);
 
   useEffect(() => {
     trackCareersApplicationRouteOpen('settings.careers-application.job-listings');
@@ -32,6 +34,8 @@ export function JobListingsSettingsPage({ routeState }: { routeState: JobListing
         <dd data-testid="job-listings-readiness">{decision.readiness}</dd>
         <dt>Publishing state</dt>
         <dd data-testid="job-listings-publishing-state">{view.publishingStatus.state}</dd>
+        <dt>Closeout state</dt>
+        <dd data-testid="job-listings-closeout-state">{closeout.state}</dd>
       </dl>
       <a
         href={buildJobListingEditorPath({ mode: 'create', brand: routeState.brand, returnTab: routeState.tab })}

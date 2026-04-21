@@ -28,9 +28,24 @@ describe('careers-application routing helpers', () => {
   });
 
   it('registers settings route metadata', () => {
-    expect(matchRouteMetadata('/settings/careers-page')?.metadata.routeId).toBe('settings.careers-application.careers-page');
-    expect(matchRouteMetadata('/settings/application-page/company-1/questions/fields')?.metadata.routeId).toBe('settings.careers-application.application-page');
-    expect(matchRouteMetadata('/settings/job-listings/edit/listing-1')?.metadata.routeId).toBe('settings.careers-application.job-listings-editor');
+    expect(matchRouteMetadata('/settings/careers-page')?.metadata).toMatchObject({
+      routeId: 'settings.careers-application.careers-page',
+      requiredCapability: 'canManageCareersPage',
+      fallbackTarget: '/access-denied',
+      implementationState: 'implemented',
+    });
+    expect(matchRouteMetadata('/settings/application-page/company-1/questions/fields')?.metadata).toMatchObject({
+      routeId: 'settings.careers-application.application-page',
+      requiredCapability: 'canManageApplicationPage',
+      routeFamily: 'careers-application-settings',
+      implementationState: 'implemented',
+    });
+    expect(matchRouteMetadata('/settings/job-listings/edit/listing-1')?.metadata).toMatchObject({
+      routeId: 'settings.careers-application.job-listings-editor',
+      parentTarget: '/settings/job-listings',
+      requiredCapability: 'canManageJobListings',
+      implementationState: 'implemented',
+    });
   });
 
   it('normalizes missing application params to canonical defaults', () => {

@@ -21,6 +21,57 @@ describe('route metadata registry', () => {
   });
 
 
+
+  it('marks candidate closeout routes as implemented with explicit capabilities', () => {
+    expect(getRouteMetadata('/candidates-database')).toMatchObject({
+      domain: 'candidates',
+      module: 'database-search',
+      requiredCapability: 'canViewCandidateDatabase',
+      implementationState: 'implemented',
+    });
+    expect(getRouteMetadata('/candidate/candidate-123')).toMatchObject({
+      domain: 'candidates',
+      module: 'detail-hub',
+      requiredCapability: 'canViewCandidateDetail',
+      implementationState: 'implemented',
+    });
+    expect(getRouteMetadata('/candidate/candidate-123/cv/cv-123/offer')).toMatchObject({
+      domain: 'candidates',
+      module: 'action-launchers',
+      requiredCapability: 'canOpenCandidateAction',
+      implementationState: 'implemented',
+    });
+  });
+
+  it('does not register email deliverability setup placeholder routes', () => {
+    const registeredPaths = Object.keys(routeMetadataRegistry);
+
+    expect(registeredPaths.some((path) => /deliverability|sender-domain|domain-verification|signature/.test(path))).toBe(false);
+    expect(Object.values(routeMetadataRegistry).some((metadata) => /deliverability|sender-domain|domain-verification|signature/.test(`${metadata.routeId} ${metadata.module} ${metadata.requiredCapability ?? ''}`))).toBe(false);
+    expect(getRouteMetadata('/inbox')).toMatchObject({
+      routeId: 'inbox.home',
+      domain: 'inbox',
+      module: 'conversation-entry',
+      requiredCapability: 'canUseInbox',
+      fallbackTarget: '/dashboard',
+    });
+    expect(getRouteMetadata('/integrations')).toMatchObject({
+      routeId: 'integrations.admin.index',
+      module: 'provider-index',
+    });
+  });
+
+  it('registers forms/docs controls as a settings-owned route', () => {
+    expect(getRouteMetadata('/settings/forms-docs')).toMatchObject({
+      routeId: 'settings.forms-docs-controls',
+      domain: 'settings',
+      module: 'forms-docs-controls',
+      requiredCapability: 'canManageFormsDocsSettings',
+      fallbackTarget: '/dashboard',
+      implementationState: 'implemented',
+    });
+  });
+
   it('registers requisition forms download separately from approval', () => {
     expect(matchRouteMetadata('/job-requisition-forms/form-123')).toMatchObject({
       pattern: '/job-requisition-forms/$formId',
@@ -32,6 +83,23 @@ describe('route metadata registry', () => {
         module: 'requisition-forms-download',
         requiredCapability: 'canDownloadRequisitionFormsByToken',
       }),
+    });
+  });
+
+  it('registers jobs routes with implementation-depth capabilities', () => {
+    expect(getRouteMetadata('/jobs/open')).toMatchObject({
+      routeId: 'jobs.list',
+      domain: 'jobs',
+      module: 'list',
+      requiredCapability: 'canViewJobsList',
+      implementationState: 'implemented',
+    });
+
+    expect(getRouteMetadata('/job/job-1/cv/candidate-1/schedule')).toMatchObject({
+      routeId: 'jobs.task.schedule',
+      requiredCapability: 'canScheduleInterviewFromJob',
+      mutationCapability: 'canScheduleInterviewFromJob',
+      implementationState: 'implemented',
     });
   });
 
@@ -47,4 +115,39 @@ describe('route metadata registry', () => {
       }),
     });
   });
+
+  it('registers account profile and settings routes with explicit capabilities', () => {
+    expect(getRouteMetadata('/settings/user-settings')).toMatchObject({ routeId: 'settings.user-settings', requiredCapability: 'canViewUserSettings', implementationState: 'implemented' });
+    expect(getRouteMetadata('/settings/company-settings')).toMatchObject({ routeId: 'settings.company-settings', requiredCapability: 'canManageCompanySettings', implementationState: 'implemented' });
+    expect(getRouteMetadata('/settings/agency-settings')).toMatchObject({ routeId: 'settings.agency-settings', requiredCapability: 'canManageAgencySettings', implementationState: 'implemented' });
+    expect(getRouteMetadata('/hiring-company-profile')).toMatchObject({ routeId: 'shell.hiring-company-profile', requiredCapability: 'canViewHiringCompanyProfile', mutationCapability: 'canManageCompanySettings' });
+    expect(getRouteMetadata('/recruitment-agency-profile')).toMatchObject({ routeId: 'shell.recruitment-agency-profile', requiredCapability: 'canViewRecruitmentAgencyProfile', mutationCapability: 'canManageAgencySettings' });
+  });
+
+
+
+  it('marks reports routes as implemented only after product-depth result, command, compatibility, and telemetry gates exist', () => {
+    expect(getRouteMetadata('/report')).toMatchObject({
+      routeId: 'reports.index',
+      domain: 'reports',
+      module: 'report-index',
+      requiredCapability: 'canViewReports',
+      implementationState: 'implemented',
+    });
+    expect(getRouteMetadata('/report/jobs')).toMatchObject({
+      routeId: 'reports.family',
+      domain: 'reports',
+      module: 'report-family-pages',
+      requiredCapability: 'canViewReportFamily',
+      implementationState: 'implemented',
+    });
+    expect(getRouteMetadata('/hiring-company/report/hiring-process')).toMatchObject({
+      routeId: 'reports.legacy.compat',
+      domain: 'reports',
+      module: 'report-index',
+      parentTarget: '/report',
+      implementationState: 'implemented',
+    });
+  });
+
 });

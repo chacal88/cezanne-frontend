@@ -164,6 +164,7 @@ Org team/users navigation now follows these rules:
 - `/team`, `/team/recruiters`, and `/users/invite` support direct entry for eligible org admins.
 - Denied org team route entry falls back to `/dashboard`.
 - Recruiter visibility and invite management remain recruiter-core/org scoped, not platform scoped.
+- `/team/recruiters` preserves `/team` as its parent target while rendering route-local unavailable, degraded, stale, and retryable states.
 - `/users/invite` presents org-scoped invite send/resend/revoke and membership readiness while keeping `/team` as parent target and `/dashboard` as denied fallback.
 - Follow-on invite/membership and favorites slices should preserve `/team` as the parent foundation context.
 
@@ -227,7 +228,7 @@ The `r5-settings-leftovers` planning baseline defines these navigation rules for
 - `/settings/api-endpoints` supports direct entry for eligible HC Admin users and falls back to `/dashboard` when denied.
 - `/settings/api-endpoints` is a settings-owned route, not an integrations route and not a SysAdmin route.
 - `/parameters/:settings_id?/:section?/:subsection?` remains a compatibility resolver only. It maps known authorized subsection keys to dedicated routes and replaces the compatibility URL when a dedicated route is selected.
-- recognized compatibility subsection keys are `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, and `api-endpoints`.
+- recognized compatibility subsection keys are `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, `api-endpoints`, and `forms-docs`.
 - unknown, unauthorized, unavailable, and unimplemented subsection requests fall back to the first available recognized subsection for the actor, or `/dashboard` when no subsection is available.
 - API endpoint validation and save/retry states stay on `/settings/api-endpoints`; failed validation does not navigate away.
 
@@ -294,3 +295,22 @@ Contract send, retry, status refresh, downstream handoff, and terminal outcomes 
 ## ATS and assessment provider setup return behavior
 
 For `ats-assessment-provider-setup-depth`, ATS and assessment provider setup stays under `/integrations/:id` with `/integrations` as the parent return target. Readiness recovery targets may point back to provider setup, but public/token survey, review, interview-feedback, and `/integration/*` routes remain route-owned and are not redirected through authenticated setup.
+
+## Auth session foundation behavior
+
+Public auth entry routes remain in the unsigned shell until a normalized session-ready outcome exists. Post-auth landing resolves to a sanitized internal return target, `/dashboard`, or the platform dashboard; unsafe public/token callback surfaces are not accepted as post-auth return targets. Logout resolves to logged-out state and `/`, while session-expired resolves to public entry rather than access-denied.
+
+## Product-depth flow validation notes
+
+Shell dashboard re-entry covers normal landing, notification fallback, denied target fallback, stale target fallback, and platform landing. Jobs task overlays preserve parent return and parent refresh after successful task outcomes. Candidate detail preserves direct, job-context, database-return, notification, stale-ordering, and unavailable-sequence behavior. Public/token flows stay same-route for retry and terminal states and do not enter the authenticated shell.
+
+## Shell and product-depth return behavior note
+
+Shell-owned notification handoff resolves typed destinations and fallback routes only. Product domains own task execution, retry, and parent refresh. Public/token routes remain route-local and must not rely on authenticated shell return behavior.
+
+## Forms/docs settings return behavior
+
+- `/settings/forms-docs` supports direct entry for eligible HC Admin users with `formsDocs` subscription capability and falls back to `/dashboard` when denied.
+- `/settings/forms-docs` exposes `/parameters/default/settings/forms-docs` as its compatibility parent return target.
+- save/retry, unavailable, stale, and degraded states stay within `/settings/forms-docs`; candidate documents/contracts, public application, and integration forms token routes receive explicit refresh/degraded signals instead of owning settings mutation.
+- public/token routes remain same-route and unsigned; they are not redirected through authenticated forms/docs settings.

@@ -53,6 +53,14 @@ export const operationalSettingsRouteDefinitions: Record<OperationalSettingsSubs
     compatibilitySection: defaultCompatibilitySection,
     compatibilitySubsection: 'api-endpoints',
   },
+  'forms-docs': {
+    subsectionId: 'forms-docs',
+    routeId: routeIds.settingsFormsDocsControls,
+    capability: 'canManageFormsDocsSettings',
+    path: '/settings/forms-docs',
+    compatibilitySection: defaultCompatibilitySection,
+    compatibilitySubsection: 'forms-docs',
+  },
 };
 
 export const operationalSettingsRouteMetadata = Object.fromEntries(

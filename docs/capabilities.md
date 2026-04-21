@@ -148,7 +148,7 @@ Suggested fields:
 | `canManageTemplates` | Action capability | `hc`, with admin-only and subtype-specific gates layered on smart questions, diversity questions, and interview scoring where applicable | templates family and template subsections as operational-settings subsections | hide subsection |
 | `canManageRejectReasons` | Action capability | `hc` + admin + `rejectionReason` | reject reasons as an operational-settings subsection, with job/candidate reject flows treated as downstream consumers rather than route scope | hide subsection |
 | `canManageApiEndpoints` | Route/action capability | authenticated `hc` + admin; not granted by RA, SysAdmin, or integrations capabilities | `/settings/api-endpoints` and `api-endpoints` compatibility resolution | hide subsection or dashboard fallback; validation/save failures stay in-route |
-| `canManageFormsDocsSettings` | Action capability | `hc` + admin + `formsDocs` | forms/docs settings | hide subsection |
+| `canManageFormsDocsSettings` | Route/action capability | `hc` + admin + `formsDocs`; not inferred from candidate document capabilities | `/settings/forms-docs` and `forms-docs` compatibility resolution | hide subsection or dashboard fallback; settings save/retry stays in route while candidate/public consumers receive refresh intent |
 | `canViewIntegrations` | Route access | `hc` + admin | integrations index | hide subsection or dashboard fallback |
 | `canManageIntegrationProvider` | Action capability | integration access + provider entitlement | integration detail/edit plus provider-specific configuration/auth/diagnostics actions | return to integrations index |
 | `canUseIntegrationTokenEntry` | Route access | token validity + integration contract | unsigned integration routes | token error state |
@@ -200,7 +200,7 @@ For `r5-public-token-leftovers`:
 For `r5-settings-leftovers`:
 - `canEnterSettings` is the route gate for `/parameters/:settings_id?/:section?/:subsection?` compatibility entry.
 - `canEnterSettings` allows authenticated HC/RA contexts to enter the resolver, but the resolver must still evaluate the resolved subsection capability before exposing controls.
-- Recognized compatibility subsection keys are `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, and `api-endpoints`.
+- Recognized compatibility subsection keys are `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, `api-endpoints`, and `forms-docs`.
 - Unknown, unauthorized, unavailable, and unimplemented subsection keys fall back to the first available recognized subsection for the actor, or `/dashboard` when none is available.
 - `canManageApiEndpoints` is granted only to authenticated HC Admin contexts. It is not granted by `canViewIntegrations`, `canManageIntegrationProvider`, SysAdmin platform capabilities, or RA context.
 - API endpoint validation and save failures remain route-local states; components must not inspect raw role/session payloads directly.
@@ -323,3 +323,21 @@ Offer/contract actions continue to use the existing candidate and job task capab
 ## ATS and assessment provider setup capability note
 
 ATS and assessment setup uses the existing authenticated integrations capabilities (`canViewIntegrations` and `canManageIntegrationProvider`). These capabilities do not grant public/token route access and do not implement custom provider setup.
+
+## Auth foundation capability note
+
+Auth foundation keeps `canStartSession`, `canUseAuthTokenFlow`, and `canCompleteSsoCallback` on public/token route classes. `canEnterShell` remains authenticated-shell only, so invalid/expired/used/inaccessible auth token states stay public and cannot unlock shell capabilities.
+
+## Product-depth capability boundaries
+
+Shell product-depth consumes authenticated shell capabilities for navigation and account-context visibility only. Jobs product-depth consumes Jobs capabilities without taking ownership of provider setup or Candidate actions. Candidate product-depth consumes Candidate capabilities without taking ownership of public/token, signer-facing, provider setup, or inbox send mechanics. Public/token product-depth does not require `canEnterShell`, account context, or authenticated navigation.
+
+## Implementation-depth capability note
+
+Capability keys are ownership and access boundaries, not proof of complete product behavior. The active depth packages add validation for auth/session, shell notification resolution, Jobs product-depth, Candidate product-depth, and public/token product-depth while preserving provider setup and operational flow separation.
+
+## Email deliverability capability boundary
+
+No `canManageEmailDeliverability`, `canManageSenderDomain`, `canVerifySenderDomain`, or `canManageSenderSignature` frontend route capability is currently defined. Sender-domain verification, managed sender-domain lifecycle, DNS/provider setup, manual revalidation, and sender-signature setup remain backend-only/no-UI.
+
+Operational routes may use their existing capabilities (`canUseInbox`, `canOpenConversation`, `canOpenNotifications`, and candidate communication capabilities) to render normalized email readiness states. Those capabilities do not grant setup ownership and must not expose raw provider, DNS, domain, signature, token, or message payload data.

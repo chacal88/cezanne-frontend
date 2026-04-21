@@ -64,6 +64,25 @@ The R4 invite/membership slice resolves the second ownership boundary:
 
 Recommended follow-on order now starts with `r4-favorites-management`, then `r4-favorite-requests`.
 
+## Org team and recruiter visibility product-depth decisions implemented
+
+The org team/recruiter visibility slice resolves the product-depth gap for the route-owning team pages:
+- `/team` now owns member-list, pending-invite, role/status, empty, denied, unavailable, stale, degraded, retryable, and refresh-required states.
+- `/team/recruiters` now owns recruiter-list, visibility-filter, assignment-readiness, empty, denied, unavailable, stale, degraded, retryable, and parent-return states.
+- `/team` and `/team/recruiters` remain org-scoped routes gated by `canViewOrgTeam` and `canViewRecruiterVisibility`; they do not require or grant `canManagePlatformUsers`.
+- Invite and membership readiness continues to feed team-local refresh intent, but does not mutate shell state or platform user state.
+- Org favorites and org favorite requests remain separate from recruiter visibility; platform `/favorites-request*` remains reserved for SysAdmin queues.
+
+Confirmed source-level contracts:
+- Route metadata owns `/team` as `team/org-team`, `/team/recruiters` as `team/recruiter-visibility`, and `/users/invite` as `team/invite-management`.
+- Current frontend contracts are adapter-backed and deterministic. They intentionally report unknown backend contract fields until a backend member/recruiter visibility API is confirmed.
+- Safe team telemetry contains route id, route state, persona class, capability outcome, safe counts, and unknown-contract field names only. It must not contain raw emails, invite tokens, message bodies, or platform-only identifiers.
+
+Unknowns that remain outside this frontend slice:
+- the confirmed backend API shape for team members and recruiter visibility;
+- the first persisted recruiter visibility filter set;
+- whether org role edits are writable in this frontend or read-only for the first backend integration.
+
 ## Favorites decisions implemented
 
 The R4 favorites slice resolves the third ownership boundary:

@@ -11,7 +11,6 @@ export function IntegrationFormsTokenEntryPage({ token }: { token: string }) {
   const [answer, setAnswer] = useState(existingAnswer?.answer ?? '');
   const [fileName, setFileName] = useState(existingAnswer?.fileName ?? 'document.pdf');
   const [error, setError] = useState<string | null>(null);
-  const [payloadPreview, setPayloadPreview] = useState('');
 
   useEffect(() => {
     setActiveCorrelationId(createCorrelationId());
@@ -37,7 +36,6 @@ export function IntegrationFormsTokenEntryPage({ token }: { token: string }) {
       return;
     }
 
-    setPayloadPreview(JSON.stringify(result.payload, null, 2));
     observability.telemetry.track({
       name: 'integration_forms_submission_completed',
       data: { stepId: currentStep.id, state: result.status, correlationId: ensureCorrelationId() },
@@ -50,7 +48,6 @@ export function IntegrationFormsTokenEntryPage({ token }: { token: string }) {
       <section style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 20, display: 'grid', gap: 12 }}>
         <h1>Requested forms/documents complete</h1>
         <p data-testid="integration-forms-completion">{view.completion.message}</p>
-        {payloadPreview ? <pre data-testid="integration-forms-payload-preview">{payloadPreview}</pre> : null}
       </section>
     );
   }
@@ -79,7 +76,6 @@ export function IntegrationFormsTokenEntryPage({ token }: { token: string }) {
       ) : null}
       <button type="button" onClick={handleSubmit} data-testid="integration-forms-submit-button">Save and continue</button>
       {error ? <p data-testid="integration-forms-error">{error}</p> : null}
-      {payloadPreview ? <pre data-testid="integration-forms-payload-preview">{payloadPreview}</pre> : null}
     </section>
   );
 }

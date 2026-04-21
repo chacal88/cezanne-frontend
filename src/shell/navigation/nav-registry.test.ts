@@ -1,5 +1,5 @@
 import { evaluateCapabilities } from '../../lib/access-control';
-import { getVisiblePlatformNavigation } from './nav-registry';
+import { getVisibleAccountNavigation, getVisiblePlatformNavigation } from './nav-registry';
 import type { AccessContext } from '../../lib/access-control';
 
 function buildAccessContext(overrides: Partial<AccessContext> = {}): AccessContext {
@@ -33,5 +33,18 @@ describe('platform navigation registry', () => {
     const capabilities = evaluateCapabilities(buildAccessContext({ organizationType: 'hc', isSysAdmin: false }));
 
     expect(getVisiblePlatformNavigation(capabilities)).toEqual([]);
+  });
+
+  it('shows account/profile links only for the authenticated organization ownership', () => {
+    const hcContext = buildAccessContext({ organizationType: 'hc', isSysAdmin: false });
+    const hcLinks = getVisibleAccountNavigation(evaluateCapabilities(hcContext), hcContext);
+    expect(hcLinks.map((link) => link.to)).toContain('/hiring-company-profile');
+    expect(hcLinks.map((link) => link.to)).toContain('/settings/company-settings');
+    expect(hcLinks.map((link) => link.to)).not.toContain('/recruitment-agency-profile');
+
+    const raContext = buildAccessContext({ organizationType: 'ra', isSysAdmin: false });
+    const raLinks = getVisibleAccountNavigation(evaluateCapabilities(raContext), raContext);
+    expect(raLinks.map((link) => link.to)).toContain('/recruitment-agency-profile');
+    expect(raLinks.map((link) => link.to)).not.toContain('/settings/company-settings');
   });
 });

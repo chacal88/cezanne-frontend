@@ -6,6 +6,7 @@ import { getApplicationPageConfig } from './support/store';
 import type { ApplicationPageRouteState } from './support/models';
 import { runApplicationPageSaveWorkflow } from './support/workflow';
 import { trackCareersApplicationRouteOpen, trackCareersApplicationRouteResolution, trackCareersApplicationWorkflow } from './support/telemetry';
+import { buildApplicationPageCloseoutSnapshot } from './support/closeout';
 
 export function ApplicationPageSettingsPage({ routeState }: { routeState: ApplicationPageRouteState }) {
   const capabilities = useCapabilities();
@@ -26,6 +27,10 @@ export function ApplicationPageSettingsPage({ routeState }: { routeState: Applic
     () => evaluateApplicationPageAccess(capabilities, { settingsId: routeState.settingsId, featureEnabled: config.featureEnabled }),
     [capabilities, config.featureEnabled, routeState.settingsId],
   );
+  const closeout = buildApplicationPageCloseoutSnapshot(decision, routeState, {
+    saveStatus: saveState === 'completed' ? 'completed' : saveState === 'failed' ? 'failed' : 'idle',
+    publicReflectionIntent: saveState === 'completed' ? 'pending' : 'not-requested',
+  });
 
   async function handleSave() {
     trackCareersApplicationWorkflow('save_started', { routeId: 'settings.careers-application.application-page', section: config.section, subsection: config.subsection });
@@ -48,6 +53,8 @@ export function ApplicationPageSettingsPage({ routeState }: { routeState: Applic
         <dd data-testid="application-page-subsection">{config.subsection}</dd>
         <dt>Readiness</dt>
         <dd data-testid="application-page-readiness">{decision.readiness}</dd>
+        <dt>Closeout state</dt>
+        <dd data-testid="application-page-closeout-state">{closeout.state}</dd>
       </dl>
       <label>
         Intro title

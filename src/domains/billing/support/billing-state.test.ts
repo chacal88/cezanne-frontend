@@ -1,4 +1,5 @@
 import {
+  buildBillingAdapterSnapshot,
   buildBillingActionViewModel,
   buildBillingCardActionReadiness,
   buildBillingCardViewModel,
@@ -8,9 +9,10 @@ import {
   buildSmsAddonActionReadiness,
   buildSmsAddonViewModel,
   billingRoutes,
+  normalizeBillingAdapterSnapshot,
 } from './billing-state';
 
-describe('billing foundation state', () => {
+describe('billing product-depth state', () => {
   it('models billing overview commercial state outside platform subscription admin', () => {
     expect(billingRoutes).toEqual({
       overview: '/billing',
@@ -21,32 +23,51 @@ describe('billing foundation state', () => {
     });
     expect(buildBillingOverviewViewModel()).toMatchObject({
       state: 'ready',
+      commercialState: 'ready',
       planState: 'active',
-      smsState: 'available',
+      smsState: 'usage-warning',
       cardState: 'ready',
       parentTarget: '/dashboard',
+      refreshIntent: 'none',
       platformSubscriptionAdmin: false,
     });
   });
 
-  it('blocks billing actions when billing is hidden', () => {
+  it('blocks billing actions when billing is hidden and separates denied from unavailable', () => {
+    expect(buildBillingOverviewViewModel('hidden')).toMatchObject({ state: 'denied', commercialState: 'hidden' });
     expect(buildBillingOverviewViewModel('hidden').actions).toEqual([
       { action: 'upgrade', label: 'Upgrade subscription', state: 'blocked', reason: 'Billing is hidden for this organization' },
       { action: 'manage-sms', label: 'Manage SMS add-on', state: 'blocked', reason: 'Billing is hidden for this organization' },
       { action: 'manage-card', label: 'Manage payment card', state: 'blocked', reason: 'Billing is hidden for this organization' },
     ]);
+    expect(buildBillingOverviewViewModel('unavailable')).toMatchObject({ state: 'unavailable', commercialState: 'unavailable', refreshIntent: 'contact-support' });
+  });
+
+  it('exposes adapter fixtures for loading empty stale degraded and pending subscription states', () => {
+    expect(buildBillingAdapterSnapshot('loading')).toMatchObject({ routeState: 'loading', cards: [] });
+    expect(buildBillingAdapterSnapshot('empty')).toMatchObject({ routeState: 'empty', hasReadyCard: false });
+    expect(buildBillingOverviewViewModel(buildBillingAdapterSnapshot('stale'))).toMatchObject({ state: 'stale', refreshIntent: 'refresh-subscription' });
+    expect(buildBillingOverviewViewModel(buildBillingAdapterSnapshot('degraded'))).toMatchObject({ state: 'degraded', refreshIntent: 'contact-support' });
+    expect(buildBillingOverviewViewModel(buildBillingAdapterSnapshot('pending-change')).pendingChanges).toContainEqual({ kind: 'plan-change', label: 'Growth plan activation pending', state: 'pending' });
+    expect(normalizeBillingAdapterSnapshot({ platformSubscriptionAdmin: false, pendingChanges: [{ kind: 'sms-change', label: 'SMS pending', state: 'pending' }] })).toMatchObject({
+      routeState: 'ready',
+      pendingChanges: [{ kind: 'sms-change', label: 'SMS pending', state: 'pending' }],
+      platformSubscriptionAdmin: false,
+    });
   });
 
   it('models billing action and card fallback state', () => {
     expect(buildBillingActionViewModel('upgrade')).toMatchObject({
       state: 'available',
       parentTarget: '/billing',
+      refreshIntent: 'none',
       platformSubscriptionAdmin: false,
     });
     expect(buildBillingCardViewModel('card-primary')).toMatchObject({
       state: 'ready',
       card: { label: 'Primary card', role: 'primary' },
       parentTarget: '/billing',
+      refreshIntent: 'none',
       platformSubscriptionAdmin: false,
     });
     expect(buildBillingCardViewModel('missing')).toMatchObject({
@@ -58,26 +79,20 @@ describe('billing foundation state', () => {
     });
   });
 
-  it('models add new backup expired and missing card states', () => {
+  it('models add new backup expired missing challenge pending and failed card states', () => {
     expect(buildBillingCardViewModel('new')).toMatchObject({
       state: 'add-new',
       card: { role: 'new', state: 'missing' },
       parentTarget: '/billing',
+      refreshIntent: 'return-to-parent',
       platformSubscriptionAdmin: false,
     });
-    expect(buildBillingCardViewModel('card-backup')).toMatchObject({
-      state: 'ready',
-      card: { role: 'backup' },
-      platformSubscriptionAdmin: false,
-    });
-    expect(buildBillingCardViewModel('card-expired')).toMatchObject({
-      state: 'expired',
-      card: { role: 'backup' },
-    });
-    expect(buildBillingCardViewModel('card-missing')).toMatchObject({
-      state: 'missing',
-      card: { role: 'backup' },
-    });
+    expect(buildBillingCardViewModel('card-backup')).toMatchObject({ state: 'ready', card: { role: 'backup' } });
+    expect(buildBillingCardViewModel('card-expired')).toMatchObject({ state: 'expired', card: { role: 'backup' } });
+    expect(buildBillingCardViewModel('card-missing')).toMatchObject({ state: 'missing', card: { role: 'backup' } });
+    expect(buildBillingCardViewModel('card-challenge')).toMatchObject({ state: 'provider-challenge', refreshIntent: 'provider-challenge' });
+    expect(buildBillingCardViewModel('card-pending')).toMatchObject({ state: 'pending', refreshIntent: 'refresh-subscription' });
+    expect(buildBillingCardViewModel('card-failed')).toMatchObject({ state: 'failed', refreshIntent: 'retry-mutation' });
   });
 
   it('models card edit remove and make-default readiness', () => {
@@ -92,11 +107,11 @@ describe('billing foundation state', () => {
       state: 'blocked',
       reason: 'Primary card cannot be removed until another card is default',
     });
-    expect(buildBillingCardActionReadiness({ id: 'expired', label: 'Expired', role: 'backup', state: 'expired' })).toContainEqual({
+    expect(buildBillingCardActionReadiness({ id: 'challenge', label: 'Challenge', role: 'backup', state: 'provider-challenge' })).toContainEqual({
       action: 'make-default',
       label: 'Make default',
       state: 'blocked',
-      reason: 'Expired cards cannot become default',
+      reason: 'Provider challenge does not confirm subscription success',
     });
   });
 
@@ -105,6 +120,7 @@ describe('billing foundation state', () => {
       state: 'confirmation',
       currentPlan: { id: 'starter' },
       targetPlan: { id: 'growth' },
+      selectedPlan: { id: 'growth' },
       hasReadyCard: true,
       action: { state: 'ready', nextState: 'confirmation' },
       parentTarget: '/billing',
@@ -118,22 +134,22 @@ describe('billing foundation state', () => {
     });
   });
 
-  it('models card-blocked submitted success and failure upgrade states', () => {
+  it('models card-blocked submitted success failure retry challenge stale and degraded upgrade states', () => {
     expect(buildBillingUpgradeViewModel({ targetPlanId: 'enterprise', hasReadyCard: false })).toMatchObject({
       state: 'card-blocked',
-      action: {
-        state: 'blocked',
-        nextTarget: '/billing/card/$cardId',
-        params: { cardId: 'new' },
-      },
-      platformSubscriptionAdmin: false,
+      action: { state: 'blocked', nextTarget: '/billing/card/$cardId', params: { cardId: 'new' } },
     });
-    expect(buildBillingUpgradeViewModel({ forcedState: 'submitted' })).toMatchObject({ state: 'submitted', action: { state: 'pending' } });
-    expect(buildBillingUpgradeViewModel({ forcedState: 'success' })).toMatchObject({ state: 'success', action: { state: 'success' } });
-    expect(buildBillingUpgradeViewModel({ forcedState: 'failure' })).toMatchObject({
+    expect(buildBillingUpgradeViewModel({ forcedState: 'submitted' })).toMatchObject({ state: 'submitted', action: { state: 'pending' }, refreshIntent: 'refresh-subscription' });
+    expect(buildBillingUpgradeViewModel({ forcedState: 'success' })).toMatchObject({ state: 'success', action: { state: 'success' }, refreshIntent: 'return-to-parent' });
+    expect(buildBillingUpgradeViewModel({ forcedState: 'failure', targetPlanId: 'enterprise' })).toMatchObject({
       state: 'failure',
+      selectedPlan: { id: 'enterprise' },
       action: { state: 'failed', reason: 'Plan change could not be completed' },
     });
+    expect(buildBillingUpgradeViewModel({ forcedState: 'retry', targetPlanId: 'enterprise' })).toMatchObject({ state: 'retry', selectedPlan: { id: 'enterprise' }, refreshIntent: 'retry-mutation' });
+    expect(buildBillingUpgradeViewModel({ forcedState: 'challenge-required' })).toMatchObject({ state: 'challenge-required', refreshIntent: 'provider-challenge' });
+    expect(buildBillingUpgradeViewModel({ forcedState: 'stale' })).toMatchObject({ state: 'stale', refreshIntent: 'refresh-subscription' });
+    expect(buildBillingUpgradeViewModel({ forcedState: 'degraded' })).toMatchObject({ state: 'degraded', refreshIntent: 'contact-support' });
   });
 
   it('models SMS add-on usage and action readiness', () => {
@@ -142,6 +158,7 @@ describe('billing foundation state', () => {
       usage: { used: 850, limit: 1000, warningThreshold: 0.8 },
       hasReadyCard: true,
       parentTarget: '/billing',
+      refreshIntent: 'none',
       platformSubscriptionAdmin: false,
     });
     expect(buildSmsAddonActionReadiness({ state: 'inactive', hasReadyCard: true })).toContainEqual({
@@ -152,34 +169,23 @@ describe('billing foundation state', () => {
     });
   });
 
-  it('models SMS card-blocked unavailable suspended and trial states', () => {
+  it('models SMS card-blocked unavailable suspended trial failed retry and partial-success states', () => {
     expect(buildSmsAddonViewModel({ state: 'inactive', hasReadyCard: false })).toMatchObject({
       state: 'card-blocked',
-      actions: [
-        {
-          action: 'enable',
-          state: 'blocked',
-          nextTarget: '/billing/card/$cardId',
-          params: { cardId: 'new' },
-        },
-        expect.any(Object),
-        expect.any(Object),
-      ],
-      platformSubscriptionAdmin: false,
+      actions: [{ action: 'enable', state: 'blocked', nextTarget: '/billing/card/$cardId', params: { cardId: 'new' } }, expect.any(Object), expect.any(Object)],
     });
-    expect(buildSmsAddonViewModel({ state: 'unavailable' })).toMatchObject({
-      state: 'unavailable',
-      platformSubscriptionAdmin: false,
-    });
+    expect(buildSmsAddonViewModel({ state: 'unavailable' })).toMatchObject({ state: 'unavailable', platformSubscriptionAdmin: false });
     expect(buildSmsAddonViewModel({ state: 'suspended' }).actions).toContainEqual({
       action: 'update-limit',
       label: 'Update SMS limit',
       state: 'blocked',
       reason: 'Suspended SMS add-ons cannot update limits',
     });
-    expect(buildSmsAddonViewModel({ state: 'trial', usage: { used: 10, limit: 100, warningThreshold: 0.8 } })).toMatchObject({
-      state: 'trial',
-      hasReadyCard: true,
-    });
+    expect(buildSmsAddonViewModel({ state: 'trial', usage: { used: 10, limit: 100, warningThreshold: 0.8 } })).toMatchObject({ state: 'trial', hasReadyCard: true });
+    expect(buildSmsAddonViewModel({ state: 'failed' })).toMatchObject({ state: 'failed', refreshIntent: 'retry-mutation' });
+    expect(buildSmsAddonViewModel({ state: 'retry' })).toMatchObject({ state: 'retry', refreshIntent: 'retry-mutation' });
+    expect(buildSmsAddonViewModel({ state: 'partial-success' })).toMatchObject({ state: 'partial-success', parentRefreshRequired: true });
+    expect(buildSmsAddonViewModel({ state: 'stale' })).toMatchObject({ state: 'stale', refreshIntent: 'refresh-subscription' });
+    expect(buildSmsAddonViewModel({ state: 'degraded' })).toMatchObject({ state: 'degraded', refreshIntent: 'contact-support' });
   });
 });

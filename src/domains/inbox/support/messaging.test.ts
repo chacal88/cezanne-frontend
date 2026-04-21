@@ -5,14 +5,17 @@ import { buildIntegrationCvPath } from '../../integrations/support';
 import {
   buildCandidateConversationHandoff,
   buildInboxConversationPath,
+  buildInboxConversationStateFromAdapter,
   buildMessagingOperationalState,
   buildMessagingTelemetry,
+  buildMessagingStateFromEmailDeliverabilityReadiness,
   refreshStaleConversation,
   resolveInboxConversationDestination,
   resolveMessagingSendResult,
   retryMessagingSend,
   startMessagingSend,
 } from './messaging';
+import { buildEmailDeliverabilityReadiness } from './email-deliverability-readiness';
 
 describe('messaging communication operational helpers', () => {
   it('models URL-owned selected conversation states route-locally', () => {
@@ -23,6 +26,20 @@ describe('messaging communication operational helpers', () => {
     expect(buildMessagingOperationalState({ conversationId: 'conversation-1', readiness: 'degraded' }).kind).toBe('degraded');
     expect(buildMessagingOperationalState({ conversationId: 'conversation-1', readiness: 'unavailable' }).kind).toBe('unavailable');
     expect(buildMessagingOperationalState({ conversationId: 'conversation-1', draft: { body: ' Hello ' } })).toMatchObject({ kind: 'ready', canSend: true, draft: { body: 'Hello' } });
+  });
+
+
+  it('loads direct-entry conversation state through a replaceable adapter seam', () => {
+    expect(buildInboxConversationStateFromAdapter({ conversationId: 'conversation-123', entryMode: 'notification' })).toMatchObject({
+      kind: 'ready',
+      subject: 'Candidate follow-up',
+      participantLabel: 'Alex Candidate',
+      adapterContract: 'fixture',
+      entryMode: 'notification',
+    });
+    expect(buildInboxConversationStateFromAdapter({ conversationId: 'conversation-private' })).toMatchObject({ kind: 'inaccessible', fallbackKind: 'inbox' });
+    expect(buildInboxConversationStateFromAdapter({ conversationId: 'conversation-stale', draft: { body: 'Reply' } })).toMatchObject({ kind: 'stale-conversation', refreshRequired: true, draft: { body: 'Reply' } });
+    expect(buildInboxConversationStateFromAdapter({ conversationId: 'missing-conversation' })).toMatchObject({ kind: 'not-found' });
   });
 
   it('resolves notification destinations before conversation rendering with typed fallback', () => {
@@ -72,6 +89,21 @@ describe('messaging communication operational helpers', () => {
       status: 'inaccessible',
       state: { kind: 'inaccessible', returnTarget: '/candidate/candidate-1' },
     });
+  });
+
+  it('consumes email deliverability readiness as normalized messaging state without setup ownership', () => {
+    const readiness = buildEmailDeliverabilityReadiness({ domainStatus: 'failed', signatureStatus: 'confirmed', providerFamily: 'postmark', domainCategory: 'managed' });
+    const state = buildMessagingStateFromEmailDeliverabilityReadiness({ conversationId: 'conversation-1', readiness, draft: { body: 'Reply' } });
+
+    expect(state).toMatchObject({
+      kind: 'provider-blocked',
+      canSend: false,
+      conversationId: 'conversation-1',
+      fallbackKind: 'none',
+    });
+    expect(JSON.stringify(state)).not.toContain('/settings');
+    expect(JSON.stringify(state)).not.toContain('/integrations');
+    expect(JSON.stringify(state)).not.toContain('PostmarkDomainID');
   });
 
   it('emits allowlisted telemetry and keeps external token chat/integration routes separate', () => {

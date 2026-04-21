@@ -122,7 +122,7 @@ Synthesized from:
 | `templates` | Route-owning | shared templates family, including list/detail plus smart-questions, diversity, and interview-scoring subsections as substrate consumers | `canManageTemplates` | R4 |
 | `reject-reasons` | Route-owning | reject reasons list/edit flow as a consumer of the operational settings substrate, with downstream reject task flows kept explicit but outside this route slice | `canManageRejectReasons` | R4 |
 | `api-endpoints` | Route-owning | API endpoints settings foundation, route-local readiness/validation/save/retry states, and private-token/webhook configuration surface without provider setup ownership | `canManageApiEndpoints` | R5 |
-| `forms-docs-controls` | Route-owning | settings subsections for forms/documents and related controls | `canManageFormsDocsSettings` | R4-R5 |
+| `forms-docs-controls` | Route-owning | settings subsections for forms/documents and related controls, including route-local readiness/save/retry states and normalized downstream refresh intent | `canManageFormsDocsSettings` | R4-R5 |
 
 ### `integrations`
 
@@ -209,9 +209,9 @@ These module-level confirmations come from the current route definitions and sho
 
 The reports modules now have source-level foundation coverage: `report-index` owns `/report`, `report-family-pages` owns `/report/:family`, and `exports-scheduling` owns the shared export/schedule command contract consumed by report family pages.
 
-## R4 org team/users foundation module note
+## R4 org team/users product-depth module note
 
-The team/users foundation now has a source-level route-owning module boundary: org team index (`/team`), recruiter visibility (`/team/recruiters`), and invite foundation (`/users/invite`). Invite/membership and favorites follow-on modules must consume this foundation.
+The team/users module now has source-level route-owning product-depth coverage for org team index (`/team`) and recruiter visibility (`/team/recruiters`), plus invite foundation (`/users/invite`). The org team and recruiter visibility routes expose adapter-backed list/readiness states and preserve invite/membership and favorites as separate org-scoped consumers.
 
 ## Provider-specific integrations depth implementation note
 
@@ -264,3 +264,36 @@ Candidate documents/contracts, candidate action launchers, and job task overlays
 ## ATS and assessment provider setup module note
 
 The `integrations.provider-detail` module includes ATS and assessment provider-family setup depth. It owns normalized configuration/auth/diagnostics/readiness models for these families, while ATS source/import operations and survey/review/scoring execution remain in later operational modules.
+
+## Auth session foundation depth note
+
+`auth.entry`, `auth.token-flows`, `auth.sso-callbacks`, and `auth.session-bootstrap` are foundation-depth modules. They model public entry, confirm/register/reset/invite token lifecycle, Cezanne/SAML callback outcomes, post-auth landing, logout, and session-loss without backend endpoint invention. Auth token errors stay in the public auth shell and do not grant `canEnterShell`.
+
+## Product-depth boundary notes
+
+Shell/navigation/notification/dashboard depth is tracked separately from auth/session depth. Shell owns navigation visibility, org/platform mode, account-context entries, denied/hidden items, dashboard fallback, and notification destination fallback; product-domain action execution remains delegated to Jobs, Candidate, Inbox, Billing, or other owning domains.
+
+Jobs product depth covers list URL state, authoring save/retry, detail degradation, and task overlay parent-return states. Provider setup, requisition authoring, scheduling execution, publishing execution, and Candidate-owned actions remain separate normalized handoffs.
+
+Candidate product depth covers aggregate hub states, sequence navigation, candidate action lifecycle, summaries, collaboration, and parent-refresh semantics. Public/token routes, signer-facing routes, provider setup, and inbox send mechanics remain outside Candidate ownership.
+
+Public/token product depth covers shared token outcomes, public application upload/submission states, external chat/review/survey states, requisition token routes, and integration callback routes. These routes stay outside authenticated shell navigation and account context.
+
+## Implementation depth synchronization note
+
+The active implementation-depth packages distinguish registered routes and foundation helpers from product-depth completion:
+
+- `auth-session-foundation-depth` owns `auth.entry`, `auth.token-flows`, `auth.sso-callbacks`, and `auth.session-bootstrap` state depth.
+- `r0-shell-navigation-notification-depth` owns authenticated shell navigation, dashboard re-entry, account-context placeholders/unavailable states, notification destination fallback, and inbox handoff.
+- `r1-jobs-product-depth` owns Jobs product-depth beyond route registration.
+- `r2-candidate-product-depth` owns authenticated Candidate product-depth beyond demo/foundation stores.
+- `r3-public-token-product-depth` owns public/token product-depth and keeps it separate from authenticated shell.
+
+## Email deliverability frontend alignment
+
+Sender-domain provisioning, DNS verification, Postmark managed-domain lifecycle, and sender-signature setup are currently **backend-only/no-UI** for the greenfield frontend. No Settings, Integrations, Inbox, or public/token placeholder route owns those setup flows.
+
+Operational frontend surfaces consume normalized readiness only:
+- `inbox.conversation-list`, `inbox.conversation-entry`, `shell.notifications`, and `candidates.communication-collaboration` may render blocked/degraded/unavailable email readiness outcomes.
+- These consumers must not inspect Route53 records, Postmark domain details, DNS tokens, sender-signature secrets, provider payloads, retry internals, or message content.
+- If a future admin UI is required, a separate change must define route metadata, capability, parent/fallback targets, adapter seam, and navigation placement before any route is registered.

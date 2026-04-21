@@ -9,7 +9,6 @@ export function PublicApplicationPage({ jobOrRole, token, source }: { jobOrRole:
   const view = buildPublicApplicationViewModel({ jobOrRole, token, source });
   const [draft, setDraft] = useState<PublicApplicationDraft>(() => ({ ...view.defaults, fileName: 'cv.pdf' }));
   const [error, setError] = useState<string | null>(null);
-  const [payloadPreview, setPayloadPreview] = useState<string>('');
 
   useEffect(() => {
     setActiveCorrelationId(createCorrelationId());
@@ -42,7 +41,6 @@ export function PublicApplicationPage({ jobOrRole, token, source }: { jobOrRole:
       return;
     }
 
-    setPayloadPreview(JSON.stringify(result.payload, null, 2));
     observability.telemetry.track({
       name: 'public_application_submit_completed',
       data: {
@@ -99,7 +97,6 @@ export function PublicApplicationPage({ jobOrRole, token, source }: { jobOrRole:
       </button>
       {error ? <p data-testid="public-application-error">{error}</p> : null}
       {view.uploads.length > 0 ? <p data-testid="public-application-upload-count">{view.uploads.length}</p> : null}
-      {payloadPreview ? <pre data-testid="public-application-payload-preview">{payloadPreview}</pre> : null}
     </section>
   );
 }

@@ -1,4 +1,4 @@
-export const operationalSettingsSubsectionIds = ['hiring-flow', 'custom-fields', 'templates', 'reject-reasons', 'api-endpoints'] as const;
+export const operationalSettingsSubsectionIds = ['hiring-flow', 'custom-fields', 'templates', 'reject-reasons', 'api-endpoints', 'forms-docs'] as const;
 
 export type OperationalSettingsSubsectionId = (typeof operationalSettingsSubsectionIds)[number];
 
@@ -8,14 +8,16 @@ export type OperationalSettingsRouteId =
   | 'settings.operational.custom-fields'
   | 'settings.operational.templates'
   | 'settings.operational.reject-reasons'
-  | 'settings.api-endpoints';
+  | 'settings.api-endpoints'
+  | 'settings.forms-docs-controls';
 
 export type OperationalSettingsCapability =
   | 'canManageHiringFlowSettings'
   | 'canManageCustomFields'
   | 'canManageTemplates'
   | 'canManageRejectReasons'
-  | 'canManageApiEndpoints';
+  | 'canManageApiEndpoints'
+  | 'canManageFormsDocsSettings';
 
 export type OperationalSettingsRouteDefinition = {
   subsectionId: OperationalSettingsSubsectionId;

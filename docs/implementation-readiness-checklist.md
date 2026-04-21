@@ -241,3 +241,15 @@ If these answers are not available, the work is not ready.
 - `screens.md`
 - `r0-route-registration-plan.md`
 - `observability-implementation-plan.md`
+
+## Screen design-flow matrix gate
+
+Before Figma mapping or UI implementation starts for high-risk operational screens, check `screen-design-flow-matrix.md`. Route ownership must match `screens.md`, module ownership must match `modules.md`, state groups must cite accepted specs/docs, telemetry must use `telemetry-events.md`, and missing visual references must be marked pending rather than invented.
+
+## Product-depth implementation gate
+
+Before claiming a route family is product-depth complete, verify that foundation placeholders are replaced or explicitly marked unavailable, route states are deterministic, parent-return/refresh behavior is defined, public/authenticated boundaries are preserved, telemetry is allowlisted, and focused tests plus `npm test`, `npm run build`, and OpenSpec strict validation pass.
+
+## Design-flow matrix readiness
+
+Before Figma or UI product-depth handoff, check `screen-design-flow-matrix.md` for route ownership, state groups, error/retry behavior, parent return, telemetry, and pending design references.

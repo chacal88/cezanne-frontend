@@ -1,6 +1,7 @@
 import { useLocation, Navigate } from '@tanstack/react-router';
 import { buildCandidateDatabaseDetailPath, candidateDatabaseCanonicalPath, parseCandidateDatabaseSearchFromUrl } from '../support/candidate-database-routing';
 import { buildCandidateDatabaseAtsRow } from '../support/ats-operational-adapters';
+import { resolveCandidateDatabaseProductState } from '../support/product-depth';
 
 export function CandidateDatabasePage() {
   const location = useLocation();
@@ -10,6 +11,13 @@ export function CandidateDatabasePage() {
     return <Navigate to={candidateDatabaseCanonicalPath} search={state} replace />;
   }
 
+  const resultCount = state.query === 'empty' ? 0 : 1;
+  const productState = resolveCandidateDatabaseProductState({
+    resultCount,
+    stale: state.tags.includes('stale'),
+    degraded: state.tags.includes('degraded'),
+    retryable: state.tags.includes('retry'),
+  });
   const detailPath = buildCandidateDatabaseDetailPath('candidate-123', state);
   const atsRow = buildCandidateDatabaseAtsRow({
     candidateId: 'candidate-123',
@@ -29,11 +37,16 @@ export function CandidateDatabasePage() {
       <p data-testid="candidate-database-order">{state.order}</p>
       <p data-testid="candidate-database-stage">{state.stage ?? '—'}</p>
       <p data-testid="candidate-database-tags">{state.tags.join(',') || '—'}</p>
+      <p data-testid="candidate-database-product-state">{productState.kind}</p>
       <p data-testid="candidate-database-ats-state">{atsRow.atsState.kind}</p>
       <p data-testid="candidate-database-ats-return">{atsRow.candidatePath}</p>
-      <a href={detailPath} data-testid="candidate-database-detail-link">
-        Open candidate from database
-      </a>
+      {productState.kind === 'empty' ? (
+        <p data-testid="candidate-database-empty-state">No candidates match the current search.</p>
+      ) : (
+        <a href={detailPath} data-testid="candidate-database-detail-link">
+          Open candidate from database
+        </a>
+      )}
     </section>
   );
 }

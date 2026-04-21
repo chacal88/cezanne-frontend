@@ -1,7 +1,15 @@
 {
   "home": {
     "title": "Dashboard",
-    "detail": "R0 shell landing page registered as a `Page` route."
+    "detail": "R0 shell landing page registered as a `Page` route with operational re-entry states."
+  },
+  "operational": {
+    "sourceHealth": "Source health",
+    "calendarReadiness": "Calendar readiness",
+    "notifications": "Notifications",
+    "inbox": "Inbox",
+    "refreshRequired": "Refresh required",
+    "adapter": "Adapter contract"
   },
   "platform": {
     "eyebrow": "Platform mode",

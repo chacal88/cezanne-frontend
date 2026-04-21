@@ -1,31 +1,17 @@
-import { resolveTypedDestinationForR0, type TypedDestination } from '../../lib/routing';
+import { useEffect } from 'react';
 import { useCapabilities } from '../../lib/access-control';
 import { useTranslation } from 'react-i18next';
-
-const seededNotifications: { id: string; labelKey: 'notifications.seeded.candidateFollowUp' | 'notifications.seeded.offerAttention'; destination: TypedDestination }[] = [
-  {
-    id: 'n-1',
-    labelKey: 'notifications.seeded.candidateFollowUp',
-    destination: {
-      kind: 'candidate.detail',
-      candidateId: 'candidate-123',
-      jobId: 'job-456',
-      status: 'screening',
-      order: '2',
-      filters: 'remote',
-      interview: 'interview-1',
-    },
-  },
-  {
-    id: 'n-2',
-    labelKey: 'notifications.seeded.offerAttention',
-    destination: { kind: 'job.offer', jobId: 'job-456', candidateId: 'candidate-123' },
-  },
-];
+import { buildNotificationCenterViewModel, buildShellNotificationTelemetry } from './notification-state';
+import { observability } from '../../app/observability';
 
 export function NotificationsPage() {
   const capabilities = useCapabilities();
   const { t } = useTranslation('shell');
+  const center = buildNotificationCenterViewModel({ capabilities });
+
+  useEffect(() => {
+    center.items.forEach((item) => observability.telemetry.track(buildShellNotificationTelemetry(item)));
+  }, [center.items]);
 
   return (
     <section>
@@ -33,31 +19,26 @@ export function NotificationsPage() {
       <p>
         {t('notifications.accessLabel')} <strong>{capabilities.canViewNotifications ? t('notifications.allowed') : t('notifications.denied')}</strong>
       </p>
+      <p data-testid="notification-center-state">{center.state}</p>
+      <p data-testid="notification-center-unread">{center.unreadCount}</p>
+      <p data-testid="notification-center-adapter">{center.adapterContract}</p>
+      {center.unknownContracts.length ? <p data-testid="notification-unknown-contracts">{center.unknownContracts.join(', ')}</p> : null}
       <ul>
-        {seededNotifications.map((item) => {
-          const resolution = resolveTypedDestinationForR0(item.destination);
-
-          return (
-            <li key={item.id} data-testid={`notification-${item.id}`}>
-              <strong>{t(item.labelKey)}</strong>
-              <div>
-                <code>{resolution.target}</code>
-              </div>
-              {resolution.status === 'available' ? (
-                <span data-testid={`notification-status-${item.id}`}>
-                  {t('notifications.ready')}{' '}
-                  <a href={`${resolution.target}?entry=notification`} data-testid={`notification-link-${item.id}`}>
-                    Open destination
-                  </a>
-                </span>
-              ) : (
-                <span data-testid={`notification-status-${item.id}`}>
-                  {resolution.message} {t('notifications.safeFallback')} <code>{resolution.fallbackTarget}</code>
-                </span>
-              )}
-            </li>
-          );
-        })}
+        {center.items.map((item) => (
+          <li key={item.id} data-testid={`notification-${item.id}`}>
+            <strong>{t(item.labelKey)}</strong>
+            <div><code>{item.target}</code></div>
+            <p data-testid={`notification-message-${item.id}`}>{item.message}</p>
+            <span data-testid={`notification-status-${item.id}`}>{item.state}</span>{' '}
+            <span data-testid={`notification-read-${item.id}`}>{item.readState}</span>{' '}
+            <span data-testid={`notification-refresh-${item.id}`}>{String(item.refreshRequired)}</span>{' '}
+            {item.state === 'ready' ? (
+              <a href={`${item.target}${item.target.includes('?') ? '&' : '?'}entry=notification`} data-testid={`notification-link-${item.id}`}>Open destination</a>
+            ) : (
+              <span>{t('notifications.safeFallback')} <code>{item.fallbackTarget}</code></span>
+            )}
+          </li>
+        ))}
       </ul>
     </section>
   );

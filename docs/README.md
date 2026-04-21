@@ -54,6 +54,8 @@ Confirmed:
   - `ats-assessment-provider-setup-depth-plan.md`
   - `survey-review-scoring-operational-depth-plan.md`
   - `ats-candidate-source-operational-depth-plan.md`
+  - `integration-operational-depth-closeout.md`
+  - `screen-design-flow-matrix.md`
 - all eight post-gate operational-depth/provider-setup changes are implemented and validated:
   - `calendar-scheduling-operational-depth`
   - `job-board-publishing-operational-depth`
@@ -64,6 +66,7 @@ Confirmed:
   - `survey-review-scoring-operational-depth`
   - `ats-candidate-source-operational-depth`
 - the full sequence is synchronized in `integration-operational-depth-sequence-plan.md`
+- the release-hardening evidence and PR handoff summary are recorded in `integration-operational-depth-closeout.md`
 
 ## Recommended reading order
 
@@ -121,6 +124,8 @@ Confirmed:
 41. `integration-operational-depth-sequence-plan.md` — synchronized operational-depth implementation sequence
 42. `survey-review-scoring-operational-depth-plan.md` — completed survey/review/scoring operational-depth baseline
 43. `ats-candidate-source-operational-depth-plan.md` — completed ATS candidate source operational-depth baseline
+44. `integration-operational-depth-closeout.md` — final validation, safety, diff, and PR handoff evidence for the operational-depth wave
+45. `screen-design-flow-matrix.md` — screen-level route/flow/state/design-readiness matrix for high-risk operational screens
 
 ## Package roles
 
@@ -167,6 +172,8 @@ Confirmed:
 | `survey-review-scoring-operational-depth-plan.md` | defines the scoped survey/review/scoring readiness, submit/retry, terminal read-only, scoring refresh, public-boundary, and telemetry baseline |
 | `ats-candidate-source-operational-depth-plan.md` | defines the scoped ATS source identity, import/sync, duplicate, stale-source, jobs status-only, and telemetry baseline |
 | `integration-operational-depth-sequence-plan.md` | synchronizes all post-gate operational-depth changes, flow boundaries, validation rules, and sequencing |
+| `integration-operational-depth-closeout.md` | records final validation results, safety review, deferred items, and PR-ready handoff for the operational-depth wave |
+| `screen-design-flow-matrix.md` | maps high-risk screens to route ownership, flow states, telemetry, parent return, and design-reference status |
 
 ## Source relationship
 
@@ -174,3 +181,7 @@ Confirmed:
 - `recruit-frontend/docs/` is the active greenfield execution package derived from that evidence.
 - `../../frontend/` remains the source of truth for current business behavior until replacement code exists.
 - Figma is complementary visual evidence, not the canonical source of route or capability truth.
+
+## Active implementation-depth package note
+
+Use `screen-design-flow-matrix.md` for design/flow readiness. It complements `screens.md`; it does not replace the route manifest. Active product-depth OpenSpec changes distinguish route registration from complete product behavior.

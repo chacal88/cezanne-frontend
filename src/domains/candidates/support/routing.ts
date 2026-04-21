@@ -72,3 +72,14 @@ export function parseCandidateTaskSearchFromUrl(searchValue: string): CandidateT
   const params = new URLSearchParams(searchValue);
   return validateCandidateTaskSearch(Object.fromEntries(params.entries()));
 }
+
+export function buildCandidateParentRefreshTarget(parentTarget: string) {
+  try {
+    const url = new URL(parentTarget, 'http://recruit.local');
+    if (url.origin !== 'http://recruit.local' || !url.pathname.startsWith('/candidate/')) return parentTarget;
+    url.searchParams.set('refresh', 'candidate');
+    return `${url.pathname}${url.search}`;
+  } catch {
+    return parentTarget;
+  }
+}

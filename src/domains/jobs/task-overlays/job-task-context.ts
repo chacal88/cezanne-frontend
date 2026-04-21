@@ -4,11 +4,19 @@ import { buildCancelTarget } from '../../../lib/routing';
 import { buildInitialCalendarSchedulingState } from '../../scheduling/support';
 import { buildContractActionTarget, buildContractSigningState } from '../../contracts/signing';
 import type { JobHubSection, JobTaskContext, JobTaskKind } from '../support/models';
+import { resolveJobTaskProductState } from '../support/product-depth';
+
+const allowedSections: JobHubSection[] = ['overview', 'candidates', 'workflow', 'activity'];
+const allowedOutcomes = ['submit', 'success', 'fail', 'retry', 'cancel'] as const;
+
+type JobTaskOutcome = (typeof allowedOutcomes)[number];
 
 export function validateJobTaskSearch(search: Record<string, unknown>) {
   return {
     parent: typeof search.parent === 'string' && search.parent.startsWith('/job/') ? search.parent : undefined,
-    section: typeof search.section === 'string' ? (search.section as JobHubSection) : undefined,
+    section: typeof search.section === 'string' && (allowedSections as readonly string[]).includes(search.section) ? (search.section as JobHubSection) : undefined,
+    outcome: typeof search.outcome === 'string' && (allowedOutcomes as readonly string[]).includes(search.outcome) ? (search.outcome as JobTaskOutcome) : undefined,
+    parentRefresh: search.parentRefresh === true || search.parentRefresh === 'true' || search.refresh === true || search.refresh === 'true',
   };
 }
 
@@ -20,6 +28,11 @@ export function resolveJobTaskContext(input: {
   bidId?: string;
   parent?: string;
   section?: JobHubSection;
+  outcome?: JobTaskOutcome;
+  parentRefresh?: boolean;
+  denied?: boolean;
+  unavailable?: boolean;
+  degraded?: boolean;
   readinessSignal?: IntegrationProviderReadinessSignal;
   calendarSlots?: Parameters<typeof buildInitialCalendarSchedulingState>[0]['slots'];
 }): JobTaskContext {
@@ -29,11 +42,22 @@ export function resolveJobTaskContext(input: {
     ? evaluateOperationalReadinessGate(buildOperationalGateInput(input.readinessSignal, 'job-schedule'))
     : undefined;
 
+  const parentTarget = buildCancelTarget(input.pathname, defaultParent, input.parent ?? defaultParent);
+  const operationState = resolveJobTaskProductState({
+    kind: input.kind,
+    denied: input.denied,
+    unavailable: input.unavailable,
+    degraded: input.degraded || readinessGate?.state === 'degraded',
+    outcome: input.outcome,
+    parentRefresh: input.parentRefresh,
+    parentTarget,
+  });
+
   const schedulingState = input.kind === 'schedule'
     ? buildInitialCalendarSchedulingState({
       parentContext: {
         routeFamily: 'job',
-        returnTarget: buildCancelTarget(input.pathname, defaultParent, input.parent ?? defaultParent),
+        returnTarget: parentTarget,
         jobId: input.jobId,
         candidateId: input.candidateId,
       },
@@ -42,7 +66,6 @@ export function resolveJobTaskContext(input: {
     })
     : undefined;
 
-  const parentTarget = buildCancelTarget(input.pathname, defaultParent, input.parent ?? defaultParent);
   const contractSigningState = input.kind === 'offer'
     ? buildContractSigningState({
       actionTarget: buildContractActionTarget({
@@ -65,6 +88,9 @@ export function resolveJobTaskContext(input: {
     bidId: input.bidId,
     section: input.section,
     parentTarget,
+    directEntry: !input.parent,
+    parentRefreshIntent: input.parentRefresh === true || operationState.kind === 'succeeded' || operationState.kind === 'parent-refresh-required',
+    operationState,
     readinessGate,
     schedulingState,
     contractSigningState,

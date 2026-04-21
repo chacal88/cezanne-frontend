@@ -89,3 +89,11 @@ For the implemented first external-review slice, recruiter notifications remain 
 - `cv-interview-feedback` -> `candidate.detail`
 - `cv-reviewed` -> recruiter-owned candidate/review context
 - `user-mentioned` -> inbox/entity context
+
+## Shell notification depth
+
+Shell notification depth resolves notification-to-dashboard, notification-to-inbox, notification-to-job, notification-to-candidate, notification-to-billing, stale target, unknown destination, denied target, and fallback outcomes. Destination resolution remains typed and delegates final domain behavior to the owning route.
+
+## R0 shell-depth notification note
+
+Notification destination resolution is shell-owned through typed destination and fallback states. Inbox, Jobs, Candidate, and Billing own their destination page state after handoff. Unknown, stale, denied, or inaccessible notification targets must render explicit fallback outcomes.

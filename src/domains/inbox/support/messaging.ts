@@ -1,4 +1,5 @@
 import { ensureCorrelationId } from '../../../lib/observability';
+import type { EmailDeliverabilityReadiness } from './email-deliverability-readiness';
 
 export type MessagingRouteFamily = 'inbox' | 'notification' | 'candidate';
 export type MessagingEntryMode = 'menu' | 'direct-url' | 'notification' | 'candidate';
@@ -69,6 +70,40 @@ export type MessagingTelemetryEvent = {
     fallbackKind: MessagingFallbackKind;
     correlationId: string;
   };
+};
+
+
+export type MessagingConversationFixture = {
+  conversationId: string;
+  subject: string;
+  participantLabel: string;
+  exists: boolean;
+  accessible: boolean;
+  readiness: MessagingReadiness;
+  stale?: boolean;
+};
+
+export type MessagingConversationAdapter = {
+  contract: 'fixture' | 'api';
+  loadConversation(conversationId?: string): MessagingConversationFixture | undefined;
+};
+
+export const fixtureMessagingConversations: MessagingConversationFixture[] = [
+  { conversationId: 'conversation-123', subject: 'Candidate follow-up', participantLabel: 'Alex Candidate', exists: true, accessible: true, readiness: 'ready' },
+  { conversationId: 'conversation-degraded', subject: 'Provider delayed conversation', participantLabel: 'Jamie Reviewer', exists: true, accessible: true, readiness: 'degraded' },
+  { conversationId: 'conversation-blocked', subject: 'Provider blocked conversation', participantLabel: 'Taylor Recruiter', exists: true, accessible: true, readiness: 'provider-blocked' },
+  { conversationId: 'conversation-stale', subject: 'Stale candidate reply', participantLabel: 'Sam Candidate', exists: true, accessible: true, readiness: 'ready', stale: true },
+  { conversationId: 'conversation-private', subject: 'Restricted conversation', participantLabel: 'Private', exists: true, accessible: false, readiness: 'ready' },
+];
+
+export const fixtureMessagingConversationAdapter: MessagingConversationAdapter = {
+  contract: 'fixture',
+  loadConversation(conversationId?: string) {
+    const sanitized = sanitizeConversationId(conversationId);
+    if (!sanitized) return undefined;
+    return fixtureMessagingConversations.find((conversation) => conversation.conversationId === sanitized)
+      ?? { conversationId: sanitized, subject: 'Missing conversation', participantLabel: 'Unknown', exists: false, accessible: false, readiness: 'unavailable' };
+  },
 };
 
 function sanitizeConversationId(conversationId: unknown): string | undefined {
@@ -177,6 +212,36 @@ export function buildMessagingOperationalState(input: {
   return makeState({ kind: 'ready', routeFamily, entryMode, conversationId, draft: input.draft, returnTarget: input.returnTarget });
 }
 
+
+export function buildInboxConversationStateFromAdapter(input: {
+  conversationId?: string;
+  adapter?: MessagingConversationAdapter;
+  entryMode?: MessagingEntryMode;
+  draft?: Partial<MessagingDraft>;
+  returnTarget?: string;
+}): MessagingOperationalState & { adapterContract: 'fixture' | 'api'; subject?: string; participantLabel?: string; unknownContracts: string[] } {
+  const adapter = input.adapter ?? fixtureMessagingConversationAdapter;
+  const conversation = adapter.loadConversation(input.conversationId);
+  const state = buildMessagingOperationalState({
+    conversationId: input.conversationId,
+    entryMode: input.entryMode,
+    exists: conversation?.exists,
+    accessible: conversation?.accessible,
+    readiness: conversation?.readiness,
+    stale: conversation?.stale,
+    draft: input.draft,
+    returnTarget: input.returnTarget,
+  });
+
+  return {
+    ...state,
+    adapterContract: adapter.contract,
+    subject: conversation?.exists ? conversation.subject : undefined,
+    participantLabel: conversation?.exists ? conversation.participantLabel : undefined,
+    unknownContracts: adapter.contract === 'api' ? [] : ['inbox conversation list API', 'inbox conversation detail API', 'message send transport'],
+  };
+}
+
 export function resolveInboxConversationDestination(input: {
   conversationId?: string;
   canViewInbox: boolean;
@@ -267,4 +332,38 @@ export function buildMessagingTelemetry(input: {
       correlationId: ensureCorrelationId(),
     },
   };
+}
+
+export function buildMessagingStateFromEmailDeliverabilityReadiness(input: {
+  conversationId: string;
+  readiness: EmailDeliverabilityReadiness;
+  entryMode?: MessagingEntryMode;
+  draft?: Partial<MessagingDraft>;
+  returnTarget?: string;
+}): MessagingOperationalState {
+  if (input.readiness.readinessState === 'ready') {
+    return buildMessagingOperationalState({
+      conversationId: input.conversationId,
+      entryMode: input.entryMode,
+      readiness: 'ready',
+      draft: input.draft,
+      returnTarget: input.returnTarget,
+    });
+  }
+
+  const readiness: MessagingReadiness = input.readiness.capabilityOutcome === 'blocked'
+    ? 'provider-blocked'
+    : input.readiness.capabilityOutcome === 'unimplemented'
+      ? 'unimplemented'
+      : input.readiness.capabilityOutcome === 'unavailable'
+        ? 'unavailable'
+        : 'degraded';
+
+  return buildMessagingOperationalState({
+    conversationId: input.conversationId,
+    entryMode: input.entryMode,
+    readiness,
+    draft: input.draft,
+    returnTarget: input.returnTarget,
+  });
 }

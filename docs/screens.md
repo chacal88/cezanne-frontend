@@ -174,6 +174,8 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/users/edit/:id` | Page | sysadmin | users | SysAdmin | `canManagePlatformUsers` | `sysAdmin` | Edit platform-managed user with sanitized list return. | M | R5 |
 | `/users/new` | Page | sysadmin | users | SysAdmin | `canManagePlatformUsers` | `sysAdmin` | Create platform-managed user; org invite delivery stays at `/users/invite`. | M | R5 |
 | `/users/:id` | Page | sysadmin | users | SysAdmin | `canManagePlatformUsers` | `sysAdmin` | Platform-managed user detail with sanitized list return. | M | R5 |
+| `/team` | Page | team | org-team | HC Admin, RA Admin | `canViewOrgTeam` | org admin context | Org-scoped team index with member list, pending invite, role/status, empty, denied, unavailable, stale, degraded, retryable, and refresh-required states; separate from platform `/users*` CRUD. | M | R4 |
+| `/team/recruiters` | Page | team | recruiter-visibility | HC Admin, RA Admin | `canViewRecruiterVisibility` | org admin context | Org-scoped recruiter visibility list with filters, assignment readiness, empty, denied, unavailable, stale, degraded, retryable, and `/team` parent-return states. | M | R4 |
 | `/users/invite` | TaskFlow | team | invite-management | HC Admin, RA Admin | `canManageOrgInvites` | org admin context | Org-scoped invite send/resend/revoke and membership readiness surface; consumes `/team` and remains distinct from platform `/users*` CRUD and token acceptance. | M | R4 |
 | `/users/invite-token` | Public/Token | auth | token-flows | Public | `canUseAuthTokenFlow` | valid invite token | Public acceptance side of invite flow. | M | R0 |
 | `/favorites` | Page | favorites | org-favorites | HC User, HC Admin, RA User, RA Admin | `canViewOrgFavorites` | `seeFavorites`, `recruiters`, or `ra` | Org-scoped favorites list with personal, org-shared, recruiter-linked, empty, and unavailable states; separate from platform favorite-request queues. | L | R4 |
@@ -200,7 +202,7 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/templates/smart-questions` | Page | settings | templates | HC Admin | `canManageTemplates` | `hc`, `admin` | Admin-only templates subsection inside the shared family. | M | R4 |
 | `/templates/diversity-questions` | Page | settings | templates | HC Admin | `canManageTemplates` | `hc`, `admin`, `surveysBeta`, `customSurveys` | Templates subsection gated by both beta and subscription capability. | M | R4 |
 | `/templates/interview-scoring` | Page | settings | templates | HC Admin | `canManageTemplates`, `canViewInterviewFeedback` | `hc`, `admin`, `interviewFeedback` | Templates subsection whose visibility depends on interview-feedback capability. | M | R4 |
-| `/parameters/:settings_id?/:section?/:subsection?` | PageWithStatefulUrl | settings | settings-container | HC User, HC Admin, RA User, RA Admin | `canEnterSettings` plus subsection-specific capabilities | `hc` or `ra`; recognized R5 keys are `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, and `api-endpoints` | Compatibility resolver only: maps known and authorized subsections to dedicated routes, falls back for unknown/unauthorized/unavailable/unimplemented keys, replaces compatibility URLs when resolving, and does not become a monolithic settings page. | M | R4-R5 |
+| `/parameters/:settings_id?/:section?/:subsection?` | PageWithStatefulUrl | settings | settings-container | HC User, HC Admin, RA User, RA Admin | `canEnterSettings` plus subsection-specific capabilities | `hc` or `ra`; recognized keys are `hiring-flow`, `custom-fields`, `templates`, `reject-reasons`, `api-endpoints`, and `forms-docs` | Compatibility resolver only: maps known and authorized subsections to dedicated routes, falls back for unknown/unauthorized/unavailable/unimplemented keys, replaces compatibility URLs when resolving, and does not become a monolithic settings page. | M | R4-R5 |
 | `/settings/careers-page` | Page | settings | careers-application | HC Admin | `canManageCareersPage` | `hc`, `admin` | Separate admin route backed by company settings resolve. | M | R3 |
 | `/settings/application-page/:settings_id?/:section?/:subsection?` | PageWithStatefulUrl | settings | careers-application | HC Admin | `canManageApplicationPage` | `hc`, `admin` | Stateful admin surface for application-page configuration. | M | R3 |
 | `/settings/job-listings?tab&brand` | PageWithStatefulUrl | settings | careers-application | HC Admin | `canManageJobListings` | `hc`, `admin` | Stateful list route with `tab` and `brand` params plus company/settings resolves; publish/status actions consume job-board readiness gates without rendering provider setup UI. | M | R3 |
@@ -208,6 +210,7 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/settings/hiring-flow` | Page | settings | hiring-flow | HC Admin | `canManageHiringFlowSettings` | `hc`, `admin`, plus `jobRequisition` where relevant | Dedicated subsection route that consumes the operational settings substrate, keeps save/retry inside the route, and stops before `/requisition-workflows` authoring scope. | M | R4 |
 | `/settings/custom-fields` | Page | settings | custom-fields | HC Admin | `canManageCustomFields` | `hc`, `admin`, `customFieldsBeta` | Dedicated subsection route that consumes the operational settings substrate, keeps beta gating explicit, and freezes custom-field admin without absorbing downstream candidate/public rendering. | M | R4 |
 | `/settings/api-endpoints` | Page | settings | api-endpoints | HC Admin | `canManageApiEndpoints` | `hc`, `admin`; no integrations or SysAdmin capability grants route entry | Dedicated API endpoints settings foundation route with loading, ready, empty, validation-error, saving, saved, save-error, denied, and unavailable states; real private-token/webhook persistence remains outside the frontend foundation slice. | L | R5 |
+| `/settings/forms-docs` | Page | settings | forms-docs-controls | HC Admin | `canManageFormsDocsSettings` | `hc`, `admin`, `formsDocs` | Dedicated forms/docs controls route with loading, ready, empty, denied, unavailable, stale, degraded, save/retry/success states; exposes downstream refresh intent for candidate documents/contracts and public/token forms consumers without owning their mutations. | L | R4-R5 |
 | `/build-requisition` | TaskFlow | jobs | workflow-state | HC Admin | `canUseJobRequisitionBranching` | `hc`, `admin`, `jobRequisition` | Jobs-side requisition task-flow foundation with local draft, explicit save, and dashboard fallback. | M | R5 |
 | `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` | PageWithStatefulUrl | jobs | workflow-state | HC Admin | `canUseJobRequisitionBranching` | `hc`, `admin`, `jobRequisition` | Jobs-side requisition workflow-state route with stale workflow and drift handling. | M | R5 |
 | `/requisition-workflows` | Page | settings | hiring-flow | HC Admin | `canManageHiringFlowSettings` | `hc`, `admin` | Settings-owned requisition workflow administration; active authoring stays in Jobs workflow-state. | M | R5 |
@@ -284,7 +287,7 @@ Billing now uses `/billing` as the canonical HC-admin overview, `/billing/upgrad
 
 ## R4 org team/users implemented route contract
 
-Org team/users routes are now separated from platform user CRUD: `/team` owns the org team foundation, `/team/recruiters` owns recruiter visibility, and `/users/invite` is an org invite-management compatibility path under the team domain. These routes are org-admin scoped and do not grant Platform navigation or platform user-management.
+Org team/users routes are now separated from platform user CRUD: `/team` owns the product-depth org team index, `/team/recruiters` owns product-depth recruiter visibility, and `/users/invite` is an org invite-management compatibility path under the team domain. These routes are org-admin scoped and do not grant Platform navigation or platform user-management.
 
 `/users/invite` now consumes `/team`, `canManageOrgInvites`, and recruiter-core fallback for deterministic invite send/resend/revoke plus membership role/status readiness states. Route-heavy `/users`, `/users/new`, `/users/edit/:id`, and `/users/:id` are R5 platform-owned routes and remain outside this R4 slice.
 
@@ -377,3 +380,29 @@ Candidate document/contract summaries show document context separately from sign
 ## ATS and assessment provider setup screen note
 
 `/integrations/:id` supports ATS and assessment provider detail setup sections for eligible integration admins. The screen keeps `/integrations` as its parent return target, keeps custom providers unavailable/unimplemented, and does not alter public survey, review, interview-feedback, or `/integration/*` token-entry screens.
+
+## Auth foundation state contract
+
+Auth public/token screens now carry deterministic state groups: `ready`, `failed`, `session-bootstrapping`, `session-ready`, `session-expired`, and `logged-out`. Confirm-registration, register, reset-password, and invite-token routes use normalized `valid`, `invalid`, `expired`, `used`, and `inaccessible` token outcomes. Cezanne/SAML callback screens use `callback-error`, `callback-exchanging`, `callback-succeeded`, and `callback-failed` without rendering raw codes.
+
+## Screen design-flow matrix handoff
+
+`screen-design-flow-matrix.md` complements this route manifest with flow/state/design-readiness depth for high-risk operational screens. This file remains the source of truth for route pattern, route class, domain, and module ownership.
+
+## Product-depth completion boundaries
+
+Foundation-only route registration is not the same as product-depth completion. Shell routes are product-depth complete when navigation mode, active/hidden items, account entries, notification fallback, and dashboard re-entry states are modeled. Jobs routes are product-depth complete when list, authoring, detail, and task overlay states are modeled. Candidate routes are product-depth complete when hub, sequence, action lifecycle, and summary degradation states are modeled. Public/token routes are product-depth complete when token, retry, terminal, upload/submission, and safe fallback states are modeled without shell entry.
+
+## Design-flow and implementation-depth note
+
+For design handoff and product-depth readiness, use `screen-design-flow-matrix.md` together with this route manifest. This route manifest remains the route truth; OpenSpec specs remain the state truth. Registered routes with foundation or deterministic fixture behavior are not complete product-depth implementations until their corresponding product-depth change is complete.
+
+## Email deliverability route ownership
+
+Current ownership decision: email deliverability setup is **backend-only/no-UI** for greenfield frontend route registration. The screen manifest intentionally does not include Settings, Integrations, Inbox, or public/token routes for sender-domain verification, managed sender-domain lifecycle, DNS/provider setup, manual revalidation, or sender-signature setup.
+
+Existing operational routes may show normalized readiness only:
+- `/inbox` (`inbox.home`) may show blocked/degraded/unavailable send readiness.
+- `/notifications` and candidate communication handoff may resolve to Inbox readiness states.
+
+No admin recovery target is defined. Future admin UI requires a new manifest entry with route class, domain, module, capability, parent target, fallback target, adapter seam, and safe telemetry contract.

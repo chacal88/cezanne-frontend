@@ -27,7 +27,6 @@ function WorkflowDriftPanel({ reason }: { reason: string }) {
 export function RequisitionApprovalPage({ token }: { token: string }) {
   const [comment, setComment] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [payloadPreview, setPayloadPreview] = useState('');
   const view = useMemo(() => buildRequisitionApprovalViewModel({ token }), [token]);
 
   useEffect(() => {
@@ -85,7 +84,6 @@ export function RequisitionApprovalPage({ token }: { token: string }) {
       return;
     }
 
-    setPayloadPreview(JSON.stringify(result.payload, null, 2));
     observability.telemetry.track({
       name: 'requisition_approval_submit_completed',
       data: { decision, terminalState: result.terminalState, correlationId: ensureCorrelationId() },
@@ -138,7 +136,6 @@ export function RequisitionApprovalPage({ token }: { token: string }) {
         </button>
       </div>
       {error ? <p data-testid="requisition-approval-error">{error}</p> : null}
-      {payloadPreview ? <pre data-testid="requisition-approval-payload-preview">{payloadPreview}</pre> : null}
     </section>
   );
 }

@@ -3,6 +3,14 @@
     "title": "Inbox",
     "detail": "This route owns shareable URL state through the `conversation` search param.",
     "activeConversation": "Active conversation:",
-    "none": "none"
+    "none": "none",
+    "state": "State",
+    "entryMode": "Entry mode",
+    "subject": "Subject",
+    "participant": "Participant",
+    "canSend": "Can send",
+    "retryAllowed": "Retry allowed",
+    "refreshRequired": "Refresh required",
+    "adapter": "Adapter contract"
   }
 }

@@ -1,8 +1,16 @@
 {
   "home": {
-    "title": "Inbox",
-    "detail": "Esta rota possui estado compartilhável na URL através do parâmetro de busca `conversation`.",
+    "title": "Caixa de entrada",
+    "detail": "Esta rota controla estado de URL compartilhável pelo parâmetro de busca `conversation`.",
     "activeConversation": "Conversa ativa:",
-    "none": "nenhuma"
+    "none": "nenhuma",
+    "state": "Estado",
+    "entryMode": "Modo de entrada",
+    "subject": "Assunto",
+    "participant": "Participante",
+    "canSend": "Pode enviar",
+    "retryAllowed": "Nova tentativa permitida",
+    "refreshRequired": "Atualização necessária",
+    "adapter": "Contrato do adaptador"
   }
 }

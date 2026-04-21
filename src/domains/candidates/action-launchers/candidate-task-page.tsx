@@ -4,7 +4,7 @@ import { createCorrelationId, ensureCorrelationId, setActiveCorrelationId } from
 import { observability } from '../../../app/observability';
 import { resolveCandidateActionContext } from './candidate-action-context';
 import { completeCandidateAction, getCandidateRecord } from '../support/store';
-import { parseCandidateContextFromPathname, parseCandidateTaskSearchFromUrl } from '../support/routing';
+import { buildCandidateParentRefreshTarget, parseCandidateContextFromPathname, parseCandidateTaskSearchFromUrl } from '../support/routing';
 import type { CandidateActionKind } from '../support/models';
 import { buildContractSigningTelemetry, resolveContractSendResult, startContractSend } from '../../contracts/signing';
 import { buildSurveyReviewScoringTelemetry, resolveSurveyReviewScoringSubmitResult, startSurveyReviewScoringSubmit } from '../surveys-custom-fields/support';
@@ -112,7 +112,7 @@ export function CandidateTaskRoutePage() {
       name: 'taskflow_succeeded',
       data: { taskType: actionContext.kind, correlationId: ensureCorrelationId() },
     });
-    window.location.assign(actionContext.returnTarget);
+    window.location.assign(buildCandidateParentRefreshTarget(actionContext.returnTarget));
   }
 
   function handleFailure() {

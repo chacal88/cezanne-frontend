@@ -381,3 +381,28 @@ Contract signing operational-depth validation covers shared signing states, prer
 ## ATS and assessment provider setup validation baseline
 
 `ats-assessment-provider-setup-depth` validation covers ATS and assessment setup sections, auth lifecycle, diagnostics summaries, normalized readiness signals, safe telemetry payloads, unchanged calendar/job-board/HRIS behavior, custom-provider unavailable/unimplemented behavior, and public route separation for `/surveys/*`, `/review-candidate/*`, `/interview-feedback/*`, and `/integration/*` routes.
+
+## Auth session foundation validation baseline
+
+Auth foundation validation covers route metadata, public auth state helpers, normalized auth token lifecycle, Cezanne/SAML callback parsing without raw code exposure, deterministic post-auth landing, logout/session-loss states, public-token separation from non-auth routes, i18n copy, and allowlisted auth telemetry payloads.
+
+## Screen design-flow matrix validation baseline
+
+The screen design-flow matrix must be reviewed against `screens.md`, `modules.md`, `capabilities.md`, `navigation-and-return-behavior.md`, `telemetry-events.md`, `testing.md`, and accepted OpenSpec packages. Validation proves seeded rows preserve public/authenticated boundaries, cite accepted state sources, use telemetry allowlists, and mark missing design references as pending.
+
+## R0-R3 product-depth validation baseline
+
+R0 shell/navigation/notification tests cover navigation visibility, active state, org/platform separation, account-context entries, denied routes, notification destination fallback, and public/token separation. R1 Jobs tests cover list URL states, authoring save/retry, detail degradation, task overlay parent return, and provider/public/Candidate/requisition boundaries. R2 Candidate tests cover hub states, sequence navigation, action lifecycle, summaries, public/token/signer/provider/inbox separation, and safe telemetry. R3 public/token tests cover direct entry, refresh-safe token states, upload/submit retry, terminal states, authenticated-shell separation, and safe telemetry.
+
+## Product-depth validation additions
+
+Implementation-depth changes must add focused tests for state helpers, route boundaries, safe telemetry, public/token separation, and parent-return behavior before marking tasks complete. `screen-design-flow-matrix.md` is the design handoff matrix for selecting additional state and route coverage.
+
+## Forms/docs settings depth tests
+
+For `forms-docs-settings-depth`, the baseline proves:
+- route metadata for `/settings/forms-docs` and `/parameters/:settings_id/settings/forms-docs` compatibility resolution
+- `canManageFormsDocsSettings` gating from HC Admin plus `formsDocs`, separate from candidate document capabilities
+- route-owned loading/ready/empty/denied/unavailable/stale/degraded plus save/retry/success state models
+- replaceable fixture adapter seams that document unknown backend contract fields instead of inventing APIs
+- downstream refresh/degraded signals for candidate documents/contracts, public application, and integration forms token consumers without moving mutation ownership to those consumers

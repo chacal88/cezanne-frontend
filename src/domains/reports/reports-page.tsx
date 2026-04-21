@@ -14,7 +14,7 @@ export function ReportsIndexPage() {
   return (
     <section>
       <h1>Reports</h1>
-      <p>Shared report shell for R4 report families.</p>
+      <p>Product-depth report families with route-owned result, export, and scheduling states.</p>
       <ul>
         {reportFamilies.map((family) => (
           <li key={family.family} data-testid={`report-family-${family.family}`}>
@@ -41,6 +41,10 @@ export function ReportFamilyPage({ family }: { family: ReportFamily }) {
       <p data-testid="report-filter-period">{view.filters.period}</p>
       <p data-testid="report-filter-owner">{view.filters.owner ?? '—'}</p>
       <p data-testid="report-result-state">{view.resultState}</p>
+      <p data-testid="report-result-message">{view.result.message}</p>
+      <p data-testid="report-result-refresh-intent">{view.result.refreshIntent ?? 'none'}</p>
+      <p data-testid="report-unknown-contracts">{view.result.unknownContractFields.join(', ')}</p>
+      <p data-testid="report-telemetry-period">{view.telemetry.safeFilterSummary.period}</p>
       <p data-testid="report-export-state">{view.exportCommand.state}</p>
       <p data-testid="report-schedule-state">{view.scheduleCommand.state}</p>
       <button type="button" disabled={view.exportCommand.state !== 'available'} onClick={() => setCommand(runReportCommand({ family: view.family, kind: 'export' }))} data-testid="report-export-button">
@@ -49,7 +53,12 @@ export function ReportFamilyPage({ family }: { family: ReportFamily }) {
       <button type="button" disabled={view.scheduleCommand.state !== 'available'} onClick={() => setCommand(runReportCommand({ family: view.family, kind: 'schedule' }))} data-testid="report-schedule-button">
         Schedule report
       </button>
-      {command ? <p data-testid={`report-command-${command.kind}-state`}>{command.state}</p> : null}
+      {command ? (
+        <div>
+          <p data-testid={`report-command-${command.kind}-state`}>{command.state}</p>
+          <p data-testid={`report-command-${command.kind}-message`}>{command.message}</p>
+        </div>
+      ) : null}
       <Link to={view.parentTarget} data-testid="report-parent-link">
         Back to reports
       </Link>

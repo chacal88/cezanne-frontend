@@ -96,3 +96,12 @@ The R4 marketplace slice resolves the bounded RA marketplace boundary:
 - Marketplace states are ready, empty, and unavailable.
 - Marketplace access is gated by `canViewMarketplace` for RA contexts.
 - Marketplace access does not grant billing, HC-admin, or platform capabilities.
+
+## Billing product-depth follow-up implemented
+
+The `billing-payment-product-depth` follow-up expands the R4 billing foundation from readiness-only screens into route-owned product-depth states:
+- overview fixtures now distinguish loading, ready, empty, denied, unavailable, stale, degraded, and pending subscription-refresh states;
+- upgrade and SMS task flows preserve selected plan/add-on context across recoverable failure and retry states;
+- card setup states include provider challenge, pending, saved, failed, validation-failed, and retry outcomes without treating provider challenge as subscription success;
+- adapter fixtures document replaceable seams until stable backend billing contracts are validated;
+- `/billing` remains the authenticated HC-admin overview, while public/token payment routes, provider setup, and SysAdmin subscription administration remain outside this route family.

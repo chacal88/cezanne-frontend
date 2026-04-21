@@ -7,6 +7,7 @@ import type { JobListingEditorRouteState } from './support/models';
 import { buildJobListingReturnTarget } from './support/routing';
 import { runJobListingPublishWorkflow, runJobListingSaveWorkflow } from './support/workflow';
 import { trackCareersApplicationRouteOpen, trackCareersApplicationRouteResolution, trackCareersApplicationWorkflow } from './support/telemetry';
+import { buildJobListingEditorCloseoutSnapshot } from './support/closeout';
 
 export function JobListingEditorPage({ routeState }: { routeState: JobListingEditorRouteState }) {
   const capabilities = useCapabilities();
@@ -59,6 +60,7 @@ export function JobListingEditorPage({ routeState }: { routeState: JobListingEdi
 
   const returnTarget = buildJobListingReturnTarget(routeState);
   const publishingView = buildJobListingsListView({ tab: draft.status, brand: draft.brand });
+  const closeout = buildJobListingEditorCloseoutSnapshot(decision, routeState, publishingView.publishingStatus);
   const publicContract = uuid ? toPublicJobListingContract({ ...draft, uuid }) : null;
 
   return (
@@ -73,6 +75,8 @@ export function JobListingEditorPage({ routeState }: { routeState: JobListingEdi
         <dd data-testid="job-listing-editor-readiness">{decision.readiness}</dd>
         <dt>Publishing state</dt>
         <dd data-testid="job-listing-editor-publishing-state">{publishingView.publishingStatus.state}</dd>
+        <dt>Closeout state</dt>
+        <dd data-testid="job-listing-editor-closeout-state">{closeout.state}</dd>
       </dl>
       <label>
         Title

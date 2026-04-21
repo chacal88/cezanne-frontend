@@ -37,6 +37,8 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
   const canViewPlatformNavigation = canUsePlatformSurface && (canViewPlatformMasterDataNav || canViewPlatformUsersAndRequestsNav || canViewPlatformTaxonomyNav);
   const isHiringCompany = context.organizationType === 'hc';
   const canEnterSettings = canUseOrgSurface;
+  const canManageCompanySettings = canEnterShell && context.organizationType === 'hc' && context.isAdmin;
+  const canManageAgencySettings = canEnterShell && context.organizationType === 'ra' && context.isAdmin;
   const canAdministerJobs = canEnterShell && (context.isAdmin || context.isSysAdmin);
   const canUseJobRequisitionBranching = canEnterShell && isHiringCompany && canAdministerJobs && hasPivotEntitlement(context, 'jobRequisition');
   const canViewJobDetail = canUseOrgSurface;
@@ -57,11 +59,21 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
   );
 
   return {
+    canStartSession: !canEnterShell,
+    canUseAuthTokenFlow: !canEnterShell,
+    canCompleteSsoCallback: !canEnterShell,
     canEnterShell,
     canViewDashboard,
     canViewNotifications: canEnterShell,
+    canResolveNotificationDestination: canEnterShell,
     canUseInbox: canUseOrgSurface,
+    canOpenConversation: canUseOrgSurface,
     canOpenAccountArea: canEnterShell,
+    canViewUserSettings: canEnterShell,
+    canManageCompanySettings,
+    canManageAgencySettings,
+    canViewHiringCompanyProfile: canEnterShell && context.organizationType === 'hc',
+    canViewRecruitmentAgencyProfile: canEnterShell && context.organizationType === 'ra',
     canLogout: canEnterShell,
     canSeeNavSection: canEnterShell,
     canEnterSettings,
@@ -73,6 +85,7 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
     canManageTemplates: canEnterShell && isHiringCompany,
     canManageRejectReasons: canEnterShell && isHiringCompany && canAdministerJobs && hasSubscriptionCapability(context, 'rejectionReason'),
     canManageApiEndpoints: canEnterShell && isHiringCompany && context.isAdmin,
+    canManageFormsDocsSettings: canEnterShell && isHiringCompany && context.isAdmin && hasSubscriptionCapability(context, 'formsDocs'),
     canViewPlatformNavigation,
     canViewPlatformMasterDataNav,
     canViewPlatformUsersAndRequestsNav,
@@ -129,5 +142,13 @@ export function evaluateCapabilities(context: AccessContext): Capabilities {
     canManageSmsBilling: canViewBilling,
     canManageBillingCard: canViewBilling,
     canViewMarketplace,
+    canOpenSharedJob: true,
+    canSubmitPublicApplication: true,
+    canCompletePublicSurvey: true,
+    canUseExternalTokenizedChat: true,
+    canUseExternalReviewFlow: true,
+    canApproveRequisitionByToken: true,
+    canDownloadRequisitionFormsByToken: true,
+    canUseIntegrationTokenEntry: true,
   };
 }

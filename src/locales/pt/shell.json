@@ -32,7 +32,11 @@
     "safeFallback": "Fallback seguro:",
     "seeded": {
       "candidateFollowUp": "Acompanhamento do candidato pendente",
-      "offerAttention": "Fluxo de oferta requer atenção"
+      "offerAttention": "Fluxo de oferta requer atenção",
+      "billingFallback": "Notificação de cobrança requer fallback seguro",
+      "inboxConversation": "Mensagem de conversa da caixa de entrada",
+      "unknownDestination": "Notificação com destino desconhecido",
+      "staleCandidate": "Notificação de candidato desatualizada"
     }
   },
   "userProfile": {
@@ -40,5 +44,38 @@
     "title": "Perfil do usuário",
     "detail": "Esta rota é registrada como overlay do shell e permanece distinta dos fluxos de tarefa de domínio.",
     "close": "Fechar overlay"
+  }
+
+  ,"accountNavigation": {
+    "label": "Conta",
+    "links": {
+      "userProfile": "Perfil do usuário",
+      "hiringCompanyProfile": "Perfil da empresa contratante",
+      "recruitmentAgencyProfile": "Perfil da agência de recrutamento",
+      "userSettings": "Configurações do usuário",
+      "companySettings": "Configurações da empresa",
+      "agencySettings": "Configurações da agência",
+      "logout": "Sair"
+    }
+  },
+  "accountSettings": {
+    "eyebrow": "Configurações autenticadas",
+    "stateLabel": "Estado",
+    "ownerLabel": "Responsável",
+    "capabilityLabel": "Capacidade",
+    "displayName": "Nome de exibição",
+    "email": "Email",
+    "organizationName": "Nome da organização",
+    "save": "Salvar",
+    "retry": "Tentar novamente",
+    "refreshIntent": "Salvo. A rota pai deve atualizar o contexto da conta.",
+    "returnToParent": "Voltar ao painel",
+    "user": { "title": "Configurações do usuário", "detail": "Preferências pessoais e metadados da conta ficam separados das configurações da organização." },
+    "company": { "title": "Configurações da empresa", "detail": "Configurações da empresa contratante são escopadas à organização autenticada." },
+    "agency": { "title": "Configurações da agência", "detail": "Configurações da agência de recrutamento são escopadas à organização autenticada." }
+  },
+  "organizationProfile": {
+    "hiringCompany": { "title": "Perfil da empresa contratante", "detail": "Perfil organizacional com estados para usuários de empresa contratante." },
+    "recruitmentAgency": { "title": "Perfil da agência de recrutamento", "detail": "Perfil organizacional com estados para usuários de agência de recrutamento." }
   }
 }

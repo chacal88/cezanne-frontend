@@ -9,21 +9,20 @@ export function InterviewFeedbackPage({ code }: { code: string }) {
   const view = buildInterviewFeedbackViewModel({ code });
   const [draft, setDraft] = useState<ExternalReviewDraft>(view.defaults);
   const [error, setError] = useState<string | null>(null);
-  const [payloadPreview, setPayloadPreview] = useState('');
 
   useEffect(() => {
     setActiveCorrelationId(createCorrelationId());
     observability.telemetry.track({
       name: 'external_interview_feedback_opened',
-      data: { code, tokenState: view.decision.tokenState, operationalState: view.operationalState.kind, correlationId: ensureCorrelationId() },
+      data: { tokenState: view.decision.tokenState, operationalState: view.operationalState.kind, correlationId: ensureCorrelationId() },
     });
     observability.telemetry.track({
       name: 'external_interview_feedback_bootstrapped',
-      data: { code, readiness: view.decision.readiness, correlationId: ensureCorrelationId() },
+      data: { readiness: view.decision.readiness, correlationId: ensureCorrelationId() },
     });
     observability.telemetry.track({
       name: 'external_interview_feedback_token_state_resolved',
-      data: { code, tokenState: view.decision.tokenState, operationalState: view.operationalState.kind, correlationId: ensureCorrelationId() },
+      data: { tokenState: view.decision.tokenState, operationalState: view.operationalState.kind, correlationId: ensureCorrelationId() },
     });
   }, [code, view.decision.readiness, view.decision.tokenState]);
 
@@ -40,7 +39,7 @@ export function InterviewFeedbackPage({ code }: { code: string }) {
     }));
     observability.telemetry.track({
       name: 'external_interview_feedback_submission_started',
-      data: { code, operationalState: submittingState.kind, correlationId: ensureCorrelationId() },
+      data: { operationalState: submittingState.kind, correlationId: ensureCorrelationId() },
     });
 
     const result = await runInterviewFeedbackWorkflow({ code }, view.participantName, draft);
@@ -56,12 +55,11 @@ export function InterviewFeedbackPage({ code }: { code: string }) {
       }));
       observability.telemetry.track({
         name: 'external_interview_feedback_submission_failed',
-        data: { code, stage: result.stage, operationalState: failedState.kind, correlationId: ensureCorrelationId() },
+        data: { stage: result.stage, operationalState: failedState.kind, correlationId: ensureCorrelationId() },
       });
       return;
     }
 
-    setPayloadPreview(JSON.stringify(result.payload, null, 2));
     const completedState = resolveSurveyReviewScoringSubmitResult(view.operationalState, 'scoring-pending');
     observability.telemetry.track(buildSurveyReviewScoringTelemetry({
       routeFamily: completedState.routeFamily,
@@ -73,7 +71,7 @@ export function InterviewFeedbackPage({ code }: { code: string }) {
     }));
     observability.telemetry.track({
       name: 'external_interview_feedback_submission_completed',
-      data: { code, outcome: result.completion.kind, operationalState: completedState.kind, correlationId: ensureCorrelationId() },
+      data: { outcome: result.completion.kind, operationalState: completedState.kind, correlationId: ensureCorrelationId() },
     });
     window.location.reload();
   }
@@ -81,7 +79,7 @@ export function InterviewFeedbackPage({ code }: { code: string }) {
   if (view.completion) {
     observability.telemetry.track({
       name: 'external_interview_feedback_terminal_viewed',
-      data: { code, outcome: view.completion.kind, operationalState: view.operationalState.kind, correlationId: ensureCorrelationId() },
+      data: { outcome: view.completion.kind, operationalState: view.operationalState.kind, correlationId: ensureCorrelationId() },
     });
     return (
       <section style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 20, display: 'grid', gap: 12 }}>
@@ -133,7 +131,6 @@ export function InterviewFeedbackPage({ code }: { code: string }) {
         Submit feedback
       </button>
       {error ? <p data-testid="interview-feedback-error">{error}</p> : null}
-      {payloadPreview ? <pre data-testid="interview-feedback-payload-preview">{payloadPreview}</pre> : null}
     </section>
   );
 }

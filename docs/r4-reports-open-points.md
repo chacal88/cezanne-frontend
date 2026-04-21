@@ -48,3 +48,22 @@ The R4 reports foundation resolves the first route/state decisions:
 - Shared commands: `export` and `schedule`, with family-aware availability and visible success/failure states.
 
 Follow-on report-family slices should consume this shell/filter/result/command model. Jobs and hiring-process remain the preferred first non-specialized families; diversity and source remain more specialized and beta-sensitive.
+
+## Product-depth follow-up: reports analytics
+
+Confirmed by `reports-analytics-product-depth`:
+- canonical report routes remain `/report` and `/report/:family`;
+- supported report families are `jobs`, `hiring-process`, `teams`, `candidates`, `diversity`, and `source`;
+- shared URL filters are still limited to `period`, `owner`, and `team`, with additional fixture-only state selectors used for deterministic route tests;
+- export is available for every current report family;
+- scheduling is available for `jobs`, `hiring-process`, `teams`, and `candidates`, and explicitly unsupported for `diversity` and `source`;
+- `/hiring-company/report*` stays compatibility-only and redirects into canonical report routes.
+
+Unknown backend contracts that must not be invented:
+- the confirmed report result schema and row dimensions;
+- metric definitions and family-specific result fields;
+- persistent export job identifiers and download URLs;
+- persistent schedule identifiers, recurrence fields, ownership, and edit/delete semantics.
+
+Implementation note:
+- the current frontend uses replaceable fixture adapters to render product-depth result and command states without logging raw rows, candidate names, emails, free-text search, or tenant-sensitive filter identifiers.

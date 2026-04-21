@@ -34,7 +34,9 @@ describe('careers-application workflow', () => {
     expect(careersResult.requestHeaders['x-correlation-id']).toBe('corr_test_careers_settings');
     expect(applicationResult.requestHeaders['x-correlation-id']).toBe('corr_test_careers_settings');
     expect(careersResult.publicContract.brandSlug).toBe('acme');
+    expect(careersResult.publicReflectionIntent).toMatchObject({ routeFamily: 'careers-page', brandSlug: 'acme', publicReflectionIntent: 'pending' });
     expect(applicationResult.publicContract.collectsPhone).toBe(true);
+    expect(applicationResult.publicReflectionIntent).toMatchObject({ routeFamily: 'application-page', settingsId: 'company-1', publicReflectionIntent: 'pending' });
   });
 
   it('keeps job listing save and publish workflows explicit', async () => {
@@ -54,6 +56,7 @@ describe('careers-application workflow', () => {
     if (publishResult.status !== 'completed') return;
     expect(publishResult.publicContract.isPublished).toBe(true);
     expect(publishResult.publishingStatus).toMatchObject({ state: 'published', publicReflectionIntent: 'confirmed' });
+    expect(publishResult.publicReflectionIntent).toMatchObject({ targetType: 'job-listing', targetReference: 'existing', publicReflectionIntent: 'confirmed', publishingState: 'published' });
     expect(publishResult.telemetry.data).toMatchObject({ routeFamily: 'job-listings', action: 'publish', publishingState: 'published', targetType: 'job-listing' });
   });
 
@@ -111,6 +114,7 @@ describe('careers-application workflow', () => {
     if (result.status !== 'blocked') return;
     expect(result.publishingStatus.remediation).toMatchObject({ type: 'provider-setup', path: '/integrations/lever' });
     expect(result).not.toHaveProperty('providerSetupFields');
+    expect(JSON.stringify(result.publicReflectionIntent)).not.toContain('token');
     expect(buildIntegrationJobPath({ token: 'public-token', action: 'preview' })).toBe('/integration/job/public-token/preview');
     expect(buildSharedJobPath({ jobOrRole: 'designer', token: 'shared-token', source: 'email' })).toBe('/shared/designer/shared-token/email');
   });

@@ -31,6 +31,7 @@ import { OrgFavoriteDetailPage, OrgFavoriteRequestPage, OrgFavoritesIndexPage } 
 import { BillingCardPage, BillingOverviewPage, BillingSmsPage, BillingUpgradePage } from '../domains/billing';
 import { MarketplaceListPage } from '../domains/marketplace';
 import { UserProfileShellOverlay } from '../shell/account/user-profile-overlay';
+import { HiringCompanyProfilePage, RecruitmentAgencyProfilePage } from '../shell/account/organization-profile-page';
 import { observability } from './observability';
 import {
   AccessDeniedPage,
@@ -40,7 +41,6 @@ import {
   ForgotPasswordPage,
   InviteTokenPage,
   LogoutPage,
-  ProfilePlaceholderPage,
   PublicHomePage,
   RegisterPage,
   ResetPasswordPage,
@@ -65,6 +65,10 @@ import { TemplatesSettingsPage } from '../domains/settings/templates/templates-s
 import { RejectReasonsSettingsPage } from '../domains/settings/reject-reasons/reject-reasons-settings-page';
 import { RequisitionWorkflowsPage } from '../domains/settings/requisition-workflows';
 import { ApiEndpointsSettingsPage } from '../domains/settings/api-endpoints';
+import { UserSettingsPage } from '../domains/settings/user-settings/user-settings-page';
+import { CompanySettingsPage } from '../domains/settings/company-settings/company-settings-page';
+import { AgencySettingsPage } from '../domains/settings/agency-settings/agency-settings-page';
+import { FormsDocsSettingsPage } from '../domains/settings/forms-docs-controls';
 import { getAvailableOperationalSettingsSubsections, resolveOperationalSettingsRoute } from '../domains/settings/operational';
 import {
   validateApplicationPageParams,
@@ -114,24 +118,66 @@ const shellLayoutRoute = createRoute({
 });
 
 const publicHomeRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/', component: PublicHomePage });
-const confirmRegistrationRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/confirm-registration/$token', component: ConfirmRegistrationPage });
+const confirmRegistrationRoute = createRoute({
+  getParentRoute: () => publicLayoutRoute,
+  path: '/confirm-registration/$token',
+  component: () => {
+    const { token } = confirmRegistrationRoute.useParams();
+    return <ConfirmRegistrationPage token={token} />;
+  },
+});
 const forgotPasswordRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/forgot-password', component: ForgotPasswordPage });
-const resetPasswordRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/reset-password/$token', component: ResetPasswordPage });
-const registerRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/register/$token', component: RegisterPage });
-const cezanneAuthRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/auth/cezanne/$tenantGuid', component: CezanneAuthPage });
+const resetPasswordRoute = createRoute({
+  getParentRoute: () => publicLayoutRoute,
+  path: '/reset-password/$token',
+  component: () => {
+    const { token } = resetPasswordRoute.useParams();
+    return <ResetPasswordPage token={token} />;
+  },
+});
+const registerRoute = createRoute({
+  getParentRoute: () => publicLayoutRoute,
+  path: '/register/$token',
+  component: () => {
+    const { token } = registerRoute.useParams();
+    return <RegisterPage token={token} />;
+  },
+});
+const cezanneAuthRoute = createRoute({
+  getParentRoute: () => publicLayoutRoute,
+  path: '/auth/cezanne/$tenantGuid',
+  component: () => {
+    const { tenantGuid } = cezanneAuthRoute.useParams();
+    return <CezanneAuthPage tenantGuid={tenantGuid} />;
+  },
+});
 const cezanneCallbackRoute = createRoute({
   getParentRoute: () => publicLayoutRoute,
   path: '/auth/cezanne/callback',
-  validateSearch: (search) => ({ code: typeof search.code === 'string' ? search.code : undefined }),
-  component: CezanneCallbackPage,
+  validateSearch: (search) => ({ code: typeof search.code === 'string' ? search.code : undefined, error: typeof search.error === 'string' ? search.error : undefined }),
+  component: () => {
+    const { code, error } = cezanneCallbackRoute.useSearch();
+    return <CezanneCallbackPage code={code} error={error} />;
+  },
 });
 const samlCallbackRoute = createRoute({
   getParentRoute: () => publicLayoutRoute,
   path: '/auth/saml',
   validateSearch: (search) => ({ code: typeof search.code === 'string' ? search.code : undefined, error: typeof search.error === 'string' ? search.error : undefined }),
-  component: SamlCallbackPage,
+  component: () => {
+    const { code, error } = samlCallbackRoute.useSearch();
+    return <SamlCallbackPage code={code} error={error} />;
+  },
 });
-const inviteTokenRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/users/invite-token', component: InviteTokenPage });
+const inviteTokenRoute = createRoute({
+  getParentRoute: () => publicLayoutRoute,
+  path: '/users/invite-token',
+  validateSearch: (search) => ({ token: typeof search.token === 'string' ? search.token : undefined }),
+  component: () => {
+    const { token } = inviteTokenRoute.useSearch();
+    return <InviteTokenPage token={token} />;
+  },
+});
 
 const sharedJobRoute = createRoute({
   getParentRoute: () => publicExternalLayoutRoute,
@@ -560,6 +606,16 @@ const apiEndpointsSettingsRoute = createRoute({
   component: () => (
     <AccessBoundary capability="canManageApiEndpoints" fallback={dashboardFallback}>
       <ApiEndpointsSettingsPage />
+    </AccessBoundary>
+  ),
+});
+
+const formsDocsSettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/forms-docs',
+  component: () => (
+    <AccessBoundary capability="canManageFormsDocsSettings" fallback={dashboardFallback}>
+      <FormsDocsSettingsPage />
     </AccessBoundary>
   ),
 });
@@ -1024,7 +1080,7 @@ const jobAuthoringCreateRoute = createRoute({
     const search = jobAuthoringCreateRoute.useSearch();
     return (
       <AccessBoundary capability="canCreateJob" fallback={deniedFallback}>
-        <JobAuthoringPage resetWorkflow={search.resetWorkflow} />
+        <JobAuthoringPage resetWorkflow={search.resetWorkflow} copyFromJobId={search.copyFromJobId} saveState={search.saveState} />
       </AccessBoundary>
     );
   },
@@ -1039,7 +1095,7 @@ const jobAuthoringEditRoute = createRoute({
     const search = jobAuthoringEditRoute.useSearch();
     return (
       <AccessBoundary capability="canEditJob" fallback={deniedFallback}>
-        <JobAuthoringPage jobId={jobId} resetWorkflow={search.resetWorkflow} />
+        <JobAuthoringPage jobId={jobId} resetWorkflow={search.resetWorkflow} copyFromJobId={search.copyFromJobId} saveState={search.saveState} />
       </AccessBoundary>
     );
   },
@@ -1051,10 +1107,10 @@ const jobDetailRoute = createRoute({
   validateSearch: validateJobDetailSearch,
   component: () => {
     const { jobId } = jobDetailRoute.useParams();
-    const { section } = jobDetailRoute.useSearch();
+    const { section, degradedSections, unavailable, transition, assignment } = jobDetailRoute.useSearch();
     return (
       <AccessBoundary capability="canViewJobDetail" fallback={deniedFallback}>
-        <JobDetailPage jobId={jobId} section={section} />
+        <JobDetailPage jobId={jobId} section={section} degradedSections={degradedSections} unavailable={unavailable} transition={transition} assignment={assignment} />
       </AccessBoundary>
     );
   },
@@ -1069,7 +1125,7 @@ const jobBidCreateRoute = createRoute({
     const search = jobBidCreateRoute.useSearch();
     return (
       <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
-        <JobTaskPage kind="bid-create" jobId={jobId} parent={search.parent} section={search.section} />
+        <JobTaskPage kind="bid-create" jobId={jobId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
       </AccessBoundary>
     );
   },
@@ -1084,7 +1140,7 @@ const jobBidViewRoute = createRoute({
     const search = jobBidViewRoute.useSearch();
     return (
       <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
-        <JobTaskPage kind="bid-view" jobId={jobId} bidId={bidId} parent={search.parent} section={search.section} />
+        <JobTaskPage kind="bid-view" jobId={jobId} bidId={bidId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
       </AccessBoundary>
     );
   },
@@ -1099,7 +1155,7 @@ const jobCvCreateRoute = createRoute({
     const search = jobCvCreateRoute.useSearch();
     return (
       <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
-        <JobTaskPage kind="cv-create" jobId={jobId} parent={search.parent} section={search.section} />
+        <JobTaskPage kind="cv-create" jobId={jobId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
       </AccessBoundary>
     );
   },
@@ -1114,7 +1170,7 @@ const jobCvViewRoute = createRoute({
     const search = jobCvViewRoute.useSearch();
     return (
       <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
-        <JobTaskPage kind="cv-view" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} />
+        <JobTaskPage kind="cv-view" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
       </AccessBoundary>
     );
   },
@@ -1129,7 +1185,7 @@ const jobCvRejectRoute = createRoute({
     const search = jobCvRejectRoute.useSearch();
     return (
       <AccessBoundary capability="canRejectCvFromJob" fallback={deniedFallback}>
-        <JobTaskPage kind="reject" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} />
+        <JobTaskPage kind="reject" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
       </AccessBoundary>
     );
   },
@@ -1144,7 +1200,7 @@ const jobScheduleRoute = createRoute({
     const search = jobScheduleRoute.useSearch();
     return (
       <AccessBoundary capability="canScheduleInterviewFromJob" fallback={deniedFallback}>
-        <JobTaskPage kind="schedule" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} />
+        <JobTaskPage kind="schedule" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
       </AccessBoundary>
     );
   },
@@ -1159,7 +1215,7 @@ const jobOfferRoute = createRoute({
     const search = jobOfferRoute.useSearch();
     return (
       <AccessBoundary capability="canCreateOfferFromJob" fallback={deniedFallback}>
-        <JobTaskPage kind="offer" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} />
+        <JobTaskPage kind="offer" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
       </AccessBoundary>
     );
   },
@@ -1297,6 +1353,36 @@ const candidateRejectRoutes = candidateRejectRoutePaths.map((path) =>
   }),
 );
 
+const userSettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/user-settings',
+  component: () => (
+    <AccessBoundary capability="canViewUserSettings" fallback={deniedFallback}>
+      <UserSettingsPage />
+    </AccessBoundary>
+  ),
+});
+
+const companySettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/company-settings',
+  component: () => (
+    <AccessBoundary capability="canManageCompanySettings" fallback={dashboardFallback}>
+      <CompanySettingsPage />
+    </AccessBoundary>
+  ),
+});
+
+const agencySettingsRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/settings/agency-settings',
+  component: () => (
+    <AccessBoundary capability="canManageAgencySettings" fallback={dashboardFallback}>
+      <AgencySettingsPage />
+    </AccessBoundary>
+  ),
+});
+
 const userProfileRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/user-profile',
@@ -1307,8 +1393,25 @@ const userProfileRoute = createRoute({
   ),
 });
 
-const hiringCompanyProfileRoute = createRoute({ getParentRoute: () => shellLayoutRoute, path: '/hiring-company-profile', component: () => <ProfilePlaceholderPage titleKey="profilePlaceholder.hiringCompanyTitle" /> });
-const recruitmentAgencyProfileRoute = createRoute({ getParentRoute: () => shellLayoutRoute, path: '/recruitment-agency-profile', component: () => <ProfilePlaceholderPage titleKey="profilePlaceholder.recruitmentAgencyTitle" /> });
+const hiringCompanyProfileRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/hiring-company-profile',
+  component: () => (
+    <AccessBoundary capability="canViewHiringCompanyProfile" fallback={dashboardFallback}>
+      <HiringCompanyProfilePage />
+    </AccessBoundary>
+  ),
+});
+
+const recruitmentAgencyProfileRoute = createRoute({
+  getParentRoute: () => shellLayoutRoute,
+  path: '/recruitment-agency-profile',
+  component: () => (
+    <AccessBoundary capability="canViewRecruitmentAgencyProfile" fallback={dashboardFallback}>
+      <RecruitmentAgencyProfilePage />
+    </AccessBoundary>
+  ),
+});
 const logoutRoute = createRoute({ getParentRoute: () => shellLayoutRoute, path: '/logout', component: LogoutPage });
 const accessDeniedRoute = createRoute({ getParentRoute: () => rootRoute, path: '/access-denied', component: AccessDeniedPage });
 
@@ -1366,6 +1469,7 @@ const routeTree = rootRoute.addChildren([
     hiringFlowSettingsRoute,
     customFieldsSettingsRoute,
     apiEndpointsSettingsRoute,
+    formsDocsSettingsRoute,
     parametersCompatIndexRoute,
     parametersCompatSettingsRoute,
     parametersCompatSectionRoute,
@@ -1423,6 +1527,9 @@ const routeTree = rootRoute.addChildren([
     ...candidateScheduleRoutes,
     ...candidateOfferRoutes,
     ...candidateRejectRoutes,
+    userSettingsRoute,
+    companySettingsRoute,
+    agencySettingsRoute,
     userProfileRoute,
     hiringCompanyProfileRoute,
     recruitmentAgencyProfileRoute,

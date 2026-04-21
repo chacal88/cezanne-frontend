@@ -5,6 +5,7 @@ import { getCareersPageConfig } from './support/store';
 import { runCareersPageSaveWorkflow } from './support/workflow';
 import { toPublicCareersPageContract } from './support/adapters';
 import { trackCareersApplicationRouteOpen, trackCareersApplicationWorkflow } from './support/telemetry';
+import { buildCareersPageCloseoutSnapshot } from './support/closeout';
 
 export function CareersPageSettingsPage() {
   const capabilities = useCapabilities();
@@ -12,6 +13,10 @@ export function CareersPageSettingsPage() {
   const [saveState, setSaveState] = useState<string>('idle');
   const [requestHeaders, setRequestHeaders] = useState<Record<string, string>>({});
   const decision = evaluateCareersPageAccess(capabilities, { brand: config.brand, featureEnabled: config.featureEnabled });
+  const closeout = buildCareersPageCloseoutSnapshot(decision, {
+    saveStatus: saveState === 'completed' ? 'completed' : saveState === 'failed' ? 'failed' : 'idle',
+    publicReflectionIntent: saveState === 'completed' ? 'pending' : 'not-requested',
+  });
 
   useEffect(() => {
     trackCareersApplicationRouteOpen('settings.careers-application.careers-page');
@@ -30,6 +35,7 @@ export function CareersPageSettingsPage() {
     <section>
       <h1>Careers page settings</h1>
       <p data-testid="careers-page-readiness">{decision.readiness}</p>
+      <p data-testid="careers-page-closeout-state">{closeout.state}</p>
       <label>
         Company
         <input value={config.companyName} onChange={(event) => setConfig((current) => ({ ...current, companyName: event.target.value }))} />

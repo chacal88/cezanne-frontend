@@ -32,6 +32,17 @@ describe('job authoring publishing helpers', () => {
 });
 
 
+
+
+  it('renders list fixtures through route-owned state instead of an example-only link', () => {
+    const ready = buildJobsListViewModel({ scope: 'open', page: 1, search: undefined, asAdmin: false, label: undefined }, true);
+    const unavailable = buildJobsListViewModel({ scope: 'open', page: 1, search: 'unavailable', asAdmin: false, label: undefined }, true);
+
+    expect(ready.state.kind).toBe('ready');
+    expect(ready.items[0]).toMatchObject({ id: 'job-101', title: 'Platform Engineer' });
+    expect(unavailable).toMatchObject({ state: { kind: 'unavailable', retryAvailable: true }, items: [] });
+  });
+
 describe('ATS status-only jobs adapters', () => {
   it('adds jobs-list ATS sync status without changing list state or publishing filters', () => {
     const view = buildJobsListViewModel({ scope: 'assigned', page: 3, search: 'designer', asAdmin: true, label: 'urgent' }, false, { syncStatus: 'failed' });

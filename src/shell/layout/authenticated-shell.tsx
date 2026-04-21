@@ -1,13 +1,15 @@
 import { useEffect, type PropsWithChildren } from 'react';
 import { Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
-import { getVisiblePlatformNavigation, getVisibleShellNavigation } from '../navigation/nav-registry';
-import { useCapabilities } from '../../lib/access-control';
+import { getVisibleAccountNavigation, getVisiblePlatformNavigation, getVisibleShellNavigation } from '../navigation/nav-registry';
+import { useAccessContext, useCapabilities } from '../../lib/access-control';
 import { observability } from '../../app/observability';
 
 export function AuthenticatedShell({ children }: PropsWithChildren) {
   const capabilities = useCapabilities();
+  const accessContext = useAccessContext();
   const navItems = getVisibleShellNavigation(capabilities);
+  const accountItems = getVisibleAccountNavigation(capabilities, accessContext);
   const platformGroups = getVisiblePlatformNavigation(capabilities);
   const { t } = useTranslation('shell');
 
@@ -30,6 +32,20 @@ export function AuthenticatedShell({ children }: PropsWithChildren) {
               {t(item.labelKey)}
             </Link>
           ))}
+          {accountItems.length > 0 ? (
+            <section aria-labelledby="account-navigation-heading" style={{ display: 'grid', gap: 6, marginTop: 16 }}>
+              <h3 id="account-navigation-heading" style={{ margin: 0 }}>
+                {t('accountNavigation.label')}
+              </h3>
+              <ul style={{ margin: '4px 0 0', paddingLeft: 18 }}>
+                {accountItems.map((link) => (
+                  <li key={link.to}>
+                    <Link to={link.to as never}>{t(link.labelKey)}</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
           {platformGroups.length > 0 ? (
             <section aria-labelledby="platform-navigation-heading" style={{ display: 'grid', gap: 6, marginTop: 16 }}>
               <h3 id="platform-navigation-heading" style={{ margin: 0 }}>

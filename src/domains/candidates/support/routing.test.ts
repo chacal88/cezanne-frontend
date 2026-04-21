@@ -4,6 +4,7 @@ import {
   parseCandidateContextFromPathname,
   validateCandidateDetailSearch,
   validateCandidateTaskSearch,
+  buildCandidateParentRefreshTarget,
 } from './routing';
 
 describe('candidate routing helpers', () => {
@@ -61,4 +62,12 @@ describe('candidate routing helpers', () => {
       parent: undefined,
     });
   });
+
+  it('adds parent refresh intent without losing database-origin return state', () => {
+    expect(buildCandidateParentRefreshTarget('/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database%3Fquery%3Dalex')).toBe(
+      '/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database%3Fquery%3Dalex&refresh=candidate',
+    );
+    expect(buildCandidateParentRefreshTarget('/jobs/open')).toBe('/jobs/open');
+  });
+
 });

@@ -1,7 +1,7 @@
 import { withCorrelationHeaders } from '../../../lib/api-client';
 import type { CandidateActionKind } from './models';
 
-type CandidateRecord = {
+export type CandidateRecord = {
   id: string;
   cvId: string;
   name: string;
@@ -28,6 +28,13 @@ type CandidateRecord = {
   previewPath: string;
   downloadPath: string;
   updatedAt: string;
+};
+
+
+export type CandidateDataAdapter = {
+  getCandidateRecord(candidateId: string): CandidateRecord;
+  completeCandidateAction(candidateId: string, kind: CandidateActionKind): RequestInit;
+  uploadCandidateCv(candidateId: string): RequestInit;
 };
 
 const storageKey = 'candidate-store-v1';
@@ -238,3 +245,9 @@ export function uploadCandidateCv(candidateId: string) {
   emitChange();
   return requestInit;
 }
+
+export const candidateFixtureDataAdapter: CandidateDataAdapter = {
+  getCandidateRecord,
+  completeCandidateAction,
+  uploadCandidateCv,
+};

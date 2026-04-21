@@ -67,3 +67,19 @@ it('attaches job-scoped contract signing state to offer overlays without changin
     actionTarget: { parentTarget: '/job/job-1?section=candidates', jobId: 'job-1', candidateId: 'candidate-1' },
   });
 });
+
+
+it('records success refresh intent and direct-entry fallback for job tasks', () => {
+  const context = resolveJobTaskContext({
+    kind: 'reject',
+    pathname: '/job/job-1/cv-reject/candidate-1',
+    jobId: 'job-1',
+    candidateId: 'candidate-1',
+    outcome: 'success',
+  });
+
+  expect(context.directEntry).toBe(true);
+  expect(context.parentTarget).toBe('/job/job-1');
+  expect(context.operationState).toMatchObject({ kind: 'succeeded', parentTarget: '/job/job-1' });
+  expect(context.parentRefreshIntent).toBe(true);
+});

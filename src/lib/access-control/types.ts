@@ -11,11 +11,21 @@ export type AccessContext = {
 };
 
 export type Capabilities = {
+  canStartSession: boolean;
+  canUseAuthTokenFlow: boolean;
+  canCompleteSsoCallback: boolean;
   canEnterShell: boolean;
   canViewDashboard: boolean;
   canViewNotifications: boolean;
+  canResolveNotificationDestination: boolean;
   canUseInbox: boolean;
+  canOpenConversation: boolean;
   canOpenAccountArea: boolean;
+  canViewUserSettings: boolean;
+  canManageCompanySettings: boolean;
+  canManageAgencySettings: boolean;
+  canViewHiringCompanyProfile: boolean;
+  canViewRecruitmentAgencyProfile: boolean;
   canLogout: boolean;
   canSeeNavSection: boolean;
   canEnterSettings: boolean;
@@ -27,6 +37,7 @@ export type Capabilities = {
   canManageTemplates: boolean;
   canManageRejectReasons: boolean;
   canManageApiEndpoints: boolean;
+  canManageFormsDocsSettings: boolean;
   canViewPlatformNavigation: boolean;
   canViewPlatformMasterDataNav: boolean;
   canViewPlatformUsersAndRequestsNav: boolean;
@@ -83,4 +94,12 @@ export type Capabilities = {
   canManageSmsBilling: boolean;
   canManageBillingCard: boolean;
   canViewMarketplace: boolean;
+  canOpenSharedJob: boolean;
+  canSubmitPublicApplication: boolean;
+  canCompletePublicSurvey: boolean;
+  canUseExternalTokenizedChat: boolean;
+  canUseExternalReviewFlow: boolean;
+  canApproveRequisitionByToken: boolean;
+  canDownloadRequisitionFormsByToken: boolean;
+  canUseIntegrationTokenEntry: boolean;
 };

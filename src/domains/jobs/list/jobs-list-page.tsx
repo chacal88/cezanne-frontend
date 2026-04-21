@@ -42,25 +42,38 @@ export function JobsListPage({ scope }: { scope: JobsListScope }) {
         <dd data-testid="jobs-list-as-admin">{String(viewModel.asAdmin)}</dd>
         <dt>{t('list.label')}</dt>
         <dd data-testid="jobs-list-label">{viewModel.label ?? '—'}</dd>
+        <dt>List state</dt>
+        <dd data-testid="jobs-list-state">{viewModel.state.kind}</dd>
         <dt>ATS sync</dt>
         <dd data-testid="jobs-list-ats-state">{viewModel.atsStatus?.kind ?? 'unavailable'}</dd>
       </dl>
+
+      <p data-testid="jobs-list-state-message">{viewModel.state.message}</p>
       <p data-testid="jobs-list-create-state">{viewModel.createPath ? t('list.allowedCreate') : t('list.blockedCreate')}</p>
-      <div style={{ display: 'flex', gap: 12 }}>
-        <Link
-          to="/job/$jobId"
-          params={{ jobId: 'job-123' }}
-          search={{ section: 'candidates' }}
-          data-testid="jobs-open-detail-link"
-        >
-          {t('list.openExample')}
+
+      {viewModel.createPath ? (
+        <Link to="/jobs/manage" search={{ resetWorkflow: false, copyFromJobId: undefined, saveState: undefined }} data-testid="jobs-create-link">
+          {t('list.newJob')}
         </Link>
-        {viewModel.createPath ? (
-          <Link to="/jobs/manage" search={{ resetWorkflow: false }} data-testid="jobs-create-link">
-            {t('list.newJob')}
-          </Link>
-        ) : null}
-      </div>
+      ) : null}
+
+      {viewModel.items.length > 0 ? (
+        <ul data-testid="jobs-list-results">
+          {viewModel.items.map((job) => (
+            <li key={job.id}>
+              <Link to="/job/$jobId" params={{ jobId: job.id }} search={{ section: 'overview', degradedSections: undefined, unavailable: false, transition: false, assignment: false }} data-testid={`jobs-open-detail-link-${job.id}`}>
+                {job.title}
+              </Link>{' '}
+              <span>({job.status})</span>
+              <span> · {job.assignedRecruiter ?? 'unassigned'}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div role="status" data-testid="jobs-list-no-results">
+          {viewModel.state.message}
+        </div>
+      )}
     </section>
   );
 }

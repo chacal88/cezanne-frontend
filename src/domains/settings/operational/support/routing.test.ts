@@ -12,6 +12,7 @@ describe('operational settings routing helpers', () => {
     expect(buildOperationalSettingsCompatPath({ settingsId: 'company-1', subsection: 'templates' })).toBe('/parameters/company-1/settings/templates');
     expect(buildOperationalSettingsDedicatedPath('reject-reasons')).toBe('/reject-reasons');
     expect(buildOperationalSettingsDedicatedPath('api-endpoints')).toBe('/settings/api-endpoints');
+    expect(buildOperationalSettingsDedicatedPath('forms-docs')).toBe('/settings/forms-docs');
   });
 
   it('normalizes compatibility params with stable defaults', () => {
@@ -26,6 +27,7 @@ describe('operational settings routing helpers', () => {
     expect(parseOperationalSettingsSubsectionFromPath('/parameters/company-1/settings/custom-fields')).toBe('custom-fields');
     expect(parseOperationalSettingsSubsectionFromPath('/templates')).toBe('templates');
     expect(parseOperationalSettingsSubsectionFromPath('/settings/api-endpoints')).toBe('api-endpoints');
+    expect(parseOperationalSettingsSubsectionFromPath('/parameters/company-1/settings/forms-docs')).toBe('forms-docs');
   });
 
   it('falls back to the first visible subsection when compatibility entry is unknown', () => {
@@ -61,8 +63,6 @@ describe('operational settings routing helpers', () => {
       reason: 'fallback_unavailable',
     });
   });
-});
-
 
   it('includes API endpoints in the closed R5 compatibility inventory', () => {
     const resolution = resolveOperationalSettingsRoute('/parameters/company-1/settings/api-endpoints', ['api-endpoints']);
@@ -82,6 +82,23 @@ describe('operational settings routing helpers', () => {
     });
   });
 
+  it('includes forms/docs controls in the compatibility inventory', () => {
+    const resolution = resolveOperationalSettingsRoute('/parameters/company-1/settings/forms-docs', ['forms-docs']);
+    expect(resolution).toEqual({
+      active: expect.objectContaining({
+        subsectionId: 'forms-docs',
+        path: '/settings/forms-docs',
+        routeId: 'settings.forms-docs-controls',
+        capability: 'canManageFormsDocsSettings',
+      }),
+      params: {
+        settingsId: 'company-1',
+        section: 'settings',
+        subsection: 'forms-docs',
+      },
+      reason: 'matched',
+    });
+  });
 
   it('distinguishes unauthorized and unimplemented compatibility fallback outcomes', () => {
     expect(resolveOperationalSettingsRoute('/parameters/company-1/settings/api-endpoints', ['templates'])?.reason).toBe('fallback_unauthorized');
@@ -89,3 +106,4 @@ describe('operational settings routing helpers', () => {
       resolveOperationalSettingsRoute('/parameters/company-1/settings/api-endpoints', ['templates'], { unimplementedSubsections: ['api-endpoints'] })?.reason,
     ).toBe('fallback_unimplemented');
   });
+});

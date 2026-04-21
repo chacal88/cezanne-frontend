@@ -4,3 +4,4 @@ export * from './access';
 export * from './adapters';
 export * from './workflow';
 export * from './notification-ownership';
+export * from './product-depth';

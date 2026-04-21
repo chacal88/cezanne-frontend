@@ -7,7 +7,6 @@ import { buildIntegrationCvViewModel, runIntegrationCvWorkflow } from './support
 export function IntegrationCvTokenEntryPage({ token, action }: { token: string; action?: string }) {
   const view = useMemo(() => buildIntegrationCvViewModel({ token, action }), [action, token]);
   const [error, setError] = useState<string | null>(null);
-  const [payloadPreview, setPayloadPreview] = useState('');
   const [selection, setSelection] = useState<'slot-1' | 'slot-2' | 'unavailable'>('slot-1');
   const [reason, setReason] = useState('');
 
@@ -33,7 +32,6 @@ export function IntegrationCvTokenEntryPage({ token, action }: { token: string; 
       observability.telemetry.track({ name: 'integration_cv_submission_failed', data: { mode: 'interview', stage: result.stage, correlationId: ensureCorrelationId() } });
       return;
     }
-    setPayloadPreview(JSON.stringify(result.payload, null, 2));
     observability.telemetry.track({ name: 'integration_cv_submission_completed', data: { mode: 'interview', outcome: result.completion.kind, correlationId: ensureCorrelationId() } });
     window.location.reload();
   }
@@ -48,7 +46,6 @@ export function IntegrationCvTokenEntryPage({ token, action }: { token: string; 
       observability.telemetry.track({ name: 'integration_cv_submission_failed', data: { mode: 'offer', stage: result.stage, correlationId: ensureCorrelationId() } });
       return;
     }
-    setPayloadPreview(JSON.stringify(result.payload, null, 2));
     observability.telemetry.track({ name: 'integration_cv_submission_completed', data: { mode: 'offer', outcome: result.completion.kind, correlationId: ensureCorrelationId() } });
     window.location.reload();
   }
@@ -58,7 +55,6 @@ export function IntegrationCvTokenEntryPage({ token, action }: { token: string; 
       <section style={{ border: '1px solid #e5e7eb', borderRadius: 12, padding: 20, display: 'grid', gap: 12 }}>
         <h1>Integration CV callback complete</h1>
         <p data-testid="integration-cv-completion">{view.completion.message}</p>
-        {payloadPreview ? <pre data-testid="integration-cv-payload-preview">{payloadPreview}</pre> : null}
       </section>
     );
   }
@@ -103,7 +99,6 @@ export function IntegrationCvTokenEntryPage({ token, action }: { token: string; 
         </>
       )}
       {error ? <p data-testid="integration-cv-error">{error}</p> : null}
-      {payloadPreview ? <pre data-testid="integration-cv-payload-preview">{payloadPreview}</pre> : null}
     </section>
   );
 }
