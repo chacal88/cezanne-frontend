@@ -4,6 +4,8 @@
 
 This document is the V4 visual-readiness package from `pre-figma-flow-review.md`. It prepares operational authenticated-shell modules for Figma/screen-flow work without using Figma as a source of product behavior.
 
+Project-wide pixel-parity rule: wherever a legacy screen/state exists, the final Figma and implementation replacement must match the legacy frontend at the matched viewport and data/state. `Figma-ready` is not replacement approval; unapproved visual differences are blockers until fixed or recorded as an explicit product exception.
+
 V4 covers:
 - settings and operational settings subsections;
 - authenticated integrations provider setup/admin shell;
@@ -33,7 +35,7 @@ V4 covers:
 | OpenSpec specs | Settings, integrations, reports, billing, team, favorites, and marketplace specs under `../../openspec/specs` | Required state/action/error/parent-return coverage | Specs do not define final layout. |
 | Operational specs | Provider setup/readiness, downstream impact, report export/schedule, payment, messaging, survey/review, ATS source specs | Operational state semantics consumed by V4 modules | Do not invent provider/payment/backend schemas. |
 | Current greenfield source | `src/domains/settings/**`, `src/domains/integrations/**`, `src/domains/reports/**`, `src/domains/billing/**`, `src/domains/team/**`, `src/domains/favorites/**`, `src/domains/marketplace/**` | Runtime state and current UI behavior | Fixture-backed or adapter-backed data remains a seam. |
-| Current visual evidence | `visual-evidence-v4-operations.md`, `visual-evidence-assets/v4/v4-capture-manifest.json`, `visual-evidence-assets/v4/interactive-2026-04-22/interactive-capture-manifest.json` | Current-app route-base, state-variant, and safe local-fixture interaction evidence for V4 operations | Promotes V4 current-app screen-flow bases to `Figma-ready`; backend/provider/schema details remain annotated as deferred. |
+| Current visual evidence | `visual-evidence-v4-operations.md`, `visual-evidence-assets/v4/v4-capture-manifest.json`, `visual-evidence-assets/v4/interactive-2026-04-22/interactive-capture-manifest.json` | Current-app route-base, state-variant, and safe local-fixture interaction evidence for V4 operations | Promotes V4 current-app screen-flow bases to `Figma-ready`; backend/provider/schema details remain annotated as deferred. Does not approve legacy replacement pixel parity. |
 
 ## Settings frame set
 
@@ -115,7 +117,7 @@ V4 covers:
 |---|---|
 | Desktop primary | V4 modules are desktop-first authenticated shell admin/operations screens. |
 | Narrow desktop/tablet | Preserve tab/subsection navigation, tables/cards, save/retry actions, parent return, and blocked-state remediations. |
-| Mobile | Out of scope for V4 Figma-ready unless product confirms mobile parity. |
+| Mobile | Required only for legacy-backed mobile states that product includes in replacement scope; otherwise document the omission explicitly. |
 
 ## Non-goals
 
@@ -132,4 +134,4 @@ V4 covers:
 4. Billing visual map for overview/upgrade/SMS/card states, including provider challenge and card-blocked paths.
 5. Team/favorites visual map for org membership, recruiter visibility, invites, org favorites, and request workflows.
 6. Marketplace visual map for supported list types, empty/unavailable, and unknown-type handling.
-7. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above.
+7. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above; replacement approval remains blocked until legacy pixel parity is confirmed where legacy exists.

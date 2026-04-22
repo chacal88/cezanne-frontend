@@ -15,7 +15,7 @@ Product decision on 2026-04-22: the whole replacement project requires pixel par
 | Route contract review | Done | All 103 canonical route rows plus 4 alias/reference rows are contract-reviewed. |
 | V0-V5 visual contracts | Done | Prepared under `v0-*` through `v5-*` visual contract files. |
 | Visual evidence capture | Current phase | Evidence must be captured from current app and the matching legacy/reference app wherever legacy exists. V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; both still need replacement pixel-parity signoff where legacy/reference surfaces exist. V5 has first-pass foundation evidence. |
-| Figma production | Partially unblocked | V0, V1, V3, and V4 covered rows may proceed to Figma drafting. Other rows remain blocked until promoted to `Figma-ready`. No row is replacement-approved until pixel parity is confirmed or explicitly waived by product. |
+| Figma production | Partially unblocked | V0, V1, V3, and V4 covered rows may proceed to Figma drafting. Other rows remain blocked until promoted to `Figma-ready`. No row is replacement-approved until pixel parity is confirmed or a product exception is recorded. |
 
 ## Evidence package schema
 

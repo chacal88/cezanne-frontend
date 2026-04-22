@@ -35,13 +35,13 @@ This pass **does not** claim final legacy parity and does **not** mark V2 as Fig
 | Database row selected | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/05-database-row-selected-bulk-enabled.png` | Confirms selected-row bulk toolbar is visible. |
 | Detail ready | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/10-detail-ready-after-parity-pass.png` | Finn ApiSeed job-context detail hub after legacy action modal entries were added. |
 | Detail More actions | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/11-detail-more-actions-after-parity-pass.png` | Diego ApiSeed menu now includes email, scheduler, offer, review request, move job, and reject entries. |
-| Email candidate modal | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/12-detail-email-candidate-modal.png` | Legacy-style modal entry point. |
+| Email candidate modal | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/12-detail-email-candidate-modal.png` | Legacy-style template/composer/editor surface in a contextual modal. |
 | Send to hiring manager modal | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/13-detail-send-to-hiring-manager-modal.png` | Legacy-style modal entry point. |
 | Move job modal | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/14-detail-move-job-modal.png` | Legacy-style modal entry point. |
 | Score now modal | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/15-detail-score-now-modal.png` | Legacy-style modal entry point from Interview score tab. |
-| Schedule task modal route | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/20-action-schedule-modal-route.png` | Route-owned task now renders as a modal surface. |
+| Schedule task modal route | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/20-action-schedule-modal-route.png` | Route-owned task now renders as a modal wizard with dark header, candidate context, job details, and first-step interview fields. |
 | Offer task modal route | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/21-action-offer-modal-route.png` | Route-owned task now renders as a modal surface. |
-| Reject task modal route | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/22-action-reject-modal-route.png` | Route-owned task now renders as a modal surface. |
+| Reject task modal route | `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/22-action-reject-modal-route.png` | Route-owned task now renders as a modal with reject steps and message/editor composition. |
 
 ## Validation
 
@@ -51,7 +51,8 @@ Confirmed:
 - The recapture harness now seeds API-style database rows plus Finn/Diego detail records, reducing the prior data-mismatch blocker for the covered ready/action states.
 - The database selected-row state now shows the enabled selected toolbar.
 - The candidate detail More actions menu now exposes the legacy-modal action entries.
-- Schedule, offer, and reject task routes now preserve route ownership while rendering a modal-like composition over candidate context.
+- Schedule, offer, and reject task routes now preserve route ownership while rendering modal-like composition over candidate context.
+- Schedule and reject received a second composition pass toward legacy: schedule now has the dark wizard header, job detail column, interview-type/location fields, and radio groups; reject now has the two-step header plus template/message editor surface. Email candidate now uses a template/editor/attachment-style modal surface rather than the earlier simple form.
 
 Still not claimed:
 - Pixel parity with legacy.
@@ -69,9 +70,9 @@ Compared against the existing authenticated legacy references in `docs/visual-ev
 | Database menus and bulk toolbar | Improved; still blocked | Add new and selected-row bulk states now exist with comparable data, but menu icon treatment, row heights, dropdown width/offset, and toolbar copy/spacing still differ from `legacy/05-add-new-menu-opened.png` and `legacy/11-bulk-actions-after-first-row-selected.png`. |
 | Candidate detail ready | Improved; still blocked | Finn ApiSeed now aligns with the main detail legacy candidate, but profile-card width, email wrapping, hiring-flow geometry, tab/CV proportions, notes placement, and exact stage control still differ from `legacy/20-candidate-detail-ready-viewport.png`. |
 | More actions | Improved; still blocked | Diego ApiSeed now aligns with the supplement candidate, and missing actions are visible, but the menu contents/height differ from `legacy/22-candidate-detail-more-actions-opened.png` and the supplement action references. |
-| Email candidate | Still blocked | Greenfield uses a centered modal with simple fields; `legacy-supplement/56-legacy-candidate-detail-more-actions-email-candidate-opened.png` shows the full compose/editor surface with template, Bcc chip, toolbar, attachment control, draft/send actions, and in-page email context. |
-| Schedule interview | Still blocked | Greenfield uses a generic modal route with a four-step header; `legacy-supplement/57-legacy-candidate-detail-more-actions-interview-scheduler-opened.png` uses a wider wizard with dark step header, candidate/job details, interview type/location fields, radio controls, and a different footer. |
-| Reject candidate | Still blocked | Greenfield uses reason/review/internal-note fields; `legacy-supplement/55-legacy-candidate-detail-reject-modal-opened.png` uses the two-step reject flow with message/template editor, toolbar, attachment control, and reject-with/without-message actions. |
+| Email candidate | Improved; still blocked | Greenfield now has template, Bcc chip, subject, editor toolbar, attachment control, and message body in a centered modal. Legacy evidence still differs in route/tab context, exact editor toolbar, footer actions, and send/draft affordances. |
+| Schedule interview | Improved; still blocked | Greenfield now has a wider wizard, dark header, candidate/job detail split, interview type/location fields, and radio groups. Exact legacy modal height, stepper placement, copy, job metadata, and next-step footer remain different. |
+| Reject candidate | Improved; still blocked | Greenfield now has the two-step reject header plus template/message editor surface. Exact legacy modal width/position, editor controls, Bcc chip wrapping, and reject-with/without-message footer actions remain different. |
 | Send to hiring manager | Improved; still blocked | Greenfield exposes the modal, but `legacy-supplement/58-legacy-candidate-detail-more-actions-send-to-hiring-manager-opened.png` includes a candidate chip, icon header treatment, and different footer/action layout. |
 
 ## Gap Impact
@@ -89,6 +90,6 @@ Compared against the existing authenticated legacy references in `docs/visual-ev
 Continue implementation from the remaining largest blockers:
 - database shell/table geometry and menu offsets;
 - candidate detail profile-card, hiring-flow, and CV/tab proportions;
-- exact legacy action flow composition for email, schedule, reject, review request, move job, upload CV, and score-now.
+- exact legacy action flow composition for email, schedule, reject, review request, move job, upload CV, and score-now, especially footer actions, editor controls, field payloads, and wizard dimensions.
 
 Only after those changes are recaptured against authenticated legacy references may individual gaps be marked resolved. Until then, V2 Candidates remains parity-blocked.

@@ -4,6 +4,8 @@
 
 This document is the V5 visual-readiness package from `pre-figma-flow-review.md`. It prepares SysAdmin/platform routes for Figma/screen-flow work without using Figma as a source of product behavior.
 
+Project-wide pixel-parity rule: wherever a legacy screen/state exists, the final Figma and implementation replacement must match the legacy frontend at the matched viewport and data/state. `Figma-ready` is not replacement approval; unapproved visual differences are blockers until fixed or recorded as an explicit product exception.
+
 V5 covers:
 - platform users list/detail/create/edit;
 - platform favorite-request queue and request detail;
@@ -93,7 +95,7 @@ V5 covers:
 |---|---|
 | Desktop primary | SysAdmin/platform routes are desktop-first authenticated shell admin screens. |
 | Narrow desktop/tablet | Preserve filters, list/detail/edit parent returns, mutation action bars, and blocked-state explanations. |
-| Mobile | Out of scope for V5 Figma-ready unless product confirms mobile parity. |
+| Mobile | Required only for legacy-backed mobile states that product includes in replacement scope; otherwise document the omission explicitly. |
 
 ## Non-goals
 
@@ -109,7 +111,7 @@ V5 covers:
 3. Master-data visual map for hiring companies, recruitment agencies, and subscriptions list/detail/edit states.
 4. Company subscription admin visual map for route-vs-mutation capability, blocked, success/error, and refresh targets.
 5. Taxonomy visual map for sectors/subsectors list/detail/mutation/not-found/stale/denied states.
-6. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above.
+6. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above; replacement approval remains blocked until legacy pixel parity is confirmed where legacy exists.
 
 ## First-pass evidence closeout
 

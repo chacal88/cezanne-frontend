@@ -163,6 +163,7 @@ Confirmed change:
 - Candidate database saved filters and saved lists now use comparable `LIST KAUE` / `FILTER KAUE` entries, preserve route-owned state test coverage, and expose the default Bulk Actions control through a stable test id.
 - Candidate database row density and sidebar spacing were compacted toward the legacy layout.
 - Candidate detail now exposes legacy-style modal entry points for Email candidate, Send to hiring manager, Move job, and Score now. These are composition/parity starters only; they do not claim backend mutation parity.
+- A second action-composition pass moved schedule closer to the legacy wizard with dark header, job detail column, first-step interview fields, and radio groups; moved reject closer to the legacy two-step template/message editor; and moved email closer to the legacy template/editor/attachment surface.
 - The R0 Playwright smoke harness now seeds the current `recruit.localAuthSession` contract and mocks candidate `/v2/cv` + GraphQL reads for deterministic database/detail handoff validation.
 
 Validation run:
@@ -200,12 +201,12 @@ The recapture harness was tightened after the first run so the covered current-a
 | V2-GAP-010 | Improved; still blocked | Database ready density pass captured in `new/01-database-ready-density-pass.png`; API-seed rows are now comparable, but table density/geometry still differs from legacy. |
 | V2-GAP-015 | Partially improved; still blocked | Covered ready/action captures now use Finn/Diego ApiSeed-style data, but there is still no same-run authenticated legacy recapture and full state/data coverage is incomplete. |
 | V2-GAP-016 | Improved; still blocked | Detail ready state captured in `new/10-detail-ready-after-parity-pass.png`; side-card geometry, wrapping, and proportions still differ from legacy. |
-| V2-GAP-026 | Improved; still blocked | Email modal captured in `new/12-detail-email-candidate-modal.png`; exact legacy composer parity still requires comparison. |
+| V2-GAP-026 | Improved; still blocked | Email modal captured in `new/12-detail-email-candidate-modal.png`; template/editor/attachment composition now exists, but exact legacy composer parity still requires comparison. |
 | V2-GAP-027 | Improved; still blocked | Send to hiring manager modal captured in `new/13-detail-send-to-hiring-manager-modal.png`; backend mutation and exact field parity remain deferred. |
 | V2-GAP-028 | Improved; still blocked | Move job modal captured in `new/14-detail-move-job-modal.png`; exact legacy search/list behaviour remains deferred. |
 | V2-GAP-030 | Improved; still blocked | Score now modal captured in `new/15-detail-score-now-modal.png`; exact scoring form parity remains deferred. |
-| V2-GAP-024 | Improved; still blocked | Schedule route now renders as a modal surface in `new/20-action-schedule-modal-route.png`; exact legacy step layout/fields still need comparison. |
-| V2-GAP-025 | Improved; still blocked | Reject route now renders as a modal surface in `new/22-action-reject-modal-route.png`; exact legacy reject modal fields remain deferred. |
+| V2-GAP-024 | Improved; still blocked | Schedule route now renders as a modal wizard in `new/20-action-schedule-modal-route.png`; dark header, job details, interview fields, and radio groups are closer to legacy, but exact wizard dimensions/step/footer parity remain open. |
+| V2-GAP-025 | Improved; still blocked | Reject route now renders as a two-step message/editor modal in `new/22-action-reject-modal-route.png`; exact legacy editor controls, chip layout, and reject footer actions remain open. |
 
 Important correction to prior wording: the current action launcher recapture is no longer a standalone task-page composition for schedule/offer/reject. The implementation now preserves canonical route ownership internally while rendering a modal-like user experience. V2 remains blocked because exact legacy modal parity is not yet proven.
 
@@ -220,8 +221,8 @@ No gap is marked resolved yet. The recapture closes part of the **evidence-quali
 | V2-GAP-004 to V2-GAP-008 | Improved; still blocked | Add new, saved list/filter, and bulk toolbar states exist with comparable data, but menu offsets, icon treatment, row heights, toolbar copy/spacing, and selected-state geometry still differ from legacy. |
 | V2-GAP-010 to V2-GAP-012 | Improved; still blocked | API-seed rows now appear, but table width, row density, column sizing, pagination placement, and stage/status column decisions still do not match the legacy database baseline. |
 | V2-GAP-014 to V2-GAP-021 | Improved; still blocked | Job-context detail and Finn ApiSeed data are closer, but profile-card width, email wrapping, stage selector placement, hiring-flow dot/line geometry, tabs, CV preview proportions, and notes/action area placement still differ. |
-| V2-GAP-024 | Improved; still blocked | Schedule is modal-like, but legacy uses a wider wizard with dark step header, candidate/job detail columns, interview type/location fields, radio groups, and different footer mechanics. |
-| V2-GAP-025 | Improved; still blocked | Reject is modal-like, but legacy requires the two-step reject flow with message/template editor, Bcc chip, toolbar, attachment control, and reject-with/without-message actions. |
-| V2-GAP-026 | Still blocked | The current greenfield email action is a small centered modal, while legacy evidence shows the full compose/editor surface with template selector, Bcc chip, toolbar, attachment control, draft, and send actions. |
+| V2-GAP-024 | Improved; still blocked | Schedule now matches more of the wizard structure, but exact modal dimensions, stepper/header placement, job metadata, copy, and footer mechanics still differ from legacy. |
+| V2-GAP-025 | Improved; still blocked | Reject now includes the two-step message/editor flow, but exact modal width/position, editor toolbar, chip layout, and reject-with/without-message footer actions still differ. |
+| V2-GAP-026 | Improved; still blocked | Email now uses a template/editor/attachment modal surface, but legacy evidence still differs in context, toolbar details, footer actions, draft/send behavior, and exact sizing. |
 | V2-GAP-027 to V2-GAP-030 | Improved; still blocked | Review request, move job, and score-now entry points now exist, but exact field layout, candidate chip/header treatment, footer actions, search/list behavior, and score form contents still need legacy parity. |
 | V2-GAP-031 | Partially improved; still blocked | Covered recapture states now use Finn/Diego/API-seed-style data, but final parity still needs same-run authenticated legacy/current capture and broader state coverage. |

@@ -4,6 +4,8 @@
 
 This document is the V3 visual-readiness package from `pre-figma-flow-review.md`. It prepares public/token and integration-token routes for Figma/screen-flow work without using Figma as a source of product behavior.
 
+Project-wide pixel-parity rule: wherever a legacy public/token screen/state exists, the final Figma and implementation replacement must match the legacy frontend at the matched viewport and data/state. `Figma-ready` is not replacement approval; unapproved visual differences are blockers until fixed or recorded as an explicit product exception.
+
 V3 covers:
 - tokenized external chat;
 - external interview request, review-candidate, and interview-feedback flows;
@@ -31,7 +33,7 @@ V3 covers:
 | OpenSpec specs | `public-token-lifecycle`, `public-token-product-depth`, `external-tokenized-chat`, `external-interview-request`, `external-review-candidate`, `external-interview-feedback`, `public-job-presentation`, `public-application-submission`, `public-survey-continuation`, `requisition-approval-token-flow`, `requisition-forms-download-route`, `integration-cv-token-entry`, `integration-forms-token-entry`, `integration-job-token-entry`, `integration-token-entry-implementation-depth-closeout` | Required state/action/error/parent-return coverage | Specs do not define final layout. |
 | Operational specs | `survey-review-scoring-operational-depth`, `messaging-communication-operational-depth`, `provider-readiness-operational-gates` | Shared review/survey/messaging/readiness semantics | Do not expose provider setup internals in public/token screens. |
 | Current greenfield source | `src/domains/public-external/**` and `src/domains/integrations/**` token pages | Runtime state and current UI behavior | Adapter-backed token payloads remain seams. |
-| Current V3 evidence log | `visual-evidence-v3-public-external-token.md` plus the V3 capture manifests | Desktop, mobile, narrow, lifecycle, and follow-up route/state captures for V3 public/token families | Evidence is not a backend schema or final Figma layout contract. |
+| Current V3 evidence log | `visual-evidence-v3-public-external-token.md` plus the V3 capture manifests | Desktop, mobile, narrow, lifecycle, and follow-up route/state captures for V3 public/token families | Evidence is not a backend schema, final Figma layout contract, or replacement pixel-parity approval. |
 
 ## Public token lifecycle frame set
 
@@ -137,7 +139,7 @@ Every V3 public/token screen must share a consistent token-state treatment.
 4. Shared job and public application visual map for presentation, application form, upload/submission failures, and completion.
 5. Public survey and requisition visual maps for validation, terminal, workflow drift, and download states.
 6. Integration token-entry visual map for CV/forms/job callback states with provider setup separation preserved.
-7. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above.
+7. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above; replacement approval remains blocked until legacy pixel parity is confirmed where legacy exists.
 
 ## Promotion slices
 

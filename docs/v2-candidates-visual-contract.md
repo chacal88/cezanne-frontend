@@ -4,6 +4,8 @@
 
 This document is the V2 visual-readiness package from `pre-figma-flow-review.md`. It prepares the candidate route family for screen-flow work without using Figma as a source of product behavior. Current V2 candidate implementation evidence is behaviour-complete for selected paths but parity-blocked against legacy until the side-by-side blockers in `visual-evidence-v2-candidates.md` are resolved or explicitly accepted.
 
+Project-wide pixel-parity rule: V2 is not a special case. Every release package must match the legacy frontend wherever a legacy screen/state exists. `Figma-ready` is not replacement approval; unapproved visual differences are blockers until fixed or recorded as an explicit product exception.
+
 V2 covers:
 - candidate detail hub and optional contextual route segments;
 - candidate database/search canonical route;
@@ -89,7 +91,7 @@ V2 covers:
 |---|---|
 | Desktop primary | Candidate hub/database/action launchers are desktop-first authenticated shell screens. |
 | Narrow desktop/tablet | Preserve panel navigation, filter controls, action launcher close/return actions, and parent context indicators. |
-| Mobile | Out of scope for V2 final visual readiness unless product confirms mobile parity. |
+| Mobile | Required only for legacy-backed mobile states that product includes in replacement scope; otherwise document the omission explicitly. |
 
 ## Non-goals
 
@@ -106,7 +108,7 @@ V2 covers:
 3. Candidate action behaviour evidence exists for schedule, offer, and reject task shells with ready, failure/retry, database-origin parent, cancel controls, and success/refresh evidence. Provider-blocked/degraded/unavailable and terminal/read-only variants need separate evidence before promotion.
 4. Candidate panel boundaries are behaviour-evidenced for documents/contracts/surveys/custom fields/collaboration/upload without raw payloads.
 5. Alias handling remains documentation-only for candidate offer reference rows and must not become standalone frames.
-6. `pre-figma-flow-review.md` must not mark V2 candidate rows as final `Figma-ready` until the parity acceptance rule below is satisfied or explicitly waived by product.
+6. `pre-figma-flow-review.md` must not mark V2 candidate rows as final `Figma-ready` until the parity acceptance rule below is satisfied or a product exception explicitly records the affected route/family/gap id.
 
 
 ## Parity acceptance rule
@@ -117,6 +119,6 @@ For this package, `Figma-ready` requires side-by-side legacy parity review. Func
 
 Candidate database, detail, and action launcher screens must match the authenticated legacy reference in appearance and behaviour before final Figma-ready promotion. The current greenfield screenshots are behaviour evidence only where `visual-evidence-v2-candidates.md` marks them parity-blocked. Do not use standalone task pages as final schedule/offer/reject references while the legacy flow uses modal composition unless product explicitly accepts that deviation.
 
-Product decision on 2026-04-22: **all V2 Candidates surfaces require legacy parity**. No visual or behavioural deviation is accepted unless a future product decision explicitly records the exception and the affected gap id.
+Product decision on 2026-04-22: **all replacement surfaces require legacy pixel parity wherever a legacy screen/state exists**. No visual or behavioural deviation is accepted unless a future product decision explicitly records the exception and the affected route/family/gap id.
 
-Implementation update on 2026-04-22: the first parity pass improved database saved-filter/list density, action task modal composition, candidate detail legacy action modal entry points, and recapture seed parity for Finn/Diego/API-seed-style screenshots. Validation is green (`npm test`, `npm run build`, `npm run smoke:r0:ui`), but these changes remain behaviour evidence only until side-by-side legacy recapture confirms visual parity. The latest side-by-side review still blocks V2 on database geometry, detail proportions, and exact legacy action modal/editor composition.
+Implementation update on 2026-04-22: the first parity pass improved database saved-filter/list density, action task modal composition, candidate detail legacy action modal entry points, and recapture seed parity for Finn/Diego/API-seed-style screenshots. A follow-up action-composition pass moved schedule toward the legacy wizard and moved reject/email toward legacy template/editor surfaces. Validation is green (`npm test`, `npm run build`, `npm run smoke:r0:ui`), but these changes remain behaviour evidence only until side-by-side legacy recapture confirms visual parity. The latest side-by-side review still blocks V2 on database geometry, detail proportions, and exact legacy action modal/editor composition.

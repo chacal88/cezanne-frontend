@@ -4,6 +4,8 @@
 
 This document is the V1 visual-readiness package from `pre-figma-flow-review.md`. It prepares the jobs route family for Figma/screen-flow work without using Figma as a source of product behavior.
 
+Project-wide pixel-parity rule: wherever a legacy screen/state exists, the final Figma and implementation replacement must match the legacy frontend at the matched viewport and data/state. `Figma-ready` is not replacement approval; unapproved visual differences are blockers until fixed or recorded as an explicit product exception.
+
 V1 covers:
 - jobs list and URL-owned filters;
 - job authoring/create/edit/copy;
@@ -29,6 +31,7 @@ V1 covers:
 | OpenSpec specs | `jobs-list`, `job-authoring`, `job-detail-hub`, `job-task-overlays`, `jobs-product-depth`, `jobs-requisition-branching`, `requisition-authoring-routes` | Required state/action/error/parent-return coverage | Specs do not define final layout. |
 | Operational specs | `calendar-scheduling-operational-depth`, `job-board-publishing-operational-depth`, `contract-signing-operational-depth`, `hris-requisition-operational-depth`, `provider-readiness-operational-gates` | Provider-blocked/degraded/readiness state semantics consumed by jobs tasks | Do not expose provider setup internals inside job task screens. |
 | Current greenfield source | `src/domains/jobs/**` | Runtime state and current UI behavior | Fixture-backed data remains an adapter seam. |
+| Legacy jobs reference | Legacy frontend route captures for matching jobs list/detail/authoring/task states | Required pixel-parity comparison source where a legacy state exists | Does not override route/state contracts or backend unknowns. |
 
 ## Jobs list frame set
 
@@ -89,7 +92,7 @@ V1 covers:
 |---|---|
 | Desktop primary | Primary jobs list/detail/authoring and overlays are desktop-first authenticated shell screens. |
 | Narrow desktop/tablet | Preserve filters, section navigation, and task overlay close/return actions. |
-| Mobile | Out of scope for V1 Figma-ready unless product confirms mobile parity. |
+| Mobile | Required only for legacy-backed mobile states that product includes in replacement scope; otherwise document the omission explicitly. |
 
 ## Non-goals
 
@@ -101,7 +104,7 @@ V1 covers:
 
 ## Required outputs before marking V1 rows `Figma-ready`
 
-1. Jobs list visual state map for loading, ready, empty, filtered-empty, degraded/stale, denied, unavailable, and clear-filters behavior.
+1. Jobs list visual state map for loading, ready, empty, filtered-empty, degraded/stale, denied, unavailable, and clear-filters behavior, with legacy pixel-parity comparison where legacy exists.
 2. Job authoring visual map for create/edit/copy, dirty/save/publish/resetWorkflow, blocked/partial-publish, and retry states.
 3. Job detail hub visual map with URL section ownership and partial-degraded sections.
 4. Task overlay visual map for bid, CV, reject, schedule, and offer, including parent-return and refresh intent.

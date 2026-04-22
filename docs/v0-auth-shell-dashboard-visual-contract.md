@@ -4,6 +4,8 @@
 
 This document is the first visual-readiness package from `pre-figma-flow-review.md`. It prepares the R0 anchor flows for Figma/screen-flow work without using Figma as a source of product behavior.
 
+Project-wide pixel-parity rule: wherever a legacy screen/state exists, the final Figma and implementation replacement must match the legacy frontend at the matched viewport and data/state. `Figma-ready` is not replacement approval; unapproved visual differences are blockers until fixed or recorded as an explicit product exception.
+
 V0 covers:
 - auth entry and token flows;
 - SSO callback and logout/session transitions;
@@ -95,7 +97,7 @@ V0 covers:
 |---|---|
 | Desktop primary | Use the legacy/dashboard comparison viewport as the primary V0 reference. |
 | Narrow desktop/tablet | Preserve auth card readability and shell navigation access; exact responsive nav behavior needs confirmation before Figma-ready. |
-| Mobile | Out of scope for V0 Figma-ready unless product confirms mobile parity as a requirement. |
+| Mobile | Required only for legacy-backed mobile states that product includes in replacement scope; otherwise document the omission explicitly. |
 
 ## Non-goals
 
@@ -107,10 +109,10 @@ V0 covers:
 
 ## Required outputs before marking V0 rows `Figma-ready`
 
-1. Auth login screenshot/reference comparison with accepted typography, spacing, and provider-button deviations.
+1. Auth login screenshot/reference comparison with pixel-parity blockers or product-approved typography, spacing, and provider-button exceptions.
 2. Auth token-flow visual state map covering forgot/reset/confirm/register/invite-token.
 3. SSO/callback/logout transition state map.
 4. Shell layout/account visual contract for org and platform modes.
-5. Dashboard visual parity debt list with explicit accepted/deferred differences.
+5. Dashboard pixel-parity debt list with explicit blockers and product-approved exceptions only.
 6. Notifications and inbox visual state map.
 7. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above.

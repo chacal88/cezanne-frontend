@@ -2,7 +2,9 @@
 
 ## Purpose
 
-This document blocks Figma/screen-flow production until every route and flow from `screens.md` has been reviewed for product behavior, state coverage, data/API expectations, parent-return semantics, and telemetry safety. Existing visual references do not imply flow confirmation.
+This document blocks Figma/screen-flow production until every route and flow from `screens.md` has been reviewed for product behavior, state coverage, data/API expectations, parent-return semantics, telemetry safety, and visual evidence. Existing visual references do not imply flow confirmation.
+
+Product decision on 2026-04-22: the whole replacement project requires pixel parity with the legacy frontend wherever a legacy screen/state exists. `Figma-ready` means the row is cleared for canonical Figma/screen-flow production. It is not final replacement approval. Replacement approval requires a later side-by-side legacy/current/Figma comparison at the same viewport and matched data/state, with no unintended differences unless a product exception records the affected route/family/gap id.
 
 ## Gate status
 
@@ -10,15 +12,16 @@ This document blocks Figma/screen-flow production until every route and flow fro
 |---|---|---|
 | Complete route inventory imported from `screens.md` | Done | 103 canonical route rows imported; 4 alias/reference rows are tracked separately below. |
 | Domain-by-domain flow review | Done | All route rows are contract-reviewed; no domain is fully Figma-ready until visual evidence is confirmed. |
-| Visual reference confirmation | In progress | V0/V1 evidence capture is complete for covered sub-blocks; V2 candidate behaviour evidence is recaptured but parity-blocked against legacy; V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; V5 SysAdmin/platform has first-pass foundation evidence. V5 follow-up states remain pending. |
-| Figma production | Partially unblocked | V0, V1, V3, and V4 covered sub-blocks may proceed to Figma with deferred backend/provider/schema annotations; V2 candidate rows are blocked from final Figma-ready promotion until legacy parity blockers are resolved. V5 remains blocked pending platform state depth, accepted deviations, and backend/API unknown resolution. |
+| Visual reference confirmation | In progress | V0/V1 evidence capture is complete for covered sub-blocks; V2 candidate behaviour evidence is recaptured but parity-blocked against legacy; V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; V5 SysAdmin/platform has first-pass foundation evidence. All legacy-backed rows still require final pixel-parity replacement signoff. V5 follow-up states remain pending. |
+| Figma production | Partially unblocked | V0, V1, V3, and V4 covered sub-blocks may proceed to Figma drafting with deferred backend/provider/schema annotations; V2 candidate rows are blocked from final Figma-ready promotion until legacy parity blockers are resolved. V5 remains blocked pending platform state depth, pixel-parity review, and backend/API unknown resolution. |
 
 ## Review status values
 
 - `Not reviewed` — route exists in inventory but has not been checked against docs/specs/code/reference behavior.
 - `Contract-reviewed` — route behavior contract is specific enough for Figma handoff, but visual reference remains pending.
 - `Needs clarification` — behavior, owner, state, data contract, or parent return is ambiguous.
-- `Figma-ready` — contract-reviewed and cleared for canonical Figma/screen-flow work.
+- `Figma-ready` — contract-reviewed and cleared for canonical Figma/screen-flow work; not final replacement approval.
+- `Pixel-parity-approved` — post-Figma replacement signoff for a matched legacy/current/Figma state. This is tracked in visual evidence and handoff records, not as a route inventory status.
 
 ## Required review checklist per row
 
@@ -59,11 +62,11 @@ This document blocks Figma/screen-flow production until every route and flow fro
 
 ## Visual-readiness pass
 
-Contract review is complete, and Figma production is partially unblocked only for rows/sub-blocks explicitly marked `Figma-ready`. V0/V1 covered bases, V3 public/external base frames, and V4 operations current-app screen-flow bases may proceed; V2 candidate rows must remain parity-blocked until side-by-side legacy mismatches are resolved or explicitly accepted. V5 and deferred provider/schema/terminal variants remain blocked until separately evidenced.
+Contract review is complete, and Figma production is partially unblocked only for rows/sub-blocks explicitly marked `Figma-ready`. V0/V1 covered bases, V3 public/external base frames, and V4 operations current-app screen-flow bases may proceed as Figma drafting inputs; V2 candidate rows must remain parity-blocked until side-by-side legacy mismatches are resolved or a product exception is recorded. V5 and deferred provider/schema/terminal variants remain blocked until separately evidenced. For every legacy-backed row, final replacement approval remains blocked until pixel parity is confirmed after Figma production.
 
 | Phase | Domain/family | Required visual evidence | Minimum states to confirm | Output before Figma-ready |
 |---|---|---|---|---|
-| V0 | Auth entry | Legacy/source login reference, current greenfield login, typography/spacing/token comparison | empty, filled, invalid credentials, loading, 2FA required, SSO required, session bootstrap failure, redirecting | `v0-auth-shell-dashboard-visual-contract.md` plus accepted deviations and screenshots |
+| V0 | Auth entry | Legacy/source login reference, current greenfield login, typography/spacing/token comparison | empty, filled, invalid credentials, loading, 2FA required, SSO required, session bootstrap failure, redirecting | `v0-auth-shell-dashboard-visual-contract.md` plus pixel-parity blockers/exceptions and screenshots |
 | V0 | Auth token flows | Current token pages plus any legacy references available for register/confirm/reset/forgot/invite | missing token, invalid, expired, valid, pending approval, submit success, submit failure, retry, return to login | `v0-auth-shell-dashboard-visual-contract.md` token-flow visual state map |
 | V0 | SSO/callback/logout | Current callback/logout pages and provider-launch reference behavior | launch, provider error, missing code, exchange loading, exchange failed, bootstrap failed, logged-out, public-entry fallback | `v0-auth-shell-dashboard-visual-contract.md` SSO/logout transition contract |
 | V0 | Shell/navigation/account | Current authenticated shell, legacy dashboard shell reference, account/profile pages | org mode, platform mode, account menu, notification bell, denied fallback, profile dirty/saved/degraded, logout entry | `v0-auth-shell-dashboard-visual-contract.md` shell layout/account visual contract |
@@ -81,21 +84,22 @@ Contract review is complete, and Figma production is partially unblocked only fo
 - Do not merge provider setup screens with operational provider-blocked task states.
 - Do not create standalone legacy alias frames for `/recruiters`, `/parameters*`, or other alias/reference rows; document their canonical target only.
 - Treat auth/dashboard legacy screenshots as visual evidence, not as final product-depth proof.
-- A route may be marked `Figma-ready` only after its visual contract names the evidence source, required states, accepted deviations, viewport assumptions, and unresolved backend/API unknowns.
+- A route may be marked `Figma-ready` only after its visual contract names the evidence source, required states, pixel-parity blockers/product exceptions, viewport assumptions, and unresolved backend/API unknowns.
+- A route may be treated as replacement-approved only after matched legacy/current/Figma evidence confirms pixel parity or a product exception explicitly records the difference.
 
 
 ## Visual contract package inventory
 
 | Package | Covered phase | Status | Next evidence action |
 |---|---|---|---|
-| `v0-auth-shell-dashboard-visual-contract.md` | V0 auth, shell, dashboard, notifications, inbox | Prepared | Capture legacy/current app visual evidence and accepted deviations for R0 anchor flows. |
+| `v0-auth-shell-dashboard-visual-contract.md` | V0 auth, shell, dashboard, notifications, inbox | Prepared | Capture legacy/current app visual evidence and pixel-parity blockers/product exceptions for R0 anchor flows. |
 | `v1-jobs-visual-contract.md` | V1 jobs list, authoring, detail, task overlays, requisitions | Evidence captured | `visual-evidence-v1-jobs.md` covers V1 screen-flow bases and records deferred provider/form/schema details. |
 | `v2-candidates-visual-contract.md` | V2 candidate hub, database, actions, panel boundaries | Product-composition evidence captured | `visual-evidence-v2-candidates.md` captures current/legacy evidence and records covered candidate rows as behaviour-evidenced but parity-blocked while keeping provider/schema/terminal variants deferred. |
 | `v3-public-external-token-visual-contract.md` | V3 public/external and integration token flows | Evidence complete | `visual-evidence-v3-public-external-token.md` covers desktop, mobile, narrow, lifecycle, and follow-up route/state evidence. V3 may proceed to Figma for screen-flow/base-frame work with backend/schema details annotated as deferred. |
-| `v4-operations-visual-contract.md` | V4 settings, integrations admin, reports, billing, team, favorites, marketplace | Evidence complete | `visual-evidence-v4-operations.md` records authenticated baseline plus final safe local-fixture interactions. V4 may proceed to Figma for current-app screen-flow/base-frame work with backend/provider/schema unknowns annotated as deferred. |
+| `v4-operations-visual-contract.md` | V4 settings, integrations admin, reports, billing, team, favorites, marketplace | Evidence complete | `visual-evidence-v4-operations.md` records authenticated baseline plus final safe local-fixture interactions. V4 may proceed to Figma for current-app screen-flow/base-frame drafting with backend/provider/schema unknowns annotated as deferred; replacement approval still requires legacy pixel parity where legacy screens exist. |
 | `v5-sysadmin-platform-visual-contract.md` | V5 SysAdmin/platform users, queues, master data, subscriptions, taxonomy | Initial evidence captured | `visual-evidence-v5-sysadmin-platform.md` records first-pass foundation evidence; platform users depth, queue terminal/action states, master-data non-ready states, company subscription mutation states, and taxonomy mutation/not-found/stale states remain pending before Figma-ready promotion. |
 
-No package marks any row `Figma-ready` by itself. A row becomes `Figma-ready` only after the relevant package is populated with canonical visual evidence and accepted deviations. Use `visual-evidence-capture-plan.md` for the evidence schema, capture order, and promotion rule.
+No package marks any row `Figma-ready` by itself. A row becomes `Figma-ready` only after the relevant package is populated with canonical visual evidence and pixel-parity blockers/product exceptions. Use `visual-evidence-capture-plan.md` for the evidence schema, capture order, and promotion rule.
 
 ## Route review inventory
 
@@ -155,7 +159,7 @@ Remaining blockers before `Figma-ready`:
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Figma-ready | `/dashboard` | Page | landing | H | R0-R5 | Confirmed in router/metadata, dashboard API adapter/state/page tests, local API seed, current API-backed dashboard capture, and authenticated legacy dashboard capture. Covers desktop shell/dashboard base, cards, calendar, activity, source health/degraded handling, and safe actions. Visual/data parity refinements remain tracked debt, not a V0 blocker. |
+| Figma-ready | `/dashboard` | Page | landing | H | R0-R5 | Confirmed in router/metadata, dashboard API adapter/state/page tests, local API seed, current API-backed dashboard capture, and authenticated legacy dashboard capture. Covers desktop shell/dashboard base, cards, calendar, activity, source health/degraded handling, and safe actions. Visual/data parity refinements remain tracked replacement blockers, not route/API blockers. |
 
 
 #### Dashboard review evidence and remaining blockers
@@ -507,7 +511,7 @@ These rows are not independent canonical screens; they point to registered route
 
 - Full domain-by-domain contract review is complete for all 103 canonical route rows and 4 alias/reference rows. Rows become `Figma-ready` only when canonical evidence confirms their visual/state scope and unresolved debt is explicitly recorded.
 - Existing auth/dashboard visual references do not cover all token, callback, degraded, denied, stale, retry, and parent-return states.
-- V0, V1, V3, and V4 covered rows may proceed to Figma with deferred provider/form/schema/backend annotations. V2 candidate rows are behaviour-evidenced but parity-blocked. V5 SysAdmin/platform has first-pass current-app evidence but is not Figma-ready yet.
+- V0, V1, V3, and V4 covered rows may proceed to Figma drafting with deferred provider/form/schema/backend annotations. V2 candidate rows are behaviour-evidenced but parity-blocked. V5 SysAdmin/platform has first-pass current-app evidence but is not Figma-ready yet. No legacy-backed row is replacement-approved until pixel parity is confirmed or explicitly excepted.
 - Shell/dashboard visual parity debt remains tracked in `roadmap.md` and should be handled during visual refinement, not as API/data blocker.
 
 ## Next review order
