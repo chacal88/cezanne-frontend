@@ -8,14 +8,17 @@ import { resolveJobTaskProductState } from '../support/product-depth';
 
 const allowedSections: JobHubSection[] = ['overview', 'candidates', 'workflow', 'activity'];
 const allowedOutcomes = ['submit', 'success', 'fail', 'retry', 'cancel'] as const;
+const allowedReadinessStates = ['blocked', 'degraded', 'unavailable', 'unimplemented'] as const;
 
 type JobTaskOutcome = (typeof allowedOutcomes)[number];
+export type JobTaskReadinessFixtureState = (typeof allowedReadinessStates)[number];
 
 export function validateJobTaskSearch(search: Record<string, unknown>) {
   return {
     parent: typeof search.parent === 'string' && search.parent.startsWith('/job/') ? search.parent : undefined,
     section: typeof search.section === 'string' && (allowedSections as readonly string[]).includes(search.section) ? (search.section as JobHubSection) : undefined,
     outcome: typeof search.outcome === 'string' && (allowedOutcomes as readonly string[]).includes(search.outcome) ? (search.outcome as JobTaskOutcome) : undefined,
+    readinessState: typeof search.readinessState === 'string' && (allowedReadinessStates as readonly string[]).includes(search.readinessState) ? (search.readinessState as JobTaskReadinessFixtureState) : undefined,
     parentRefresh: search.parentRefresh === true || search.parentRefresh === 'true' || search.refresh === true || search.refresh === 'true',
   };
 }
@@ -34,12 +37,21 @@ export function resolveJobTaskContext(input: {
   unavailable?: boolean;
   degraded?: boolean;
   readinessSignal?: IntegrationProviderReadinessSignal;
+  readinessState?: JobTaskReadinessFixtureState;
   calendarSlots?: Parameters<typeof buildInitialCalendarSchedulingState>[0]['slots'];
 }): JobTaskContext {
   const defaultParent = input.section ? `/job/${input.jobId}?section=${input.section}` : `/job/${input.jobId}`;
 
-  const readinessGate = input.kind === 'schedule' && input.readinessSignal
-    ? evaluateOperationalReadinessGate(buildOperationalGateInput(input.readinessSignal, 'job-schedule'))
+  const fixtureSignal = input.readinessState ? {
+    family: 'scheduling' as const,
+    providerFamily: 'calendar' as const,
+    outcome: input.readinessState,
+    reason: 'visual fixture state',
+    setupTarget: { providerId: 'calendar-fixture', path: '/integrations/calendar-fixture' as const, label: 'Calendar provider setup' },
+  } : undefined;
+  const readinessSignal = input.readinessSignal ?? fixtureSignal;
+  const readinessGate = input.kind === 'schedule' && readinessSignal
+    ? evaluateOperationalReadinessGate(buildOperationalGateInput(readinessSignal, 'job-schedule'))
     : undefined;
 
   const parentTarget = buildCancelTarget(input.pathname, defaultParent, input.parent ?? defaultParent);

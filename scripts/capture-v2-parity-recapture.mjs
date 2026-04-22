@@ -322,7 +322,8 @@ async function main() {
   await page.getByTestId('candidate-email-legacy-modal').waitFor({ state: 'visible' });
   await capture(page, records, '12-detail-email-candidate-modal', 'Legacy-style Email candidate modal entry.');
 
-  await page.getByLabel('Close candidate action').click();
+  await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1?entry=job`);
+  await waitForReady(page, 'candidate-detail-composition');
   await page.getByTestId('candidate-more-actions-button').click();
   await page.getByTestId('candidate-open-review-request-modal').click();
   await page.getByTestId('candidate-review-legacy-modal').waitFor({ state: 'visible' });

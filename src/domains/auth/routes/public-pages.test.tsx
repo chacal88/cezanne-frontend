@@ -4,7 +4,7 @@ import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
 import { renderWithProviders } from '../../../testing/render';
 import { publicAccessContext } from '../../../lib/access-control';
 import { foundationAuthAdapter } from '../api';
-import { ConfirmRegistrationPage, ForgotPasswordPage, PublicHomePage, RegisterPage } from './public-pages';
+import { ConfirmRegistrationPage, ForgotPasswordPage, PublicHomePage, RegisterPage, SessionLossPage } from './public-pages';
 
 describe('PublicHomePage login flow', () => {
   beforeEach(() => {
@@ -45,6 +45,14 @@ describe('PublicHomePage login flow', () => {
     expect(screen.queryByTestId('auth-login-continue')).not.toBeInTheDocument();
   });
 
+  it('exposes auth visual states without backend contracts', () => {
+    window.history.pushState({}, '', '/?visualState=two-factor-required');
+    renderWithProviders(<PublicHomePage authAdapter={foundationAuthAdapter} autoRedirect={false} />, { accessContext: publicAccessContext });
+
+    expect(screen.getByTestId('auth-route-state')).toHaveTextContent('two-factor-required');
+    expect(screen.getByTestId('auth-login-code')).toBeInTheDocument();
+  });
+
   it('launches provider sign-in through the auth service routes', async () => {
     const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
     renderWithProviders(<PublicHomePage authAdapter={foundationAuthAdapter} autoRedirect={false} />, { accessContext: publicAccessContext });
@@ -76,5 +84,12 @@ describe('PublicHomePage login flow', () => {
     renderWithProviders(<ConfirmRegistrationPage />, { accessContext: publicAccessContext });
 
     expect(await screen.findByText('Registration token is missing.')).toBeInTheDocument();
+  });
+
+  it('separates session loss from explicit logout', () => {
+    renderWithProviders(<SessionLossPage />, { accessContext: publicAccessContext });
+
+    expect(screen.getByTestId('auth-route-state')).toHaveTextContent('session-expired');
+    expect(screen.getByTestId('auth-landing-target')).toHaveTextContent('/');
   });
 });

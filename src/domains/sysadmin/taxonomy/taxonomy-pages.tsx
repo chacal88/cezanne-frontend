@@ -4,27 +4,29 @@ import {
   buildSectorListState,
   buildSubsectorDetailState,
   buildSubsectorListState,
+  parseTaxonomyStateKind,
   type TaxonomyState,
 } from './support/taxonomy-state';
 
-export function SectorListPage() {
+export function SectorListPage({ search = {} }: { search?: Record<string, unknown> }) {
   const { t } = useTranslation('sysadmin');
-  return <TaxonomySection title={t('taxonomy.sectorListTitle')} copy={t('taxonomy.sectorListCopy')} state={buildSectorListState()} />;
+  return <TaxonomySection title={t('taxonomy.sectorListTitle')} copy={t('taxonomy.sectorListCopy')} state={buildSectorListState(parseTaxonomyStateKind(search.fixtureState))} />;
 }
 
-export function SectorDetailPage({ sectorId }: { sectorId: string }) {
+export function SectorDetailPage({ sectorId, search = {} }: { sectorId: string; search?: Record<string, unknown> }) {
   const { t } = useTranslation('sysadmin');
-  return <TaxonomySection title={t('taxonomy.sectorDetailTitle', { id: sectorId })} copy={t('taxonomy.sectorDetailCopy')} state={buildSectorDetailState(sectorId)} />;
+  return <TaxonomySection title={t('taxonomy.sectorDetailTitle', { id: sectorId })} copy={t('taxonomy.sectorDetailCopy')} state={buildSectorDetailState(sectorId, parseTaxonomyStateKind(search.fixtureState))} />;
 }
 
-export function SubsectorListPage({ sectorId }: { sectorId: string }) {
+export function SubsectorListPage({ sectorId, search = {} }: { sectorId: string; search?: Record<string, unknown> }) {
   const { t } = useTranslation('sysadmin');
-  return <TaxonomySection title={t('taxonomy.subsectorListTitle', { id: sectorId })} copy={t('taxonomy.subsectorListCopy')} state={buildSubsectorListState(sectorId)} />;
+  return <TaxonomySection title={t('taxonomy.subsectorListTitle', { id: sectorId })} copy={t('taxonomy.subsectorListCopy')} state={buildSubsectorListState(sectorId, parseTaxonomyStateKind(search.fixtureState))} />;
 }
 
-export function SubsectorDetailPage({ subsectorId }: { subsectorId: string }) {
+export function SubsectorDetailPage({ subsectorId, search = {} }: { subsectorId: string; search?: Record<string, unknown> }) {
   const { t } = useTranslation('sysadmin');
-  return <TaxonomySection title={t('taxonomy.subsectorDetailTitle', { id: subsectorId })} copy={t('taxonomy.subsectorDetailCopy')} state={buildSubsectorDetailState(subsectorId)} />;
+  const sectorId = typeof search.sectorId === 'string' ? search.sectorId : undefined;
+  return <TaxonomySection title={t('taxonomy.subsectorDetailTitle', { id: subsectorId })} copy={t('taxonomy.subsectorDetailCopy')} state={buildSubsectorDetailState(subsectorId, sectorId, parseTaxonomyStateKind(search.fixtureState))} />;
 }
 
 function TaxonomySection({ title, copy, state }: { title: string; copy: string; state: TaxonomyState }) {

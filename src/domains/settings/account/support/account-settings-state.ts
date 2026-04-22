@@ -80,6 +80,31 @@ export const accountSettingsContracts: Record<AccountSettingsRouteKind, AccountS
   },
 };
 
+const accountSettingsFixtureStates: AccountSettingsStateKind[] = ['loading', 'ready', 'empty', 'denied', 'unavailable', 'stale', 'degraded', 'dirty', 'saving', 'saved', 'save-failed', 'retry', 'success'];
+
+export function parseAccountSettingsFixtureState(value: unknown): AccountSettingsStateKind | undefined {
+  return typeof value === 'string' && accountSettingsFixtureStates.includes(value as AccountSettingsStateKind)
+    ? (value as AccountSettingsStateKind)
+    : undefined;
+}
+
+export function accountSettingsOptionsFromFixtureState(state: AccountSettingsStateKind | undefined) {
+  return {
+    routeAllowed: state === 'denied' ? false : undefined,
+    loading: state === 'loading',
+    empty: state === 'empty',
+    unavailable: state === 'unavailable',
+    stale: state === 'stale',
+    degraded: state === 'degraded',
+    dirty: state === 'dirty',
+    saving: state === 'saving',
+    saved: state === 'saved',
+    failed: state === 'save-failed',
+    retry: state === 'retry',
+    success: state === 'success',
+  };
+}
+
 export function buildAccountSettingsState(
   routeKind: AccountSettingsRouteKind,
   options: {

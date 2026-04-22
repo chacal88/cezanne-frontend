@@ -66,7 +66,7 @@ export function JobDetailPage({ jobId, section, degradedSections, unavailable, t
         <Link
           to="/job/$jobId/cv/$candidateId/schedule"
           params={{ jobId, candidateId: 'candidate-456' }}
-          search={{ parent, section, outcome: undefined, parentRefresh: false }}
+          search={{ parent, section, outcome: undefined, readinessState: undefined, parentRefresh: false }}
           data-testid="job-open-schedule-link"
         >
           {t('detail.openSchedule')}
@@ -74,7 +74,7 @@ export function JobDetailPage({ jobId, section, degradedSections, unavailable, t
         <Link
           to="/job/$jobId/cv/$candidateId/offer"
           params={{ jobId, candidateId: 'candidate-456' }}
-          search={{ parent, section, outcome: undefined, parentRefresh: false }}
+          search={{ parent, section, outcome: undefined, readinessState: undefined, parentRefresh: false }}
           data-testid="job-open-offer-link"
         >
           {t('detail.openOffer')}

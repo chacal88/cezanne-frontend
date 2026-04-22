@@ -182,6 +182,7 @@ export const routeMetadataRegistry = {
   '/hiring-company-profile': { routeId: routeIds.hiringCompanyProfile, routeClass: routeClasses.page, domain: 'shell', module: 'account', directEntry: 'full', parentTarget: '/dashboard', requiredCapability: 'canViewHiringCompanyProfile', fallbackTarget: '/dashboard', implementationState: 'implemented', mutationCapability: 'canManageCompanySettings' },
   '/recruitment-agency-profile': { routeId: routeIds.recruitmentAgencyProfile, routeClass: routeClasses.page, domain: 'shell', module: 'account', directEntry: 'full', parentTarget: '/dashboard', requiredCapability: 'canViewRecruitmentAgencyProfile', fallbackTarget: '/dashboard', implementationState: 'implemented', mutationCapability: 'canManageAgencySettings' },
   '/logout': { routeId: routeIds.logout, routeClass: routeClasses.page, domain: 'shell', module: 'session', directEntry: 'full', requiredCapability: 'canLogout', fallbackTarget: '/', implementationState: 'implemented' },
+  '/session-lost': { routeId: routeIds.sessionLoss, routeClass: routeClasses.page, domain: 'shell', module: 'session', directEntry: 'full', requiredCapability: 'canStartSession', fallbackTarget: '/', implementationState: 'implemented' },
   '/access-denied': { routeId: routeIds.accessDenied, routeClass: routeClasses.page, domain: 'system', module: 'fallback', directEntry: 'full', implementationState: 'implemented' },
 } as Record<RegisteredRoutePath, RouteMetadata>;
 

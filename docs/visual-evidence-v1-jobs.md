@@ -8,7 +8,7 @@ This log records V1 jobs visual evidence captured after V0. It supports `v1-jobs
 
 | Field | Value |
 |---|---|
-| Capture date | 2026-04-21 |
+| Capture date | 2026-04-21; runtime hook update 2026-04-22 |
 | Viewport | Desktop `1440x900`, device scale factor `1` |
 | Current app | `http://localhost:5173` |
 | Legacy/reference app | `http://localhost:4000` |
@@ -48,6 +48,8 @@ This log records V1 jobs visual evidence captured after V0. It supports `v1-jobs
 | `/job/:id/cv/:cv_id/offer` | Current greenfield | `visual-evidence-assets/v1/current/greenfield-v1-job-offer-1440x900.png` and `greenfield-v1-job-task-success-refresh-1440x900.png` | Offer ready/success/parent-refresh route context | Covered for task shell; contract payload remains unknown |
 | `/build-requisition` | Current greenfield | `visual-evidence-assets/v1/current/greenfield-v1-build-requisition-1440x900.png` | Jobs-side requisition draft, explicit save/no autosave ownership | Covered |
 | `/job-requisitions/:workflow/:stage?` | Current greenfield | `visual-evidence-assets/v1/current/greenfield-v1-job-requisition-workflow-1440x900.png` and `greenfield-v1-job-requisition-stale-workflow-1440x900.png` | Workflow/stage route and stale workflow state | Covered |
+| `/jobs/manage*?publishingState=` | Current greenfield runtime | Pending screenshot capture | Provider-blocked, degraded, unavailable, and partial publish labels through fixture hook | Runtime/test-hook covered; provider payloads deferred |
+| `/job/:id/cv/:cv_id/schedule?readinessState=` | Current greenfield runtime | Pending screenshot capture | Schedule provider-blocked/degraded/unavailable/unimplemented readiness labels and remediation target through fixture hook | Runtime/test-hook covered; provider setup remains separate |
 
 ## Superseded captures
 
@@ -69,15 +71,15 @@ These files are retained for audit trail only and must not be used for implement
 
 - Fixture-backed greenfield job list/detail/task data is accepted as V1 visual/state evidence for route ownership and screen-flow structure, not as production backend schema proof.
 - Legacy job detail is accepted as visual composition reference for the seeded job. It does not define final greenfield data fields or exact table columns.
-- Provider-blocked schedule/publish and contract-signing provider variants remain represented by route/task state contracts and operational specs; exact provider copy and remediation labels stay deferred until provider payloads are confirmed.
+- Provider-blocked schedule/publish variants are now exposed as deterministic route fixture hooks for Figma capture. Exact provider copy, remediation labels, and payloads stay deferred until provider contracts are confirmed.
 
 ## Deferred visual debt
 
 - Final jobs table columns, pagination controls, and production list aggregates.
 - Full visual parity for legacy job detail action grouping, candidate pipeline layout, calendar placement, and activity spacing.
-- Job authoring full form layout, validation copy, publish blocked/partial-publish states, and provider-specific publishing results.
+- Job authoring full form layout, validation copy, and provider-specific publishing result payloads. Publish blocked/partial-publish state labels are now fixture-hook reachable, but screenshot evidence remains pending.
 - Reject reason catalog visuals and exact rejection mutation payload.
-- Schedule provider-blocked/degraded/unavailable, slot selection, conflict, and provider remediation labels.
+- Schedule provider-blocked/degraded/unavailable labels are now fixture-hook reachable; slot selection, conflict, and provider remediation copy remain deferred.
 - Offer payload fields, contract document detail, provider challenge, and signing downstream status.
 - Requisition data-loss warning and HRIS readiness labels beyond the current state-contract frames.
 
@@ -93,7 +95,7 @@ These files are retained for audit trail only and must not be used for implement
 | Jobs list | Figma-ready for V1 screen-flow base | Ready, filtered-empty/clear-filters, loading, degraded, stale, unavailable, and denied states are captured. |
 | Job authoring | Figma-ready for V1 screen-flow base | Create/edit/copy/resetWorkflow and save lifecycle states are captured; full form/publish-provider variants remain deferred. |
 | Job detail hub | Figma-ready for V1 screen-flow base | Overview/section/degraded/unavailable/transition/assignment states plus legacy composition reference are captured. |
-| Job task overlays | Figma-ready for V1 task-shell base | Bid/CV/reject/schedule/offer route contexts and success/failure/cancel/refresh outcomes are captured; provider-specific task internals remain deferred. |
+| Job task overlays | Figma-ready for V1 task-shell base | Bid/CV/reject/schedule/offer route contexts and success/failure/cancel/refresh outcomes are captured; schedule readiness fixture hooks are runtime-covered, with provider-specific task internals deferred. |
 | Requisition routes | Figma-ready for V1 route-state base | Build requisition, workflow/stage, and stale workflow state are captured with jobs-side ownership. |
 
 V1 may proceed to Figma for screen-flow structure and layout discovery. The deferred provider/form/schema details above must remain annotated debt and must not be invented in Figma.

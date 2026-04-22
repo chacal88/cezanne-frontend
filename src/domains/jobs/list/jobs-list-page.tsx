@@ -78,7 +78,7 @@ export function JobsListPage({ scope }: { scope: JobsListScope }) {
       ) : null}
 
       {viewModel.createPath ? (
-        <Link to="/jobs/manage" search={{ resetWorkflow: false, copyFromJobId: undefined, saveState: undefined }} data-testid="jobs-create-link">
+        <Link to="/jobs/manage" search={{ resetWorkflow: false, copyFromJobId: undefined, saveState: undefined, publishingState: undefined }} data-testid="jobs-create-link">
           {t('list.newJob')}
         </Link>
       ) : null}

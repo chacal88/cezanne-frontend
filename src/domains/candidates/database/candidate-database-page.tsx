@@ -138,9 +138,25 @@ function SortHeader({
 }) {
   const active = state.sort === sort;
   return (
-    <a className="candidate-db-sort-link" href={nextSortPath(state, sort)}>
-      {label} {active ? (state.order === "asc" ? "↑" : "↓") : "↕"}
-    </a>
+    <span className="candidate-db-column-heading">
+      <a className="candidate-db-sort-link" href={nextSortPath(state, sort)}>
+        {label} {active ? (state.order === "asc" ? "↑" : "↓") : ""}
+      </a>
+      <button className="candidate-db-column-kebab" type="button" aria-label={`${label} column menu`}>
+        ⋮
+      </button>
+    </span>
+  );
+}
+
+function PlainHeader({ label }: { label: string }) {
+  return (
+    <span className="candidate-db-column-heading">
+      <span>{label}</span>
+      <button className="candidate-db-column-kebab" type="button" aria-label={`${label} column menu`}>
+        ⋮
+      </button>
+    </span>
   );
 }
 
@@ -369,8 +385,8 @@ export function CandidateDatabasePage() {
               }}
               data-testid="candidate-database-add-new-button"
             >
-              <span>✚ Add new</span>
-              <span>{addMenuOpen ? "⌃" : "⌄"}</span>
+              <span><span className="candidate-db-icon candidate-db-icon-plus" aria-hidden="true" /> Add new</span>
+              <span className="candidate-db-chevron">{addMenuOpen ? "⌃" : "⌄"}</span>
             </button>
             {addMenuOpen ? (
               <div
@@ -378,7 +394,7 @@ export function CandidateDatabasePage() {
                 data-testid="candidate-database-add-new-menu"
               >
                 <button type="button" onClick={() => setAddMenuOpen(false)}>
-                  ▾ New filter
+                  <span className="candidate-db-icon candidate-db-icon-filter" aria-hidden="true" /> New filter
                 </button>
                 <button
                   type="button"
@@ -387,7 +403,7 @@ export function CandidateDatabasePage() {
                     setNewListOpen(true);
                   }}
                 >
-                  ☷ New list
+                  <span className="candidate-db-icon candidate-db-icon-list" aria-hidden="true" /> New list
                 </button>
               </div>
             ) : null}
@@ -400,7 +416,7 @@ export function CandidateDatabasePage() {
             >
               ▾
             </button>
-            <strong>▾ Saved filters</strong>
+            <strong><span className="candidate-db-icon candidate-db-icon-filter" aria-hidden="true" /> Saved filters</strong>
             <button
               type="button"
               onClick={() => {
@@ -451,7 +467,7 @@ export function CandidateDatabasePage() {
             >
               {listsCollapsed ? "⌄" : "⌃"}
             </button>
-            <strong>☷ Saved lists</strong>
+            <strong><span className="candidate-db-icon candidate-db-icon-list" aria-hidden="true" /> Saved lists</strong>
             <button
               type="button"
               onClick={() => {
@@ -533,9 +549,10 @@ export function CandidateDatabasePage() {
                 className="candidate-product-button candidate-db-bulk-button"
                 type="button"
                 disabled={bulkActionState.kind === "blocked"}
+                title={describeBulkState(bulkActionState.kind)}
                 data-testid="candidate-database-bulk-actions"
               >
-                ▣ Bulk Actions
+                <span className="candidate-db-icon candidate-db-icon-bulk" aria-hidden="true" /> Bulk Actions
               </button>
             )}
             <div className="candidate-product-actions">
@@ -552,23 +569,14 @@ export function CandidateDatabasePage() {
                   ✕ {selectedList ?? selectedFilter ?? state.query}
                 </button>
               ) : null}
-              <span className="candidate-product-muted">
-                {selectedList
-                  ? selectedList
-                  : selectedFilter
-                    ? selectedFilter
-                  : describeBulkState(bulkActionState.kind)}
-              </span>
-              {activeFilters ? (
-                <button
-                  className="candidate-db-reset-link"
-                  type="button"
-                  onClick={resetFilters}
-                  data-testid="candidate-database-clear-filters-link"
-                >
-                  ↻ Reset to default
-                </button>
-              ) : null}
+              <button
+                className="candidate-db-reset-link"
+                type="button"
+                onClick={resetFilters}
+                data-testid="candidate-database-clear-filters-link"
+              >
+                <span className="candidate-db-reset-icon" aria-hidden="true">↻</span> Reset to default
+              </button>
               <div className="candidate-db-menu-anchor">
                 <button
                   className="candidate-product-button candidate-product-button--secondary"
@@ -579,7 +587,7 @@ export function CandidateDatabasePage() {
                   }}
                   data-testid="candidate-add-column-button"
                 >
-                  ▣ Add column {addColumnOpen ? "⌃" : "⌄"}
+                  <span className="candidate-db-icon candidate-db-icon-columns" aria-hidden="true" /> Add column {addColumnOpen ? "⌃" : "⌄"}
                 </button>
                 {addColumnOpen ? (
                   <div
@@ -698,9 +706,9 @@ export function CandidateDatabasePage() {
                       </th>
                     ) : null}
                     {visibleColumns.includes("location") ? (
-                      <th>Location</th>
+                      <th><PlainHeader label="Location" /></th>
                     ) : null}
-                    {visibleColumns.includes("tags") ? <th>Tags</th> : null}
+                    {visibleColumns.includes("tags") ? <th><PlainHeader label="Tags" /></th> : null}
                     {visibleColumns.includes("stage") ? (
                       <th>
                         <SortHeader
@@ -711,16 +719,16 @@ export function CandidateDatabasePage() {
                       </th>
                     ) : null}
                     {visibleColumns.includes("rejection") ? (
-                      <th>Rejection reason</th>
+                      <th><PlainHeader label="Rejection reason" /></th>
                     ) : null}
                     {visibleColumns.includes("applicationDate") ? (
-                      <th>Application date</th>
+                      <th><PlainHeader label="Application date" /></th>
                     ) : null}
                     {visibleColumns.includes("lastActivityDate") ? (
-                      <th>Last activity date</th>
+                      <th><PlainHeader label="Last activity date" /></th>
                     ) : null}
                     {visibleColumns.includes("cvScore") ? (
-                      <th>CV score</th>
+                      <th><PlainHeader label="CV score" /></th>
                     ) : null}
                     <th aria-label="actions" />
                   </tr>

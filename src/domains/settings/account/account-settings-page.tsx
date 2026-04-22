@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAccessContext, useCapabilities } from '../../../lib/access-control';
 import { defaultAccountSettingsAdapter, type AccountSettingsFixture } from './support/account-settings-adapter';
-import { buildAccountSettingsState, type AccountSettingsRouteKind } from './support/account-settings-state';
+import { accountSettingsOptionsFromFixtureState, buildAccountSettingsState, parseAccountSettingsFixtureState, type AccountSettingsRouteKind } from './support/account-settings-state';
 
 const routeCapabilityMap = {
   'user-profile': 'canOpenAccountArea',
@@ -26,9 +26,10 @@ type AccountSettingsPageProps = {
   descriptionKey: string;
   isOverlay?: boolean;
   parentTarget?: '/dashboard';
+  fixtureState?: unknown;
 };
 
-export function AccountSettingsPage({ routeKind, titleKey, descriptionKey, isOverlay = false, parentTarget }: AccountSettingsPageProps) {
+export function AccountSettingsPage({ routeKind, titleKey, descriptionKey, isOverlay = false, parentTarget, fixtureState }: AccountSettingsPageProps) {
   const { t } = useTranslation('shell');
   const accessContext = useAccessContext();
   const capabilities = useCapabilities();
@@ -40,13 +41,16 @@ export function AccountSettingsPage({ routeKind, titleKey, descriptionKey, isOve
   const [failed, setFailed] = useState(false);
 
   const routeAllowed = capabilities[routeCapabilityMap[routeKind]] && (!requiredOrganization || accessContext.organizationType === requiredOrganization);
+  const fixtureOptions = accountSettingsOptionsFromFixtureState(parseAccountSettingsFixtureState(fixtureState));
   const state = buildAccountSettingsState(routeKind, {
+    ...fixtureOptions,
     routeAllowed,
     empty: routeAllowed && !draft,
     dirty,
     saved,
     failed,
     unavailable: routeAllowed && !fixture,
+    ...(fixtureOptions.routeAllowed === false ? { routeAllowed: false } : {}),
   });
 
   function updateDraft(field: keyof AccountSettingsFixture, value: string) {

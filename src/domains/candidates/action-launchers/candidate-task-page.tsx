@@ -26,13 +26,13 @@ function getCvIdFromPathname(pathname: string): string {
 }
 
 function describeTask(kind: CandidateActionKind) {
-  if (kind === 'schedule') return { title: 'Interview scheduler', readiness: 'Calendar readiness and slot selection stay task-local.', primary: 'Schedule interview' };
+  if (kind === 'schedule') return { title: 'Interview scheduler', readiness: 'Calendar readiness and slot selection stay task-local.', primary: 'next step ›' };
   if (kind === 'offer') return { title: 'Create offer', readiness: 'Contract and signing readiness stay bounded to this launcher.', primary: 'Send offer' };
-  return { title: 'Reject candidate', readiness: 'Required review context is shown without inventing a reason catalog.', primary: 'Reject candidate' };
+  return { title: 'Reject candidate', readiness: 'Required review context is shown without inventing a reason catalog.', primary: 'Reject with message' };
 }
 
 function taskPanelTitle(kind: CandidateActionKind) {
-  if (kind === 'schedule') return 'Interview details';
+  if (kind === 'schedule') return 'Select interview type and location';
   if (kind === 'offer') return 'Offer details';
   return 'Reject candidate';
 }
@@ -305,8 +305,8 @@ export function CandidateTaskRoutePage() {
           {outcome === 'succeeded' ? <p className="candidate-task-alert candidate-task-alert--success" data-testid="candidate-task-success-refresh">Success. Refreshing parent candidate hub.</p> : null}
 
           <footer className="candidate-task-footer">
-            <button className="candidate-product-button candidate-product-button--secondary" type="button" onClick={() => handleClose('cancel')}>Cancel</button>
-            <button className="candidate-product-button candidate-product-button--danger" type="button" onClick={handleFailure} data-testid="candidate-task-fail-link">Simulate failure</button>
+            <button className="candidate-product-button candidate-product-button--secondary" type="button" onClick={() => handleClose('cancel')}>{actionContext.kind === 'reject' ? 'Close' : 'Cancel'}</button>
+            <button className="candidate-product-button candidate-product-button--danger" type="button" onClick={handleFailure} data-testid="candidate-task-fail-link">{actionContext.kind === 'reject' ? 'Reject without message' : 'Simulate failure'}</button>
             <button className="candidate-product-button" type="button" onClick={handleComplete} disabled={blocked || terminal} data-testid="candidate-task-complete-link">{copy.primary}</button>
           </footer>
         </main>

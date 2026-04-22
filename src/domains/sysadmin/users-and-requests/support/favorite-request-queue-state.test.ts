@@ -1,4 +1,4 @@
-import { buildFavoriteRequestQueueState, getFavoriteRequestActionReadiness } from './favorite-request-queue-state';
+import { buildFavoriteRequestQueueState, getFavoriteRequestActionReadiness, parseFavoriteRequestState } from './favorite-request-queue-state';
 
 describe('platform favorite-request queue state', () => {
   it('models platform queue separately from org favorite request flows', () => {
@@ -16,5 +16,10 @@ describe('platform favorite-request queue state', () => {
       blockedReason: 'resolved',
     });
     expect(getFavoriteRequestActionReadiness('resolved', 'reopen')).toEqual({ action: 'reopen', available: true });
+  });
+
+  it('parses favorite request fixture states for queue and detail frames', () => {
+    expect(parseFavoriteRequestState('stale')).toBe('stale');
+    expect(parseFavoriteRequestState('not-supported')).toBe('pending');
   });
 });

@@ -175,6 +175,7 @@ export function CandidateDetailRoutePage() {
   const [legacyModal, setLegacyModal] = useState<
     "email" | "review" | "move" | "score" | null
   >(null);
+  const [emailComposerOpen, setEmailComposerOpen] = useState(false);
   const shouldFetchApiDetail =
     search.entry === "database" ||
     /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
@@ -491,7 +492,8 @@ export function CandidateDetailRoutePage() {
                     <button
                       type="button"
                       onClick={() => {
-                        setLegacyModal("email");
+                        setEmailComposerOpen(true);
+                        setActiveTab("emails");
                         setMoreActionsOpen(false);
                       }}
                       data-testid="candidate-open-email-modal"
@@ -784,13 +786,64 @@ export function CandidateDetailRoutePage() {
               <CandidateCollaborationPanel view={view} />
             ) : null}
             {activeTab === "emails" ? (
-              <div className="candidate-tab-panel">
-                <h2>Emails</h2>
-                <p>
-                  Candidate email history is available through the conversation
-                  boundary.
-                </p>
-              </div>
+              emailComposerOpen ? (
+                <div
+                  className="candidate-email-compose-surface"
+                  data-testid="candidate-email-legacy-modal"
+                >
+                  <div className="candidate-email-compose-topbar">
+                    <button type="button" aria-label="Back to emails">
+                      ←
+                    </button>
+                    <h2>New message</h2>
+                    <button type="button" aria-label="Delete draft">
+                      Delete
+                    </button>
+                  </div>
+                  <div className="candidate-email-compose-body">
+                    <label className="candidate-email-compose-template">
+                      <span>Select a template to load</span>
+                      <select value="" onChange={() => undefined}>
+                        <option value="">Change Template</option>
+                      </select>
+                    </label>
+                    <div className="candidate-legacy-recipient-chip">
+                      Bcc: {view.candidateSummary.name} &lt;{view.profile.email}&gt; ×
+                    </div>
+                    <input readOnly placeholder="Subject" />
+                    <div className="candidate-legacy-editor-toolbar" aria-label="Email editor toolbar">
+                      <span>Normal</span>
+                      <strong>B</strong>
+                      <em>I</em>
+                      <span>U</span>
+                      <span>link</span>
+                      <span>list</span>
+                      <span>Insert variable</span>
+                      <button type="button">Select a file...</button>
+                    </div>
+                    <textarea readOnly aria-label="Email body" />
+                    <div className="candidate-email-compose-footer">
+                      <button
+                        className="candidate-product-button candidate-product-button--secondary"
+                        type="button"
+                      >
+                        Save as draft
+                      </button>
+                      <button className="candidate-product-button" type="button">
+                        Send
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="candidate-tab-panel">
+                  <h2>Emails</h2>
+                  <p>
+                    Candidate email history is available through the conversation
+                    boundary.
+                  </p>
+                </div>
+              )
             ) : null}
           </div>
         </main>

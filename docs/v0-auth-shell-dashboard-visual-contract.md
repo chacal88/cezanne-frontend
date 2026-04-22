@@ -16,10 +16,10 @@ V0 covers:
 
 | Family | Contract status | Visual status | Figma-ready? | Notes |
 |---|---|---|---|---|
-| Auth entry `/` | Contract-reviewed | Primary login reference exists; non-happy states pending | No | Login parity has source evidence, but 2FA, SSO-required, bootstrap failure, and activation/setup states still need canonical frames. |
-| Auth token flows | Contract-reviewed | Pending | No | Register, confirm, reset, forgot, and invite-token states need visual confirmation. |
-| SSO/callback/logout | Contract-reviewed | Pending | No | Provider launch, callback waiting/failure, logged-out, and session-loss transitions need frames or annotated states. |
-| Shell/navigation/account | Contract-reviewed | Pending | No | Sidebar/topbar/account menu/profile states need canonical layout decisions across org and platform modes. |
+| Auth entry `/` | Contract-reviewed | Primary login reference exists; non-happy states runtime-hook reachable | No | Login parity has source evidence, and 2FA, SSO-required, bootstrap failure, activation/setup, submitting, and redirecting states are hook-reachable; canonical screenshots remain pending. |
+| Auth token flows | Contract-reviewed | Runtime hooks added | No | Register, confirm, reset, forgot, and invite-token state hooks exist; visual confirmation remains pending. |
+| SSO/callback/logout | Contract-reviewed | Runtime hooks added for callbacks and session-loss | No | Provider launch/callback waiting/failure and session-loss states are hook-reachable; logged-out is captured; canonical screenshots remain pending. |
+| Shell/navigation/account | Contract-reviewed | Account profile runtime hooks added | No | Sidebar/topbar/account menu/profile states need canonical layout decisions across org and platform modes; profile state hooks exist for capture. |
 | Dashboard | Contract-reviewed | Partial source/legacy visual evidence | No | Current API-backed dashboard exists; visual parity debt is intentionally deferred until this pass. |
 | Notifications | Contract-reviewed | Pending | No | Notification resolver states need list/detail/fallback visual decisions. |
 | Inbox | Contract-reviewed | Pending | No | Fixture-backed conversation states need visual decisions before live transport contracts are known. |

@@ -3,25 +3,28 @@ import {
   buildPlatformUserDetailState,
   buildPlatformUserEditState,
   buildPlatformUserListState,
+  parsePlatformUserDetailStateKind,
+  parsePlatformUserEditStateKind,
+  parsePlatformUserListStateKind,
   type PlatformUserListState,
 } from './support/platform-users-state';
-import { buildFavoriteRequestQueueState, getFavoriteRequestActionReadiness } from './support/favorite-request-queue-state';
+import { buildFavoriteRequestQueueState, getFavoriteRequestActionReadiness, parseFavoriteRequestState } from './support/favorite-request-queue-state';
 
 export function PlatformUsersListPage({ search }: { search: Record<string, unknown> }) {
   const { t } = useTranslation('sysadmin');
-  const state = buildPlatformUserListState(search);
+  const state = buildPlatformUserListState(search, parsePlatformUserListStateKind(search.fixtureState));
   return <PlatformUsersStateSection title={t('users.listTitle')} state={state} />;
 }
 
 export function PlatformUserCreatePage({ search }: { search: Record<string, unknown> }) {
   const { t } = useTranslation('sysadmin');
-  const state = buildPlatformUserListState(search);
+  const state = buildPlatformUserListState(search, parsePlatformUserListStateKind(search.fixtureState));
   return <PlatformUsersStateSection title={t('users.createTitle')} state={{ ...state, kind: 'ready' }} />;
 }
 
-export function PlatformUserDetailPage({ userId, returnTo }: { userId: string; returnTo?: string }) {
+export function PlatformUserDetailPage({ userId, returnTo, fixtureState }: { userId: string; returnTo?: string; fixtureState?: unknown }) {
   const { t } = useTranslation('sysadmin');
-  const state = buildPlatformUserDetailState(userId, returnTo);
+  const state = buildPlatformUserDetailState(userId, returnTo, parsePlatformUserDetailStateKind(fixtureState));
   return (
     <section aria-labelledby="platform-user-title">
       <p>{t('users.eyebrow')}</p>
@@ -32,9 +35,9 @@ export function PlatformUserDetailPage({ userId, returnTo }: { userId: string; r
   );
 }
 
-export function PlatformUserEditPage({ userId, returnTo }: { userId: string; returnTo?: string }) {
+export function PlatformUserEditPage({ userId, returnTo, fixtureState }: { userId: string; returnTo?: string; fixtureState?: unknown }) {
   const { t } = useTranslation('sysadmin');
-  const state = buildPlatformUserEditState(userId, returnTo);
+  const state = buildPlatformUserEditState(userId, returnTo, parsePlatformUserEditStateKind(fixtureState));
   return (
     <section aria-labelledby="platform-user-title">
       <p>{t('users.eyebrow')}</p>
@@ -45,9 +48,9 @@ export function PlatformUserEditPage({ userId, returnTo }: { userId: string; ret
   );
 }
 
-export function PlatformFavoriteRequestsPage() {
+export function PlatformFavoriteRequestsPage({ search = {} }: { search?: Record<string, unknown> }) {
   const { t } = useTranslation('sysadmin');
-  const state = buildFavoriteRequestQueueState('pending');
+  const state = buildFavoriteRequestQueueState(parseFavoriteRequestState(search.fixtureState));
   return (
     <section aria-labelledby="favorite-request-title">
       <p>{t('favoriteRequests.eyebrow')}</p>
@@ -58,10 +61,12 @@ export function PlatformFavoriteRequestsPage() {
   );
 }
 
-export function PlatformFavoriteRequestDetailPage({ requestId }: { requestId: string }) {
+export function PlatformFavoriteRequestDetailPage({ requestId, fixtureState }: { requestId: string; fixtureState?: unknown }) {
   const { t } = useTranslation('sysadmin');
-  const state = buildFavoriteRequestQueueState('pending');
+  const state = buildFavoriteRequestQueueState(parseFavoriteRequestState(fixtureState));
   const approve = getFavoriteRequestActionReadiness(state.kind, 'approve');
+  const reject = getFavoriteRequestActionReadiness(state.kind, 'reject');
+  const reopen = getFavoriteRequestActionReadiness(state.kind, 'reopen');
   return (
     <section aria-labelledby="favorite-request-title">
       <p>{t('favoriteRequests.eyebrow')}</p>
@@ -71,6 +76,10 @@ export function PlatformFavoriteRequestDetailPage({ requestId }: { requestId: st
       <dl>
         <dt>{t('favoriteRequests.approveAction')}</dt>
         <dd data-testid="platform-favorite-request-action">{approve.available ? 'available' : approve.blockedReason}</dd>
+        <dt>Reject</dt>
+        <dd data-testid="platform-favorite-request-reject-action">{reject.available ? 'available' : reject.blockedReason}</dd>
+        <dt>Reopen</dt>
+        <dd data-testid="platform-favorite-request-reopen-action">{reopen.available ? 'available' : reopen.blockedReason}</dd>
       </dl>
     </section>
   );

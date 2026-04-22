@@ -112,6 +112,7 @@ export const routeIds = {
   hiringCompanyProfile: 'shell.hiring-company-profile',
   recruitmentAgencyProfile: 'shell.recruitment-agency-profile',
   logout: 'shell.logout',
+  sessionLoss: 'shell.session-loss',
   accessDenied: 'system.access-denied',
 } as const;
 
@@ -270,6 +271,7 @@ export const registeredRoutePaths = [
   '/hiring-company-profile',
   '/recruitment-agency-profile',
   '/logout',
+  '/session-lost',
   '/access-denied',
 ] as const;
 

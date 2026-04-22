@@ -17,11 +17,11 @@ V5 covers:
 
 | Family | Contract status | Visual status | Figma-ready? | Notes |
 |---|---|---|---|---|
-| Platform users | Contract-reviewed | Initial evidence captured | No | List filters, create, detail, and edit route shells are captured; stale/not-found/permission and richer backend-backed frames still need canonical platform evidence. |
-| Platform favorite requests | Contract-reviewed | Initial evidence captured | No | Queue/detail pending state and approve readiness are captured; resolved/rejected/stale/inaccessible/action-failure states still need frames. |
-| Platform master data | Contract-reviewed | Initial evidence captured | No | Company/agency/subscription list/detail/edit route shells are captured; non-ready states and entity-specific field layouts still need frames. |
-| Company subscription admin | Contract-reviewed | Initial evidence captured | No | Ready state and route-vs-mutation capability labels are captured; mutation blocked/success/error/stale/not-found states still need frames. |
-| Platform taxonomy | Contract-reviewed | Initial evidence captured | No | Sector/subsector ready states and parent targets are captured; mutation success/error, stale, not-found, and denied states still need frames. |
+| Platform users | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | List filters, create, detail, edit, stale/not-found/permission/saving/success/cancel/error states are hook-reachable; screenshot capture and backend-backed fields remain pending. |
+| Platform favorite requests | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | Queue/detail pending/resolved/rejected/stale/inaccessible/empty/error plus approve/reject/reopen readiness are hook-reachable; screenshot capture and action payloads remain pending. |
+| Platform master data | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | Company/agency/subscription list/detail/edit non-ready states are hook-reachable; screenshot capture and entity field layouts remain pending. |
+| Company subscription admin | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | Route-vs-mutation capability labels and mutation blocked/success/error/stale/not-found states are hook-reachable; screenshot capture and mutation payloads remain pending. |
+| Platform taxonomy | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | Sector/subsector list/detail mutation/not-found/stale/denied/error states are hook-reachable; screenshot capture and taxonomy schemas remain pending. |
 
 ## Evidence sources
 
@@ -117,4 +117,4 @@ V5 covers:
 
 `visual-evidence-v5-sysadmin-platform.md` completes the current runtime evidence pass for all V5 route families exposed today. It captures platform landing, users, favorite-request queue, master-data, company subscription, taxonomy, and non-SysAdmin fallback shells.
 
-This does not satisfy the required outputs above because the current runtime does not expose most non-ready, mutation, terminal, stale, not-found, or permission-denied state variants as navigable visual states. Future V5 promotion needs backend/API-backed states, explicit fixture/test-hook exposure, or product-approved omissions before any row moves to `Figma-ready`.
+The 2026-04-22 runtime update adds explicit fixture/test-hook exposure for the non-ready, mutation, terminal, stale, not-found, and permission-denied state variants through `fixtureState` query parameters. This still does not move V5 rows to `Figma-ready` by itself: the hook states must be captured as visual evidence, and backend/API schemas must remain deferred unless confirmed.

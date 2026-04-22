@@ -216,6 +216,7 @@
   border-color: #cfd4da;
   background: #fff;
   color: #4b5563;
+  gap: 7px;
 }
 
 .candidate-db-selected-toolbar {
@@ -283,6 +284,32 @@
   font-size: 15px;
   font-weight: 600;
   height: 60px;
+}
+
+.candidate-db-column-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.candidate-db-sort-link {
+  color: #354052;
+  text-decoration: none;
+}
+
+.candidate-db-column-kebab {
+  width: 18px;
+  min-width: 18px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: #444;
+  font: inherit;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
 }
 
 .candidate-product-table th:first-child,
@@ -556,7 +583,7 @@
 .candidate-db-dropdown button {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   width: 100%;
   min-height: 37px;
   border: 0;
@@ -578,6 +605,8 @@
 .candidate-db-add-menu {
   top: 43px;
   left: 0;
+  width: calc(100% - 5px);
+  min-width: 0;
 }
 
 .candidate-db-kebab-menu {
@@ -630,9 +659,49 @@
 }
 
 .candidate-db-section-row strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
   font-size: 15px;
   font-weight: 600;
   text-transform: lowercase;
+}
+
+.candidate-db-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  min-width: 15px;
+  color: currentColor;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.candidate-db-icon-plus {
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #009688;
+  color: #fff;
+  font-size: 12px;
+}
+
+.candidate-db-add-button.is-open .candidate-db-icon-plus {
+  background: #fff;
+  color: #009688;
+}
+
+.candidate-db-icon-plus::before { content: "+"; }
+.candidate-db-icon-filter::before { content: "▼"; font-size: 11px; }
+.candidate-db-icon-list::before { content: "☷"; }
+.candidate-db-icon-bulk::before { content: "▣"; }
+.candidate-db-icon-columns::before { content: "▮▮"; font-size: 11px; }
+
+.candidate-db-chevron {
+  font-size: 16px;
+  line-height: 1;
 }
 
 .candidate-db-section-body {
@@ -1130,13 +1199,13 @@
 }
 
 .candidate-task-modal-backdrop {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 60;
+  z-index: 100;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 54px 24px;
+  padding: 31px 24px;
   background: rgba(0, 0, 0, .42);
 }
 
@@ -1150,11 +1219,14 @@
 }
 
 .candidate-task-modal--schedule {
-  width: min(1200px, calc(100vw - 96px));
+  width: min(1198px, calc(100vw - 96px));
+  max-height: 620px;
+  position: relative;
 }
 
 .candidate-task-modal--reject {
-  width: min(1040px, calc(100vw - 96px));
+  width: min(600px, calc(100vw - 48px));
+  max-height: calc(100vh - 62px);
 }
 
 .candidate-task-modal--schedule .candidate-task-modal-header {
@@ -1174,6 +1246,22 @@
   right: 24px;
   top: 22px;
   color: #d6dde8;
+}
+
+.candidate-task-modal--reject .candidate-task-modal-header,
+.candidate-task-modal--reject .candidate-task-candidate-card,
+.candidate-task-modal--reject .candidate-task-form-header {
+  display: none;
+}
+
+.candidate-task-modal--schedule .candidate-task-modal-header {
+  min-height: 0;
+  height: 70px;
+  padding: 0 28px;
+}
+
+.candidate-task-modal--schedule .candidate-task-modal-header > div {
+  visibility: hidden;
 }
 
 .candidate-task-modal-header {
@@ -1223,6 +1311,34 @@
   padding: 18px 28px;
   border-bottom: 1px solid #e0e2e6;
   list-style: none;
+}
+
+.candidate-task-modal--schedule .candidate-task-stepper {
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  width: 520px;
+  transform: translateX(-50%);
+  z-index: 2;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.candidate-task-modal--schedule .candidate-task-stepper li {
+  color: transparent;
+  justify-content: center;
+}
+
+.candidate-task-modal--schedule .candidate-task-stepper::before {
+  content: "Step 1 of 4";
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
 }
 
 .candidate-task-stepper li {
@@ -1277,11 +1393,41 @@
   gap: 0;
 }
 
+.candidate-task-modal--reject .candidate-task-legacy-layout {
+  display: block;
+}
+
+.candidate-task-modal--schedule .candidate-task-legacy-layout {
+  grid-template-columns: 780px minmax(0, 1fr);
+}
+
 .candidate-task-candidate-card {
   min-height: 520px;
   border: 0;
   border-right: 1px solid #e0e2e6;
   box-shadow: none;
+}
+
+.candidate-task-modal--schedule .candidate-task-candidate-card {
+  min-height: 407px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: start;
+}
+
+.candidate-task-modal--schedule .candidate-task-candidate-card .candidate-profile-header {
+  border-bottom: 0;
+}
+
+.candidate-task-modal--schedule .candidate-task-candidate-card .candidate-profile-meta {
+  grid-column: 1;
+}
+
+.candidate-task-modal--schedule .candidate-task-job-summary {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin-top: 0;
+  padding-top: 28px;
 }
 
 .candidate-task-form-card {
@@ -1296,10 +1442,21 @@
   border-bottom: 1px solid #e0e2e6;
 }
 
+.candidate-task-modal--schedule .candidate-task-form-header {
+  padding: 36px 20px 12px;
+  border-bottom: 0;
+}
+
 .candidate-task-form-header h2 {
   margin: 0 0 4px;
   font-size: 26px;
   font-weight: 600;
+}
+
+.candidate-task-modal--schedule .candidate-task-form-header h2 {
+  max-width: 360px;
+  font-size: 28px;
+  line-height: 1.08;
 }
 
 .candidate-task-form-grid {
@@ -1307,6 +1464,25 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
   padding: 28px;
+}
+
+.candidate-task-modal--schedule .candidate-task-form-grid {
+  display: block;
+  padding: 0 20px 0;
+}
+
+.candidate-task-modal--schedule .candidate-task-form-grid label,
+.candidate-task-modal--schedule .candidate-task-form-grid fieldset {
+  margin-bottom: 10px;
+}
+
+.candidate-task-modal--schedule .candidate-task-form-grid input,
+.candidate-task-modal--schedule .candidate-task-form-grid select {
+  min-height: 34px;
+}
+
+.candidate-task-modal--schedule .candidate-task-radio-group p {
+  margin-bottom: 5px;
 }
 
 .candidate-task-form-grid label {
@@ -1398,6 +1574,10 @@
   list-style: none;
 }
 
+.candidate-task-modal--reject .candidate-task-reject-steps {
+  background: #f9f9f9;
+}
+
 .candidate-task-reject-steps li {
   display: flex;
   align-items: center;
@@ -1431,6 +1611,11 @@
   padding: 28px;
 }
 
+.candidate-task-modal--reject .candidate-task-message-editor {
+  gap: 14px;
+  padding: 24px 30px 0;
+}
+
 .candidate-task-message-editor h3 {
   margin: 0;
   font-size: 22px;
@@ -1440,6 +1625,10 @@
 .candidate-task-message-editor p {
   margin: 0 0 18px;
   color: #8d939c;
+}
+
+.candidate-task-modal--reject .candidate-task-message-editor p {
+  margin-bottom: 52px;
 }
 
 .candidate-task-message-editor label {
@@ -1475,6 +1664,10 @@
   min-height: 100px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.candidate-task-modal--reject .candidate-task-message-editor textarea {
+  min-height: 100px;
 }
 
 .candidate-task-readiness-strip {
@@ -1514,6 +1707,22 @@
   margin-top: 28px;
   padding: 18px 28px;
   border-top: 1px solid #e0e2e6;
+}
+
+.candidate-task-modal--schedule .candidate-task-footer {
+  margin-top: 4px;
+  padding: 0 20px 19px;
+  border-top: 0;
+}
+
+.candidate-task-modal--schedule [data-testid="candidate-task-fail-link"] {
+  display: none;
+}
+
+.candidate-task-modal--reject .candidate-task-footer {
+  margin-top: 46px;
+  padding: 18px 24px 15px;
+  border-top: 0;
 }
 
 .candidate-db-pagination {
@@ -1962,4 +2171,100 @@
   min-height: 574px;
   border: 0;
   box-shadow: none;
+}
+
+.candidate-email-compose-surface {
+  min-height: 574px;
+  background: #fff;
+}
+
+.candidate-email-compose-topbar {
+  display: grid;
+  grid-template-columns: 42px 1fr 42px;
+  align-items: center;
+  min-height: 108px;
+  padding: 0 28px;
+}
+
+.candidate-email-compose-topbar h2 {
+  margin: 0;
+  color: #354052;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.candidate-email-compose-topbar button {
+  border: 0;
+  background: transparent;
+  color: #8d939c;
+  font: inherit;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.candidate-email-compose-body {
+  padding: 0 50px 40px 70px;
+}
+
+.candidate-email-compose-template {
+  position: relative;
+  display: block;
+}
+
+.candidate-email-compose-template span {
+  position: absolute;
+  left: 14px;
+  top: 13px;
+  color: #8d939c;
+}
+
+.candidate-email-compose-template select,
+.candidate-email-compose-body input,
+.candidate-email-compose-body textarea {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #cfd4da;
+  border-radius: 3px;
+  background: #fff;
+  color: #354052;
+  padding: 0 12px;
+  font: inherit;
+}
+
+.candidate-email-compose-template select {
+  color: #008b7a;
+  font-weight: 700;
+  text-align: right;
+}
+
+.candidate-email-compose-body .candidate-legacy-recipient-chip {
+  margin-top: 16px;
+}
+
+.candidate-email-compose-body input {
+  margin-top: 16px;
+}
+
+.candidate-email-compose-body .candidate-legacy-editor-toolbar {
+  margin-top: 16px;
+  min-height: 46px;
+}
+
+.candidate-email-compose-body textarea {
+  min-height: 103px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.candidate-email-compose-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.candidate-email-compose-footer .candidate-product-button:last-child {
+  min-width: 120px;
+  background: #a4dbd5;
+  border-color: #a4dbd5;
 }

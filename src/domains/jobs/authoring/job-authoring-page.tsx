@@ -1,24 +1,35 @@
 import { useTranslation } from 'react-i18next';
 import { useCapabilities } from '../../../lib/access-control';
-import { buildJobAuthoringPublishingView, normalizeJobAuthoringDraft, serializeJobAuthoringDraft } from '../support/adapters';
+import { buildJobAuthoringPublishingView, buildJobPublishingReadiness, normalizeJobAuthoringDraft, serializeJobAuthoringDraft } from '../support/adapters';
 
 const allowedSaveStates = ['validating', 'dirty', 'saving', 'saved', 'failed'] as const;
+const allowedPublishingStates = ['blocked', 'degraded', 'unavailable', 'partial'] as const;
 type SaveState = (typeof allowedSaveStates)[number];
+type PublishingFixtureState = (typeof allowedPublishingStates)[number];
 
 export function validateJobAuthoringSearch(search: Record<string, unknown>) {
   return {
     resetWorkflow: search.resetWorkflow === true || search.resetWorkflow === 'true',
     copyFromJobId: typeof search.copyFromJobId === 'string' ? search.copyFromJobId : undefined,
     saveState: typeof search.saveState === 'string' && (allowedSaveStates as readonly string[]).includes(search.saveState) ? (search.saveState as SaveState) : undefined,
+    publishingState: typeof search.publishingState === 'string' && (allowedPublishingStates as readonly string[]).includes(search.publishingState) ? (search.publishingState as PublishingFixtureState) : undefined,
   };
 }
 
-export function JobAuthoringPage({ jobId, resetWorkflow, copyFromJobId, saveState }: { jobId?: string; resetWorkflow: boolean; copyFromJobId?: string; saveState?: SaveState }) {
+export function JobAuthoringPage({ jobId, resetWorkflow, copyFromJobId, saveState, publishingState }: { jobId?: string; resetWorkflow: boolean; copyFromJobId?: string; saveState?: SaveState; publishingState?: PublishingFixtureState }) {
   const capabilities = useCapabilities();
   const { t } = useTranslation('jobs');
   const draft = normalizeJobAuthoringDraft({ jobId, copyFromJobId });
   const serialized = serializeJobAuthoringDraft(draft);
-  const publishing = buildJobAuthoringPublishingView({ draft, resetWorkflow, saveState });
+  const readinessGate = publishingState && publishingState !== 'partial' ? buildJobPublishingReadiness({
+    family: 'publishing',
+    providerFamily: 'job-board',
+    outcome: publishingState === 'blocked' ? 'blocked' : publishingState,
+    reason: 'visual fixture state',
+    setupTarget: { providerId: 'job-board-fixture', path: '/integrations/job-board-fixture', label: 'Job board provider setup' },
+  }) : undefined;
+  const publishing = buildJobAuthoringPublishingView({ draft, resetWorkflow, saveState, readinessGate });
+  const publishingStateLabel = publishingState === 'partial' ? 'partially-published' : publishing.status.state;
   const branching = capabilities.canUseJobRequisitionBranching ? 'requisition-aware' : 'ordinary-jobs';
 
   return (
@@ -44,7 +55,7 @@ export function JobAuthoringPage({ jobId, resetWorkflow, copyFromJobId, saveStat
       <h2>Publishing</h2>
       <dl>
         <dt>Publishing state</dt>
-        <dd data-testid="job-authoring-publishing-state">{publishing.status.state}</dd>
+        <dd data-testid="job-authoring-publishing-state">{publishingStateLabel}</dd>
         <dt>Draft save available</dt>
         <dd data-testid="job-authoring-can-save-draft">{String(publishing.canSaveDraft)}</dd>
         <dt>ATS sync state</dt>

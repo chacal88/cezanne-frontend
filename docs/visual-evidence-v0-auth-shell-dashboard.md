@@ -10,7 +10,7 @@ It supports `v0-auth-shell-dashboard-visual-contract.md` and keeps evidence sepa
 
 | Field | Value |
 |---|---|
-| Capture date | 2026-04-21 |
+| Capture date | 2026-04-21; runtime hook update 2026-04-22 |
 | Viewport | Desktop `1440x900`, device scale factor `1` |
 | Current app | `http://localhost:5173` |
 | Legacy/reference app | `http://localhost:4000` |
@@ -51,6 +51,11 @@ It supports `v0-auth-shell-dashboard-visual-contract.md` and keeps evidence sepa
 | `/inbox` | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield app with dev-seeded local session | `visual-evidence-assets/v0/current/greenfield-inbox-seeded-session-1440x900.png` | Inbox empty/no-conversation state, fixture adapter contract, URL search-param note | Partial evidence only; fixture-backed inbox proof, not live transport proof |
 | `/inbox?conversation=conversation-123` | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield app with dev-seeded local session | `visual-evidence-assets/v0/current/greenfield-inbox-selected-conversation-1440x900.png` | Selected conversation fixture state and direct-url entry mode | Covered for fixture-backed list/detail state; live send remains deferred |
 | `/logout` stable logged-out | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield app after route fix | `visual-evidence-assets/v0/current/greenfield-logout-stable-logged-out-1440x900.png` | Stable logged-out page, return to login, local session cleared | Covered |
+| `/` login visual-state hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | `?visualState=submitting`, `two-factor-required`, `two-factor-failed`, `sso-mandatory`, `activation-required`, `setup-required`, `bootstrap-failure`, `redirecting` | Runtime/test-hook covered; visual capture pending |
+| Auth token visual-state hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | `?visualState=missing`, `invalid`, `expired`, `valid`, `success`, `failure`, `retry`, `pending-approval`, `bootstrap-failure` on forgot/reset/confirm/register/invite flows where applicable | Runtime/test-hook covered; backend schemas deferred |
+| SSO/callback visual-state hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | `?visualState=launch`, `missing-tenant`, `missing-code`, `provider-error`, `exchanging`, `exchange-failure`, `bootstrap-failure`, `success-redirect` | Runtime/test-hook covered; provider payloads deferred |
+| `/session-lost` | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | Session-loss transition separate from explicit `/logout`, clears local session, returns to public entry | Runtime/test-hook covered |
+| Shell/account profile hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | `?fixtureState=ready`, `dirty`, `saving`, `saved`, `save-failed`, `retry`, `degraded`, `denied` on `/user-profile`, `/hiring-company-profile`, and `/recruitment-agency-profile`; close/parent target remains visible | Runtime/test-hook covered |
 
 ## Superseded captures
 
@@ -73,6 +78,7 @@ These files are retained for audit trail only and must not be used for implement
 - Register-token behavior differs between current and legacy for `null` token: current renders a form, while legacy redirects to login with invalid-token messaging.
 - Local API seeding now provides matching authenticated dashboard evidence for current and legacy apps: both show seeded open jobs/candidates/activity from the Warner Brothers seed slice. The canonical legacy dashboard evidence uses the clean capture with the calendar-connect popup dismissed.
 - The logout visual handoff was corrected so `/logout` is captured as a stable public/session page instead of falling through to access-denied.
+- Runtime now exposes deterministic V0 visual-state hooks for missing auth/token/SSO states and a separate `/session-lost` route. These are current-app test hooks only until screenshots are captured.
 
 ## Accepted deviations in this pass
 
@@ -86,13 +92,10 @@ These files are retained for audit trail only and must not be used for implement
 ## Deferred visual debt
 
 - Capture dashboard with live API-backed aggregates once backend data parity is intentionally addressed.
-- Capture login invalid-credentials, submitting, 2FA-required, 2FA-failed, SSO-mandatory, activation/setup required, bootstrap failure, and redirecting states.
-- Capture reset-password ready/success/failure states beyond invalid/expired token.
-- Capture confirm-registration valid/pending/bootstrap-failed states.
-- Capture register-token invalid/expired/success/failure states with confirmed legacy behavior.
-- Capture invite-token valid/continuation/failure states.
-- Capture Cezanne launch/callback and SAML callback success/failure states without exposing provider payloads.
-- Capture session-loss transition separately from explicit logout.
+- Capture the new login visual-state hooks for submitting, 2FA-required, 2FA-failed, SSO-mandatory, activation/setup required, bootstrap failure, and redirecting states.
+- Capture the new token-flow visual-state hooks for reset/confirm/register/invite missing/invalid/expired/valid/success/failure/retry/pending-approval/bootstrap-failure states with confirmed legacy behavior where legacy exists.
+- Capture the new Cezanne/SAML launch/callback visual-state hooks without exposing provider payloads.
+- Capture `/session-lost` separately from explicit logout.
 - Replace notification resolver fixtures with live API-backed data when available, preserving accepted categories.
 - Capture inbox send/provider-blocked states when live transport or a confirmed adapter contract is available.
 
@@ -107,9 +110,10 @@ These files are retained for audit trail only and must not be used for implement
 | Area | Decision | Reason |
 |---|---|---|
 | Login primary desktop | Figma-ready sub-block | Empty, filled, invalid-credentials, provider button ordering, secondary links, and API-backed success redirect are captured. 2FA/SSO-mandatory/bootstrap-failure remain separate deferred states, so the aggregate `/` row should not claim full auth-state coverage. |
-| Auth token flows | Not yet | Forgot-password ready/sent and reset/register validation states are captured, but success/expired/approval/bootstrap variants are incomplete. |
-| SSO/callback | Not yet | SAML launch plus Cezanne/SAML provider-error states are captured, but provider success/exchange/bootstrap states remain incomplete. |
+| Auth token flows | Runtime hooks covered; not visual-ready | Forgot-password ready/sent and reset/register validation states are captured; missing variants are now navigable through `visualState` hooks but still need screenshots/legacy confirmation. |
+| SSO/callback | Runtime hooks covered; not visual-ready | SAML launch plus Cezanne/SAML provider-error states are captured; missing variants are now navigable through `visualState` hooks but still need screenshots/legacy confirmation. |
 | Logout | Figma-ready sub-block | `/logout` now has a stable logged-out page capture and return-to-login handoff. Session-loss remains separate debt. |
+| Session loss | Runtime hooks covered; not visual-ready | `/session-lost` separates session expiry from explicit logout and is covered by tests; screenshot evidence remains pending. |
 | Shell/dashboard | Figma-ready sub-block | Current API-backed dashboard and authenticated legacy dashboard are captured against local seed data. Visual/data parity refinements remain tracked as debt, not a V0 blocker. |
 | Notifications | Figma-ready sub-block | Fixture-backed resolver states are explicitly accepted for V0 Figma input; live API replacement remains deferred. |
 | Inbox | Figma-ready sub-block | Fixture-backed empty and selected-conversation states are explicitly accepted for V0 Figma input; send/provider-blocked states remain deferred. |

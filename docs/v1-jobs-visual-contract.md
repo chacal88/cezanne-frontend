@@ -18,9 +18,9 @@ V1 covers:
 | Family | Contract status | Visual status | Figma-ready? | Notes |
 |---|---|---|---|---|
 | Jobs list | Contract-reviewed | Pending | No | List, filtered-empty, source health, clear-filters, pagination, and admin/scope variants need canonical visual frames. |
-| Job authoring | Contract-reviewed | Pending | No | Draft/save/publish/resetWorkflow/provider-blocked states need visual decisions. |
+| Job authoring | Contract-reviewed | Evidence captured for base; publish fixture hooks added | No | Draft/save/resetWorkflow bases are evidenced; provider-blocked/partial publish labels are hook-reachable, with full form/provider payloads deferred. |
 | Job detail hub | Contract-reviewed | Pending | No | Section layout, degraded sections, activity/workflow/candidate panels, and task-launch placement need frames. |
-| Job task overlays | Contract-reviewed | Pending | No | Bid/CV/reject/schedule/offer overlays need separate ready/submitting/success/failure/provider-blocked states. |
+| Job task overlays | Contract-reviewed | Evidence captured for task shell; readiness fixture hooks added | No | Bid/CV/reject/schedule/offer route shells are evidenced; schedule provider readiness labels are hook-reachable, with provider payloads deferred. |
 | Requisition authoring/workflow | Contract-reviewed | Pending | No | Build requisition and workflow-stage routes need visual separation from settings-owned requisition workflow configuration. |
 
 ## Evidence sources

@@ -57,6 +57,9 @@ Confirmed:
 - The database recapture now uses the legacy-style 8-row API-seed cadence and has closer card edge, sidebar/table split, and table edge geometry.
 - The database search input/button sizing and table row heights now place the primary ready viewport closer to `legacy/01-database-ready-viewport.png`, including hiding pagination below the captured fold.
 - The detail ready capture now has a closer profile-card/notes vertical stack and tabs/CV start position, without shifting the page into the navigation rail.
+- The database toolbar and menu captures now include always-visible Reset to default, closer Add/Bulk/Add column icon treatment, and visible table-header kebabs.
+- Schedule and reject now use closer legacy modal geometry: Schedule covers the full viewport with the stepper in the dark header and a visible `next step` footer; Reject uses the compact editor modal without a sidecard and with closer footer actions.
+- Email candidate now opens a legacy-like Emails-tab composer surface instead of a centered modal while keeping the recapture test id stable.
 
 Still not claimed:
 - Pixel parity with legacy.
@@ -70,13 +73,13 @@ Compared against the existing authenticated legacy references in `docs/visual-ev
 
 | Area | Result | Basis |
 |---|---|---|
-| Database ready | Improved; still blocked | API-seed names/emails now match the legacy style, the ready capture shows the legacy-style 8-row cadence, search/table/card geometry is closer, and pagination no longer appears in the primary viewport. Exact column widths, icon treatment, menu offsets, and remaining toolbar spacing still differ from `legacy/01-database-ready-viewport.png`. |
-| Database menus and bulk toolbar | Improved; still blocked | Add new and selected-row bulk states now exist with comparable data, but menu icon treatment, row heights, dropdown width/offset, and toolbar copy/spacing still differ from `legacy/05-add-new-menu-opened.png` and `legacy/11-bulk-actions-after-first-row-selected.png`. |
+| Database ready | Improved; still blocked | API-seed names/emails now match the legacy style, the ready capture shows the legacy-style 8-row cadence, search/table/card geometry is closer, Reset to default is present, visible column headers have kebabs, and pagination no longer appears in the primary viewport. Exact column widths, glyphs, selected-bulk geometry, and remaining toolbar spacing still differ from `legacy/01-database-ready-viewport.png`. |
+| Database menus and bulk toolbar | Improved; still blocked | Add new and selected-row bulk states now exist with comparable data and closer icon treatment, but exact FontAwesome glyphs, dropdown width/offset, selected-toolbar width/copy, and toolbar spacing still differ from `legacy/05-add-new-menu-opened.png` and `legacy/11-bulk-actions-after-first-row-selected.png`. |
 | Candidate detail ready | Improved; still blocked | Finn ApiSeed now aligns with the main detail legacy candidate, and card/notes vertical stack plus tab/CV start are closer. Lateral shell width, email wrapping, exact profile-card details, hiring-flow geometry, CV preview proportions, and exact stage control still differ from `legacy/20-candidate-detail-ready-viewport.png`. |
 | More actions | Improved; still blocked | Diego ApiSeed now aligns with the supplement candidate, and missing actions are visible, but the menu contents/height differ from `legacy/22-candidate-detail-more-actions-opened.png` and the supplement action references. |
-| Email candidate | Improved; still blocked | Greenfield now has template, Bcc chip, subject, editor toolbar, attachment control, and message body in a centered modal. Legacy evidence still differs in route/tab context, exact editor toolbar, footer actions, and send/draft affordances. |
-| Schedule interview | Improved; still blocked | Greenfield now has a wider wizard, dark header, candidate/job detail split, interview type/location fields, and radio groups. Exact legacy modal height, stepper placement, copy, job metadata, and next-step footer remain different. |
-| Reject candidate | Improved; still blocked | Greenfield now has the two-step reject header plus template/message editor surface. Exact legacy modal width/position, editor controls, Bcc chip wrapping, and reject-with/without-message footer actions remain different. |
+| Email candidate | Improved; still blocked | Greenfield now opens the Emails-tab composer with template, Bcc chip, subject, editor toolbar, attachment control, draft, and send affordances. Exact toolbar glyphs, delete/back controls, chip styling, and send/draft behavior still differ. |
+| Schedule interview | Improved; still blocked | Greenfield now has a fixed full-viewport modal, dark header with header-contained stepper, legacy-like left/right split, interview type/location fields, radio groups, and visible `next step` footer. Exact stepper dot treatment, job/candidate card internals, copy, and metadata still differ. |
+| Reject candidate | Improved; still blocked | Greenfield now has the compact two-step editor modal without the sidecard and with closer footer action labels. Exact editor controls, Bcc chip wrapping, close affordance, and reject-with/without-message behavior remain different. |
 | Send to hiring manager | Improved; still blocked | Greenfield exposes the modal, but `legacy-supplement/58-legacy-candidate-detail-more-actions-send-to-hiring-manager-opened.png` includes a candidate chip, icon header treatment, and different footer/action layout. |
 
 ## Gap Impact
@@ -92,8 +95,8 @@ Compared against the existing authenticated legacy references in `docs/visual-ev
 ## Next Required Step
 
 Continue implementation from the remaining largest blockers:
-- database menu offsets, icon treatment, column sizing, and bulk toolbar details;
+- database exact icon glyphs, selected-bulk toolbar geometry, optional column states, and stage/status column decisions;
 - candidate detail lateral shell width, profile-card details, hiring-flow dot/line treatment, and CV/tab proportions;
-- exact legacy action flow composition for email, schedule, reject, review request, move job, upload CV, and score-now, especially footer actions, editor controls, field payloads, and wizard dimensions.
+- exact legacy action flow composition for email, schedule, reject, review request, move job, upload CV, and score-now, especially editor controls, field payloads, card internals, and final modal affordances.
 
 Only after those changes are recaptured against authenticated legacy references may individual gaps be marked resolved. Until then, V2 Candidates remains parity-blocked.

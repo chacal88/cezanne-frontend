@@ -1,6 +1,6 @@
 import { useLocation } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
-import { resolveJobTaskContext } from './job-task-context';
+import { resolveJobTaskContext, type JobTaskReadinessFixtureState } from './job-task-context';
 import type { JobHubSection, JobTaskKind } from '../support/models';
 
 export function JobTaskPage({
@@ -12,6 +12,7 @@ export function JobTaskPage({
   section,
   outcome,
   parentRefresh,
+  readinessState,
 }: {
   kind: JobTaskKind;
   jobId: string;
@@ -21,6 +22,7 @@ export function JobTaskPage({
   section?: JobHubSection;
   outcome?: 'submit' | 'success' | 'fail' | 'retry' | 'cancel';
   parentRefresh?: boolean;
+  readinessState?: JobTaskReadinessFixtureState;
 }) {
   const location = useLocation();
   const { t } = useTranslation('jobs');
@@ -34,6 +36,7 @@ export function JobTaskPage({
     section,
     outcome,
     parentRefresh,
+    readinessState,
   });
 
   return (
@@ -59,6 +62,8 @@ export function JobTaskPage({
         <dd data-testid="job-task-parent-refresh-intent">{String(context.parentRefreshIntent)}</dd>
         <dt>Contract state</dt>
         <dd data-testid="job-contract-task-state">{context.contractSigningState?.kind ?? 'not-contract-task'}</dd>
+        <dt>Readiness state</dt>
+        <dd data-testid="job-task-readiness-state">{context.readinessGate?.state ?? 'not-readiness-gated'}</dd>
       </dl>
       <p data-testid="job-task-state-message">{context.operationState.message}</p>
       <div style={{ display: 'flex', gap: 12 }}>

@@ -2,7 +2,10 @@ import {
   buildPlatformUserDetailState,
   buildPlatformUserEditState,
   buildPlatformUserListState,
+  parsePlatformUserDetailStateKind,
+  parsePlatformUserEditStateKind,
   parsePlatformUserFilters,
+  parsePlatformUserListStateKind,
 } from './platform-users-state';
 
 describe('platform user state', () => {
@@ -28,5 +31,12 @@ describe('platform user state', () => {
       successTarget: '/users?page=2',
       cancelTarget: '/users?page=2',
     });
+  });
+
+  it('parses fixture state hooks for visual evidence coverage', () => {
+    expect(parsePlatformUserListStateKind('denied')).toBe('denied');
+    expect(parsePlatformUserDetailStateKind('permission-denied')).toBe('permission-denied');
+    expect(parsePlatformUserEditStateKind('saving')).toBe('saving');
+    expect(parsePlatformUserEditStateKind('unknown')).toBe('editing');
   });
 });

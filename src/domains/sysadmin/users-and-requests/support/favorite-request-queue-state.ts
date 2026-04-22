@@ -14,6 +14,14 @@ export type FavoriteRequestActionReadiness = {
   blockedReason?: 'resolved' | 'rejected' | 'stale' | 'inaccessible' | 'empty' | 'error';
 };
 
+const favoriteRequestStates: PlatformFavoriteRequestState[] = ['pending', 'resolved', 'rejected', 'stale', 'inaccessible', 'empty', 'error'];
+
+export function parseFavoriteRequestState(value: unknown): PlatformFavoriteRequestState {
+  return typeof value === 'string' && favoriteRequestStates.includes(value as PlatformFavoriteRequestState)
+    ? (value as PlatformFavoriteRequestState)
+    : 'pending';
+}
+
 export function buildFavoriteRequestQueueState(kind: PlatformFavoriteRequestState = 'pending'): FavoriteRequestQueueState {
   return { kind, platformQueue: true, orgFavoriteRequestFlow: false, parentTarget: '/favorites-request' };
 }

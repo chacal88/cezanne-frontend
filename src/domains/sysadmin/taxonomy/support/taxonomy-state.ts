@@ -12,6 +12,12 @@ export type TaxonomyState = {
   subsectorId?: string;
 };
 
+const taxonomyStateKinds: TaxonomyStateKind[] = ['ready', 'loading', 'empty', 'error', 'denied', 'not-found', 'stale', 'mutation-success', 'mutation-error'];
+
+export function parseTaxonomyStateKind(value: unknown): TaxonomyStateKind {
+  return typeof value === 'string' && taxonomyStateKinds.includes(value as TaxonomyStateKind) ? (value as TaxonomyStateKind) : 'ready';
+}
+
 export function buildSectorListState(kind: TaxonomyStateKind = 'ready'): TaxonomyState {
   return baseState('sector-list', kind, '/dashboard');
 }

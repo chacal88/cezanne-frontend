@@ -45,6 +45,7 @@ import {
   RegisterPage,
   ResetPasswordPage,
   SamlCallbackPage,
+  SessionLossPage,
 } from '../domains/auth/routes/public-pages';
 import {
   candidateDetailRoutePaths,
@@ -820,21 +821,27 @@ const jobListingEditorEditRoute = createRoute({
 const hiringCompaniesRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/hiring-companies',
-  component: () => (
-    <AccessBoundary capability="canManageHiringCompanies" fallback={dashboardFallback}>
-      <MasterDataListPage entity="hiring-company" />
-    </AccessBoundary>
-  ),
+  validateSearch: (search) => search,
+  component: () => {
+    const search = hiringCompaniesRoute.useSearch();
+    return (
+      <AccessBoundary capability="canManageHiringCompanies" fallback={dashboardFallback}>
+        <MasterDataListPage entity="hiring-company" search={search} />
+      </AccessBoundary>
+    );
+  },
 });
 
 const hiringCompanyDetailRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/hiring-companies/$companyId',
+  validateSearch: (search) => search,
   component: () => {
     const { companyId } = hiringCompanyDetailRoute.useParams();
+    const search = hiringCompanyDetailRoute.useSearch();
     return (
       <AccessBoundary capability="canManageHiringCompanies" fallback={dashboardFallback}>
-        <MasterDataDetailPage entity="hiring-company" id={companyId} />
+        <MasterDataDetailPage entity="hiring-company" id={companyId} search={search} />
       </AccessBoundary>
     );
   },
@@ -843,11 +850,13 @@ const hiringCompanyDetailRoute = createRoute({
 const hiringCompanyEditRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/hiring-companies/edit/$companyId',
+  validateSearch: (search) => search,
   component: () => {
     const { companyId } = hiringCompanyEditRoute.useParams();
+    const search = hiringCompanyEditRoute.useSearch();
     return (
       <AccessBoundary capability="canManageHiringCompanies" fallback={dashboardFallback}>
-        <MasterDataEditPage entity="hiring-company" id={companyId} />
+        <MasterDataEditPage entity="hiring-company" id={companyId} search={search} />
       </AccessBoundary>
     );
   },
@@ -856,11 +865,13 @@ const hiringCompanyEditRoute = createRoute({
 const hiringCompanySubscriptionRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/hiring-company/$companyId/subscription',
+  validateSearch: (search) => search,
   component: () => {
     const { companyId } = hiringCompanySubscriptionRoute.useParams();
+    const search = hiringCompanySubscriptionRoute.useSearch();
     return (
       <AccessBoundary capability="canManageHiringCompanies" fallback={dashboardFallback}>
-        <CompanySubscriptionPage companyId={companyId} />
+        <CompanySubscriptionPage companyId={companyId} search={search} />
       </AccessBoundary>
     );
   },
@@ -869,21 +880,27 @@ const hiringCompanySubscriptionRoute = createRoute({
 const recruitmentAgenciesRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/recruitment-agencies',
-  component: () => (
-    <AccessBoundary capability="canManageRecruitmentAgencies" fallback={dashboardFallback}>
-      <MasterDataListPage entity="recruitment-agency" />
-    </AccessBoundary>
-  ),
+  validateSearch: (search) => search,
+  component: () => {
+    const search = recruitmentAgenciesRoute.useSearch();
+    return (
+      <AccessBoundary capability="canManageRecruitmentAgencies" fallback={dashboardFallback}>
+        <MasterDataListPage entity="recruitment-agency" search={search} />
+      </AccessBoundary>
+    );
+  },
 });
 
 const recruitmentAgencyDetailRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/recruitment-agencies/$agencyId',
+  validateSearch: (search) => search,
   component: () => {
     const { agencyId } = recruitmentAgencyDetailRoute.useParams();
+    const search = recruitmentAgencyDetailRoute.useSearch();
     return (
       <AccessBoundary capability="canManageRecruitmentAgencies" fallback={dashboardFallback}>
-        <MasterDataDetailPage entity="recruitment-agency" id={agencyId} />
+        <MasterDataDetailPage entity="recruitment-agency" id={agencyId} search={search} />
       </AccessBoundary>
     );
   },
@@ -892,11 +909,13 @@ const recruitmentAgencyDetailRoute = createRoute({
 const recruitmentAgencyEditRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/recruitment-agencies/edit/$agencyId',
+  validateSearch: (search) => search,
   component: () => {
     const { agencyId } = recruitmentAgencyEditRoute.useParams();
+    const search = recruitmentAgencyEditRoute.useSearch();
     return (
       <AccessBoundary capability="canManageRecruitmentAgencies" fallback={dashboardFallback}>
-        <MasterDataEditPage entity="recruitment-agency" id={agencyId} />
+        <MasterDataEditPage entity="recruitment-agency" id={agencyId} search={search} />
       </AccessBoundary>
     );
   },
@@ -905,21 +924,27 @@ const recruitmentAgencyEditRoute = createRoute({
 const subscriptionsRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/subscriptions',
-  component: () => (
-    <AccessBoundary capability="canManagePlatformSubscriptions" fallback={dashboardFallback}>
-      <MasterDataListPage entity="subscription" />
-    </AccessBoundary>
-  ),
+  validateSearch: (search) => search,
+  component: () => {
+    const search = subscriptionsRoute.useSearch();
+    return (
+      <AccessBoundary capability="canManagePlatformSubscriptions" fallback={dashboardFallback}>
+        <MasterDataListPage entity="subscription" search={search} />
+      </AccessBoundary>
+    );
+  },
 });
 
 const subscriptionDetailRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/subscriptions/$subscriptionId',
+  validateSearch: (search) => search,
   component: () => {
     const { subscriptionId } = subscriptionDetailRoute.useParams();
+    const search = subscriptionDetailRoute.useSearch();
     return (
       <AccessBoundary capability="canManagePlatformSubscriptions" fallback={dashboardFallback}>
-        <MasterDataDetailPage entity="subscription" id={subscriptionId} />
+        <MasterDataDetailPage entity="subscription" id={subscriptionId} search={search} />
       </AccessBoundary>
     );
   },
@@ -962,7 +987,7 @@ const platformUserEditRoute = createRoute({
     const search = platformUserEditRoute.useSearch();
     return (
       <AccessBoundary capability="canManagePlatformUsers" fallback={dashboardFallback}>
-        <PlatformUserEditPage userId={userId} returnTo={typeof search.returnTo === 'string' ? search.returnTo : undefined} />
+        <PlatformUserEditPage userId={userId} returnTo={typeof search.returnTo === 'string' ? search.returnTo : undefined} fixtureState={search.fixtureState} />
       </AccessBoundary>
     );
   },
@@ -977,7 +1002,7 @@ const platformUserDetailRoute = createRoute({
     const search = platformUserDetailRoute.useSearch();
     return (
       <AccessBoundary capability="canManagePlatformUsers" fallback={dashboardFallback}>
-        <PlatformUserDetailPage userId={userId} returnTo={typeof search.returnTo === 'string' ? search.returnTo : undefined} />
+        <PlatformUserDetailPage userId={userId} returnTo={typeof search.returnTo === 'string' ? search.returnTo : undefined} fixtureState={search.fixtureState} />
       </AccessBoundary>
     );
   },
@@ -986,21 +1011,27 @@ const platformUserDetailRoute = createRoute({
 const platformFavoriteRequestsRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/favorites-request',
-  component: () => (
-    <AccessBoundary capability="canManageFavoriteRequests" fallback={dashboardFallback}>
-      <PlatformFavoriteRequestsPage />
-    </AccessBoundary>
-  ),
+  validateSearch: (search) => search,
+  component: () => {
+    const search = platformFavoriteRequestsRoute.useSearch();
+    return (
+      <AccessBoundary capability="canManageFavoriteRequests" fallback={dashboardFallback}>
+        <PlatformFavoriteRequestsPage search={search} />
+      </AccessBoundary>
+    );
+  },
 });
 
 const platformFavoriteRequestDetailRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/favorites-request/$requestId',
+  validateSearch: (search) => search,
   component: () => {
     const { requestId } = platformFavoriteRequestDetailRoute.useParams();
+    const search = platformFavoriteRequestDetailRoute.useSearch();
     return (
       <AccessBoundary capability="canManageFavoriteRequests" fallback={dashboardFallback}>
-        <PlatformFavoriteRequestDetailPage requestId={requestId} />
+        <PlatformFavoriteRequestDetailPage requestId={requestId} fixtureState={search.fixtureState} />
       </AccessBoundary>
     );
   },
@@ -1009,21 +1040,27 @@ const platformFavoriteRequestDetailRoute = createRoute({
 const sectorsRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/sectors',
-  component: () => (
-    <AccessBoundary capability="canManageTaxonomy" fallback={dashboardFallback}>
-      <SectorListPage />
-    </AccessBoundary>
-  ),
+  validateSearch: (search) => search,
+  component: () => {
+    const search = sectorsRoute.useSearch();
+    return (
+      <AccessBoundary capability="canManageTaxonomy" fallback={dashboardFallback}>
+        <SectorListPage search={search} />
+      </AccessBoundary>
+    );
+  },
 });
 
 const sectorDetailRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/sectors/$sectorId',
+  validateSearch: (search) => search,
   component: () => {
     const { sectorId } = sectorDetailRoute.useParams();
+    const search = sectorDetailRoute.useSearch();
     return (
       <AccessBoundary capability="canManageTaxonomy" fallback={dashboardFallback}>
-        <SectorDetailPage sectorId={sectorId} />
+        <SectorDetailPage sectorId={sectorId} search={search} />
       </AccessBoundary>
     );
   },
@@ -1032,11 +1069,13 @@ const sectorDetailRoute = createRoute({
 const sectorSubsectorsRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/sectors/$sectorId/subsectors',
+  validateSearch: (search) => search,
   component: () => {
     const { sectorId } = sectorSubsectorsRoute.useParams();
+    const search = sectorSubsectorsRoute.useSearch();
     return (
       <AccessBoundary capability="canManageTaxonomy" fallback={dashboardFallback}>
-        <SubsectorListPage sectorId={sectorId} />
+        <SubsectorListPage sectorId={sectorId} search={search} />
       </AccessBoundary>
     );
   },
@@ -1045,11 +1084,13 @@ const sectorSubsectorsRoute = createRoute({
 const subsectorDetailRoute = createRoute({
   getParentRoute: () => shellLayoutRoute,
   path: '/subsectors/$subsectorId',
+  validateSearch: (search) => search,
   component: () => {
     const { subsectorId } = subsectorDetailRoute.useParams();
+    const search = subsectorDetailRoute.useSearch();
     return (
       <AccessBoundary capability="canManageTaxonomy" fallback={dashboardFallback}>
-        <SubsectorDetailPage subsectorId={subsectorId} />
+        <SubsectorDetailPage subsectorId={subsectorId} search={search} />
       </AccessBoundary>
     );
   },
@@ -1081,7 +1122,7 @@ const jobAuthoringCreateRoute = createRoute({
     const search = jobAuthoringCreateRoute.useSearch();
     return (
       <AccessBoundary capability="canCreateJob" fallback={deniedFallback}>
-        <JobAuthoringPage resetWorkflow={search.resetWorkflow} copyFromJobId={search.copyFromJobId} saveState={search.saveState} />
+        <JobAuthoringPage resetWorkflow={search.resetWorkflow} copyFromJobId={search.copyFromJobId} saveState={search.saveState} publishingState={search.publishingState} />
       </AccessBoundary>
     );
   },
@@ -1096,7 +1137,7 @@ const jobAuthoringEditRoute = createRoute({
     const search = jobAuthoringEditRoute.useSearch();
     return (
       <AccessBoundary capability="canEditJob" fallback={deniedFallback}>
-        <JobAuthoringPage jobId={jobId} resetWorkflow={search.resetWorkflow} copyFromJobId={search.copyFromJobId} saveState={search.saveState} />
+        <JobAuthoringPage jobId={jobId} resetWorkflow={search.resetWorkflow} copyFromJobId={search.copyFromJobId} saveState={search.saveState} publishingState={search.publishingState} />
       </AccessBoundary>
     );
   },
@@ -1126,7 +1167,7 @@ const jobBidCreateRoute = createRoute({
     const search = jobBidCreateRoute.useSearch();
     return (
       <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
-        <JobTaskPage kind="bid-create" jobId={jobId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
+        <JobTaskPage kind="bid-create" jobId={jobId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} readinessState={search.readinessState} />
       </AccessBoundary>
     );
   },
@@ -1141,7 +1182,7 @@ const jobBidViewRoute = createRoute({
     const search = jobBidViewRoute.useSearch();
     return (
       <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
-        <JobTaskPage kind="bid-view" jobId={jobId} bidId={bidId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
+        <JobTaskPage kind="bid-view" jobId={jobId} bidId={bidId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} readinessState={search.readinessState} />
       </AccessBoundary>
     );
   },
@@ -1156,7 +1197,7 @@ const jobCvCreateRoute = createRoute({
     const search = jobCvCreateRoute.useSearch();
     return (
       <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
-        <JobTaskPage kind="cv-create" jobId={jobId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
+        <JobTaskPage kind="cv-create" jobId={jobId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} readinessState={search.readinessState} />
       </AccessBoundary>
     );
   },
@@ -1171,7 +1212,7 @@ const jobCvViewRoute = createRoute({
     const search = jobCvViewRoute.useSearch();
     return (
       <AccessBoundary capability="canOpenJobTask" fallback={deniedFallback}>
-        <JobTaskPage kind="cv-view" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
+        <JobTaskPage kind="cv-view" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} readinessState={search.readinessState} />
       </AccessBoundary>
     );
   },
@@ -1186,7 +1227,7 @@ const jobCvRejectRoute = createRoute({
     const search = jobCvRejectRoute.useSearch();
     return (
       <AccessBoundary capability="canRejectCvFromJob" fallback={deniedFallback}>
-        <JobTaskPage kind="reject" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
+        <JobTaskPage kind="reject" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} readinessState={search.readinessState} />
       </AccessBoundary>
     );
   },
@@ -1201,7 +1242,7 @@ const jobScheduleRoute = createRoute({
     const search = jobScheduleRoute.useSearch();
     return (
       <AccessBoundary capability="canScheduleInterviewFromJob" fallback={deniedFallback}>
-        <JobTaskPage kind="schedule" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
+        <JobTaskPage kind="schedule" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} readinessState={search.readinessState} />
       </AccessBoundary>
     );
   },
@@ -1216,7 +1257,7 @@ const jobOfferRoute = createRoute({
     const search = jobOfferRoute.useSearch();
     return (
       <AccessBoundary capability="canCreateOfferFromJob" fallback={deniedFallback}>
-        <JobTaskPage kind="offer" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} />
+        <JobTaskPage kind="offer" jobId={jobId} candidateId={candidateId} parent={search.parent} section={search.section} outcome={search.outcome} parentRefresh={search.parentRefresh} readinessState={search.readinessState} />
       </AccessBoundary>
     );
   },
@@ -1392,6 +1433,7 @@ const recruitmentAgencyProfileRoute = createRoute({
   ),
 });
 const logoutRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/logout', component: LogoutPage });
+const sessionLossRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/session-lost', component: SessionLossPage });
 const accessDeniedRoute = createRoute({ getParentRoute: () => rootRoute, path: '/access-denied', component: AccessDeniedPage });
 
 const routeTree = rootRoute.addChildren([
@@ -1407,6 +1449,7 @@ const routeTree = rootRoute.addChildren([
     samlCallbackRoute,
     inviteTokenRoute,
     logoutRoute,
+    sessionLossRoute,
     publicExternalLayoutRoute.addChildren([
       sharedJobRoute,
       publicApplicationRoute,

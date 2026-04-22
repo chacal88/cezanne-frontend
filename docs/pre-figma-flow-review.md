@@ -12,8 +12,8 @@ Product decision on 2026-04-22: the whole replacement project requires pixel par
 |---|---|---|
 | Complete route inventory imported from `screens.md` | Done | 103 canonical route rows imported; 4 alias/reference rows are tracked separately below. |
 | Domain-by-domain flow review | Done | All route rows are contract-reviewed; no domain is fully Figma-ready until visual evidence is confirmed. |
-| Visual reference confirmation | In progress | V0/V1 evidence capture is complete for covered sub-blocks; V2 candidate behaviour evidence is recaptured but parity-blocked against legacy; V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; V5 SysAdmin/platform has first-pass foundation evidence. All legacy-backed rows still require final pixel-parity replacement signoff. V5 follow-up states remain pending. |
-| Figma production | Partially unblocked | V0, V1, V3, and V4 covered sub-blocks may proceed to Figma drafting with deferred backend/provider/schema annotations; V2 candidate rows are blocked from final Figma-ready promotion until legacy parity blockers are resolved. V5 remains blocked pending platform state depth, pixel-parity review, and backend/API unknown resolution. |
+| Visual reference confirmation | In progress | V0/V1 evidence capture is complete for covered sub-blocks; V2 candidate behaviour evidence is recaptured but parity-blocked against legacy; V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; V5 SysAdmin/platform has first-pass foundation evidence plus runtime fixture hooks for follow-up states. All legacy-backed rows still require final pixel-parity replacement signoff. V5 follow-up screenshots remain pending. |
+| Figma production | Partially unblocked | V0, V1, V3, and V4 covered sub-blocks may proceed to Figma drafting with deferred backend/provider/schema annotations; V2 candidate rows are blocked from final Figma-ready promotion until legacy parity blockers are resolved. V5 remains blocked pending capture/promotion of the new platform state hooks, pixel-parity review where applicable, and backend/API unknown resolution. |
 
 ## Review status values
 
@@ -57,7 +57,7 @@ Product decision on 2026-04-22: the whole replacement project requires pixel par
 | `team` | 3 | 0 | 3 | 0 | Figma-ready for V4 current-app org-team/recruiter/invite screen-flow basis |
 | `favorites` | 3 | 0 | 0 | 3 | Figma-ready for V4 current-app org-favorites/request screen-flow basis |
 | `marketplace` | 1 | 0 | 1 | 0 | Figma-ready for V4 current-app RA marketplace list screen-flow basis |
-| `sysadmin` | 19 | 0 | 13 | 6 | Partial: all rows contract-reviewed for platform-admin contracts; V5 first-pass foundation evidence captured, while platform state depth, canonical visuals, and backend contracts remain pending |
+| `sysadmin` | 19 | 0 | 13 | 6 | Partial: all rows contract-reviewed for platform-admin contracts; V5 first-pass foundation evidence captured and platform state-depth hooks exist, while hook screenshot capture, canonical visuals, and backend contracts remain pending |
 
 
 ## Visual-readiness pass
@@ -97,7 +97,7 @@ Contract review is complete, and Figma production is partially unblocked only fo
 | `v2-candidates-visual-contract.md` | V2 candidate hub, database, actions, panel boundaries | Product-composition evidence captured | `visual-evidence-v2-candidates.md` captures current/legacy evidence and records covered candidate rows as behaviour-evidenced but parity-blocked while keeping provider/schema/terminal variants deferred. |
 | `v3-public-external-token-visual-contract.md` | V3 public/external and integration token flows | Evidence complete | `visual-evidence-v3-public-external-token.md` covers desktop, mobile, narrow, lifecycle, and follow-up route/state evidence. V3 may proceed to Figma for screen-flow/base-frame work with backend/schema details annotated as deferred. |
 | `v4-operations-visual-contract.md` | V4 settings, integrations admin, reports, billing, team, favorites, marketplace | Evidence complete | `visual-evidence-v4-operations.md` records authenticated baseline plus final safe local-fixture interactions. V4 may proceed to Figma for current-app screen-flow/base-frame drafting with backend/provider/schema unknowns annotated as deferred; replacement approval still requires legacy pixel parity where legacy screens exist. |
-| `v5-sysadmin-platform-visual-contract.md` | V5 SysAdmin/platform users, queues, master data, subscriptions, taxonomy | Initial evidence captured | `visual-evidence-v5-sysadmin-platform.md` records first-pass foundation evidence; platform users depth, queue terminal/action states, master-data non-ready states, company subscription mutation states, and taxonomy mutation/not-found/stale states remain pending before Figma-ready promotion. |
+| `v5-sysadmin-platform-visual-contract.md` | V5 SysAdmin/platform users, queues, master data, subscriptions, taxonomy | Initial evidence captured; runtime hooks added | `visual-evidence-v5-sysadmin-platform.md` records first-pass foundation evidence and the new `fixtureState` hooks; screenshot capture of those hook states remains pending before Figma-ready promotion. |
 
 No package marks any row `Figma-ready` by itself. A row becomes `Figma-ready` only after the relevant package is populated with canonical visual evidence and pixel-parity blockers/product exceptions. Use `visual-evidence-capture-plan.md` for the evidence schema, capture order, and promotion rule.
 

@@ -28,6 +28,28 @@ export type PlatformUserEditState = {
   orgScope: false;
 };
 
+const platformUserListStateKinds: PlatformUserListState['kind'][] = ['ready', 'loading', 'empty', 'error', 'denied'];
+const platformUserDetailStateKinds: PlatformUserDetailState['kind'][] = ['ready', 'loading', 'not-found', 'permission-denied', 'stale'];
+const platformUserEditStateKinds: PlatformUserEditState['kind'][] = ['editing', 'saving', 'success', 'cancelled', 'error', 'permission-denied'];
+
+export function parsePlatformUserListStateKind(value: unknown): PlatformUserListState['kind'] {
+  return typeof value === 'string' && platformUserListStateKinds.includes(value as PlatformUserListState['kind'])
+    ? (value as PlatformUserListState['kind'])
+    : 'ready';
+}
+
+export function parsePlatformUserDetailStateKind(value: unknown): PlatformUserDetailState['kind'] {
+  return typeof value === 'string' && platformUserDetailStateKinds.includes(value as PlatformUserDetailState['kind'])
+    ? (value as PlatformUserDetailState['kind'])
+    : 'ready';
+}
+
+export function parsePlatformUserEditStateKind(value: unknown): PlatformUserEditState['kind'] {
+  return typeof value === 'string' && platformUserEditStateKinds.includes(value as PlatformUserEditState['kind'])
+    ? (value as PlatformUserEditState['kind'])
+    : 'editing';
+}
+
 export function parsePlatformUserFilters(search: Record<string, unknown>): PlatformUserFilters {
   const page = typeof search.page === 'number' ? search.page : Number(search.page);
   return {
