@@ -3,6 +3,8 @@ import type {
   CandidateActionKind,
   CandidateContextSegments,
   CandidateDegradedSection,
+  CandidateHubActionFixtureState,
+  CandidateHubActionKind,
   CandidateRouteEntryMode,
   CandidateRouteSearch,
   CandidateTaskSearch,
@@ -11,6 +13,8 @@ import { sanitizeCandidateDatabaseReturnTarget } from './candidate-database-rout
 
 const degradedSectionValues = ['documents', 'contracts', 'surveys', 'custom-fields', 'collaboration', 'feedback'] as const;
 const entryModeValues = ['direct', 'job', 'notification', 'database'] as const;
+const fixtureActionValues = ['move', 'hire', 'unhire', 'review-request'] as const;
+const fixtureActionStateValues = ['ready', 'blocked', 'saving', 'submitting', 'succeeded', 'failed', 'retryable', 'cancelled', 'terminal', 'parent-refresh-required'] as const;
 
 export function buildCandidateDetailPath(context: CandidateContextSegments): string {
   return ['/candidate', context.candidateId, context.jobId, context.status, context.order, context.filters, context.interview]
@@ -49,8 +53,16 @@ export function validateCandidateDetailSearch(search: Record<string, unknown>): 
       : [];
 
   const returnTo = entry === 'database' ? sanitizeCandidateDatabaseReturnTarget(search.returnTo) : undefined;
+  const fixtureAction =
+    typeof search.fixtureAction === 'string' && (fixtureActionValues as readonly string[]).includes(search.fixtureAction)
+      ? (search.fixtureAction as CandidateHubActionKind)
+      : undefined;
+  const fixtureActionState =
+    typeof search.fixtureActionState === 'string' && (fixtureActionStateValues as readonly string[]).includes(search.fixtureActionState)
+      ? (search.fixtureActionState as CandidateHubActionFixtureState)
+      : undefined;
 
-  return { entry, degrade, returnTo };
+  return { entry, degrade, returnTo, fixtureAction, fixtureActionState };
 }
 
 export function validateCandidateTaskSearch(search: Record<string, unknown>): CandidateTaskSearch {

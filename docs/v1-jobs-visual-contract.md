@@ -17,11 +17,11 @@ V1 covers:
 
 | Family | Contract status | Visual status | Figma-ready? | Notes |
 |---|---|---|---|---|
-| Jobs list | Contract-reviewed | Pending | No | List, filtered-empty, source health, clear-filters, pagination, and admin/scope variants need canonical visual frames. |
-| Job authoring | Contract-reviewed | Evidence captured for base; publish fixture hooks added | No | Draft/save/resetWorkflow bases are evidenced; provider-blocked/partial publish labels are hook-reachable, with full form/provider payloads deferred. |
-| Job detail hub | Contract-reviewed | Pending | No | Section layout, degraded sections, activity/workflow/candidate panels, and task-launch placement need frames. |
-| Job task overlays | Contract-reviewed | Evidence captured for task shell; readiness fixture hooks added | No | Bid/CV/reject/schedule/offer route shells are evidenced; schedule provider readiness labels are hook-reachable, with provider payloads deferred. |
-| Requisition authoring/workflow | Contract-reviewed | Pending | No | Build requisition and workflow-stage routes need visual separation from settings-owned requisition workflow configuration. |
+| Jobs list | Figma-ready for screen-flow base | Evidence captured | Yes | List ready, loading, empty, filtered-empty/clear-filters, degraded, stale, unavailable, denied, pagination, and admin/scope variants are captured; final backend table schema and replacement pixel parity remain deferred. |
+| Job authoring | Figma-ready for screen-flow base | Evidence captured; publish fixture hooks added | Yes | Draft/save/resetWorkflow bases are evidenced; provider-blocked/partial publish labels are hook-reachable, with full form/provider payloads deferred. |
+| Job detail hub | Figma-ready for screen-flow base | Evidence captured | Yes | Overview/section/degraded/unavailable/transition/assignment states plus legacy composition reference are captured; exact backend aggregate remains deferred. |
+| Job task overlays | Figma-ready for task-shell base | Evidence captured; readiness fixture hooks added | Yes | Bid/CV/reject/schedule/offer route shells and success/failure/cancel/refresh outcomes are evidenced; provider-specific task internals remain deferred. |
+| Requisition authoring/workflow | Figma-ready for route-state base | Evidence captured | Yes | Build requisition, workflow/stage, and stale workflow state are captured with jobs-side ownership, separate from settings-owned requisition workflow configuration. |
 
 ## Evidence sources
 
@@ -102,11 +102,8 @@ V1 covers:
 - Do not create canonical frames for candidate-owned action routes in this V1 package.
 - Do not change implementation code from this visual contract.
 
-## Required outputs before marking V1 rows `Figma-ready`
+## Required outputs before replacement approval
 
-1. Jobs list visual state map for loading, ready, empty, filtered-empty, degraded/stale, denied, unavailable, and clear-filters behavior, with legacy pixel-parity comparison where legacy exists.
-2. Job authoring visual map for create/edit/copy, dirty/save/publish/resetWorkflow, blocked/partial-publish, and retry states.
-3. Job detail hub visual map with URL section ownership and partial-degraded sections.
-4. Task overlay visual map for bid, CV, reject, schedule, and offer, including parent-return and refresh intent.
-5. Requisition visual map separating jobs-side authoring/execution from settings-side workflow configuration.
-6. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above.
+1. Matched legacy/current/Figma comparison for every legacy-backed V1 state at the same viewport and data/state.
+2. Product exception record for any accepted visual/behavioral difference, naming the affected route/family/gap id.
+3. Backend/API confirmation before replacing fixture-backed table, aggregate, form, provider, requisition, or task payload labels with production-specific fields.

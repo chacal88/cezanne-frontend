@@ -128,6 +128,7 @@ Acceptance rule for this family: covered desktop action launcher behaviours must
 
 - Resolve side-by-side visual parity gaps for candidate database, candidate detail, and action launchers before using these screenshots as final Figma implementation references.
 - Capture additional provider-blocked, denied, not-found, unavailable, stale, terminal/read-only, and mobile states before promoting those exact variants.
+- Move, hire, unhire, and review-request detail-hub action lifecycle states are now runtime-hook reachable through `fixtureAction` and `fixtureActionState`; screenshot capture and legacy parity review for those variants remain pending.
 - Confirm final backend candidate aggregate, database row, advanced query, bulk mutation, ATS source, document, survey, custom-field, offer, reject, and scheduling payload contracts before designing field-specific UI.
 
 ## Side-by-side legacy parity review — 2026-04-21

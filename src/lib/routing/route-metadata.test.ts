@@ -73,6 +73,7 @@ describe('route metadata registry', () => {
   });
 
   it('registers public/token routes with route-local capabilities and implementation states', () => {
+    expect(matchRouteMetadata('/register')?.metadata).toMatchObject({ routeId: 'auth.register.index', requiredCapability: 'canUseAuthTokenFlow', implementationState: 'implemented' });
     expect(matchRouteMetadata('/surveys/survey-1/job-1/cv-1')?.metadata).toMatchObject({ requiredCapability: 'canCompletePublicSurvey', implementationState: 'implemented' });
     expect(matchRouteMetadata('/chat/token/user-1')?.metadata).toMatchObject({ requiredCapability: 'canUseExternalTokenizedChat', implementationState: 'implemented' });
     expect(matchRouteMetadata('/job-requisition-approval')?.metadata).toMatchObject({ requiredCapability: 'canApproveRequisitionByToken', implementationState: 'implemented' });

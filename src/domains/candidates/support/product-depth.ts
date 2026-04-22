@@ -1,11 +1,11 @@
-import type { CandidateActionKind, CandidateDegradedSection, CandidateRouteEntryMode } from './models';
+import type { CandidateActionKind, CandidateDegradedSection, CandidateHubActionKind, CandidateRouteEntryMode } from './models';
 
 export type CandidateHubProductStateKind = 'loading' | 'ready' | 'partial-degraded' | 'denied' | 'not-found' | 'stale-context' | 'unavailable';
 export type CandidateDatabaseProductStateKind = 'loading' | 'ready' | 'empty' | 'denied' | 'unavailable' | 'stale' | 'degraded' | 'retryable';
 export type CandidateDatabaseAdvancedSearchStateKind = 'simple' | 'advanced-ready' | 'invalid-query' | 'unsupported-query';
 export type CandidateDatabaseBulkActionStateKind = 'none-selected' | 'eligible' | 'partially-eligible' | 'blocked' | 'submitting' | 'succeeded' | 'failed' | 'retryable';
 export type CandidateSequenceProductStateKind = 'direct' | 'job-context' | 'database-return' | 'notification' | 'stale-ordering' | 'unavailable-sequence';
-export type CandidateActionProductStateKind = 'ready' | 'blocked' | 'saving' | 'submitting' | 'succeeded' | 'failed' | 'retryable' | 'terminal' | 'parent-refresh-required';
+export type CandidateActionProductStateKind = 'ready' | 'blocked' | 'saving' | 'submitting' | 'succeeded' | 'failed' | 'retryable' | 'cancelled' | 'terminal' | 'parent-refresh-required';
 export type CandidateSummaryProductStateKind = 'ready' | 'degraded' | 'stale' | 'unauthorized' | 'unavailable' | 'parent-refresh-required' | 'downstream-owned';
 
 export function resolveCandidateHubProductState(input: { loading?: boolean; denied?: boolean; notFound?: boolean; unavailable?: boolean; staleContext?: boolean; degradedSections?: CandidateDegradedSection[] }) {
@@ -59,7 +59,7 @@ export function resolveCandidateSequenceProductState(input: { entryMode: Candida
   return { kind: 'direct' as const };
 }
 
-export function resolveCandidateActionProductState(input: { kind: CandidateActionKind | 'move' | 'hire' | 'unhire' | 'review-request' | 'comment' | 'tag' | 'cv-upload' | 'conversation'; blocked?: boolean; saving?: boolean; submitting?: boolean; succeeded?: boolean; failed?: boolean; retryable?: boolean; terminal?: boolean; parentRefresh?: boolean }) {
+export function resolveCandidateActionProductState(input: { kind: CandidateActionKind | CandidateHubActionKind | 'comment' | 'tag' | 'cv-upload' | 'conversation'; blocked?: boolean; saving?: boolean; submitting?: boolean; succeeded?: boolean; failed?: boolean; retryable?: boolean; cancelled?: boolean; terminal?: boolean; parentRefresh?: boolean }) {
   if (input.parentRefresh) return { kind: 'parent-refresh-required' as const, action: input.kind };
   if (input.terminal) return { kind: 'terminal' as const, action: input.kind };
   if (input.blocked) return { kind: 'blocked' as const, action: input.kind };
@@ -67,6 +67,7 @@ export function resolveCandidateActionProductState(input: { kind: CandidateActio
   if (input.submitting) return { kind: 'submitting' as const, action: input.kind };
   if (input.succeeded) return { kind: 'succeeded' as const, action: input.kind };
   if (input.retryable) return { kind: 'retryable' as const, action: input.kind };
+  if (input.cancelled) return { kind: 'cancelled' as const, action: input.kind };
   if (input.failed) return { kind: 'failed' as const, action: input.kind };
   return { kind: 'ready' as const, action: input.kind };
 }

@@ -673,7 +673,7 @@ The Figma phase starts only after the relevant V0-V5 contract captures source vi
 
 ## Pre-Figma flow review gate
 
-The pre-Figma review gate is now tracked in `pre-figma-flow-review.md`. It imports 103 canonical route rows plus 4 alias/reference rows from `screens.md`; all rows are contract-reviewed, and V0-V5 visual-readiness packages now define the evidence required before any row can become `Figma-ready`. Figma production remains blocked until the relevant route rows have canonical visual evidence for entry modes, state groups, actions, errors/retry, parent return, data/API contracts, telemetry safety, and visual-reference status.
+The pre-Figma review gate is now tracked in `pre-figma-flow-review.md`. It imports 104 canonical route rows plus 4 alias/reference rows from `screens.md`; all rows are contract-reviewed, and V0-V5 visual-readiness packages now define the evidence required before any row can become `Figma-ready`. Figma production remains blocked until the relevant route rows have canonical visual evidence for entry modes, state groups, actions, errors/retry, parent return, data/API contracts, telemetry safety, and visual-reference status.
 
 ### V0 visual evidence gate
 

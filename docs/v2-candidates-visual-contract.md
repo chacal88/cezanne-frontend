@@ -17,9 +17,9 @@ V2 covers:
 
 | Family | Contract status | Visual status | Figma-ready? | Notes |
 |---|---|---|---|---|
-| Candidate detail hub | Contract-reviewed | Behaviour evidence recaptured + legacy reference | No | Current greenfield shows profile summary, context/return, sequence, action stack, document/insight/collaboration panels, degraded, and upload states, but side-by-side parity remains blocked. |
+| Candidate detail hub | Contract-reviewed | Behaviour evidence recaptured + legacy reference; hub action hooks expanded | No | Current greenfield shows profile summary, context/return, sequence, action stack, document/insight/collaboration panels, degraded, upload states, and deterministic move/hire/unhire/review action lifecycle hooks, but side-by-side parity remains blocked. |
 | Candidate database/search | Contract-reviewed | Behaviour evidence recaptured + legacy reference | No | Current greenfield shows header/search context, saved filters/list rail, bulk toolbar, result table, empty/filtered-empty, advanced invalid/unsupported, and ATS/bulk states, but side-by-side parity remains blocked. |
-| Schedule launcher | Contract-reviewed | Behaviour evidence recaptured + legacy reference | No | Current greenfield now renders the route-owned task as a modal-like surface with a four-step scheduler, but exact legacy modal parity remains blocked until recapture. |
+| Schedule launcher | Contract-reviewed | Behaviour evidence recaptured + legacy reference | No | Current greenfield now renders the route-owned task as a modal-like surface with a four-step scheduler, but exact legacy modal parity remains blocked. |
 | Offer launcher | Contract-reviewed | Behaviour evidence recaptured; legacy reference incomplete | No | Current greenfield now renders the route-owned task as a modal-like surface with contract readiness and database-origin parent return, but legacy offer reference and exact modal parity remain unresolved. |
 | Reject launcher | Contract-reviewed | Behaviour evidence recaptured + legacy reference | No | Current greenfield now renders the route-owned task as a modal-like surface and keeps readiness boundaries; legacy reject modal fields/reason catalog/terminal variants remain deferred. |
 | Documents/contracts/surveys/collaboration | Contract-reviewed | Behaviour evidence recaptured + legacy reference | No | Current greenfield shows bounded panels without raw payloads, but panel grouping and detail composition parity remain unresolved. |
@@ -67,6 +67,7 @@ V2 covers:
 | Schedule | readiness ready, provider-blocked, degraded, unavailable, slot selection, conflict, submitting, success, failed, retry, cancel | Return to candidate hub or database-origin parent with refresh intent | Consume calendar readiness; do not embed calendar/provider setup flow. |
 | Offer | contract/signing readiness, ready, document placeholder, sending, sent, status-refresh, failed, retry, stale/read-only | Return to candidate or job parent with refresh intent | Consume contract-signing state; do not invent offer/contract payload fields. |
 | Reject | ready, reason required, review/scoring adjacency, submitting, success, failed, retry, terminal/read-only, cancel | Return to candidate/job/database context with refresh intent | Reject reason and scoring fields must follow confirmed contract only. |
+| Move/hire/unhire/review | ready, blocked, saving, submitting, success, failed, retry, cancel, terminal/read-only, parent-refresh-required | Stay in the candidate detail hub and refresh parent detail only when the state requires it | Runtime exposes `fixtureAction`/`fixtureActionState` hooks for deterministic visual capture; mutation payloads remain backend-owned. |
 
 ## Candidate panels and downstream visual boundaries
 
@@ -105,7 +106,7 @@ V2 covers:
 
 1. Candidate detail hub behaviour evidence exists for ready, job/database/notification context, sequence navigation, degraded section rendering, and upload feedback. Denied, not-found, unavailable, and mobile variants remain deferred until recaptured.
 2. Candidate database behaviour evidence exists for canonical search/list, active filters, empty/filtered-empty, advanced invalid/unsupported, bulk partial/blocked/failed, ATS duplicate/import, and detail handoff. Field-specific backend columns remain deferred.
-3. Candidate action behaviour evidence exists for schedule, offer, and reject task shells with ready, failure/retry, database-origin parent, cancel controls, and success/refresh evidence. Provider-blocked/degraded/unavailable and terminal/read-only variants need separate evidence before promotion.
+3. Candidate action behaviour evidence exists for schedule, offer, and reject task shells with ready, failure/retry, database-origin parent, cancel controls, and success/refresh evidence. Move, hire, unhire, and review-request now have deterministic detail-hub fixture hooks for blocked, saving, submitting, success, failure, retry, cancel, terminal, and parent-refresh labels without inventing backend mutation payloads. Provider-blocked/degraded/unavailable and terminal/read-only visual variants still need separate evidence before promotion.
 4. Candidate panel boundaries are behaviour-evidenced for documents/contracts/surveys/custom fields/collaboration/upload without raw payloads.
 5. Alias handling remains documentation-only for candidate offer reference rows and must not become standalone frames.
 6. `pre-figma-flow-review.md` must not mark V2 candidate rows as final `Figma-ready` until the parity acceptance rule below is satisfied or a product exception explicitly records the affected route/family/gap id.

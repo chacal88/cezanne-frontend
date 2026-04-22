@@ -155,6 +155,7 @@ The greenfield route manifest remains correct, but implementation must preserve 
 | `/confirm-registration/:token` | Public/Token | auth | token-flows | Public | `canUseAuthTokenFlow` | valid token contract | Valid token can establish session and redirect to dashboard. | H | R0 |
 | `/forgot-password` | Public/Token | auth | token-flows | Public | `canUseAuthTokenFlow` | none | Standalone public recovery flow. | H | R0 |
 | `/reset-password/:token` | Public/Token | auth | token-flows | Public | `canUseAuthTokenFlow` | valid/expired token handling | Must distinguish valid vs expired/invalid token. | H | R0 |
+| `/register` | Public/Token | auth | token-flows | Public | `canUseAuthTokenFlow` | public registration enabled by auth service | Public HC/RA registration companion route; same route-local token-flow state model, no authenticated-shell access. | H | R0 |
 | `/register/:token` | Public/Token | auth | token-flows | Public | `canUseAuthTokenFlow` | valid invitation token | Invitation/token flow, not generic public signup. | H | R0 |
 | `/auth/cezanne/:tenantGuid` | Public/Token | auth | sso-callbacks | Public | `canCompleteSsoCallback` | SSO provider enabled | SSO launch entry. | H | R0 |
 | `/auth/cezanne/callback?code` | Public/Token | auth | sso-callbacks | Public | `canCompleteSsoCallback` | SSO callback state | Callback exchanges code for token and redirects to dashboard. | H | R0 |

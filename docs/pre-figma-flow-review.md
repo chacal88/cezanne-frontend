@@ -10,7 +10,7 @@ Product decision on 2026-04-22: the whole replacement project requires pixel par
 
 | Gate item | Status | Notes |
 |---|---|---|
-| Complete route inventory imported from `screens.md` | Done | 103 canonical route rows imported; 4 alias/reference rows are tracked separately below. |
+| Complete route inventory imported from `screens.md` | Done | 104 canonical route rows imported after adding the public `/register` companion route; 4 alias/reference rows are tracked separately below. |
 | Domain-by-domain flow review | Done | All route rows are contract-reviewed; no domain is fully Figma-ready until visual evidence is confirmed. |
 | Visual reference confirmation | In progress | V0/V1 evidence capture is complete for covered sub-blocks; V2 candidate behaviour evidence is recaptured but parity-blocked against legacy; V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; V5 SysAdmin/platform has first-pass foundation evidence plus runtime fixture hooks for follow-up states. All legacy-backed rows still require final pixel-parity replacement signoff. V5 follow-up screenshots remain pending. |
 | Figma production | Partially unblocked | V0, V1, V3, and V4 covered sub-blocks may proceed to Figma drafting with deferred backend/provider/schema annotations; V2 candidate rows are blocked from final Figma-ready promotion until legacy parity blockers are resolved. V5 remains blocked pending capture/promotion of the new platform state hooks, pixel-parity review where applicable, and backend/API unknown resolution. |
@@ -42,7 +42,7 @@ Product decision on 2026-04-22: the whole replacement project requires pixel par
 
 | Domain | Rows | H | M | L | Current status |
 |---|---:|---:|---:|---:|---|
-| `auth` | 9 | 8 | 0 | 1 | Partial: logout is Figma-ready; primary login is Figma-ready only as a sub-block, while token/SSO/session-loss variants remain contract-reviewed |
+| `auth` | 10 | 9 | 0 | 1 | Partial: logout is Figma-ready; primary login is Figma-ready only as a sub-block, while token/SSO/session-loss variants remain contract-reviewed |
 | `shell` | 5 | 1 | 4 | 0 | Partial: all rows contract-reviewed; canonical visuals still pending |
 | `dashboard` | 1 | 1 | 0 | 0 | Figma-ready for desktop dashboard base after current and legacy authenticated seed capture; parity refinements remain tracked debt |
 | `notifications` | 1 | 1 | 0 | 0 | Figma-ready for V0 fixture-backed resolver categories by explicit decision; live API replacement remains deferred |
@@ -111,6 +111,7 @@ No package marks any row `Figma-ready` by itself. A row becomes `Figma-ready` on
 | Contract-reviewed | `/confirm-registration/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and `confirmRegistrationToken`; handles missing/invalid token, token_valid with session bootstrap, approval-pending redirect, failed API, and dashboard/login landing. Visual state references pending. |
 | Figma-ready | `/forgot-password` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata, API adapter, public page tests, legacy ready visual, and current submitted/sent capture. Covers ready, submit/sent, retry, and return-to-login visuals; not-found/default failed copy remains backend-owned and should reuse the same message slot. |
 | Contract-reviewed | `/reset-password/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and API adapter. Handles token validation, missing/invalid/expired token, password mismatch, submit success, failed submit, and login redirect. Visual state references pending. |
+| Contract-reviewed | `/register` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata as the public HC/RA registration companion route. Shares the register state model without treating the public route as authenticated-shell access; visual reference is partial through current `/register/null` evidence. |
 | Contract-reviewed | `/register/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and API adapter. Covers invitation token registration plus public HC/RA registration, password mismatch, submit success/failure, and login redirect. Visual state references pending. |
 | Contract-reviewed | `/auth/cezanne/:tenantGuid` | Public/Token | sso-callbacks | H | R0 | Confirmed in router/metadata and public page code. Launches current auth service `/login/cezanne/:tenantGuid`; missing tenant returns failed state. Visual launch/failure references pending. |
 | Contract-reviewed | `/auth/cezanne/callback?code` | Public/Token | sso-callbacks | H | R0 | Confirmed in router/metadata and callback API adapter. Handles provider error, missing code, code exchange, bootstrap success/failure, safe telemetry, and dashboard/login landing. Visual callback states pending. |
@@ -509,7 +510,7 @@ These rows are not independent canonical screens; they point to registered route
 
 ## Current blockers before Figma
 
-- Full domain-by-domain contract review is complete for all 103 canonical route rows and 4 alias/reference rows. Rows become `Figma-ready` only when canonical evidence confirms their visual/state scope and unresolved debt is explicitly recorded.
+- Full domain-by-domain contract review is complete for all 104 canonical route rows and 4 alias/reference rows. Rows become `Figma-ready` only when canonical evidence confirms their visual/state scope and unresolved debt is explicitly recorded.
 - Existing auth/dashboard visual references do not cover all token, callback, degraded, denied, stale, retry, and parent-return states.
 - V0, V1, V3, and V4 covered rows may proceed to Figma drafting with deferred provider/form/schema/backend annotations. V2 candidate rows are behaviour-evidenced but parity-blocked. V5 SysAdmin/platform has first-pass current-app evidence but is not Figma-ready yet. No legacy-backed row is replacement-approved until pixel parity is confirmed or explicitly excepted.
 - Shell/dashboard visual parity debt remains tracked in `roadmap.md` and should be handled during visual refinement, not as API/data blocker.
@@ -528,4 +529,4 @@ Contract review is complete. The next pass is visual confirmation and Figma-read
 
 ## Generated inventory note
 
-This file was initialized from `screens.md` with 103 canonical route rows plus 4 alias/reference rows. Update statuses manually as review evidence is confirmed; do not regenerate over reviewed statuses without preserving notes.
+This file was initialized from `screens.md` with 103 canonical route rows plus 4 alias/reference rows and now tracks 104 canonical rows after the public `/register` companion route was reconciled. Update statuses manually as review evidence is confirmed; do not regenerate over reviewed statuses without preserving notes.

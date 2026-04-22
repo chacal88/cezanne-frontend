@@ -15,6 +15,8 @@ import type {
   CandidateContextSegments,
   CandidateDegradedSection,
   CandidateDetailView,
+  CandidateHubActionFixtureState,
+  CandidateHubActionKind,
 } from "../support/models";
 import {
   buildCandidateActionPath,
@@ -173,8 +175,10 @@ export function CandidateDetailRoutePage() {
     | "emails"
   >("cv");
   const [legacyModal, setLegacyModal] = useState<
-    "email" | "review" | "move" | "score" | null
+    "email" | "review" | "move" | "hire" | "unhire" | "score" | null
   >(null);
+  const [hubActionOutcome, setHubActionOutcome] =
+    useState<CandidateHubActionFixtureState>("ready");
   const [emailComposerOpen, setEmailComposerOpen] = useState(false);
   const shouldFetchApiDetail =
     search.entry === "database" ||
@@ -314,6 +318,45 @@ export function CandidateDetailRoutePage() {
     succeeded: uploadState === "success",
     retryable: uploadState === "failure",
   });
+  const activeHubAction = legacyModal === "review"
+    ? "review-request"
+    : legacyModal === "move" || legacyModal === "hire" || legacyModal === "unhire"
+      ? legacyModal
+      : search.fixtureAction;
+  const activeHubActionState = search.fixtureActionState ?? hubActionOutcome;
+  const hubActionProductState = activeHubAction
+    ? resolveCandidateActionProductState({
+        kind: activeHubAction,
+        blocked: activeHubActionState === "blocked",
+        saving: activeHubActionState === "saving",
+        submitting: activeHubActionState === "submitting",
+        succeeded: activeHubActionState === "succeeded",
+        failed: activeHubActionState === "failed",
+        retryable: activeHubActionState === "retryable",
+        cancelled: activeHubActionState === "cancelled",
+        terminal: activeHubActionState === "terminal",
+        parentRefresh: activeHubActionState === "parent-refresh-required",
+      })
+    : undefined;
+
+  function openHubAction(action: "review" | "move" | "hire" | "unhire") {
+    setHubActionOutcome("ready");
+    setLegacyModal(action);
+  }
+
+  function completeHubAction(action: CandidateHubActionKind, outcome: CandidateHubActionFixtureState) {
+    setHubActionOutcome(outcome);
+    observability.telemetry.track({
+      name: "candidate_hub_action_lifecycle",
+      data: {
+        candidateId: view.candidateSummary.candidateId,
+        action,
+        state: outcome,
+        parentRefresh: outcome === "parent-refresh-required",
+        correlationId: ensureCorrelationId(),
+      },
+    });
+  }
 
   const flowSteps = [
     "New Candidate",
@@ -519,7 +562,7 @@ export function CandidateDetailRoutePage() {
                     <button
                       type="button"
                       onClick={() => {
-                        setLegacyModal("review");
+                        openHubAction("review");
                         setMoreActionsOpen(false);
                       }}
                       data-testid="candidate-open-review-request-modal"
@@ -529,12 +572,32 @@ export function CandidateDetailRoutePage() {
                     <button
                       type="button"
                       onClick={() => {
-                        setLegacyModal("move");
+                        openHubAction("move");
                         setMoreActionsOpen(false);
                       }}
                       data-testid="candidate-open-move-job-modal"
                     >
                       ↔ Move to a different job
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        openHubAction("hire");
+                        setMoreActionsOpen(false);
+                      }}
+                      data-testid="candidate-open-hire-modal"
+                    >
+                      ✓ Hire candidate
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        openHubAction("unhire");
+                        setMoreActionsOpen(false);
+                      }}
+                      data-testid="candidate-open-unhire-modal"
+                    >
+                      ↩ Unhire candidate
                     </button>
                     {view.availableActions.reject ? (
                       <a
@@ -556,6 +619,14 @@ export function CandidateDetailRoutePage() {
               >
                 Upload: {uploadProductState.kind}
               </p>
+              {search.fixtureAction ? (
+                <p
+                  data-testid="candidate-hub-action-fixture-state"
+                  className="candidate-detail-hidden-state"
+                >
+                  {search.fixtureAction}:{hubActionProductState?.kind}
+                </p>
+              ) : null}
               {uploadState === "failure" ? (
                 <p data-testid="candidate-upload-cv-retry">
                   Upload failed. Retry keeps binary transfer details inside the
@@ -867,12 +938,24 @@ export function CandidateDetailRoutePage() {
                       ? "Send to hiring manager"
                       : legacyModal === "move"
                         ? "Move to a different job"
-                        : "Score now"}
+                        : legacyModal === "hire"
+                          ? "Hire candidate"
+                          : legacyModal === "unhire"
+                            ? "Unhire candidate"
+                            : "Score now"}
                 </h2>
+                {activeHubAction ? (
+                  <p className="candidate-detail-hidden-state" data-testid="candidate-hub-action-state">
+                    {activeHubAction}:{hubActionProductState?.kind}
+                  </p>
+                ) : null}
               </div>
               <button
                 type="button"
-                onClick={() => setLegacyModal(null)}
+                onClick={() => {
+                  if (activeHubAction) completeHubAction(activeHubAction, "cancelled");
+                  setLegacyModal(null);
+                }}
                 aria-label="Close candidate action"
               >
                 ×
@@ -937,6 +1020,24 @@ export function CandidateDetailRoutePage() {
               </div>
             ) : null}
 
+            {legacyModal === "hire" || legacyModal === "unhire" ? (
+              <div className="candidate-legacy-modal-body">
+                <label>
+                  Candidate
+                  <input readOnly value={view.candidateSummary.name} />
+                </label>
+                <label>
+                  Current stage
+                  <input readOnly value={view.candidateSummary.stage} />
+                </label>
+                <p className="candidate-legacy-modal-note">
+                  {legacyModal === "hire"
+                    ? "Hire confirmation is modeled as route-local action readiness; payroll and HRIS payloads remain backend-owned."
+                    : "Unhire confirmation is modeled as route-local action readiness; downstream reversal payloads remain backend-owned."}
+                </p>
+              </div>
+            ) : null}
+
             {legacyModal === "score" ? (
               <div className="candidate-legacy-modal-body">
                 <label>
@@ -958,11 +1059,31 @@ export function CandidateDetailRoutePage() {
               <button
                 className="candidate-product-button candidate-product-button--secondary"
                 type="button"
-                onClick={() => setLegacyModal(null)}
+                onClick={() => {
+                  if (activeHubAction) completeHubAction(activeHubAction, "cancelled");
+                  setLegacyModal(null);
+                }}
               >
                 Cancel
               </button>
-              <button className="candidate-product-button" type="button">
+              {activeHubAction ? (
+                <button
+                  className="candidate-product-button candidate-product-button--secondary"
+                  type="button"
+                  onClick={() => completeHubAction(activeHubAction, "failed")}
+                  data-testid="candidate-hub-action-fail"
+                >
+                  Simulate failure
+                </button>
+              ) : null}
+              <button
+                className="candidate-product-button"
+                type="button"
+                onClick={() => {
+                  if (activeHubAction) completeHubAction(activeHubAction, "parent-refresh-required");
+                }}
+                data-testid="candidate-hub-action-save"
+              >
                 Save
               </button>
             </footer>

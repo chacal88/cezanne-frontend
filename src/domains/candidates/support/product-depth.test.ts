@@ -18,6 +18,9 @@ describe('candidate product-depth state', () => {
     expect(resolveCandidateActionProductState({ kind: 'offer', parentRefresh: true })).toMatchObject({ kind: 'parent-refresh-required', action: 'offer' });
     expect(resolveCandidateActionProductState({ kind: 'schedule', blocked: true })).toMatchObject({ kind: 'blocked', action: 'schedule' });
     expect(resolveCandidateActionProductState({ kind: 'reject', terminal: true })).toMatchObject({ kind: 'terminal', action: 'reject' });
+    expect(resolveCandidateActionProductState({ kind: 'move', failed: true })).toMatchObject({ kind: 'failed', action: 'move' });
+    expect(resolveCandidateActionProductState({ kind: 'hire', cancelled: true })).toMatchObject({ kind: 'cancelled', action: 'hire' });
+    expect(resolveCandidateActionProductState({ kind: 'review-request', parentRefresh: true })).toMatchObject({ kind: 'parent-refresh-required', action: 'review-request' });
     expect(resolveCandidateActionProductState({ kind: 'cv-upload', saving: true })).toMatchObject({ kind: 'saving', action: 'cv-upload' });
     expect(resolveCandidateActionProductState({ kind: 'cv-upload', retryable: true })).toMatchObject({ kind: 'retryable', action: 'cv-upload' });
     expect(resolveCandidateSummaryProductState({ stale: true }).kind).toBe('stale');

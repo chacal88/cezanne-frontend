@@ -45,6 +45,8 @@ describe('candidate routing helpers', () => {
       entry: 'notification',
       degrade: ['contracts', 'surveys'],
       returnTo: undefined,
+      fixtureAction: undefined,
+      fixtureActionState: undefined,
     });
   });
 
@@ -53,6 +55,19 @@ describe('candidate routing helpers', () => {
       entry: 'database',
       degrade: [],
       returnTo: '/candidates-database?query=alex&page=2',
+      fixtureAction: undefined,
+      fixtureActionState: undefined,
+    });
+  });
+
+  it('validates candidate hub action fixture hooks without accepting arbitrary payload keys', () => {
+    expect(validateCandidateDetailSearch({ fixtureAction: 'review-request', fixtureActionState: 'parent-refresh-required' })).toMatchObject({
+      fixtureAction: 'review-request',
+      fixtureActionState: 'parent-refresh-required',
+    });
+    expect(validateCandidateDetailSearch({ fixtureAction: 'delete', fixtureActionState: 'raw-payload' })).toMatchObject({
+      fixtureAction: undefined,
+      fixtureActionState: undefined,
     });
   });
 

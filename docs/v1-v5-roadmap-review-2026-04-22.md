@@ -57,6 +57,7 @@ Update from product direction on 2026-04-22: the whole project requires pixel pa
 |---|---|---|
 | Candidate detail dense route family | Verified | `candidateDetailRoutePaths`, detail page, routing/product-depth tests. |
 | Candidate schedule/offer/reject task families | Verified | `candidateScheduleRoutePaths`, `candidateOfferRoutePaths`, `candidateRejectRoutePaths`, action context tests. |
+| Candidate move/hire/unhire/review hub actions | Verified as fixture-hook behavior; not parity-approved | Candidate detail now exposes `fixtureAction`/`fixtureActionState` hooks and product-depth tests for cancel/failure/success/parent-refresh labels without inventing mutation payloads. Screenshot and legacy parity capture remain pending. |
 | Candidate database/search | Verified | `/candidates-database`, database page, database routing tests. |
 | Documents/contracts/surveys/collaboration panels | Verified for behavior seams | Candidate support modules and tests. Backend schemas remain deferred. |
 | Project-wide visual parity | Blocked for replacement approval | `visual-evidence-v2-candidates.md` keeps candidate rows behavior-evidenced but parity-blocked; other release rows may be Figma-ready for drafting but still need replacement pixel-parity signoff where legacy exists. |

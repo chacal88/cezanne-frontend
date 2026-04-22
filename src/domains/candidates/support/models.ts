@@ -5,6 +5,8 @@ import type { SurveyReviewScoringState } from '../surveys-custom-fields/support'
 import type { AtsCandidateSourceOperationalState } from '../../integrations/support';
 export type CandidateRouteEntryMode = 'direct' | 'job' | 'notification' | 'database';
 export type CandidateActionKind = 'schedule' | 'offer' | 'reject';
+export type CandidateHubActionKind = 'move' | 'hire' | 'unhire' | 'review-request';
+export type CandidateHubActionFixtureState = 'ready' | 'blocked' | 'saving' | 'submitting' | 'succeeded' | 'failed' | 'retryable' | 'cancelled' | 'terminal' | 'parent-refresh-required';
 export type CandidateDegradedSection = 'documents' | 'contracts' | 'surveys' | 'custom-fields' | 'collaboration' | 'feedback';
 
 export type CandidateContextSegments = {
@@ -20,6 +22,8 @@ export type CandidateRouteSearch = {
   entry: CandidateRouteEntryMode;
   degrade: CandidateDegradedSection[];
   returnTo?: string;
+  fixtureAction?: CandidateHubActionKind;
+  fixtureActionState?: CandidateHubActionFixtureState;
 };
 
 export type CandidateTaskSearch = {

@@ -56,7 +56,7 @@ V0 covers:
 | Forgot password | ready, submitting, sent, not-found/default failed, retry, return to login | Do not disclose account existence beyond existing contract behavior. |
 | Reset password | missing token, validating, invalid, expired, password mismatch, submitting, success, failed, return to login | Keep token hidden; show password rules only if contract/source confirms them. |
 | Confirm registration | missing token, validating, invalid, token valid, pending approval, bootstrap failed, dashboard/login landing | Separate token validity from session/bootstrap success. |
-| Register token | missing/invalid/expired token, ready, password mismatch, submitting, success, failed, login redirect | Do not infer registration fields beyond source contract. |
+| Register public/token | `/register` public companion plus `/register/:token`, missing/invalid/expired token, ready, password mismatch, submitting, success, failed, login redirect | Do not infer registration fields beyond source contract; `/register` remains public/token and must not grant authenticated shell access. |
 | Invite token | missing/invalid/expired, ready/continuation, failed, terminal/return | Exact continuation visual remains pending; do not invent invite payload fields. |
 
 ## SSO, callback, and logout frame set
