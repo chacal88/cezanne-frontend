@@ -124,7 +124,7 @@
 .candidate-db-search-row {
   display: flex;
   gap: 10px;
-  margin: 0 0 20px 10px;
+  margin: 0 0 11px 10px;
 }
 
 .candidate-db-search-icon {
@@ -140,7 +140,8 @@
 }
 
 .candidate-db-search-input {
-  width: 420px;
+  box-sizing: border-box;
+  width: 354px;
   height: 40px;
   margin-left: -10px;
   border: 1px solid #cfd4da;
@@ -157,15 +158,16 @@
 }
 
 .candidate-database-page {
-  padding: 24px 26px 32px;
+  padding: 46px 40px 32px 36px;
 }
 
 .candidate-database-page .candidate-product-hero {
-  margin-bottom: 18px;
+  margin-bottom: 41px;
 }
 
 .candidate-database-page .candidate-product-layout {
-  grid-template-columns: 244px minmax(0, 1fr);
+  grid-template-columns: 260px minmax(0, 1fr);
+  margin-left: 8px;
 }
 
 .candidate-db-sidebar {
@@ -253,6 +255,8 @@
 }
 
 .candidate-db-table-wrap {
+  margin-right: -20px;
+  margin-left: -20px;
   border: 1px solid #e0e2e6;
   overflow: hidden;
 }
@@ -266,7 +270,7 @@
 .candidate-product-table th,
 .candidate-product-table td {
   padding: 0 16px;
-  height: 54px;
+  height: 70px;
   border-bottom: 1px solid #e0e2e6;
   border-right: 1px solid #e0e2e6;
   text-align: left;
@@ -278,7 +282,7 @@
   color: #354052;
   font-size: 15px;
   font-weight: 600;
-  height: 48px;
+  height: 60px;
 }
 
 .candidate-product-table th:first-child,
@@ -526,6 +530,10 @@
   .candidate-db-main,
   .candidate-profile-card {
     min-height: auto;
+  }
+
+  .candidate-database-page .candidate-product-layout {
+    margin-left: 0;
   }
 }
 
@@ -1584,7 +1592,7 @@
 }
 
 .candidate-profile-identity {
-  min-height: 108px;
+  min-height: 87px;
   padding-top: 28px;
 }
 
@@ -1792,7 +1800,7 @@
 
 .candidate-flow-line {
   justify-content: flex-end;
-  margin: 9px 20px 17px 0;
+  margin: 9px 20px 47px 0;
   color: #999;
   font-size: 13px;
 }

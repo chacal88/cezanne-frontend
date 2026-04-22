@@ -164,6 +164,10 @@ Confirmed change:
 - Candidate database row density and sidebar spacing were compacted toward the legacy layout.
 - Candidate detail now exposes legacy-style modal entry points for Email candidate, Send to hiring manager, Move job, and Score now. These are composition/parity starters only; they do not claim backend mutation parity.
 - A second action-composition pass moved schedule closer to the legacy wizard with dark header, job detail column, first-step interview fields, and radio groups; moved reject closer to the legacy two-step template/message editor; and moved email closer to the legacy template/editor/attachment surface.
+- A database geometry pass moved the ready frame's title/search/table vertical rhythm closer to the legacy ready baseline.
+- A follow-up database geometry pass updated the recapture seed to the legacy-style 8-row set and aligned the database card, sidebar/table split, and table edge geometry closer to the legacy ready baseline.
+- A database table pass aligned the search input/button sizing and expanded header/body row heights so the 8-row ready capture fills the viewport like the legacy baseline.
+- A detail geometry pass aligned the card/notes vertical stack and increased the hiring-flow-to-tabs spacing so the tabs/CV preview begin closer to the legacy detail baseline without moving the shell into the navigation rail.
 - The R0 Playwright smoke harness now seeds the current `recruit.localAuthSession` contract and mocks candidate `/v2/cv` + GraphQL reads for deterministic database/detail handoff validation.
 
 Validation run:
@@ -198,9 +202,9 @@ The recapture harness was tightened after the first run so the covered current-a
 | V2-GAP-005 | Improved; still blocked | Saved filter entries and kebab menu captured in `new/03-database-saved-filter-menu-density-pass.png`; legacy title casing/geometry review still required. |
 | V2-GAP-006 | Improved; still blocked | Saved list entries and kebab menu captured in `new/04-database-saved-list-menu-density-pass.png`; legacy spacing/position review still required. |
 | V2-GAP-008 | Improved; still blocked | Selected-row bulk toolbar captured in `new/05-database-row-selected-bulk-enabled.png`; legacy bulk menu contents and geometry still need comparison. |
-| V2-GAP-010 | Improved; still blocked | Database ready density pass captured in `new/01-database-ready-density-pass.png`; API-seed rows are now comparable, but table density/geometry still differs from legacy. |
+| V2-GAP-010 | Improved; still blocked | Database ready density pass captured in `new/01-database-ready-density-pass.png`; API-seed rows, 8-row viewport cadence, title/search/table rhythm, search sizing, card edge, sidebar/table split, row heights, and table edge geometry are now closer, but exact column, icon, and menu geometry still differ from legacy. |
 | V2-GAP-015 | Partially improved; still blocked | Covered ready/action captures now use Finn/Diego ApiSeed-style data, but there is still no same-run authenticated legacy recapture and full state/data coverage is incomplete. |
-| V2-GAP-016 | Improved; still blocked | Detail ready state captured in `new/10-detail-ready-after-parity-pass.png`; side-card geometry, wrapping, and proportions still differ from legacy. |
+| V2-GAP-016 | Improved; still blocked | Detail ready state captured in `new/10-detail-ready-after-parity-pass.png`; card/notes vertical stack and tab/CV start are closer, but lateral shell width, email wrapping, and exact profile-card proportions still differ from legacy. |
 | V2-GAP-026 | Improved; still blocked | Email modal captured in `new/12-detail-email-candidate-modal.png`; template/editor/attachment composition now exists, but exact legacy composer parity still requires comparison. |
 | V2-GAP-027 | Improved; still blocked | Send to hiring manager modal captured in `new/13-detail-send-to-hiring-manager-modal.png`; backend mutation and exact field parity remain deferred. |
 | V2-GAP-028 | Improved; still blocked | Move job modal captured in `new/14-detail-move-job-modal.png`; exact legacy search/list behaviour remains deferred. |
@@ -219,8 +223,8 @@ No gap is marked resolved yet. The recapture closes part of the **evidence-quali
 | Gap cluster | Review result | Remaining blocker |
 |---|---|---|
 | V2-GAP-004 to V2-GAP-008 | Improved; still blocked | Add new, saved list/filter, and bulk toolbar states exist with comparable data, but menu offsets, icon treatment, row heights, toolbar copy/spacing, and selected-state geometry still differ from legacy. |
-| V2-GAP-010 to V2-GAP-012 | Improved; still blocked | API-seed rows now appear, but table width, row density, column sizing, pagination placement, and stage/status column decisions still do not match the legacy database baseline. |
-| V2-GAP-014 to V2-GAP-021 | Improved; still blocked | Job-context detail and Finn ApiSeed data are closer, but profile-card width, email wrapping, stage selector placement, hiring-flow dot/line geometry, tabs, CV preview proportions, and notes/action area placement still differ. |
+| V2-GAP-010 to V2-GAP-012 | Improved; still blocked | API-seed rows now appear, 8-row viewport cadence matches the legacy baseline, search/table/card geometry is closer, and pagination no longer appears in the primary ready viewport, but exact column sizing, menu/icon treatment, and stage/status column decisions still do not match the legacy database baseline. |
+| V2-GAP-014 to V2-GAP-021 | Improved; still blocked | Job-context detail and Finn ApiSeed data are closer, card/notes vertical stack improved, and tabs/CV start closer to legacy, but lateral shell width, email wrapping, exact stage selector placement, hiring-flow dot/line details, CV preview proportions, and action-area treatment still differ. |
 | V2-GAP-024 | Improved; still blocked | Schedule now matches more of the wizard structure, but exact modal dimensions, stepper/header placement, job metadata, copy, and footer mechanics still differ from legacy. |
 | V2-GAP-025 | Improved; still blocked | Reject now includes the two-step message/editor flow, but exact modal width/position, editor toolbar, chip layout, and reject-with/without-message footer actions still differ. |
 | V2-GAP-026 | Improved; still blocked | Email now uses a template/editor/attachment modal surface, but legacy evidence still differs in context, toolbar details, footer actions, draft/send behavior, and exact sizing. |

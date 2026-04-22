@@ -53,6 +53,10 @@ Confirmed:
 - The candidate detail More actions menu now exposes the legacy-modal action entries.
 - Schedule, offer, and reject task routes now preserve route ownership while rendering modal-like composition over candidate context.
 - Schedule and reject received a second composition pass toward legacy: schedule now has the dark wizard header, job detail column, interview-type/location fields, and radio groups; reject now has the two-step header plus template/message editor surface. Email candidate now uses a template/editor/attachment-style modal surface rather than the earlier simple form.
+- The database ready frame received a vertical geometry pass so the page title/search row/table container align more closely to the legacy ready baseline.
+- The database recapture now uses the legacy-style 8-row API-seed cadence and has closer card edge, sidebar/table split, and table edge geometry.
+- The database search input/button sizing and table row heights now place the primary ready viewport closer to `legacy/01-database-ready-viewport.png`, including hiding pagination below the captured fold.
+- The detail ready capture now has a closer profile-card/notes vertical stack and tabs/CV start position, without shifting the page into the navigation rail.
 
 Still not claimed:
 - Pixel parity with legacy.
@@ -66,9 +70,9 @@ Compared against the existing authenticated legacy references in `docs/visual-ev
 
 | Area | Result | Basis |
 |---|---|---|
-| Database ready | Improved; still blocked | API-seed names/emails now match the legacy style and row count is closer, but table/card width, column widths, top spacing, pagination placement, and row density still differ from `legacy/01-database-ready-viewport.png`. |
+| Database ready | Improved; still blocked | API-seed names/emails now match the legacy style, the ready capture shows the legacy-style 8-row cadence, search/table/card geometry is closer, and pagination no longer appears in the primary viewport. Exact column widths, icon treatment, menu offsets, and remaining toolbar spacing still differ from `legacy/01-database-ready-viewport.png`. |
 | Database menus and bulk toolbar | Improved; still blocked | Add new and selected-row bulk states now exist with comparable data, but menu icon treatment, row heights, dropdown width/offset, and toolbar copy/spacing still differ from `legacy/05-add-new-menu-opened.png` and `legacy/11-bulk-actions-after-first-row-selected.png`. |
-| Candidate detail ready | Improved; still blocked | Finn ApiSeed now aligns with the main detail legacy candidate, but profile-card width, email wrapping, hiring-flow geometry, tab/CV proportions, notes placement, and exact stage control still differ from `legacy/20-candidate-detail-ready-viewport.png`. |
+| Candidate detail ready | Improved; still blocked | Finn ApiSeed now aligns with the main detail legacy candidate, and card/notes vertical stack plus tab/CV start are closer. Lateral shell width, email wrapping, exact profile-card details, hiring-flow geometry, CV preview proportions, and exact stage control still differ from `legacy/20-candidate-detail-ready-viewport.png`. |
 | More actions | Improved; still blocked | Diego ApiSeed now aligns with the supplement candidate, and missing actions are visible, but the menu contents/height differ from `legacy/22-candidate-detail-more-actions-opened.png` and the supplement action references. |
 | Email candidate | Improved; still blocked | Greenfield now has template, Bcc chip, subject, editor toolbar, attachment control, and message body in a centered modal. Legacy evidence still differs in route/tab context, exact editor toolbar, footer actions, and send/draft affordances. |
 | Schedule interview | Improved; still blocked | Greenfield now has a wider wizard, dark header, candidate/job detail split, interview type/location fields, and radio groups. Exact legacy modal height, stepper placement, copy, job metadata, and next-step footer remain different. |
@@ -88,8 +92,8 @@ Compared against the existing authenticated legacy references in `docs/visual-ev
 ## Next Required Step
 
 Continue implementation from the remaining largest blockers:
-- database shell/table geometry and menu offsets;
-- candidate detail profile-card, hiring-flow, and CV/tab proportions;
+- database menu offsets, icon treatment, column sizing, and bulk toolbar details;
+- candidate detail lateral shell width, profile-card details, hiring-flow dot/line treatment, and CV/tab proportions;
 - exact legacy action flow composition for email, schedule, reject, review request, move job, upload CV, and score-now, especially footer actions, editor controls, field payloads, and wizard dimensions.
 
 Only after those changes are recaptured against authenticated legacy references may individual gaps be marked resolved. Until then, V2 Candidates remains parity-blocked.
