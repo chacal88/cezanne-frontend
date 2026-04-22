@@ -7,7 +7,8 @@ This document defines the delivery roadmap for building the recruiter frontend f
 It is a **synthesis** of the migration planning knowledge base in `../../docs/frontend-2/`, reinterpreted for a greenfield rewrite:
 
 - scope content (journeys, domains, access, edge cases, contracts) is preserved
-- migration-specific content (coexistence, handoff, parity against legacy, phased ownership) is discarded
+- migration-specific content (coexistence, handoff, phased ownership) is discarded
+- pixel parity against the legacy frontend is retained as a product replacement requirement, not as a phased migration/coexistence strategy
 - release slicing is redefined for greenfield, not for phased migration
 
 ## Source baseline
@@ -51,6 +52,12 @@ Planning rule:
 - `domains.md` defines **what owns what**
 - `modules.md` defines **what gets built**
 - `screens.md` defines **what gets registered and shipped**
+
+## Product replacement visual rule
+
+Product decision on 2026-04-22: the new frontend must be a pixel-parity replacement for the legacy frontend wherever a legacy screen/state exists. When the legacy app is replaced by this app, users should not see visual differences in layout, spacing, typography, icon placement, modal/drawer composition, table geometry, tab behavior, or action placement unless a future product decision explicitly approves the deviation and records the affected route/family/gap id.
+
+This rule applies to every release package, not only V2 Candidates. `Figma-ready` means a route/family has enough contract and evidence to start canonical Figma/screen-flow production. It does not mean the route is approved for production replacement. Final replacement signoff requires side-by-side legacy/current/Figma comparison at the matched viewport and the matched data/state.
 
 ---
 
@@ -462,10 +469,10 @@ Current status:
 | Provider readiness operational gates | Closed | `provider-readiness-operational-gates-plan.md`, `provider-readiness-operational-gates` | Operational routes consume normalized readiness outputs and preserve provider setup separation. |
 | Operational-depth consumer packages | Closed | `integration-operational-depth-sequence-plan.md` | All eight follow-on packages are implemented and validated. |
 | Design/flow preparation | Closed for contract package creation | `screen-design-flow-matrix.md`, `pre-figma-flow-review.md`, `v0-auth-shell-dashboard-visual-contract.md` through `v5-sysadmin-platform-visual-contract.md` | All route rows are contract-reviewed and V0-V5 visual-readiness packages exist. |
-| Visual evidence capture | In progress | V0-V5 visual contracts + `visual-evidence-capture-plan.md` + V0/V1/V2/V3/V4/V5 evidence logs | V0, V1, V3, and V4 screen-flow bases are captured and unblocked for Figma with deferred backend/provider/schema annotations. V2 candidate rows are behaviour-captured but parity-blocked. V5 has first-pass current-app evidence and remains blocked for follow-up state capture, accepted deviations, and canonical Figma-ready decisions. |
-| Figma + screen-flow contracts | Next planned phase | future Figma references + screen-flow contracts | Attach canonical Figma nodes/frames to rows only after visual evidence makes them `Figma-ready`, without changing route/spec ownership. |
+| Visual evidence capture | In progress | V0-V5 visual contracts + `visual-evidence-capture-plan.md` + V0/V1/V2/V3/V4/V5 evidence logs | V0, V1, V3, and V4 screen-flow bases are captured and unblocked for Figma drafting with deferred backend/provider/schema annotations, but still require project-wide pixel-parity signoff before replacement. V2 candidate rows are behaviour-captured and parity-blocked. V5 has first-pass current-app evidence and remains blocked for follow-up state capture, pixel-parity review, and canonical Figma-ready decisions. |
+| Figma + screen-flow contracts | Next planned phase | future Figma references + screen-flow contracts | Attach canonical Figma nodes/frames to rows only after visual evidence makes them `Figma-ready`, without changing route/spec ownership. Final replacement approval remains blocked until pixel parity against the matching legacy screen/state is confirmed or a documented product exception exists. |
 
-Planning rule: do not reopen provider readiness gates as the current implementation package unless a new provider family or operational consumer is intentionally added. The active phase is visual evidence capture against the V0-V5 visual-readiness contracts. Figma production is partially unblocked only for rows/sub-blocks promoted to `Figma-ready` by evidence, excluding V2 candidate rows until side-by-side legacy parity blockers are resolved or explicitly accepted, not by visual preference alone. V3 public/external and integration token rows plus V4 operations rows are promoted for screen-flow/base-frame Figma handoff; V5 first-pass screenshots remain current-app evidence only and do not promote rows until the remaining state gaps are captured or explicitly accepted.
+Planning rule: do not reopen provider readiness gates as the current implementation package unless a new provider family or operational consumer is intentionally added. The active phase is visual evidence capture against the V0-V5 visual-readiness contracts. Figma production is partially unblocked only for rows/sub-blocks promoted to `Figma-ready` by evidence, but `Figma-ready` is a screen-flow drafting status, not replacement signoff. Every legacy-backed row remains subject to side-by-side pixel-parity approval before launch replacement. V3 public/external and integration token rows plus V4 operations rows are promoted for screen-flow/base-frame Figma handoff; V5 first-pass screenshots remain current-app evidence only and do not promote rows until the remaining state gaps are captured or explicitly accepted.
 
 ### V1-V5 review closeout
 
@@ -474,10 +481,10 @@ The 2026-04-22 V1-V5 audit is recorded in `v1-v5-roadmap-review-2026-04-22.md`.
 Confirmed:
 - `npm run build` passes.
 - `npm test` passes with 102 test files and 422 tests.
-- V1 Jobs is closed for route/state/screen-flow basis.
+- V1 Jobs is closed for route/state/screen-flow basis, but final replacement requires pixel-parity signoff.
 - V2 Candidates is behavior-covered but remains visual-parity blocked.
-- V3 public/external/token flows are promoted for Figma screen-flow/base-frame handoff with backend/API/schema details annotated as deferred.
-- V4 operations is promoted for current-app screen-flow handoff with backend/provider/schema details annotated as deferred.
+- V3 public/external/token flows are promoted for Figma screen-flow/base-frame handoff with backend/API/schema details annotated as deferred, but final replacement requires pixel-parity signoff where legacy/reference screens exist.
+- V4 operations is promoted for current-app screen-flow handoff with backend/provider/schema details annotated as deferred, but final replacement requires pixel-parity signoff.
 - V5 platform/long-tail is foundation-complete in route/runtime coverage, but not Figma-ready until missing platform state depth is captured or explicitly waived.
 
 ## 11. Contract gaps (backend dependencies)
@@ -523,9 +530,9 @@ Frontend cannot work around these. They must be fixed server-side before certain
 
 These apply regardless of release.
 
-### Behavior parity, not visual parity
+### Behavior and pixel parity
 
-A journey is "done" when the user can enter through every valid entry path, the main task completes, side effects happen, and the highest-risk failure modes are handled. Visual completion alone is not done.
+A journey is "done" only when behavior parity and pixel parity are both satisfied for the relevant legacy-backed surface. The user must be able to enter through every valid entry path, complete the main task, see side effects happen, and encounter the highest-risk failure modes with no unintended visual difference from the legacy screen/state. Visual completion alone is not done, and behavior coverage alone is not replacement-ready.
 
 ### Journey as the unit of delivery
 
@@ -646,9 +653,9 @@ Mapping drift and workflow drift remain separate: HRIS mapping remediation point
 
 
 
-## Dashboard visual parity debt
+## Dashboard pixel parity debt
 
-The first real auth -> dashboard delivery is implemented and validated: cards now use the real dashboard aggregate for matching user/org context, and the dashboard shell consumes bounded calendar/activity contracts. Remaining differences against `frontend` are tracked as visual refinement debt for the design/flow preparation phase, not as current data/API blockers:
+The first real auth -> dashboard delivery is implemented and validated: cards now use the real dashboard aggregate for matching user/org context, and the dashboard shell consumes bounded calendar/activity contracts. Remaining differences against `frontend` are tracked as pixel-parity debt for the design/flow preparation phase, not as current data/API blockers:
 
 - card wrapping and exact responsive breakpoints;
 - FullCalendar parity, including toolbar positioning, pending-schedule checkbox, and event rendering details;
@@ -656,13 +663,13 @@ The first real auth -> dashboard delivery is implemented and validated: cards no
 - shell/sidebar/topbar/footer 1:1 styling and iconography;
 - canonical Figma/screen-flow references for dashboard states.
 
-These items should be resolved when dashboard rows move from contract-ready to Figma-linked visual refinement. Do not reopen dashboard API integration unless the raw dashboard aggregate differs for the same authenticated user and organization context.
+These items must be resolved before dashboard replacement signoff. Do not reopen dashboard API integration unless the raw dashboard aggregate differs for the same authenticated user and organization context.
 
 ## Design/flow preparation implementation note
 
 Design/flow preparation has produced route-by-route contract review and V0-V5 visual-readiness packages before Figma production. The packages cover auth/shell/dashboard, jobs, candidates, public/external token flows, operational modules, and SysAdmin/platform routes. Figma references remain `pending` until canonical evidence exists; missing visual references are not implementation gaps by themselves.
 
-The Figma phase starts only after the relevant V0-V5 contract captures source visual evidence, accepted deviations, viewport assumptions, and unresolved backend/API unknowns for that route/flow. The `pre-figma-flow-review.md` gate must stay authoritative for this decision: visual references alone do not mark a route as Figma-ready.
+The Figma phase starts only after the relevant V0-V5 contract captures source visual evidence, pixel-parity requirements, viewport assumptions, and unresolved backend/API unknowns for that route/flow. The `pre-figma-flow-review.md` gate must stay authoritative for this decision: visual references alone do not mark a route as Figma-ready, and Figma-ready alone does not mark a route as replacement-approved.
 
 ## Pre-Figma flow review gate
 

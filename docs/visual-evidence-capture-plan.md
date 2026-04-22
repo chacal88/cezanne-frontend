@@ -6,14 +6,16 @@ This plan operationalizes the current roadmap phase: visual evidence capture aft
 
 It defines what must be captured, where evidence must be recorded, and when a route may be promoted from `Contract-reviewed` to `Figma-ready` in `pre-figma-flow-review.md`.
 
+Product decision on 2026-04-22: the whole replacement project requires pixel parity with the legacy frontend wherever a legacy screen/state exists. `Figma-ready` is permission to produce canonical Figma/screen-flow frames; it is not production replacement approval. Replacement approval requires matched legacy/current/Figma evidence or an explicit product exception tied to a route/family/gap id.
+
 ## Current status
 
 | Item | Status | Notes |
 |---|---|---|
 | Route contract review | Done | All 103 canonical route rows plus 4 alias/reference rows are contract-reviewed. |
 | V0-V5 visual contracts | Done | Prepared under `v0-*` through `v5-*` visual contract files. |
-| Visual evidence capture | Current phase | Evidence must be captured from current app, legacy/reference app, or explicitly accepted screenshots. V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; V5 has first-pass foundation evidence. |
-| Figma production | Partially unblocked | V0, V1, V3, and V4 covered rows may proceed to Figma. Other rows remain blocked until promoted to `Figma-ready`. |
+| Visual evidence capture | Current phase | Evidence must be captured from current app and the matching legacy/reference app wherever legacy exists. V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; both still need replacement pixel-parity signoff where legacy/reference surfaces exist. V5 has first-pass foundation evidence. |
+| Figma production | Partially unblocked | V0, V1, V3, and V4 covered rows may proceed to Figma drafting. Other rows remain blocked until promoted to `Figma-ready`. No row is replacement-approved until pixel parity is confirmed or explicitly waived by product. |
 
 ## Evidence package schema
 
@@ -23,10 +25,11 @@ Each captured route/family must record the following fields before `Figma-ready`
 |---|---|
 | Route/family | Canonical route or named family from `pre-figma-flow-review.md`. |
 | Visual contract | V0-V5 visual contract file that owns the route/family. |
-| Evidence source | Current greenfield app, legacy/reference app, screenshot, or explicit design reference. |
+| Evidence source | Current greenfield app plus matching legacy/reference app where legacy exists; screenshot or explicit design reference only when legacy is unavailable or product accepts it as the source. |
 | Viewport | Width/height and browser/device assumptions. |
 | Captured states | State list matched against the owning visual contract. |
-| Accepted deviations | Differences from legacy/source that are intentionally accepted. |
+| Pixel-parity comparison | Side-by-side legacy/current/Figma comparison for layout, spacing, typography, icon placement, modal/drawer composition, table geometry, tabs, and action placement. |
+| Accepted deviations | Product-approved exceptions only, with affected route/family/gap id. Unapproved differences are blockers. |
 | Deferred visual debt | Differences not accepted yet but not blocking implementation/data contracts. |
 | Backend/API unknowns | Unknown payloads that must not be invented in Figma. |
 | Security exclusions | Credentials, raw tokens, auth codes, message bodies, provider payloads, signed URLs, PII boundaries. |
@@ -46,14 +49,15 @@ Each captured route/family must record the following fields before `Figma-ready`
 ## Capture checklist per state
 
 - [ ] Open the canonical route in the current greenfield app when available.
-- [ ] Open the equivalent legacy/reference route when available and relevant.
+- [ ] Open the equivalent legacy/reference route when a legacy screen/state exists.
 - [ ] Capture the viewport and URL without exposing sensitive tokens or credentials.
 - [ ] Confirm route ownership and capability from `pre-figma-flow-review.md`.
 - [ ] Match the visible state to the owning V0-V5 visual contract.
-- [ ] Record visual differences as accepted, deferred, or blocker.
+- [ ] Record visual differences as blockers unless there is an explicit product exception tied to a route/family/gap id.
 - [ ] Record backend/API unknowns as non-inventable Figma constraints.
 - [ ] Record security exclusions for the route family.
 - [ ] Do not mark `Figma-ready` unless every required state for that row/family has evidence or an explicit accepted omission.
+- [ ] Do not mark replacement approval unless pixel parity is confirmed for the matched legacy/current/Figma state or a product exception exists.
 
 ## Promotion rule
 
@@ -62,9 +66,11 @@ A row in `pre-figma-flow-review.md` may move from `Contract-reviewed` to `Figma-
 1. the owning V0-V5 contract exists;
 2. the relevant evidence package fields are complete;
 3. required states are either captured or explicitly accepted as not needing a separate frame;
-4. accepted deviations and deferred debt are documented;
+4. pixel-parity blockers, product-approved exceptions, and deferred debt are documented;
 5. backend/API unknowns are documented as non-inventable;
 6. no public/token, provider setup, org/platform, or telemetry boundary is violated.
+
+Replacement approval requires an additional pass after Figma production: matched legacy/current/Figma screenshots at the same viewport and data/state must show no unintended pixel-level difference. Current-app-only evidence can unblock Figma drafting, but cannot approve replacement where legacy exists.
 
 ## Suggested evidence log location
 
