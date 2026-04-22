@@ -1,0 +1,30 @@
+[
+  {
+    "value": "New Candidate",
+    "label": "New Candidate"
+  },
+  {
+    "value": "Shortlisted",
+    "label": "Shortlisted"
+  },
+  {
+    "value": "Phone Interview",
+    "label": "Phone Interview"
+  },
+  {
+    "value": "Face to Face",
+    "label": "Face to Face"
+  },
+  {
+    "value": "Offering",
+    "label": "Offering"
+  },
+  {
+    "value": "Rejected",
+    "label": "Rejected"
+  },
+  {
+    "value": "screening",
+    "label": "screening"
+  }
+]

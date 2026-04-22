@@ -33,8 +33,6 @@
 /hiring-companies
 
 /candidates-database?query=alex&page=2&sort=name&order=asc&stage=screening&tags=remote,senior
-/candidates-old?query=legacy&page=3
-/candidates-new?page=-1&sort=invalid
 
 /integrations
 /integrations/lever

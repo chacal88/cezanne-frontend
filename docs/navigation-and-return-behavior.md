@@ -145,7 +145,7 @@ The R5 SysAdmin foundation implements platform fallback as a route-capability ou
 Candidate database navigation now follows these rules:
 - Direct entry to `/candidates-database` rebuilds list interpretation from URL state.
 - Invalid URL state is sanitized to stable defaults and valid values are preserved.
-- `/candidates-old` and `/candidates-new` normalize to `/candidates-database`.
+- `/candidates-database` is the only registered candidate database entry.
 - Candidate detail opened from database uses `entry=database` and a sanitized `returnTo` target.
 - Candidate task flows launched from database-origin detail close/cancel/succeed back to the same database-origin detail context, preserving the database `returnTo`.
 

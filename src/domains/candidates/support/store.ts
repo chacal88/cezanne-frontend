@@ -169,36 +169,45 @@ export function subscribeCandidateStore(listener: () => void) {
 
 export function getCandidateRecord(candidateId: string): CandidateRecord {
   hydrateFromStorage();
-  return (
-    candidateState.get(candidateId) ?? {
-      id: candidateId,
-      cvId: `cv-${candidateId}`,
-      name: `Candidate ${candidateId}`,
-      stage: 'screening',
-      headline: `Fallback seeded candidate for ${candidateId}`,
-      email: `${candidateId}@example.test`,
-      phone: '+1-555-0109',
-      location: 'Remote',
-      lastAction: 'Direct entry fallback',
-      comments: ['Generated from route context'],
-      tags: ['generated'],
-      conversationId: 'conversation-fallback',
-      formsCount: 0,
-      formsStatus: 'not-started',
-      candidateOwnedDocuments: 0,
-      contractsCount: 0,
-      contractsStatus: 'not-started',
-      interviewsCount: 0,
-      interviewsStatus: 'not-started',
-      surveysCount: 0,
-      surveysStatus: 'not-started',
-      customFields: [],
-      cvVersion: 1,
-      previewPath: `/assets/${candidateId}-cv-v1.pdf`,
-      downloadPath: `/assets/${candidateId}-cv-v1.pdf?download=1`,
-      updatedAt: '2026-04-18T07:00:00Z',
-    }
-  );
+  const existing = candidateState.get(candidateId);
+  if (existing) return existing;
+
+  const fallback: CandidateRecord = {
+    id: candidateId,
+    cvId: `cv-${candidateId}`,
+    name: `Candidate ${candidateId}`,
+    stage: 'screening',
+    headline: `Fallback seeded candidate for ${candidateId}`,
+    email: `${candidateId}@example.test`,
+    phone: '+1-555-0109',
+    location: 'Remote',
+    lastAction: 'Direct entry fallback',
+    comments: ['Generated from route context'],
+    tags: ['generated'],
+    conversationId: 'conversation-fallback',
+    formsCount: 0,
+    formsStatus: 'not-started',
+    candidateOwnedDocuments: 0,
+    contractsCount: 0,
+    contractsStatus: 'not-started',
+    interviewsCount: 0,
+    interviewsStatus: 'not-started',
+    surveysCount: 0,
+    surveysStatus: 'not-started',
+    customFields: [],
+    cvVersion: 1,
+    previewPath: `/assets/${candidateId}-cv-v1.pdf`,
+    downloadPath: `/assets/${candidateId}-cv-v1.pdf?download=1`,
+    updatedAt: '2026-04-18T07:00:00Z',
+  };
+  candidateState.set(candidateId, fallback);
+  return fallback;
+}
+
+export function cacheCandidateRecord(record: CandidateRecord) {
+  hydrateFromStorage();
+  candidateState.set(record.id, record);
+  emitChange();
 }
 
 export function buildCandidateWorkflowRequest(method: 'POST' | 'PATCH' | 'DELETE') {

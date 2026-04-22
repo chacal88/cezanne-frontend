@@ -6,7 +6,7 @@ This document is the V2 visual-readiness package from `pre-figma-flow-review.md`
 
 V2 covers:
 - candidate detail hub and optional contextual route segments;
-- candidate database/search and legacy compatibility entries;
+- candidate database/search canonical route;
 - candidate action launchers for schedule, offer, and reject;
 - candidate documents/contracts/surveys/custom-field/collaboration panels as route-local visual states;
 - parent-return behavior from jobs, candidate database, notifications, and task flows.
@@ -49,7 +49,7 @@ V2 covers:
 
 | Frame/state | Required behavior | Visual notes | Backend/API unknowns |
 |---|---|---|---|
-| Canonical database ready | `/candidates-database` with sanitized query/page/sort/order/stage/tags/advanced state | This is the only visual target for `/candidates-old` and `/candidates-new`. | Final columns, facets, and row aggregates unknown. |
+| Canonical database ready | `/candidates-database` with sanitized query/page/sort/order/stage/tags/advanced state | This is the only candidate database visual target. | Final columns, facets, and row aggregates unknown. |
 | Loading | Search/list loading | Preserve filter/header layout. | Exact loading granularity unknown. |
 | Empty | No candidates for default state | Offer valid next actions only when capability exists. | Backend empty reason unknown. |
 | Filtered empty | Active query/filter returns no rows | Show clear-filters action. | Exact filter semantics unknown. |
@@ -77,12 +77,10 @@ V2 covers:
 | Collaboration/messages | handoff to inbox/candidate communication, provider-blocked/degraded | Message bodies are not telemetry or screen-contract data. |
 | Upload CV | upload handshake failure, binary transfer failure, metadata persistence failure, retry, success | Upload workflow remains a seam until API is confirmed. |
 
-## Compatibility and alias rules
+## Alias rules
 
 | Legacy/reference row | Canonical visual target | Rule |
 |---|---|---|
-| `/candidates-old?query&page` | `/candidates-database` | Do not create a standalone visual family; show redirect/canonicalization only if needed. |
-| `/candidates-new?query&page` | `/candidates-database` | Do not create a standalone visual family; show redirect/canonicalization only if needed. |
 | `/candidate/$id/.../cv/$cv_id/offer` | Candidate action route family | Treat as alias/reference for the candidate offer launcher, not as a separate route. |
 
 ## Responsive assumptions
@@ -107,7 +105,7 @@ V2 covers:
 2. Candidate database visual map is covered for canonical search/list, active filters, empty/filtered-empty, advanced invalid/unsupported, bulk partial/blocked/failed, ATS duplicate/import, and detail handoff. Field-specific backend columns remain deferred.
 3. Candidate action visual map is covered for schedule, offer, and reject task shells with ready, failure/retry, database-origin parent, cancel controls, and success/refresh evidence. Provider-blocked/degraded/unavailable and terminal/read-only variants need separate evidence before promotion.
 4. Candidate panel visual boundaries are covered for documents/contracts/surveys/custom fields/collaboration/upload without raw payloads.
-5. Alias handling remains documentation-only: `/candidates-old`, `/candidates-new`, and candidate offer reference rows map to canonical visual targets and must not become standalone frames.
+5. Alias handling remains documentation-only for candidate offer reference rows and must not become standalone frames.
 6. `pre-figma-flow-review.md` may mark only the rows and states covered by the recaptured current evidence as `Figma-ready`.
 
 

@@ -12,7 +12,7 @@ This document records the R4.2 candidate database closeout boundary after the ro
 
 ## What must be frozen now
 
-1. the canonical route family between `/candidates-old`, `/candidates-database`, and `/candidates-new`
+1. the canonical `/candidates-database` route family
 2. the minimum URL state contract for search, paging, sorting, and filter restoration
 3. the database → detail handoff contract
 4. degraded behavior when list state or return context becomes stale
@@ -41,7 +41,7 @@ R5 sync:
 
 The R4.2 foundation resolves the first set of route/navigation decisions:
 - Canonical route: `/candidates-database`.
-- Compatibility routes: `/candidates-old` and `/candidates-new`; both normalize to the canonical route with sanitized state.
+- Removed compatibility routes are not registered; `/candidates-database` is the only candidate database entry.
 - Minimum URL state: `query`, `page`, `sort`, `order`, `stage`, and `tags`. Invalid or stale values are sanitized instead of crashing or redirecting to unrelated routes.
 - Database → detail handoff: `/candidate/:id?entry=database&returnTo=<encoded-candidates-database-url>`.
 - Detail → database return: detail renders a database return target/link when `entry=database` is present.

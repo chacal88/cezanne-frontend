@@ -29,8 +29,6 @@ describe('route metadata registry', () => {
       requiredCapability: 'canViewCandidateDatabase',
       implementationState: 'implemented',
     });
-    expect(getRouteMetadata('/candidates-old')).toMatchObject({ routeId: 'candidates.database.compat', parentTarget: '/candidates-database', implementationState: 'implemented' });
-    expect(getRouteMetadata('/candidates-new')).toMatchObject({ routeId: 'candidates.database.compat', parentTarget: '/candidates-database', implementationState: 'implemented' });
     expect(getRouteMetadata('/candidate/candidate-123')).toMatchObject({
       domain: 'candidates',
       module: 'detail-hub',

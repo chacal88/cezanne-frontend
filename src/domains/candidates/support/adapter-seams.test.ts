@@ -10,4 +10,11 @@ describe('candidate data adapter seam', () => {
     expect(after.lastAction).toBe('schedule completed');
     expect(request.method).toBe('POST');
   });
+
+  it('returns a stable fallback record for unknown candidate ids', () => {
+    const first = candidateFixtureDataAdapter.getCandidateRecord('api-candidate-1');
+    const second = candidateFixtureDataAdapter.getCandidateRecord('api-candidate-1');
+
+    expect(second).toBe(first);
+  });
 });

@@ -8,7 +8,7 @@ This closeout records the candidate product-depth gap between archived route/fou
 
 Confirmed from source and archived specs:
 
-- Candidate database routes were registered and URL-state aware, but `/candidates-database`, `/candidates-old`, and `/candidates-new` still carried `foundation-placeholder` metadata before this closeout.
+- Candidate database route was registered and URL-state aware, but `/candidates-database` still carried `foundation-placeholder` metadata before this closeout.
 - Candidate database used deterministic records rather than confirmed API-backed list contracts; this is acceptable only behind a replaceable adapter seam and explicit unavailable/degraded UI states.
 - Candidate detail already has aggregate sections, but product-depth acceptance requires route-owned states for database return, stale sequence, optional section degradation, ATS/source status, document truth, collaboration, and insights.
 - Candidate task launchers already preserve parent return for schedule/offer/reject; closeout acceptance requires failure, retry, success, and parent-refresh behavior to remain route-local and to preserve database-origin detail return state.
@@ -32,7 +32,7 @@ The implementation consumes these already-archived contracts instead of redefini
 Confirmed contracts in this package are route and frontend-state contracts only:
 
 - Canonical database route: `/candidates-database`.
-- Compatibility routes: `/candidates-old` and `/candidates-new`, canonicalized with sanitized search state.
+- Removed compatibility routes are not registered; `/candidates-database` is the only candidate database entry.
 - Database URL state: `query`, `page`, `sort`, `order`, `stage`, and `tags`.
 - Database-origin detail handoff: `/candidate/:id?entry=database&returnTo=<encoded-candidates-database-url>`.
 - Candidate task parent return: `parent=<encoded-candidate-detail-url>` for database-origin actions.

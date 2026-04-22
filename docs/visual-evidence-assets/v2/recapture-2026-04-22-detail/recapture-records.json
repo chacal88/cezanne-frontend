@@ -1,0 +1,92 @@
+[
+  {
+    "capturedAt": "2026-04-22T13:05:02.698Z",
+    "system": "legacy",
+    "label": "candidate detail recapture blocked by authentication",
+    "status": "blocked",
+    "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/legacy/00-legacy-auth-required.png",
+    "url": "http://localhost:4000/",
+    "note": "Legacy detail recapture reached login screen. No password or token was recorded."
+  },
+  {
+    "capturedAt": "2026-04-22T13:05:03.968Z",
+    "system": "new",
+    "label": "candidate detail ready viewport job context",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/20-candidate-detail-ready-viewport-job-context.png",
+    "url": "http://localhost:5173/candidate/candidate-123/job-456/screening/2/remote?entry=job&degrade=%5B%5D"
+  },
+  {
+    "capturedAt": "2026-04-22T13:05:03.972Z",
+    "system": "new",
+    "label": "candidate detail stage selector closed and options source",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/stage-options.json",
+    "screenshotPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/20-candidate-detail-ready-viewport-job-context.png",
+    "url": "http://localhost:5173/candidate/candidate-123/job-456/screening/2/remote?entry=job&degrade=%5B%5D"
+  },
+  {
+    "capturedAt": "2026-04-22T13:05:04.339Z",
+    "system": "new",
+    "label": "candidate detail more actions opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/22-candidate-detail-more-actions-opened.png",
+    "url": "http://localhost:5173/candidate/candidate-123/job-456/screening/2/remote?entry=job&degrade=%5B%5D"
+  },
+  {
+    "capturedAt": "2026-04-22T13:05:04.693Z",
+    "system": "new",
+    "label": "candidate detail latest cv tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/24-candidate-detail-latest-cv-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123/job-456/screening/2/remote?entry=job&degrade=%5B%5D"
+  },
+  {
+    "capturedAt": "2026-04-22T13:05:05.038Z",
+    "system": "new",
+    "label": "candidate detail activity tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/25-candidate-detail-activity-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123/job-456/screening/2/remote?entry=job&degrade=%5B%5D"
+  },
+  {
+    "capturedAt": "2026-04-22T13:05:05.387Z",
+    "system": "new",
+    "label": "candidate detail interview score tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/52-candidate-detail-interview-score-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123/job-456/screening/2/remote?entry=job&degrade=%5B%5D"
+  },
+  {
+    "capturedAt": "2026-04-22T13:05:05.738Z",
+    "system": "new",
+    "label": "candidate detail forms docs tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/51-candidate-detail-forms-docs-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123/job-456/screening/2/remote?entry=job&degrade=%5B%5D"
+  },
+  {
+    "capturedAt": "2026-04-22T13:05:06.088Z",
+    "system": "new",
+    "label": "candidate detail contracts tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/29-candidate-detail-contracts-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123/job-456/screening/2/remote?entry=job&degrade=%5B%5D"
+  },
+  {
+    "capturedAt": "2026-04-22T13:05:06.438Z",
+    "system": "new",
+    "label": "candidate detail comments tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/53-candidate-detail-comments-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123/job-456/screening/2/remote?entry=job&degrade=%5B%5D"
+  },
+  {
+    "capturedAt": "2026-04-22T13:05:06.789Z",
+    "system": "new",
+    "label": "candidate detail emails tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/54-candidate-detail-emails-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123/job-456/screening/2/remote?entry=job&degrade=%5B%5D"
+  }
+]

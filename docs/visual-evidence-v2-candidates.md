@@ -29,10 +29,7 @@ This log records V2 candidate visual evidence captured after V1 and recaptured a
 | `/candidates-database?tags=bulk,bulk-blocked` | Current greenfield | `visual-evidence-assets/v2/current/greenfield-v2-candidates-database-bulk-blocked-1440x900.png` | Bulk blocked state | Parity-pending; behaviour captured only |
 | `/candidates-database?tags=bulk,bulk-failed` | Current greenfield | `visual-evidence-assets/v2/current/greenfield-v2-candidates-database-bulk-failed-1440x900.png` | Bulk failed/retry state | Parity-pending; behaviour captured only |
 | `/candidates-database?tags=duplicate,import-failed` | Current greenfield | `visual-evidence-assets/v2/current/greenfield-v2-candidates-database-duplicate-import-failed-1440x900.png` | ATS duplicate/import failure state | Parity-pending; behaviour captured only |
-| `/candidates-old?query` | Current greenfield | `visual-evidence-assets/v2/current/greenfield-v2-candidates-old-alias-1440x900.png` | Compatibility entry to canonical database family | Alias documented; do not create standalone Figma frame |
-| `/candidates-new?query` | Current greenfield | `visual-evidence-assets/v2/current/greenfield-v2-candidates-new-alias-1440x900.png` | Compatibility entry to canonical database family | Alias documented; do not create standalone Figma frame |
 | `/candidates-database` | Legacy/reference | `visual-evidence-assets/v2/legacy/legacy-v2-candidates-database-ready-seeded-1440x900.png` | Authenticated legacy candidate database with seeded rows, search, saved filters, bulk actions, add column | Canonical visual reference for database composition |
-| `/candidates-old?query=api-seed` | Legacy/reference | `visual-evidence-assets/v2/legacy/legacy-v2-candidates-old-query-seeded-1440x900.png` | Legacy compatibility/search reference | Reference only |
 | `/candidate/:id` | Current greenfield | `visual-evidence-assets/v2/current/greenfield-v2-candidate-detail-ready-1440x900.png` | Direct entry with profile summary, action stack, document/contract panels, insights, collaboration | Parity-pending; behaviour captured only |
 | `/candidate/:id/:job/:status/:order/:filters/:interview?entry=job` | Current greenfield | `visual-evidence-assets/v2/current/greenfield-v2-candidate-detail-job-context-1440x900.png` | Job context with sequence and parent context | Parity-pending; behaviour captured only |
 | `/candidate/:id?entry=database&returnTo=...` | Current greenfield | `visual-evidence-assets/v2/current/greenfield-v2-candidate-detail-database-return-1440x900.png` | Database-origin return target | Parity-pending; behaviour captured only |
@@ -118,7 +115,7 @@ Acceptance rule for this family: covered desktop action launcher behaviours must
 - Legacy candidate database provides the usable composition reference: authenticated shell, candidate search, saved filter/list rail, bulk actions, configurable columns, and seeded candidate rows.
 - Legacy candidate detail provides the usable composition reference: profile header, hiring flow, primary actions, action menu, CV/document tab region, notes area, and candidate sequence controls.
 - Current greenfield candidate pages now render product-composition UI for the covered candidate database, detail hub, downstream panels, and task launcher states while preserving route/state ownership.
-- Current greenfield alias captures confirm `/candidates-old` and `/candidates-new` remain compatibility entries for the canonical candidate database family; they must not become standalone Figma screens.
+- Candidate database visuals use `/candidates-database` as the only canonical greenfield target; removed compatibility entries must not become standalone Figma screens.
 - Candidate schedule/offer/reject launchers expose parent-return and success/failure state mechanics, but not the final modal/page composition or provider-specific operational copy.
 
 ## Accepted deviations in this pass
@@ -160,8 +157,6 @@ No visual deviations are accepted in this review. The current V2 candidate imple
 | Candidate database | Parity-blocked | Current greenfield recapture shows behaviour coverage, but side-by-side review found visual/data/layout mismatches against legacy. |
 | Candidate detail hub | Parity-blocked | Current greenfield recapture shows behaviour coverage, but side-by-side review found layout, data, stage, action, and CV/tab composition mismatches against legacy. |
 | Candidate action launchers | Parity-blocked | Current greenfield recapture shows task-shell behaviour only; legacy schedule modal differs materially and legacy offer/reject references still need capture. |
-| Candidate aliases | Parity-pending as alias documentation only | `/candidates-old` and `/candidates-new` map to the canonical database family and must not become standalone frames. |
-
 V2 candidate rows covered by the recaptured current greenfield screenshots must **not** proceed to final Figma-ready implementation as pixel/behaviour parity references yet. They remain behaviour-coverage evidence only until the parity blockers below are resolved or explicitly accepted in a later change. Legacy captures remain the canonical visual reference, and backend/schema/provider details not visible in current evidence stay deferred.
 
 

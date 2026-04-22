@@ -1280,28 +1280,6 @@ const candidateDatabaseRoute = createRoute({
   ),
 });
 
-const candidateDatabaseOldRoute = createRoute({
-  getParentRoute: () => shellLayoutRoute,
-  path: '/candidates-old',
-  validateSearch: (search) => search,
-  component: () => (
-    <AccessBoundary capability="canViewCandidateDatabase" fallback={dashboardFallback}>
-      <CandidateDatabasePage />
-    </AccessBoundary>
-  ),
-});
-
-const candidateDatabaseNewRoute = createRoute({
-  getParentRoute: () => shellLayoutRoute,
-  path: '/candidates-new',
-  validateSearch: (search) => search,
-  component: () => (
-    <AccessBoundary capability="canViewCandidateDatabase" fallback={dashboardFallback}>
-      <CandidateDatabasePage />
-    </AccessBoundary>
-  ),
-});
-
 const candidateDetailRoutes = candidateDetailRoutePaths.map((path) =>
   createRoute({
     getParentRoute: () => shellLayoutRoute,
@@ -1524,8 +1502,6 @@ const routeTree = rootRoute.addChildren([
     jobRequisitionStageRoute,
     requisitionWorkflowsRoute,
     candidateDatabaseRoute,
-    candidateDatabaseOldRoute,
-    candidateDatabaseNewRoute,
     ...candidateDetailRoutes,
     ...candidateScheduleRoutes,
     ...candidateOfferRoutes,

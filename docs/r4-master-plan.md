@@ -233,7 +233,7 @@ The operational settings implementation freezes the shared settings baseline:
 
 The `r4-candidate-database-contract-foundation` implementation freezes the first candidate database baseline:
 - `/candidates-database` is the canonical candidate database route.
-- `/candidates-old` and `/candidates-new` remain compatibility entries that normalize back to `/candidates-database`.
+- `/candidates-database` is the only registered candidate database entry.
 - URL-owned state is limited and explicit: `query`, `page`, `sort`, `order`, `stage`, and comma-separated `tags`; invalid values degrade to stable defaults.
 - Candidate detail opened from candidate database uses `entry=database` and a sanitized `returnTo` pointing back to `/candidates-database`.
 - Candidate task routes preserve the database-origin detail URL through the explicit `parent` parameter.

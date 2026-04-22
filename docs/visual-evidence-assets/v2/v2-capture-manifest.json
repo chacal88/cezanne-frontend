@@ -433,22 +433,6 @@
       "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
     },
     {
-      "path": "v2/current/greenfield-v2-candidates-new-alias-1440x900.png",
-      "package": "v2-candidates",
-      "evidenceStatus": "canonical-current",
-      "width": 1440,
-      "height": 900,
-      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
-    },
-    {
-      "path": "v2/current/greenfield-v2-candidates-old-alias-1440x900.png",
-      "package": "v2-candidates",
-      "evidenceStatus": "canonical-current",
-      "width": 1440,
-      "height": 900,
-      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
-    },
-    {
       "path": "v2/legacy/legacy-v2-candidate-action-hire-opened-seeded-1440x900.png",
       "package": "v2-candidates",
       "evidenceStatus": "canonical-legacy-reference",
@@ -490,14 +474,6 @@
     },
     {
       "path": "v2/legacy/legacy-v2-candidates-database-ready-seeded-1440x900.png",
-      "package": "v2-candidates",
-      "evidenceStatus": "canonical-legacy-reference",
-      "width": 1440,
-      "height": 900,
-      "implementationUse": "legacy-reference-for-parity-review"
-    },
-    {
-      "path": "v2/legacy/legacy-v2-candidates-old-query-seeded-1440x900.png",
       "package": "v2-candidates",
       "evidenceStatus": "canonical-legacy-reference",
       "width": 1440,

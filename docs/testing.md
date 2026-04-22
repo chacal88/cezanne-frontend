@@ -180,7 +180,7 @@ Candidate database foundation validation includes:
 - Vitest coverage for URL-state parsing, invalid-state degradation, canonical path building, and database-origin detail handoff.
 - Module-contract coverage for candidate task return behavior when launched from database-origin detail.
 - Browser smoke coverage for `/candidates-database` direct entry, restored URL state, database → detail handoff, task close back to database-origin detail, and return to the database list.
-- HTTP smoke coverage for `/candidates-database`, `/candidates-old`, and `/candidates-new` entries.
+- HTTP smoke coverage for the canonical `/candidates-database` entry.
 
 ## R4 integrations admin validation baseline
 
