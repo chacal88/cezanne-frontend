@@ -1,0 +1,377 @@
+{
+  "capturedAt": "2026-04-22T00:19:07.070Z",
+  "viewport": "1440x900",
+  "targets": [
+    {
+      "name": "greenfield-v1-jobs-list-open-1440x900",
+      "url": "http://localhost:5173/jobs/open",
+      "finalUrl": "http://localhost:5173/jobs/open?scope=open&page=1&asAdmin=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-jobs-list-open-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Jobs The Jobs list owns scope, pagination, search, admin-view, and label state in the URL. Scope open Search \u2014 Page 1 Admin view false Label \u2014 List state ready ATS sync ready Jobs list is ready. Create entry available Create job Platform Engineer (active) \u00b7 owner-1",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-jobs-list-filtered-clear-1440x900",
+      "url": "http://localhost:5173/jobs/open?search=no-results-for-v1&label=v1&asAdmin=true",
+      "finalUrl": "http://localhost:5173/jobs/open?search=no-results-for-v1&label=v1&asAdmin=true&scope=open&page=1",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-jobs-list-filtered-clear-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Jobs The Jobs list owns scope, pagination, search, admin-view, and label state in the URL. Scope open Search no-results-for-v1 Page 1 Admin view true Label v1 List state filtered-empty ATS sync ready No jobs match the current filters. Create entry available Clear filtersCreate job No jobs match the current filters.",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-authoring-create-1440x900",
+      "url": "http://localhost:5173/jobs/manage",
+      "finalUrl": "http://localhost:5173/jobs/manage?resetWorkflow=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-authoring-create-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Create job Authoring consumes a normalized draft model instead of raw mixed backend payloads. Mode create Branching requisition-aware Reset workflow false Authoring state create Draft title New job Adapter payload name New job Creating job draft. Publishing Publishing state not-ready Draft save available true ATS sync state ready",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-authoring-edit-reset-1440x900",
+      "url": "http://localhost:5173/jobs/manage/12?resetWorkflow=true",
+      "finalUrl": "http://localhost:5173/jobs/manage/12?resetWorkflow=true",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-authoring-edit-reset-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Edit job Authoring consumes a normalized draft model instead of raw mixed backend payloads. Mode edit Branching requisition-aware Reset workflow true Authoring state reset-workflow Draft title Job 12 Adapter payload name Job 12 Reset workflow entry is active. Publishing Publishing state not-ready Draft save available true ATS sync state ready",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-detail-overview-1440x900",
+      "url": "http://localhost:5173/job/12?section=overview",
+      "finalUrl": "http://localhost:5173/job/12?section=overview&unavailable=false&transition=false&assignment=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-detail-overview-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job hub The Job route restores a section-aware hub model for direct entry and refresh. Section overview Workflow draft Assignments owner-1, recruiter-2 Share state private Section state ready Job hub section is ready. Summaries Candidates: ready (12) CVs: ready (9) Bids: ready (3) Interviews: ready (4) Forms/documents: ready (2) Status transitions close: ready reopen: ready publish: ready Open schedule flow Open offer flow",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-detail-candidates-section-1440x900",
+      "url": "http://localhost:5173/job/12?section=candidates",
+      "finalUrl": "http://localhost:5173/job/12?section=candidates&unavailable=false&transition=false&assignment=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-detail-candidates-section-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job hub The Job route restores a section-aware hub model for direct entry and refresh. Section candidates Workflow draft Assignments owner-1, recruiter-2 Share state private Section state ready Job hub section is ready. Summaries Candidates: ready (12) CVs: ready (9) Bids: ready (3) Interviews: ready (4) Forms/documents: ready (2) Status transitions close: ready reopen: ready publish: ready Open schedule flow Open offer flow",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-bid-create-1440x900",
+      "url": "http://localhost:5173/job/12/bid?parent=/job/12&section=overview",
+      "finalUrl": "http://localhost:5173/job/12/bid?parent=%2Fjob%2F12&section=overview&parentRefresh=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-bid-create-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job task Task routes resolve canonical job, candidate, and parent-return context before UI rendering. Task kind bid-create Job 12 Candidate \u2014 Bid \u2014 Parent target /job/12 Direct entry false Operation state ready Parent refresh intent false Contract state not-contract-task Job task is ready. Close task Complete task",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-bid-view-1440x900",
+      "url": "http://localhost:5173/job/12/bid/bid-123?parent=/job/12&section=overview",
+      "finalUrl": "http://localhost:5173/job/12/bid/bid-123?parent=%2Fjob%2F12&section=overview&parentRefresh=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-bid-view-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job task Task routes resolve canonical job, candidate, and parent-return context before UI rendering. Task kind bid-view Job 12 Candidate \u2014 Bid bid-123 Parent target /job/12 Direct entry false Operation state ready Parent refresh intent false Contract state not-contract-task Job task is ready. Close task Complete task",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-cv-create-1440x900",
+      "url": "http://localhost:5173/job/12/cv?parent=/job/12&section=candidates",
+      "finalUrl": "http://localhost:5173/job/12/cv?parent=%2Fjob%2F12&section=candidates&parentRefresh=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-cv-create-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job task Task routes resolve canonical job, candidate, and parent-return context before UI rendering. Task kind cv-create Job 12 Candidate \u2014 Bid \u2014 Parent target /job/12 Direct entry false Operation state ready Parent refresh intent false Contract state not-contract-task Job task is ready. Close task Complete task",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-cv-view-1440x900",
+      "url": "http://localhost:5173/job/12/cv/28?parent=/job/12&section=candidates",
+      "finalUrl": "http://localhost:5173/job/12/cv/28?parent=%2Fjob%2F12&section=candidates&parentRefresh=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-cv-view-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job task Task routes resolve canonical job, candidate, and parent-return context before UI rendering. Task kind cv-view Job 12 Candidate 28 Bid \u2014 Parent target /job/12 Direct entry false Operation state ready Parent refresh intent false Contract state not-contract-task Job task is ready. Close task Complete task",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-cv-reject-1440x900",
+      "url": "http://localhost:5173/job/12/cv-reject/28?parent=/job/12&section=candidates",
+      "finalUrl": "http://localhost:5173/job/12/cv-reject/28?parent=%2Fjob%2F12&section=candidates&parentRefresh=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-cv-reject-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job task Task routes resolve canonical job, candidate, and parent-return context before UI rendering. Task kind reject Job 12 Candidate 28 Bid \u2014 Parent target /job/12 Direct entry false Operation state ready Parent refresh intent false Contract state not-contract-task Job task is ready. Close task Complete task",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-schedule-1440x900",
+      "url": "http://localhost:5173/job/12/cv/28/schedule?parent=/job/12&section=candidates",
+      "finalUrl": "http://localhost:5173/job/12/cv/28/schedule?parent=%2Fjob%2F12&section=candidates&parentRefresh=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/superseded/greenfield-v1-job-schedule-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Access denied Fallback shell for denied entry.",
+      "evidenceStatus": "superseded-do-not-implement"
+    },
+    {
+      "name": "greenfield-v1-job-offer-1440x900",
+      "url": "http://localhost:5173/job/12/cv/28/offer?parent=/job/12&section=candidates",
+      "finalUrl": "http://localhost:5173/job/12/cv/28/offer?parent=%2Fjob%2F12&section=candidates&parentRefresh=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-offer-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job task Task routes resolve canonical job, candidate, and parent-return context before UI rendering. Task kind offer Job 12 Candidate 28 Bid \u2014 Parent target /job/12 Direct entry false Operation state ready Parent refresh intent false Contract state ready Job task is ready. Close task Complete task",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-build-requisition-1440x900",
+      "url": "http://localhost:5173/build-requisition",
+      "finalUrl": "http://localhost:5173/build-requisition",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-build-requisition-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Requisition authoring Build requisition Jobs-side requisition task-flow foundation with explicit save and no autosave persistence. State draft Parent target /dashboard Autosave not-enabled",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-requisition-workflow-1440x900",
+      "url": "http://localhost:5173/job-requisitions/workflow-123/stage-456",
+      "finalUrl": "http://localhost:5173/job-requisitions/workflow-123/stage-456",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-requisition-workflow-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Requisition authoring Requisition workflow workflow-123 Workflow-state route for requisition authoring stages and drift handling. State draft Parent target /jobs/open Autosave not-enabled",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "legacy-v1-jobs-list-open-1440x900",
+      "url": "http://localhost:4000/jobs/open",
+      "finalUrl": "http://localhost:4000/jobs/open",
+      "status": 200,
+      "title": "Cezanne Recruitment",
+      "screenshot": "docs/visual-evidence-assets/v1/legacy/legacy-v1-jobs-list-open-1440x900.png",
+      "bodyText": "Get help 9 kaue dev Dashboard My jobs Inbox CV database Templates Team Settings Reports Billing Version dev Copyright \u00a9 2026 Cezanne Recruitment. All rights reserved.",
+      "evidenceStatus": "canonical-reference"
+    },
+    {
+      "name": "legacy-v1-job-authoring-create-1440x900",
+      "url": "http://localhost:4000/jobs/manage",
+      "finalUrl": "http://localhost:4000/jobs/manage",
+      "status": 200,
+      "title": "Cezanne Recruitment",
+      "screenshot": "docs/visual-evidence-assets/v1/legacy/legacy-v1-job-authoring-create-1440x900.png",
+      "bodyText": "Get help 9 kaue dev Dashboard My jobs Inbox CV database Templates Team Settings Reports Billing Version dev Copyright \u00a9 2026 Cezanne Recruitment. All rights reserved.",
+      "evidenceStatus": "canonical-reference"
+    },
+    {
+      "name": "legacy-v1-job-detail-overview-1440x900",
+      "url": "http://localhost:4000/job/12",
+      "finalUrl": "http://localhost:4000/job/12",
+      "status": 200,
+      "title": "Cezanne Recruitment",
+      "screenshot": "docs/visual-evidence-assets/v1/legacy/legacy-v1-job-detail-overview-1440x900.png",
+      "bodyText": "\u00d7 10 A.I parsing credits included on free trial. Click to receive candidates CV score. Once your credits are used you can continue to use the free trial without A.I features or subscribe to one of our plans in billing. (Once you subscribe to an A.I plan, resumes are automatically scored) Close Get help 9 kaue dev Dashboard My jobs Inbox CV database Templates Team Settings Reports Billing My jobs Live jobs API Seed Pipeline api-seed-1776816382-57083 API Seed Pipeline api-seed-1776816382-57083 Dublin, Ireland Share: Copy Sharing options Add CV Edit job Close for Applicants Mark as filled Description Pipeline created through local-dev API seed. Negotiable salary to Job type: Permanent Job terms: Full-time Address: On site / Dublin, Ireland Sector: Accounting & Finance | Other Created at: Apr 22, 2026 12:06 AM Published by: kaue santos CV score Filter by Bulk Actions - New Candidate 1 Shortlisted - Phone Interview 2 Face to Face - Offering 2 Rejected 1 Hired Diego ApiSeed - Received in 3 hours from Direct CV upload Eva ApiSeed - Received in 3 hours from Careers Page Ava ApiSeed - Received in 3 hours from Careers Page Finn ApiSeed - Received in 3 hours from Indeed Ben ApiSeed - Received in 3 hours from Indeed Cara ApiSeed - Received in 3 hours from Linkedin April 2026 month week day Sun Mon Tue Wed Thu Fri Sat 29 30 31 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 1 2 3 4 5 6 7 8 9 Version dev Copyright \u00a9 2026 Cezanne Recruitment. All rights reserved.",
+      "evidenceStatus": "canonical-reference"
+    },
+    {
+      "name": "greenfield-v1-job-schedule-dev-capability-1440x900",
+      "url": "http://localhost:5173/job/12/cv/28/schedule?parent=/job/12&section=candidates",
+      "finalUrl": "http://localhost:5173/job/12/cv/28/schedule?parent=%2Fjob%2F12&section=candidates&parentRefresh=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-schedule-dev-capability-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job task Task routes resolve canonical job, candidate, and parent-return context before UI rendering. Task kind schedule Job 12 Candidate 28 Bid \u2014 Parent target /job/12 Direct entry false Operation state ready Parent refresh intent false Contract state not-contract-task Job task is ready. Close task Complete task",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-jobs-list-loading-1440x900",
+      "url": "http://localhost:5173/jobs/open?search=loading",
+      "finalUrl": "http://localhost:5173/jobs/open?search=loading&scope=open&page=1&asAdmin=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-jobs-list-loading-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Jobs The Jobs list owns scope, pagination, search, admin-view, and label state in the URL. Scope open Search loading Page 1 Admin view false Label \u2014 List state loading ATS sync ready Loading jobs. Create entry available Clear filtersCreate job Loading jobs.",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-jobs-list-degraded-1440x900",
+      "url": "http://localhost:5173/jobs/open?search=degraded",
+      "finalUrl": "http://localhost:5173/jobs/open?search=degraded&scope=open&page=1&asAdmin=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-jobs-list-degraded-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Jobs The Jobs list owns scope, pagination, search, admin-view, and label state in the URL. Scope open Search degraded Page 1 Admin view false Label \u2014 List state degraded ATS sync ready Jobs loaded with degraded downstream status. Create entry available Clear filtersCreate job Jobs loaded with degraded downstream status.",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-jobs-list-stale-1440x900",
+      "url": "http://localhost:5173/jobs/open?search=stale",
+      "finalUrl": "http://localhost:5173/jobs/open?search=stale&scope=open&page=1&asAdmin=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-jobs-list-stale-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Jobs The Jobs list owns scope, pagination, search, admin-view, and label state in the URL. Scope open Search stale Page 1 Admin view false Label \u2014 List state stale-filters ATS sync stale-source Filters are stale; refresh to reload current jobs. Create entry available Clear filtersCreate job Filters are stale; refresh to reload current jobs.",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-jobs-list-unavailable-1440x900",
+      "url": "http://localhost:5173/jobs/open?search=unavailable",
+      "finalUrl": "http://localhost:5173/jobs/open?search=unavailable&scope=open&page=1&asAdmin=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-jobs-list-unavailable-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Jobs The Jobs list owns scope, pagination, search, admin-view, and label state in the URL. Scope open Search unavailable Page 1 Admin view false Label \u2014 List state unavailable ATS sync ready Jobs are currently unavailable. Create entry available Clear filtersCreate job Jobs are currently unavailable.",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-jobs-list-denied-1440x900",
+      "url": "http://localhost:5173/jobs/open?search=denied",
+      "finalUrl": "http://localhost:5173/jobs/open?search=denied&scope=open&page=1&asAdmin=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-jobs-list-denied-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Jobs The Jobs list owns scope, pagination, search, admin-view, and label state in the URL. Scope open Search denied Page 1 Admin view false Label \u2014 List state denied ATS sync ready You do not have access to this jobs list. Create entry denied Clear filters You do not have access to this jobs list.",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-authoring-copy-dirty-1440x900",
+      "url": "http://localhost:5173/jobs/manage?copyFromJobId=12&saveState=dirty",
+      "finalUrl": "http://localhost:5173/jobs/manage?saveState=dirty&resetWorkflow=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-authoring-copy-dirty-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Create job Authoring consumes a normalized draft model instead of raw mixed backend payloads. Mode create Branching requisition-aware Reset workflow false Authoring state dirty-draft Draft title New job Adapter payload name New job Draft contains unsaved changes. Publishing Publishing state not-ready Draft save available true ATS sync state ready",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-authoring-validating-1440x900",
+      "url": "http://localhost:5173/jobs/manage/12?saveState=validating",
+      "finalUrl": "http://localhost:5173/jobs/manage/12?saveState=validating&resetWorkflow=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-authoring-validating-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Edit job Authoring consumes a normalized draft model instead of raw mixed backend payloads. Mode edit Branching requisition-aware Reset workflow false Authoring state validating Draft title Job 12 Adapter payload name Job 12 Validating job draft. Publishing Publishing state not-ready Draft save available true ATS sync state ready",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-authoring-saving-1440x900",
+      "url": "http://localhost:5173/jobs/manage/12?saveState=saving",
+      "finalUrl": "http://localhost:5173/jobs/manage/12?saveState=saving&resetWorkflow=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-authoring-saving-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Edit job Authoring consumes a normalized draft model instead of raw mixed backend payloads. Mode edit Branching requisition-aware Reset workflow false Authoring state saving Draft title Job 12 Adapter payload name Job 12 Saving job draft. Publishing Publishing state not-ready Draft save available true ATS sync state ready",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-authoring-saved-1440x900",
+      "url": "http://localhost:5173/jobs/manage/12?saveState=saved",
+      "finalUrl": "http://localhost:5173/jobs/manage/12?saveState=saved&resetWorkflow=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-authoring-saved-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Edit job Authoring consumes a normalized draft model instead of raw mixed backend payloads. Mode edit Branching requisition-aware Reset workflow false Authoring state saved Draft title Job 12 Adapter payload name Job 12 Job draft saved. Publishing Publishing state not-ready Draft save available true ATS sync state ready",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-authoring-failed-1440x900",
+      "url": "http://localhost:5173/jobs/manage/12?saveState=failed",
+      "finalUrl": "http://localhost:5173/jobs/manage/12?saveState=failed&resetWorkflow=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-authoring-failed-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Edit job Authoring consumes a normalized draft model instead of raw mixed backend payloads. Mode edit Branching requisition-aware Reset workflow false Authoring state save-failed Draft title Job 12 Adapter payload name Job 12 Draft save failed. Retry without losing route context. Publishing Publishing state not-ready Draft save available true ATS sync state ready",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-detail-workflow-degraded-1440x900",
+      "url": "http://localhost:5173/job/12?section=workflow&degradedSection=candidates",
+      "finalUrl": "http://localhost:5173/job/12?section=workflow&degradedSection=candidates&degradedSections=%5B%22candidates%22%5D&unavailable=false&transition=false&assignment=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-detail-workflow-degraded-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job hub The Job route restores a section-aware hub model for direct entry and refresh. Section workflow Workflow active Assignments owner-1, recruiter-2 Share state private Section state ready Job hub section is ready. Summaries Candidates: degraded (12) CVs: ready (9) Bids: ready (3) Interviews: ready (4) Forms/documents: ready (2) Status transitions close: ready reopen: ready publish: ready Open schedule flow Open offer flow",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-detail-unavailable-1440x900",
+      "url": "http://localhost:5173/job/12?section=activity&unavailable=true",
+      "finalUrl": "http://localhost:5173/job/12?section=activity&unavailable=true&transition=false&assignment=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-detail-unavailable-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job hub The Job route restores a section-aware hub model for direct entry and refresh. Section activity Workflow draft Assignments owner-1, recruiter-2 Share state unavailable Section state unavailable Job hub is unavailable. Summaries Candidates: ready (12) CVs: ready (9) Bids: ready (3) Interviews: ready (4) Forms/documents: unavailable (2) Status transitions close: degraded reopen: ready publish: degraded Open schedule flow Open offer flow",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-detail-transition-assignment-1440x900",
+      "url": "http://localhost:5173/job/12?section=overview&transition=true&assignment=true",
+      "finalUrl": "http://localhost:5173/job/12?section=overview&transition=true&assignment=true&unavailable=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-detail-transition-assignment-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job hub The Job route restores a section-aware hub model for direct entry and refresh. Section overview Workflow closed Assignments owner-1, recruiter-2, shared-hiring-manager Share state shared Section state status-transition Job status transition is ready. Summaries Candidates: ready (12) CVs: ready (9) Bids: ready (3) Interviews: ready (4) Forms/documents: ready (2) Status transitions close: ready reopen: ready publish: ready Open schedule flow Open offer flow",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-task-success-refresh-1440x900",
+      "url": "http://localhost:5173/job/12/cv/28/offer?parent=/job/12&section=candidates&outcome=success&parentRefresh=true",
+      "finalUrl": "http://localhost:5173/job/12/cv/28/offer?parent=/job/12&section=candidates&outcome=success&parentRefresh=true",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-task-success-refresh-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job task Task routes resolve canonical job, candidate, and parent-return context before UI rendering. Task kind offer Job 12 Candidate 28 Bid \u2014 Parent target /job/12 Direct entry false Operation state parent-refresh-required Parent refresh intent true Contract state ready Parent hub refresh is required. Close task Complete task",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-task-fail-retry-1440x900",
+      "url": "http://localhost:5173/job/12/cv-reject/28?parent=/job/12&section=candidates&outcome=fail",
+      "finalUrl": "http://localhost:5173/job/12/cv-reject/28?parent=%2Fjob%2F12&section=candidates&outcome=fail&parentRefresh=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-task-fail-retry-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job task Task routes resolve canonical job, candidate, and parent-return context before UI rendering. Task kind reject Job 12 Candidate 28 Bid \u2014 Parent target /job/12 Direct entry false Operation state failed Parent refresh intent false Contract state not-contract-task Job task failed. Close task Complete task",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-task-cancel-1440x900",
+      "url": "http://localhost:5173/job/12/cv?parent=/job/12&section=candidates&outcome=cancel",
+      "finalUrl": "http://localhost:5173/job/12/cv?parent=%2Fjob%2F12&section=candidates&outcome=cancel&parentRefresh=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-task-cancel-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job task Task routes resolve canonical job, candidate, and parent-return context before UI rendering. Task kind cv-create Job 12 Candidate \u2014 Bid \u2014 Parent target /job/12 Direct entry false Operation state cancelled Parent refresh intent false Contract state not-contract-task Job task was cancelled. Close task Complete task",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-schedule-fail-1440x900",
+      "url": "http://localhost:5173/job/12/cv/28/schedule?parent=/job/12&section=candidates&outcome=fail",
+      "finalUrl": "http://localhost:5173/job/12/cv/28/schedule?parent=%2Fjob%2F12&section=candidates&outcome=fail&parentRefresh=false",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-schedule-fail-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Job task Task routes resolve canonical job, candidate, and parent-return context before UI rendering. Task kind schedule Job 12 Candidate 28 Bid \u2014 Parent target /job/12 Direct entry false Operation state failed Parent refresh intent false Contract state not-contract-task Job task failed. Close task Complete task",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-v1-job-requisition-stale-workflow-1440x900",
+      "url": "http://localhost:5173/job-requisitions/workflow-123",
+      "finalUrl": "http://localhost:5173/job-requisitions/workflow-123",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v1/current/greenfield-v1-job-requisition-stale-workflow-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Requisition authoring Requisition workflow workflow-123 Workflow-state route for requisition authoring stages and drift handling. State stale-workflow Parent target /jobs/open Autosave not-enabled",
+      "evidenceStatus": "canonical-current"
+    }
+  ],
+  "updatedAt": "2026-04-22T00:20:50.155Z"
+}

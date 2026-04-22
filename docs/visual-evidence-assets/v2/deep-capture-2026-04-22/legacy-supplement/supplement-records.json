@@ -1,0 +1,74 @@
+[
+  {
+    "label": "legacy candidate detail stage selector closed and options source",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/50-legacy-candidate-detail-stage-selector-closed-and-options-source.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15"
+  },
+  {
+    "label": "legacy candidate detail forms docs tab exact",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/51-legacy-candidate-detail-forms-docs-tab-exact.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15#forms-documents"
+  },
+  {
+    "label": "legacy candidate detail interview score tab exact",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/52-legacy-candidate-detail-interview-score-tab-exact.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15#interviews"
+  },
+  {
+    "label": "legacy candidate detail comments tab exact",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/53-legacy-candidate-detail-comments-tab-exact.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15#comments"
+  },
+  {
+    "label": "legacy candidate detail emails tab exact",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/54-legacy-candidate-detail-emails-tab-exact.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15#messages"
+  },
+  {
+    "label": "legacy candidate detail reject modal opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/55-legacy-candidate-detail-reject-modal-opened.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15"
+  },
+  {
+    "label": "legacy candidate detail more actions email candidate opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/56-legacy-candidate-detail-more-actions-email-candidate-opened.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15"
+  },
+  {
+    "label": "legacy candidate detail more actions interview scheduler opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/57-legacy-candidate-detail-more-actions-interview-scheduler-opened.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15"
+  },
+  {
+    "label": "legacy candidate detail more actions send to hiring manager opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/58-legacy-candidate-detail-more-actions-send-to-hiring-manager-opened.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15"
+  },
+  {
+    "label": "legacy candidate detail more actions move job opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/59-legacy-candidate-detail-more-actions-move-job-opened.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15"
+  },
+  {
+    "label": "legacy candidate detail upload new cv visible control",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/60-legacy-candidate-detail-upload-new-cv-visible-control.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15"
+  },
+  {
+    "label": "legacy candidate detail score now modal opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy-supplement/61-legacy-candidate-detail-score-now-modal-opened.png",
+    "url": "http://localhost:4000/candidate/b371f464-daf7-43fe-9614-0f5fef4ccc26/13?status=15#interviews"
+  }
+]

@@ -20,12 +20,12 @@ export function CandidateCollaborationPanel({ view }: { view: CandidateDetailVie
   });
 
   return (
-    <section>
+    <section className="candidate-product-panel" data-testid="candidate-collaboration-panel">
       <h2>Collaboration</h2>
       <p data-testid="candidate-comments-state">{degraded ? 'collaboration unavailable' : `${view.comments.length} comments`}</p>
       <p data-testid="candidate-tags-state">{degraded ? 'tags unavailable' : view.collaboration.tags.join(', ')}</p>
       {handoff.status === 'opened' ? (
-        <a href={handoff.target.path} data-testid="candidate-open-conversation-link">
+        <a className="candidate-product-link candidate-product-link--secondary" href={handoff.target.path} data-testid="candidate-open-conversation-link">
           Open candidate conversation
         </a>
       ) : (

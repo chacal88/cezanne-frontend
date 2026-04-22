@@ -460,10 +460,10 @@ Current status:
 | Provider readiness operational gates | Closed | `provider-readiness-operational-gates-plan.md`, `provider-readiness-operational-gates` | Operational routes consume normalized readiness outputs and preserve provider setup separation. |
 | Operational-depth consumer packages | Closed | `integration-operational-depth-sequence-plan.md` | All eight follow-on packages are implemented and validated. |
 | Design/flow preparation | Closed for contract package creation | `screen-design-flow-matrix.md`, `pre-figma-flow-review.md`, `v0-auth-shell-dashboard-visual-contract.md` through `v5-sysadmin-platform-visual-contract.md` | All route rows are contract-reviewed and V0-V5 visual-readiness packages exist. |
-| Visual evidence capture | Current next phase | V0-V5 visual contracts + current app/legacy references | Capture canonical screenshots/references, accepted deviations, viewport assumptions, and unresolved visual/API unknowns before marking rows `Figma-ready`. |
+| Visual evidence capture | In progress | V0-V5 visual contracts + `visual-evidence-capture-plan.md` + V0/V1/V2 evidence logs | V0 and V1 screen-flow bases are captured and partially unblocked for Figma. V2 candidate rows are behaviour-captured but parity-blocked; V2 deferred provider/schema/terminal variants plus V3-V5 still require evidence. |
 | Figma + screen-flow contracts | Next planned phase | future Figma references + screen-flow contracts | Attach canonical Figma nodes/frames to rows only after visual evidence makes them `Figma-ready`, without changing route/spec ownership. |
 
-Planning rule: do not reopen provider readiness gates as the current implementation package unless a new provider family or operational consumer is intentionally added. The active next phase is visual evidence capture against the V0-V5 visual-readiness contracts. Figma production remains blocked until specific rows are promoted to `Figma-ready` by evidence, not by visual preference alone.
+Planning rule: do not reopen provider readiness gates as the current implementation package unless a new provider family or operational consumer is intentionally added. The active phase is visual evidence capture against the V0-V5 visual-readiness contracts. Figma production is partially unblocked only for rows/sub-blocks promoted to `Figma-ready` by evidence, excluding V2 candidate rows until side-by-side legacy parity blockers are resolved or explicitly accepted, not by visual preference alone.
 
 ## 11. Contract gaps (backend dependencies)
 
@@ -652,3 +652,15 @@ The Figma phase starts only after the relevant V0-V5 contract captures source vi
 ## Pre-Figma flow review gate
 
 The pre-Figma review gate is now tracked in `pre-figma-flow-review.md`. It imports 103 canonical route rows plus 4 alias/reference rows from `screens.md`; all rows are contract-reviewed, and V0-V5 visual-readiness packages now define the evidence required before any row can become `Figma-ready`. Figma production remains blocked until the relevant route rows have canonical visual evidence for entry modes, state groups, actions, errors/retry, parent return, data/API contracts, telemetry safety, and visual-reference status.
+
+### V0 visual evidence gate
+
+V0 covered sub-blocks may proceed to Figma: primary login, desktop dashboard base, logout, notification resolver categories, and inbox empty/selected states. Deferred V0 states remain token-flow success variants, SSO success/exchange, 2FA, session-loss, and live inbox send/provider-blocked states.
+
+### V1 visual evidence gate
+
+V1 covered screen-flow bases may proceed to Figma: jobs list, job authoring, job detail hub, job task overlay shells, and jobs-side requisition routes. Deferred V1 states remain provider-specific publishing/scheduling/remediation labels, exact form schemas, rejection catalog, offer payloads, HRIS payloads, and production table/aggregate fields.
+
+### V2 visual evidence gate
+
+V2 candidate evidence has been recaptured after product-composition implementation, but side-by-side legacy parity review found blocking visual/behaviour mismatches in the database, detail hub, and action launchers. These rows remain behaviour-evidenced but not final Figma-ready. Deferred provider/schema/terminal/mobile variants still require separate evidence before promotion. Candidate compatibility aliases are documented and must not become standalone screens.

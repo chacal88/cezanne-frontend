@@ -18,6 +18,19 @@ describe('candidate ATS operational adapters', () => {
     expect(JSON.stringify(row)).not.toContain('raw');
   });
 
+  it('models candidate database ATS sync outcomes without raw provider payloads', () => {
+    const row = buildCandidateDatabaseAtsRow({
+      candidateId: 'candidate-123',
+      listState: { query: 'alex' },
+      providerId: 'greenhouse',
+      providerLabel: 'Greenhouse',
+      syncStatus: 'failed',
+    });
+
+    expect(row.atsState).toMatchObject({ kind: 'sync-failed', syncImportOutcome: 'sync-failed', refreshIntent: 'retry-sync' });
+    expect(JSON.stringify(row)).not.toContain('providerPayload');
+  });
+
   it('keeps candidate detail context while exposing stale-source refresh remediation', () => {
     const detail = buildCandidateDetailAtsStatus({
       context: { candidateId: 'candidate-stale', jobId: 'job-1', status: 'screening' },

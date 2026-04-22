@@ -1,0 +1,245 @@
+[
+  {
+    "i": 0,
+    "tag": "A",
+    "text": "",
+    "href": "/dashboard",
+    "type": null,
+    "cls": "logo",
+    "visible": true
+  },
+  {
+    "i": 2,
+    "tag": "A",
+    "text": "Get help",
+    "href": "https://knowledge-base.cezannehr.com/",
+    "type": null,
+    "cls": "get-help",
+    "visible": true
+  },
+  {
+    "i": 3,
+    "tag": "A",
+    "text": "16",
+    "href": null,
+    "type": null,
+    "cls": "dropdown-toggle",
+    "visible": true
+  },
+  {
+    "i": 20,
+    "tag": "A",
+    "text": "Dashboard",
+    "href": "/dashboard",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 21,
+    "tag": "A",
+    "text": "My jobs",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 24,
+    "tag": "A",
+    "text": "Inbox",
+    "href": "/inbox",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 25,
+    "tag": "A",
+    "text": "CV database",
+    "href": "/candidates-database",
+    "type": null,
+    "cls": "ng-scope active",
+    "visible": true
+  },
+  {
+    "i": 26,
+    "tag": "A",
+    "text": "Templates",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 33,
+    "tag": "A",
+    "text": "Team",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 37,
+    "tag": "A",
+    "text": "Settings",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 45,
+    "tag": "A",
+    "text": "Reports",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 50,
+    "tag": "A",
+    "text": "Billing",
+    "href": "/billing",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 52,
+    "tag": "A",
+    "text": "",
+    "href": "/candidates-database",
+    "type": null,
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 53,
+    "tag": "INPUT",
+    "text": "Search candidates",
+    "href": null,
+    "type": null,
+    "cls": "form-control",
+    "visible": true
+  },
+  {
+    "i": 54,
+    "tag": "BUTTON",
+    "text": "Search candidates",
+    "href": null,
+    "type": "button",
+    "cls": "btn default-sbl",
+    "visible": true
+  },
+  {
+    "i": 55,
+    "tag": "BUTTON",
+    "text": "Reset to default",
+    "href": null,
+    "type": null,
+    "cls": "reset-button",
+    "visible": true
+  },
+  {
+    "i": 56,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 57,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 58,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 59,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 60,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 61,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 62,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 63,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 64,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 65,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 66,
+    "tag": "A",
+    "text": "Cezanne Recruitment",
+    "href": "http://cezannehr.com",
+    "type": null,
+    "cls": "",
+    "visible": true
+  }
+]

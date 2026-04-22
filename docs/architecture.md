@@ -115,7 +115,7 @@ Stack is committed for R0. Any change after R0 is an ADR.
 | **Forms** | React Hook Form + Zod | Formik, tanstack-form | RHF perf + Zod schema reuse with backend contracts |
 | **Styling** | Tailwind CSS + CVA (class-variance-authority) | CSS Modules, styled-components, vanilla-extract | Tokens already generated; CVA for type-safe variants |
 | **Component primitives** | Radix UI (unstyled) | Headless UI, Ark UI | A11y correctness; we wrap to own the API |
-| **Icons** | Lucide | Heroicons, custom | Tree-shakeable, comprehensive |
+| **Icons** | Lucide for target primitives; FontAwesome 5 for legacy-parity shell/menu icons | Heroicons, custom | Lucide remains the target primitive set; the authenticated shell imports FontAwesome 5 to match the legacy `frontend` side-menu icon contract during parity work. |
 | **HTTP — REST** | `openapi-fetch` + `openapi-typescript` codegen | axios + manual types, ky | Types from OpenAPI spec; zero adapter boilerplate |
 | **HTTP — GraphQL** | urql + `graphql-codegen` (typed-document-node) | Apollo Client, Relay | Lighter than Apollo; pairs with TanStack Query through document adapters |
 | **Feature flags** | OpenFeature SDK + provider adapter (start self-hosted, swap to LaunchDarkly/Unleash later) | Direct LaunchDarkly SDK, custom | Provider-agnostic interface; swap without rewriting call sites |

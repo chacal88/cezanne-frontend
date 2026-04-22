@@ -151,6 +151,10 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 50. `v3-public-external-token-visual-contract.md` — visual-readiness package for public/external and integration token-entry flows before Figma frames are produced
 51. `v4-operations-visual-contract.md` — visual-readiness package for settings, integrations admin, reports, billing, team, favorites, and marketplace before Figma frames are produced
 52. `v5-sysadmin-platform-visual-contract.md` — visual-readiness package for SysAdmin/platform users, queues, master data, subscriptions, and taxonomy before Figma frames are produced
+53. `visual-evidence-capture-plan.md` — operational plan for capturing current/legacy visual evidence before promoting rows to `Figma-ready`
+54. `visual-evidence-v0-auth-shell-dashboard.md` — captured V0 evidence log for primary login, dashboard, logout, notifications, inbox, and deferred auth/token states
+55. `visual-evidence-v1-jobs.md` — captured V1 evidence log for jobs list, authoring, detail, task overlays, and requisition route-state bases
+56. `visual-evidence-v2-candidates.md` — captured V2 evidence log for candidate database/detail/action routes, including legacy references and side-by-side parity blockers
 
 ## Package roles
 
@@ -206,6 +210,10 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `v3-public-external-token-visual-contract.md` | defines the visual-readiness package for public/external and integration token-entry flows before canonical Figma frames are created |
 | `v4-operations-visual-contract.md` | defines the visual-readiness package for operational authenticated-shell modules before canonical Figma frames are created |
 | `v5-sysadmin-platform-visual-contract.md` | defines the visual-readiness package for SysAdmin/platform routes before canonical Figma frames are created |
+| `visual-evidence-capture-plan.md` | defines the evidence schema, capture order, and promotion rules for moving rows from `Contract-reviewed` to `Figma-ready` |
+| `visual-evidence-v0-auth-shell-dashboard.md` | records V0 current/legacy screenshot evidence, local seed scope, accepted fixture-backed decisions, deferred states, and sub-block Figma-ready decisions |
+| `visual-evidence-v1-jobs.md` | records V1 current/legacy screenshot evidence, accepted jobs fixture/reference decisions, deferred provider/form/schema details, and Figma-ready screen-flow decisions |
+| `visual-evidence-v2-candidates.md` | records V2 current/legacy screenshot evidence, candidate alias/reference decisions, side-by-side parity blockers, and remaining work before final Figma-ready promotion |
 
 ## Source relationship
 
@@ -217,3 +225,7 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 ## Active implementation-depth package note
 
 Use `screen-design-flow-matrix.md` for design/flow readiness and `pre-figma-flow-review.md` as the mandatory gate before Figma production. They complement `screens.md`; they do not replace the route manifest. Active product-depth OpenSpec changes distinguish route registration from complete product behavior. Figma handoff should start only from rows that already define route ownership, state groups, actions, error/retry states, parent return behavior, telemetry boundaries, public/token or provider setup exclusions, data/API expectations, and visual-reference status.
+
+## Current visual evidence status
+
+V0 visual evidence now covers login primary, dashboard, logout, notifications, and inbox sub-blocks. Token-flow, SSO success/exchange, 2FA, and session-loss variants remain deferred until separately captured or explicitly accepted.

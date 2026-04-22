@@ -1,0 +1,42 @@
+[
+  {
+    "text": "-- Select an option",
+    "value": "status",
+    "selected": false
+  },
+  {
+    "text": "New Candidate (0)",
+    "value": "13",
+    "selected": false
+  },
+  {
+    "text": "Shortlisted (1)",
+    "value": "15",
+    "selected": true
+  },
+  {
+    "text": "Phone Interview (0)",
+    "value": "17",
+    "selected": false
+  },
+  {
+    "text": "Face to Face (2)",
+    "value": "20",
+    "selected": false
+  },
+  {
+    "text": "Offering (0)",
+    "value": "22",
+    "selected": false
+  },
+  {
+    "text": "Rejected (2)",
+    "value": "24",
+    "selected": false
+  },
+  {
+    "text": "Hired (1)",
+    "value": "23",
+    "selected": false
+  }
+]

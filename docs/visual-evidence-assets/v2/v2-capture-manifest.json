@@ -1,0 +1,532 @@
+{
+  "package": "v2-candidates",
+  "capturedAtLocal": "2026-04-21",
+  "updatedAtLocal": "2026-04-21T23:20-03:00",
+  "viewport": "1440x900",
+  "currentApp": "http://localhost:5173",
+  "legacyReferenceApp": "http://localhost:4000",
+  "seed": "local-dev/scripts/seed-api-data.sh, owner kauemsc@gmail.com, company Warner Brothers, job id 13, candidate id 34; passwords and auth tokens omitted",
+  "figmaReadinessDecision": "parity-pending: current V2 candidate captures prove behaviour coverage only; final Figma-ready promotion is blocked until side-by-side legacy parity gaps are resolved or explicitly accepted",
+  "entries": [
+    {
+      "path": "v2/current/greenfield-v2-candidate-action-offer-failure-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-action-offer-ready-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-action-offer-success-refresh-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-action-reject-failure-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-action-reject-ready-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-action-reject-success-refresh-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-action-schedule-failure-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-action-schedule-ready-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-action-schedule-success-refresh-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-database-return-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-job-context-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-legacy-ready-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-more-actions-menu-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-notification-entry-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-provider-degraded-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-ready-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-stage-selector-menu-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-tab-activity-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-tab-comments-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-tab-contracts-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-tab-emails-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-tab-forms-docs-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-tab-interview-score-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-upload-cv-action-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-detail-upload-cv-success-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-offer-complete-refresh-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-offer-database-origin-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-offer-ready-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-reject-ready-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-schedule-failure-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-schedule-job-context-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidate-schedule-ready-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-add-column-menu-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-add-new-menu-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-advanced-invalid-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-advanced-unsupported-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-bulk-blocked-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-bulk-failed-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-bulk-partial-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-columns-selected-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-duplicate-import-failed-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-empty-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-filtered-bulk-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-full-ready-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-list-created-applied-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-new-list-modal-empty-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-new-list-visibility-menu-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-ready-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-reset-default-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-saved-filter-menu-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-saved-list-menu-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-sort-name-asc-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-database-sort-name-desc-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-new-alias-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/current/greenfield-v2-candidates-old-alias-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-current",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "implementation-reference-for-covered-v2-behaviour-parity-pending"
+    },
+    {
+      "path": "v2/legacy/legacy-v2-candidate-action-hire-opened-seeded-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-legacy-reference",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "legacy-reference-for-parity-review"
+    },
+    {
+      "path": "v2/legacy/legacy-v2-candidate-action-reject-opened-seeded-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-legacy-reference",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "legacy-reference-for-parity-review"
+    },
+    {
+      "path": "v2/legacy/legacy-v2-candidate-action-schedule-opened-seeded-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-legacy-reference",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "legacy-reference-for-parity-review"
+    },
+    {
+      "path": "v2/legacy/legacy-v2-candidate-detail-job-context-seeded-id-34-job-13-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-legacy-reference",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "legacy-reference-for-parity-review"
+    },
+    {
+      "path": "v2/legacy/legacy-v2-candidate-detail-more-actions-menu-seeded-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-legacy-reference",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "legacy-reference-for-parity-review"
+    },
+    {
+      "path": "v2/legacy/legacy-v2-candidates-database-ready-seeded-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-legacy-reference",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "legacy-reference-for-parity-review"
+    },
+    {
+      "path": "v2/legacy/legacy-v2-candidates-old-query-seeded-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "canonical-legacy-reference",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "legacy-reference-for-parity-review"
+    },
+    {
+      "path": "v2/parity-review/candidate-database-ready-side-by-side-2900x970.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "parity-review-evidence",
+      "width": 2900,
+      "height": 970,
+      "implementationUse": "side-by-side-review-only-not-figma-ready"
+    },
+    {
+      "path": "v2/parity-review/candidate-detail-ready-side-by-side-2900x970.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "parity-review-evidence",
+      "width": 2900,
+      "height": 970,
+      "implementationUse": "side-by-side-review-only-not-figma-ready"
+    },
+    {
+      "path": "v2/superseded/legacy-v2-candidate-detail-seeded-id-34-redirected-dashboard-1440x900.png",
+      "package": "v2-candidates",
+      "evidenceStatus": "superseded",
+      "width": 1440,
+      "height": 900,
+      "implementationUse": "do-not-use-for-implementation"
+    }
+  ]
+}

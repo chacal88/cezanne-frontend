@@ -37,6 +37,7 @@ export function buildCandidateDatabaseAtsRow(input: {
   hasDuplicate?: boolean;
   wasMerged?: boolean;
   importStatus?: 'idle' | 'pending' | 'succeeded' | 'failed';
+  syncStatus?: 'idle' | 'pending' | 'failed' | 'degraded';
   gate?: OperationalReadinessGateResult;
 }): CandidateDatabaseAtsRow {
   const sourceIdentity = normalizeAtsSourceIdentity(input);
@@ -46,7 +47,9 @@ export function buildCandidateDatabaseAtsRow(input: {
     sourceIdentity,
     sourceState: input.sourceState,
     duplicateOutcome: resolveAtsDuplicatePolicy(input),
-    syncImportOutcome: resolveAtsSyncImportOutcome({ kind: 'import', status: input.importStatus }),
+    syncImportOutcome: input.syncStatus
+      ? resolveAtsSyncImportOutcome({ kind: 'sync', status: input.syncStatus })
+      : resolveAtsSyncImportOutcome({ kind: 'import', status: input.importStatus }),
   });
 
   return {

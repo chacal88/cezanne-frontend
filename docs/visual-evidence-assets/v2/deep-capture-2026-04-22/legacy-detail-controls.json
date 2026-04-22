@@ -1,0 +1,335 @@
+[
+  {
+    "i": 0,
+    "tag": "A",
+    "text": "",
+    "href": "/dashboard",
+    "type": null,
+    "cls": "logo",
+    "visible": true
+  },
+  {
+    "i": 2,
+    "tag": "A",
+    "text": "Get help",
+    "href": "https://knowledge-base.cezannehr.com/",
+    "type": null,
+    "cls": "get-help",
+    "visible": true
+  },
+  {
+    "i": 3,
+    "tag": "A",
+    "text": "16",
+    "href": null,
+    "type": null,
+    "cls": "dropdown-toggle",
+    "visible": true
+  },
+  {
+    "i": 20,
+    "tag": "A",
+    "text": "Dashboard",
+    "href": "/dashboard",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 21,
+    "tag": "A",
+    "text": "My jobs",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 24,
+    "tag": "A",
+    "text": "Inbox",
+    "href": "/inbox",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 25,
+    "tag": "A",
+    "text": "CV database",
+    "href": "/candidates-database",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 26,
+    "tag": "A",
+    "text": "Templates",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 33,
+    "tag": "A",
+    "text": "Team",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 37,
+    "tag": "A",
+    "text": "Settings",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 45,
+    "tag": "A",
+    "text": "Reports",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 50,
+    "tag": "A",
+    "text": "Billing",
+    "href": "/billing",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 51,
+    "tag": "A",
+    "text": "My jobs",
+    "href": "/jobs",
+    "type": null,
+    "cls": "ng-binding",
+    "visible": true
+  },
+  {
+    "i": 52,
+    "tag": "A",
+    "text": "Live jobs",
+    "href": "/jobs",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 53,
+    "tag": "A",
+    "text": "API Seed Pipeline api-seed-1776817888-62113",
+    "href": "/job/13",
+    "type": null,
+    "cls": "ng-binding",
+    "visible": true
+  },
+  {
+    "i": 54,
+    "tag": "BUTTON",
+    "text": "Back to job",
+    "href": "/job/13?section=candidates",
+    "type": null,
+    "cls": "btn-back ng-binding ng-scope",
+    "visible": true
+  },
+  {
+    "i": 55,
+    "tag": "SELECT",
+    "text": "-- Select an option New Candidate (0) Shortlisted (1) Phone Interview (0) Face to Face (2) Offering (0) Rejected (2) Hir",
+    "href": null,
+    "type": null,
+    "cls": "form-control input-sm ng-pristine ng-untouched ng-valid ng-not-empty",
+    "visible": true
+  },
+  {
+    "i": 56,
+    "tag": "A",
+    "text": "Candidate 1 of 2",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 57,
+    "tag": "A",
+    "text": "Next",
+    "href": "/candidate/33b1f940-9538-4389-a726-f5ad0fcc83fc/13?status=24",
+    "type": null,
+    "cls": "next-btn ng-binding",
+    "visible": true
+  },
+  {
+    "i": 60,
+    "tag": "A",
+    "text": "More actions",
+    "href": null,
+    "type": null,
+    "cls": "oc-button oc-button--primary-light oc-button--sm oc-button--full ng-binding",
+    "visible": true
+  },
+  {
+    "i": 64,
+    "tag": "INPUT",
+    "text": "Select tags or type to add...",
+    "href": null,
+    "type": "search",
+    "cls": "ui-select-search input-xs ng-pristine ng-untouched ng-valid ng-empty",
+    "visible": true
+  },
+  {
+    "i": 65,
+    "tag": "A",
+    "text": "Delete candidate",
+    "href": null,
+    "type": null,
+    "cls": "ng-binding ng-isolate-scope",
+    "visible": true
+  },
+  {
+    "i": 66,
+    "tag": "A",
+    "text": "Edit candidate",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 67,
+    "tag": "A",
+    "text": "Export candidate profile",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 74,
+    "tag": "A",
+    "text": "Virtual contact file (vCard)",
+    "href": null,
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 75,
+    "tag": "A",
+    "text": "Latest CV",
+    "href": "#cv",
+    "type": null,
+    "cls": "ng-binding",
+    "visible": true
+  },
+  {
+    "i": 76,
+    "tag": "A",
+    "text": "Activity",
+    "href": "#timeline",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 77,
+    "tag": "A",
+    "text": "Interview score",
+    "href": "#interviews",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 78,
+    "tag": "A",
+    "text": "Forms & docs",
+    "href": "#forms-documents",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 79,
+    "tag": "A",
+    "text": "Contracts",
+    "href": "#contracts",
+    "type": null,
+    "cls": "ng-scope",
+    "visible": true
+  },
+  {
+    "i": 80,
+    "tag": "A",
+    "text": "Comments 1",
+    "href": "#comments",
+    "type": null,
+    "cls": "ng-binding",
+    "visible": true
+  },
+  {
+    "i": 81,
+    "tag": "A",
+    "text": "Emails",
+    "href": "#messages",
+    "type": null,
+    "cls": "ng-binding",
+    "visible": true
+  },
+  {
+    "i": 82,
+    "tag": "BUTTON",
+    "text": "CV",
+    "href": null,
+    "type": "button",
+    "cls": "relative inline-block btn btn-sm btn-gray",
+    "visible": true
+  },
+  {
+    "i": 83,
+    "tag": "BUTTON",
+    "text": "Cover note",
+    "href": null,
+    "type": "button",
+    "cls": "relative inline-block btn btn-sm btn-white-alt",
+    "visible": true
+  },
+  {
+    "i": 84,
+    "tag": "BUTTON",
+    "text": "Reload CV",
+    "href": null,
+    "type": "button",
+    "cls": "oc-button oc-button--white oc-button--sm ng-binding ng-scope",
+    "visible": true
+  },
+  {
+    "i": 85,
+    "tag": "A",
+    "text": "Download CV",
+    "href": "",
+    "type": null,
+    "cls": "oc-button oc-button--gray oc-button--sm ng-binding",
+    "visible": true
+  },
+  {
+    "i": 118,
+    "tag": "A",
+    "text": "Cezanne Recruitment",
+    "href": "http://cezannehr.com",
+    "type": null,
+    "cls": "",
+    "visible": true
+  }
+]

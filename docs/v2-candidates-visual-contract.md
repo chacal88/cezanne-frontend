@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document is the V2 visual-readiness package from `pre-figma-flow-review.md`. It prepares the candidate route family for Figma/screen-flow work without using Figma as a source of product behavior.
+This document is the V2 visual-readiness package from `pre-figma-flow-review.md`. It prepares the candidate route family for screen-flow work without using Figma as a source of product behavior. Current V2 candidate implementation evidence is behaviour-complete for selected paths but parity-blocked against legacy until the side-by-side blockers in `visual-evidence-v2-candidates.md` are resolved or explicitly accepted.
 
 V2 covers:
 - candidate detail hub and optional contextual route segments;
@@ -15,12 +15,12 @@ V2 covers:
 
 | Family | Contract status | Visual status | Figma-ready? | Notes |
 |---|---|---|---|---|
-| Candidate detail hub | Contract-reviewed | Pending | No | Hub panels, optional context segments, sequence navigation, degraded panels, and parent return need canonical visual frames. |
-| Candidate database/search | Contract-reviewed | Pending | No | Canonical `/candidates-database` screen, filter state, advanced/bulk behavior, ATS source state, and legacy redirects need visual confirmation. |
-| Schedule launcher | Contract-reviewed | Pending | No | Candidate-owned schedule task needs provider readiness, slots/conflict, submission, retry, and parent refresh states. |
-| Offer launcher | Contract-reviewed | Pending | No | Candidate-owned offer task needs contract-signing readiness, send/status-refresh, failure, retry, and parent refresh states. |
-| Reject launcher | Contract-reviewed | Pending | No | Candidate-owned reject task needs reason/review/scoring states and terminal/read-only handling. |
-| Documents/contracts/surveys/collaboration | Contract-reviewed | Pending | No | Route-local panel states need visual boundaries without inventing backend schemas. |
+| Candidate detail hub | Contract-reviewed | Current product-composition recaptured + legacy reference | Yes, covered rows | Current greenfield shows profile summary, context/return, sequence, action stack, document/insight/collaboration panels, degraded, and upload states. Legacy remains reference-only. |
+| Candidate database/search | Contract-reviewed | Current product-composition recaptured + legacy reference | Yes, covered rows | Current greenfield shows header/search context, saved filters/list rail, bulk toolbar, result table, empty/filtered-empty, advanced invalid/unsupported, and ATS/bulk states. Legacy remains reference-only. |
+| Schedule launcher | Contract-reviewed | Current product-composition recaptured | Yes, covered rows | Current greenfield shows task shell, parent return, ready/job-context, and failure/retry states; additional provider-blocked variants require separate evidence before promotion. |
+| Offer launcher | Contract-reviewed | Current product-composition recaptured | Yes, covered rows | Current greenfield shows task shell, contract readiness, database-origin parent, ready, and success/refresh states; field-specific offer payloads remain deferred. |
+| Reject launcher | Contract-reviewed | Current product-composition recaptured | Yes, covered rows | Current greenfield shows reject task shell and readiness boundary; reason catalog and terminal/read-only variants remain deferred until separately evidenced. |
+| Documents/contracts/surveys/collaboration | Contract-reviewed | Current product-composition recaptured | Yes, covered rows | Current greenfield shows bounded document/contract, survey/custom-field/feedback, and collaboration panels without raw payloads. |
 
 ## Evidence sources
 
@@ -91,7 +91,7 @@ V2 covers:
 |---|---|
 | Desktop primary | Candidate hub/database/action launchers are desktop-first authenticated shell screens. |
 | Narrow desktop/tablet | Preserve panel navigation, filter controls, action launcher close/return actions, and parent context indicators. |
-| Mobile | Out of scope for V2 Figma-ready unless product confirms mobile parity. |
+| Mobile | Out of scope for V2 final visual readiness unless product confirms mobile parity. |
 
 ## Non-goals
 
@@ -101,11 +101,20 @@ V2 covers:
 - Do not create canonical frames for legacy candidate database aliases.
 - Do not change implementation code from this visual contract.
 
-## Required outputs before marking V2 rows `Figma-ready`
+## Covered `Figma-ready` outputs
 
-1. Candidate detail hub visual state map for loading, ready, contextual entry, sequence navigation, degraded/stale, denied, not-found, and unavailable states.
-2. Candidate database visual map for canonical search/list, advanced filters, empty/filtered-empty, bulk action readiness, ATS source states, and detail handoff.
-3. Candidate action visual map for schedule, offer, and reject with provider/contract/readiness states, submit/retry/failure/success, and parent refresh intent.
-4. Candidate panel visual boundaries for documents/contracts/surveys/custom fields/collaboration/upload without inventing backend schemas.
-5. Alias handling note showing `/candidates-old`, `/candidates-new`, and candidate offer reference rows map to canonical visual targets.
-6. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above.
+1. Candidate detail hub visual map is covered for ready, job/database/notification context, sequence navigation, degraded section rendering, and upload feedback. Denied, not-found, unavailable, and mobile variants remain deferred until recaptured.
+2. Candidate database visual map is covered for canonical search/list, active filters, empty/filtered-empty, advanced invalid/unsupported, bulk partial/blocked/failed, ATS duplicate/import, and detail handoff. Field-specific backend columns remain deferred.
+3. Candidate action visual map is covered for schedule, offer, and reject task shells with ready, failure/retry, database-origin parent, cancel controls, and success/refresh evidence. Provider-blocked/degraded/unavailable and terminal/read-only variants need separate evidence before promotion.
+4. Candidate panel visual boundaries are covered for documents/contracts/surveys/custom fields/collaboration/upload without raw payloads.
+5. Alias handling remains documentation-only: `/candidates-old`, `/candidates-new`, and candidate offer reference rows map to canonical visual targets and must not become standalone frames.
+6. `pre-figma-flow-review.md` may mark only the rows and states covered by the recaptured current evidence as `Figma-ready`.
+
+
+## Parity acceptance rule
+
+For this package, `Figma-ready` requires side-by-side legacy parity review. Functional captures alone are insufficient. A row may be promoted only after current and legacy captures are compared for layout, spacing, typography, icons, menu placement, modal placement, table behaviour, tab behaviour, and task/action behaviour, with every accepted difference documented.
+
+## Legacy parity requirement
+
+Candidate database, detail, and action launcher screens must match the authenticated legacy reference in appearance and behaviour before final Figma-ready promotion. The current greenfield screenshots are behaviour evidence only where `visual-evidence-v2-candidates.md` marks them parity-blocked. Do not use standalone task pages as final schedule/offer/reject references while the legacy flow uses modal composition unless product explicitly accepts that deviation.

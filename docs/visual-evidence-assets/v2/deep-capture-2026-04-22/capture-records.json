@@ -1,0 +1,464 @@
+[
+  {
+    "system": "legacy",
+    "label": "database ready viewport",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/01-database-ready-viewport.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "shell sidebar toggle state on database",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/02-shell-sidebar-toggle-state-on-database.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "top notification menu from database",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/03-top-notification-menu-from-database.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "user account menu from database",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.user-name, .recruit-shell__user-button, button:has-text(\"User menu\")').first()\u001b[22m\n\u001b[2m    - locator resolved to <a cla",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "add new menu opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/05-add-new-menu-opened.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "saved filters section or menu",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/06-saved-filters-section-or-menu.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "saved lists section or menu",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/07-saved-lists-section-or-menu.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "add column menu opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/08-add-column-menu-opened.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "bulk actions initial state",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/09-bulk-actions-initial-state.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "database first row selected",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/10-database-first-row-selected.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "bulk actions after first row selected",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/11-bulk-actions-after-first-row-selected.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "database search filtered no match",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/12-database-search-filtered-no-match.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "reset or clear filters after search",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/13-reset-or-clear-filters-after-search.png",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "table sort interaction",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('th a, th button, .candidate-db-sort-link').first().first()\u001b[22m\n",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "first row open candidate action",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('a[href*=\"/candidate/\"]').first().first()\u001b[22m\n\u001b[2m    - locator resolved to <a ng-class=\"{read: !$ctrl.notification.read}",
+    "url": "http://localhost:4000/candidates-database"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail ready viewport",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/20-candidate-detail-ready-viewport.png",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail stage selector opened",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText(/Stage|Hiring flow|Screening|Shortlisted|New Candidate/).or(locator('select')).or(locator('[aria-label*=\"stage\" i]')).fi",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail more actions opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/22-candidate-detail-more-actions-opened.png",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail latest cv tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/24-candidate-detail-latest-cv-tab.png",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24#cv"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail activity tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/25-candidate-detail-activity-tab.png",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24#timeline"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail comments tab",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Comments').or(locator('[role=tab]:has-text(\"Comments\")')).first()\u001b[22m\n\u001b[2m    - locator resolved to <span class=\"ng-sc",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail documents tab",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Documents').or(locator('[role=tab]:has-text(\"Documents\")')).first()\u001b[22m\n\u001b[2m    - locator resolved to <a ui-sref-activ",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail forms tab",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Forms').or(locator('[role=tab]:has-text(\"Forms\")')).first()\u001b[22m\n\u001b[2m    - locator resolved to <a ui-sref-active=\"activ",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail contracts tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/29-candidate-detail-contracts-tab.png",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24#contracts"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail surveys tab",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Surveys').or(locator('[role=tab]:has-text(\"Surveys\")')).first()\u001b[22m\n",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail custom fields tab",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Custom fields').or(locator('[role=tab]:has-text(\"Custom fields\")')).first()\u001b[22m\n",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail feedback tab",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Feedback').or(locator('[role=tab]:has-text(\"Feedback\")')).first()\u001b[22m\n",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail schedule action opened",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Schedule').or(locator('[aria-label*=\"Schedule\" i]')).first()\u001b[22m\n\u001b[2m    - locator resolved to <a class=\"ng-binding\" n",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail offer action opened",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Offer').or(locator('[aria-label*=\"Offer\" i]')).first()\u001b[22m\n\u001b[2m    - locator resolved to <option value=\"22\" class=\"ng-",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail reject action opened",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Reject').or(locator('[aria-label*=\"Reject\" i]')).first()\u001b[22m\n\u001b[2m    - locator resolved to <a href=\"/reject-reasons\" u",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail email message action opened",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Email').or(locator('[aria-label*=\"Email\" i]')).first()\u001b[22m\n\u001b[2m    - locator resolved to <a href=\"/templates\" ui-sref-",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail tag action opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/44-candidate-detail-tag-action-opened.png",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "legacy",
+    "label": "candidate detail upload cv action opened",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Upload').or(locator('[aria-label*=\"Upload\" i]')).first()\u001b[22m\n\u001b[2m    - locator resolved to <b>Direct CV upload</b>\u001b[22",
+    "url": "http://localhost:4000/candidate/0ba66e9e-8261-45af-a83c-359affdb16b7/13?status=24"
+  },
+  {
+    "system": "new",
+    "label": "database ready viewport",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/01-database-ready-viewport.png",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "shell sidebar toggle state on database",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/02-shell-sidebar-toggle-state-on-database.png",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "top notification menu from database",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/03-top-notification-menu-from-database.png",
+    "url": "http://localhost:5173/notifications"
+  },
+  {
+    "system": "new",
+    "label": "user account menu from database",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/04-user-account-menu-from-database.png",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "add new menu opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/05-add-new-menu-opened.png",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "saved filters section or menu",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/06-saved-filters-section-or-menu.png",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "saved lists section or menu",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/07-saved-lists-section-or-menu.png",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "add column menu opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/08-add-column-menu-opened.png",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "bulk actions initial state",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Bulk Actions').or(locator('button:has-text(\"Bulk Actions\")')).first()\u001b[22m\n\u001b[2m    - locator resolved to <button disabl",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "database first row selected",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/10-database-first-row-selected.png",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "bulk actions after first row selected",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Bulk Actions').or(locator('button:has-text(\"Bulk Actions\")')).first()\u001b[22m\n\u001b[2m    - locator resolved to <button disabl",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "database search filtered no match",
+    "status": "failed",
+    "error": "locator.fill: Timeout 3000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder*=\"Search\" i], input[type=search], input.form-control').first()\u001b[22m\n\u001b[2m    - locator resolved to <input",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "reset or clear filters after search",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Reset').or(getByText('Clear')).first()\u001b[22m\n",
+    "url": "http://localhost:5173/candidates-database"
+  },
+  {
+    "system": "new",
+    "label": "table sort interaction",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/14-table-sort-interaction.png",
+    "url": "http://localhost:5173/candidates-database?sort=name&order=asc"
+  },
+  {
+    "system": "new",
+    "label": "first row open candidate action",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/15-first-row-open-candidate-action.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail ready viewport",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/20-candidate-detail-ready-viewport.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail stage selector opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/21-candidate-detail-stage-selector-opened.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail more actions opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/22-candidate-detail-more-actions-opened.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail latest cv tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/24-candidate-detail-latest-cv-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail activity tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/25-candidate-detail-activity-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail comments tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/26-candidate-detail-comments-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail documents tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/27-candidate-detail-documents-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail forms tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/28-candidate-detail-forms-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail contracts tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/29-candidate-detail-contracts-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail surveys tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/30-candidate-detail-surveys-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail custom fields tab",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Custom fields').or(locator('[role=tab]:has-text(\"Custom fields\")')).first()\u001b[22m\n",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail feedback tab",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/32-candidate-detail-feedback-tab.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail schedule action opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/40-candidate-detail-schedule-action-opened.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail offer action opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/41-candidate-detail-offer-action-opened.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail reject action opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/42-candidate-detail-reject-action-opened.png",
+    "url": "http://localhost:5173/candidate/candidate-123/cv-reject/cv-123?entry=database&parent=%2Fcandidate%2Fcandidate-123%3Fentry%3Ddatabase%26returnTo%3D%252Fcandidates-database%26degrade%3D%255B%255D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail email message action opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/43-candidate-detail-email-message-action-opened.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail tag action opened",
+    "status": "failed",
+    "error": "locator.click: Timeout 2500ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Tag').or(locator('[aria-label*=\"Tag\" i]')).first()\u001b[22m\n",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  },
+  {
+    "system": "new",
+    "label": "candidate detail upload cv action opened",
+    "status": "captured",
+    "path": "docs/visual-evidence-assets/v2/deep-capture-2026-04-22/new/45-candidate-detail-upload-cv-action-opened.png",
+    "url": "http://localhost:5173/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database&degrade=%5B%5D"
+  }
+]

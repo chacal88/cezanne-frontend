@@ -1413,15 +1413,7 @@ const recruitmentAgencyProfileRoute = createRoute({
     </AccessBoundary>
   ),
 });
-const logoutRoute = createRoute({
-  getParentRoute: () => shellLayoutRoute,
-  path: '/logout',
-  component: () => (
-    <AccessBoundary capability="canLogout" fallback={<Navigate to="/" replace />}>
-      <LogoutPage />
-    </AccessBoundary>
-  ),
-});
+const logoutRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/logout', component: LogoutPage });
 const accessDeniedRoute = createRoute({ getParentRoute: () => rootRoute, path: '/access-denied', component: AccessDeniedPage });
 
 const routeTree = rootRoute.addChildren([
@@ -1436,6 +1428,7 @@ const routeTree = rootRoute.addChildren([
     cezanneCallbackRoute,
     samlCallbackRoute,
     inviteTokenRoute,
+    logoutRoute,
     publicExternalLayoutRoute.addChildren([
       sharedJobRoute,
       publicApplicationRoute,
@@ -1543,7 +1536,6 @@ const routeTree = rootRoute.addChildren([
     userProfileRoute,
     hiringCompanyProfileRoute,
     recruitmentAgencyProfileRoute,
-    logoutRoute,
   ]),
   accessDeniedRoute,
 ]);

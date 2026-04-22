@@ -10,8 +10,8 @@ This document blocks Figma/screen-flow production until every route and flow fro
 |---|---|---|
 | Complete route inventory imported from `screens.md` | Done | 103 canonical route rows imported; 4 alias/reference rows are tracked separately below. |
 | Domain-by-domain flow review | Done | All route rows are contract-reviewed; no domain is fully Figma-ready until visual evidence is confirmed. |
-| Visual reference confirmation | Ready for evidence capture | Contract review and V0-V5 visual-readiness packages are complete; canonical visual evidence capture is the next gate. |
-| Figma production | Blocked | Do not create/attach canonical Figma frames until the relevant row is marked `Figma-ready`. |
+| Visual reference confirmation | In progress | V0/V1 evidence capture is complete for covered sub-blocks; V2 candidate behaviour evidence is recaptured but parity-blocked against legacy. V3-V5 evidence remains pending. |
+| Figma production | Partially unblocked | V0 and V1 covered sub-blocks may proceed to Figma; V2 candidate rows are blocked from final Figma-ready promotion until legacy parity blockers are resolved. Uncovered auth/token/provider/schema/terminal states and V3-V5 remain blocked. |
 
 ## Review status values
 
@@ -39,12 +39,13 @@ This document blocks Figma/screen-flow production until every route and flow fro
 
 | Domain | Rows | H | M | L | Current status |
 |---|---:|---:|---:|---:|---|
-| `auth` | 9 | 8 | 1 | 0 | Partial: core contract-reviewed; no row is Figma-ready |
+| `auth` | 9 | 8 | 0 | 1 | Partial: logout is Figma-ready; primary login is Figma-ready only as a sub-block, while token/SSO/session-loss variants remain contract-reviewed |
 | `shell` | 5 | 1 | 4 | 0 | Partial: all rows contract-reviewed; canonical visuals still pending |
-| `dashboard` | 1 | 1 | 0 | 0 | Partial: API-backed contract-reviewed; visual parity debt remains |
-| `inbox` | 1 | 1 | 0 | 0 | Partial: fixture-backed contract-reviewed; API/live conversation visuals pending |
-| `jobs` | 12 | 8 | 4 | 0 | Partial: all rows contract-reviewed for route/state; canonical visuals and backend API depth still pending |
-| `candidates` | 7 | 4 | 3 | 0 | Partial: all rows contract-reviewed for route/state; canonical visuals and backend API depth still pending |
+| `dashboard` | 1 | 1 | 0 | 0 | Figma-ready for desktop dashboard base after current and legacy authenticated seed capture; parity refinements remain tracked debt |
+| `notifications` | 1 | 1 | 0 | 0 | Figma-ready for V0 fixture-backed resolver categories by explicit decision; live API replacement remains deferred |
+| `inbox` | 1 | 0 | 0 | 1 | Figma-ready for V0 fixture-backed empty/selected conversation states by explicit decision; send/live transport remains deferred |
+| `jobs` | 12 | 8 | 4 | 0 | Figma-ready for V1 screen-flow bases after current/legacy visual evidence; provider/form/schema refinements remain deferred debt |
+| `candidates` | 7 | 4 | 3 | 0 | Partial: V2 current behaviour evidence exists, but legacy parity review blocks final Figma-ready promotion; deferred provider/schema/terminal variants remain blocked |
 | `public-external` | 9 | 1 | 7 | 1 | Partial: all rows contract-reviewed for token/state/workflow; canonical visuals and backend API depth still pending |
 | `settings` | 17 | 0 | 14 | 3 | Partial: all rows contract-reviewed; canonical visuals and backend contracts still pending |
 | `integrations` | 5 | 0 | 2 | 3 | Partial: all rows contract-reviewed for setup/token contracts; canonical visuals and backend API depth still pending |
@@ -58,7 +59,7 @@ This document blocks Figma/screen-flow production until every route and flow fro
 
 ## Visual-readiness pass
 
-Contract review is complete, but Figma production remains blocked until each route family has canonical visual evidence. The visual pass must capture source/reference evidence, target screen states, responsive assumptions, and explicit non-goals before any row is promoted to `Figma-ready`.
+Contract review is complete, and Figma production is partially unblocked only for rows/sub-blocks explicitly marked `Figma-ready`. V0/V1 covered bases may proceed; V2 candidate rows must remain parity-blocked until side-by-side legacy mismatches are resolved or explicitly accepted. Deferred provider/schema/terminal variants remain blocked until separately evidenced.
 
 | Phase | Domain/family | Required visual evidence | Minimum states to confirm | Output before Figma-ready |
 |---|---|---|---|---|
@@ -88,13 +89,13 @@ Contract review is complete, but Figma production remains blocked until each rou
 | Package | Covered phase | Status | Next evidence action |
 |---|---|---|---|
 | `v0-auth-shell-dashboard-visual-contract.md` | V0 auth, shell, dashboard, notifications, inbox | Prepared | Capture legacy/current app visual evidence and accepted deviations for R0 anchor flows. |
-| `v1-jobs-visual-contract.md` | V1 jobs list, authoring, detail, task overlays, requisitions | Prepared | Capture jobs list/detail/authoring/task state visuals without inventing backend schemas. |
-| `v2-candidates-visual-contract.md` | V2 candidate hub, database, actions, panel boundaries | Prepared | Capture candidate hub/database/action visuals and alias handling. |
+| `v1-jobs-visual-contract.md` | V1 jobs list, authoring, detail, task overlays, requisitions | Evidence captured | `visual-evidence-v1-jobs.md` covers V1 screen-flow bases and records deferred provider/form/schema details. |
+| `v2-candidates-visual-contract.md` | V2 candidate hub, database, actions, panel boundaries | Product-composition evidence captured | `visual-evidence-v2-candidates.md` captures current/legacy evidence and records covered candidate rows as behaviour-evidenced but parity-blocked while keeping provider/schema/terminal variants deferred. |
 | `v3-public-external-token-visual-contract.md` | V3 public/external and integration token flows | Prepared | Capture public token lifecycle and route-specific public-layout evidence. |
 | `v4-operations-visual-contract.md` | V4 settings, integrations admin, reports, billing, team, favorites, marketplace | Prepared | Capture operational authenticated-shell module evidence and blocked/degraded states. |
 | `v5-sysadmin-platform-visual-contract.md` | V5 SysAdmin/platform users, queues, master data, subscriptions, taxonomy | Prepared | Capture platform admin evidence while preserving org/platform boundaries. |
 
-No package marks any row `Figma-ready` by itself. A row becomes `Figma-ready` only after the relevant package is populated with canonical visual evidence and accepted deviations.
+No package marks any row `Figma-ready` by itself. A row becomes `Figma-ready` only after the relevant package is populated with canonical visual evidence and accepted deviations. Use `visual-evidence-capture-plan.md` for the evidence schema, capture order, and promotion rule.
 
 ## Route review inventory
 
@@ -104,7 +105,7 @@ No package marks any row `Figma-ready` by itself. A row becomes `Figma-ready` on
 |---|---|---|---|---|---|---|
 | Contract-reviewed | `/` | Public/Token | entry | H | R0 | Confirmed in router, route metadata, auth API adapter, and public page tests. Covers direct entry, returnTo, email/password, 2FA, provider launch, failed login, session bootstrap, and dashboard redirect. Visual reference exists for login only; final non-happy-state visual signoff is still pending. |
 | Contract-reviewed | `/confirm-registration/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and `confirmRegistrationToken`; handles missing/invalid token, token_valid with session bootstrap, approval-pending redirect, failed API, and dashboard/login landing. Visual state references pending. |
-| Contract-reviewed | `/forgot-password` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata, API adapter, and public page tests. Handles direct entry, submit, mail_sent, mail_not_found/default failed state, retry, and return to login. Visual state references pending. |
+| Figma-ready | `/forgot-password` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata, API adapter, public page tests, legacy ready visual, and current submitted/sent capture. Covers ready, submit/sent, retry, and return-to-login visuals; not-found/default failed copy remains backend-owned and should reuse the same message slot. |
 | Contract-reviewed | `/reset-password/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and API adapter. Handles token validation, missing/invalid/expired token, password mismatch, submit success, failed submit, and login redirect. Visual state references pending. |
 | Contract-reviewed | `/register/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and API adapter. Covers invitation token registration plus public HC/RA registration, password mismatch, submit success/failure, and login redirect. Visual state references pending. |
 | Contract-reviewed | `/auth/cezanne/:tenantGuid` | Public/Token | sso-callbacks | H | R0 | Confirmed in router/metadata and public page code. Launches current auth service `/login/cezanne/:tenantGuid`; missing tenant returns failed state. Visual launch/failure references pending. |
@@ -130,11 +131,11 @@ Remaining blockers before `Figma-ready`:
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Contract-reviewed | `/notifications` | Page | notifications | H | R0 | Confirmed in router/metadata and notification-state tests. Covers shell/topbar/direct entry, typed destination resolution, ready/empty/degraded/unavailable, unknown/missing/unsupported/denied/stale targets, unread count, dashboard fallback reason, and safe telemetry. Still fixture-backed; canonical notification list visuals pending. |
+| Figma-ready | `/notifications` | Page | notifications | H | R0 | Confirmed in router/metadata, notification-state tests, and current visual evidence for fixture-backed resolver categories. V0 explicitly accepts fixture-backed destination categories as temporary Figma input; live API replacement must preserve available/unknown/unsupported/denied/stale fallback semantics. |
 | Contract-reviewed | `/user-profile` | ShellOverlay | account-context | M | R0 | Confirmed in router/metadata, shell account navigation, and account settings page. Uses `canOpenAccountArea`, shell-aware direct entry, close target to dashboard/current shell parent, fixture-backed editable profile states, save/retry/refresh intent, and unknown-field disclosure. Visual overlay reference is confirmed indirectly but final overlay states pending. |
 | Contract-reviewed | `/hiring-company-profile` | Page | account-context | M | R0 | Confirmed in router/metadata, organization profile page, account settings state/page tests, and runtime capability evaluation. Uses `canViewHiringCompanyProfile` for route access plus `canManageCompanySettings` as mutation capability, HC org ownership, dashboard parent return, ready/dirty/saved/denied/degraded/stale/retry states, refresh intent, and explicit unknown persistence fields. Visual reference pending. |
 | Contract-reviewed | `/recruitment-agency-profile` | Page | account-context | M | R0 | Confirmed in router/metadata, organization profile page, account settings state tests, and runtime capability evaluation. Uses `canViewRecruitmentAgencyProfile` for route access plus `canManageAgencySettings` as mutation capability, RA org ownership, dashboard parent return, ready/dirty/saved/denied/degraded/stale/retry states, refresh intent, and explicit unknown persistence fields. Visual reference pending. |
-| Contract-reviewed | `/logout` | Page | session | M | R0 | Confirmed in router/metadata and logout implementation. Runtime canonical class is authenticated-shell `Page` under shell/session with `canLogout`; it clears local auth session, resets access context to public, tracks safe logout telemetry, preserves public-entry fallback semantics, and links to `/`. Visual reference pending for logout/session-loss transition. |
+| Figma-ready | `/logout` | Page | session | M | R0 | Confirmed in router/metadata and updated logout implementation. Runtime now renders a stable public/session logged-out page, clears local auth session, resets access context to public, tracks safe logout telemetry, preserves public-entry fallback semantics, and links to `/`. Explicit session-loss transition remains separate deferred debt. |
 
 
 #### Shell review evidence and remaining blockers
@@ -154,7 +155,7 @@ Remaining blockers before `Figma-ready`:
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Contract-reviewed | `/dashboard` | Page | landing | H | R0-R5 | Confirmed in router/metadata, dashboard API adapter/state/page tests, and legacy visual comparison. API-backed overview uses GraphQL dashboard/auth/users, REST notifications, and calendar query; covers loading skeleton, ready, degraded, platform mode, notification fallback reasons, safe actions, cards, calendar, and activity. Visual parity debt remains intentionally tracked in `roadmap.md`. |
+| Figma-ready | `/dashboard` | Page | landing | H | R0-R5 | Confirmed in router/metadata, dashboard API adapter/state/page tests, local API seed, current API-backed dashboard capture, and authenticated legacy dashboard capture. Covers desktop shell/dashboard base, cards, calendar, activity, source health/degraded handling, and safe actions. Visual/data parity refinements remain tracked debt, not a V0 blocker. |
 
 
 #### Dashboard review evidence and remaining blockers
@@ -172,7 +173,7 @@ Remaining blockers before `Figma-ready`:
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Contract-reviewed | `/inbox?conversation=` | PageWithStatefulUrl | conversation-list | H | R0 | Confirmed in router/metadata, search validation, inbox page tests, and messaging support tests. Covers menu/direct URL/notification/candidate entry, sanitized conversation query, draft/returnTo URL state, empty/ready/not-found/inaccessible/provider-blocked/degraded/unavailable/stale states, refresh/fallback/return links, and safe telemetry. Still fixture-backed for live conversation list/send transport; canonical conversation UI visuals pending. |
+| Figma-ready | `/inbox?conversation=` | PageWithStatefulUrl | conversation-list | H | R0 | Confirmed in router/metadata, search validation, inbox page tests, messaging support tests, and current visual evidence for fixture-backed empty plus selected conversation states. V0 explicitly accepts fixture-backed list/detail visuals as temporary Figma input; send/provider-blocked/live transport remains deferred. |
 
 
 #### Inbox review evidence and remaining blockers
@@ -190,18 +191,18 @@ Remaining blockers before `Figma-ready`:
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Contract-reviewed | `/jobs/:type?page&search&asAdmin&label` | PageWithStatefulUrl | list | H | R1 | Confirmed in router/metadata, search/scope validation, list page tests, and jobs adapters. Covers scope/page/search/asAdmin/label URL state, clear-filters action, ready/empty/filtered-empty/loading/denied/unavailable/degraded/stale states, ATS source status, create entry, and detail links. Still fixture-backed for job list data; canonical list/table visuals pending. |
-| Contract-reviewed | `/jobs/manage/:id?resetWorkflow` | Page | authoring | H | R1 | Confirmed in router/metadata, authoring page, adapters, product-depth, publishing tests. Covers create/edit/copy, resetWorkflow, validating/dirty/saving/saved/save-failed, publish-blocked/partial-publish separation, ATS status, draft serialization seam, and create/edit capabilities. `canResetJobWorkflow` remains an action capability, not a route metadata requirement. Visual authoring/publishing states pending. |
-| Contract-reviewed | `/job/:id?section` | PageWithStatefulUrl | detail | H | R1 | Confirmed in router/metadata, search validation, detail page, adapters, and product-depth tests. Covers overview/candidates/workflow/activity sections, degraded section, unavailable, status transition, assignment/share state, summaries, task links, and parent route for overlays. Still fixture-backed for aggregate job payload; canonical hub visuals pending. |
-| Contract-reviewed | `/job/:id/bid` | RoutedOverlay | task-overlays | M | R1 | Confirmed in router/metadata and shared `JobTaskPage` context. Covers direct/scoped entry, parent sanitization, ready/submit/success/fail/retry/cancel/refresh/denied/unavailable/degraded state model, close/complete parent links, and safe parent refresh intent. Visual bid-create overlay pending. |
-| Contract-reviewed | `/job/:id/bid/:bid_id` | RoutedOverlay | task-overlays | M | R1 | Confirmed in router/metadata and shared `JobTaskPage` context. Covers bidId propagation, scoped parent return, direct-entry fallback, outcome states, and parent refresh intent. Visual bid-view overlay pending. |
-| Contract-reviewed | `/job/:id/cv` | RoutedOverlay | task-overlays | H | R1 | Confirmed in router/metadata and shared `JobTaskPage` context. Covers CV create/entry state model, scoped parent return, outcome states, direct-entry fallback, and parent refresh intent. Actual CV payload/form API remains outside this seam; canonical CV-create visuals pending. |
-| Contract-reviewed | `/job/:id/cv/:cv_id` | RoutedOverlay | task-overlays | H | R1 | Confirmed in router/metadata and shared `JobTaskPage` context. Covers candidate/CV id propagation, parent return, direct-entry fallback, outcome states, and parent refresh intent. Actual CV document/body payload is intentionally not modeled; canonical CV-view visuals pending. |
-| Contract-reviewed | `/job/:id/cv-reject/:cv_id` | TaskFlow | task-overlays | H | R1 | Confirmed in router/metadata and shared job task context. Uses `canRejectCvFromJob`, preserves job/candidate context, supports submit/success/fail/retry/cancel/parent-refresh states, and returns to job parent. Rejection reason catalog/API and exact modal visuals pending. |
-| Contract-reviewed | `/job/:id/cv/:cv_id/schedule` | TaskFlow | task-overlays | H | R1 | Confirmed in router/metadata, task context tests, scheduling support, and provider readiness gate integration. Uses `canScheduleInterviewFromJob`, preserves parent return/section, handles readiness ready/degraded/blocked/unavailable, slots, submit/success/fail/retry/cancel/parent-refresh, and setup remediation target. Exact scheduling form/calendar visuals pending. |
-| Contract-reviewed | `/job/:id/cv/:cv_id/offer` | TaskFlow | task-overlays | H | R1 | Confirmed in router/metadata, task context tests, and contract-signing support. Uses `canCreateOfferFromJob`, preserves parent return/section, attaches job-scoped contract signing action target, document placeholder, ready/send state, and parent refresh intent. Real offer/contract payload and canonical offer visuals pending. |
-| Contract-reviewed | `/build-requisition` | TaskFlow | workflow-state | M | R5 | Confirmed in router/metadata, requisition page, and requisition state tests. Uses `canUseJobRequisitionBranching`, dashboard fallback, explicit-save/no-autosave draft state, data-loss warning, retryable mutation states, and HRIS readiness helper. Canonical requisition draft visuals pending. |
-| Contract-reviewed | `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` | PageWithStatefulUrl | workflow-state | M | R5 | Confirmed in router/metadata, requisition page, and requisition state/routing tests. Uses `canUseJobRequisitionBranching`, workflow/stage params, stale-workflow/workflow-drift authority, explicit parent target to jobs, HRIS operational state separation, and dashboard fallback. Exact requisition workflow visuals pending. |
+| Figma-ready | `/jobs/:type?page&search&asAdmin&label` | PageWithStatefulUrl | list | H | R1 | Confirmed in router/metadata, search/scope validation, list page tests, jobs adapters, and V1 visual evidence. Covers ready, filtered-empty/clear-filters, loading, degraded, stale, unavailable, denied, URL-owned state, create entry, and ATS status. Fixture-backed list data remains accepted as screen-flow evidence only; final production table schema remains deferred. |
+| Figma-ready | `/jobs/manage/:id?resetWorkflow` | Page | authoring | H | R1 | Confirmed in router/metadata, authoring page, adapters, product-depth, publishing tests, and V1 visual evidence. Covers create/edit/copy, resetWorkflow, validating/dirty/saving/saved/save-failed, draft serialization, and route-state layout. Provider-specific publish-blocked/partial-publish labels and full form schema remain deferred. `canResetJobWorkflow` remains an action capability, not a route metadata requirement. |
+| Figma-ready | `/job/:id?section` | PageWithStatefulUrl | detail | H | R1 | Confirmed in router/metadata, search validation, detail page, adapters, product-depth tests, current V1 captures, and authenticated legacy job detail reference. Covers overview/candidates/workflow/activity sections, degraded section, unavailable, status transition, assignment/share state, summaries, task links, and parent route for overlays. Fixture aggregate remains screen-flow evidence only; final backend schema remains deferred. |
+| Figma-ready | `/job/:id/bid` | RoutedOverlay | task-overlays | M | R1 | Confirmed in router/metadata, shared `JobTaskPage` context, and V1 visual evidence. Covers bid-create route shell, scoped parent return, close/complete actions, and task state model. Bid payload/form internals remain deferred. |
+| Figma-ready | `/job/:id/bid/:bid_id` | RoutedOverlay | task-overlays | M | R1 | Confirmed in router/metadata, shared `JobTaskPage` context, and V1 visual evidence. Covers bidId propagation, scoped parent return, direct-entry fallback, outcome states, and parent refresh intent. Bid detail payload remains deferred. |
+| Figma-ready | `/job/:id/cv` | RoutedOverlay | task-overlays | H | R1 | Confirmed in router/metadata, shared `JobTaskPage` context, and V1 visual evidence. Covers CV create route shell, scoped parent return, outcome states, and parent refresh intent. Actual CV payload/form API remains outside this seam. |
+| Figma-ready | `/job/:id/cv/:cv_id` | RoutedOverlay | task-overlays | H | R1 | Confirmed in router/metadata, shared `JobTaskPage` context, and V1 visual evidence. Covers candidate/CV id propagation, parent return, direct-entry fallback, outcome states, and parent refresh intent. Actual CV document/body payload is intentionally not modeled. |
+| Figma-ready | `/job/:id/cv-reject/:cv_id` | TaskFlow | task-overlays | H | R1 | Confirmed in router/metadata, shared job task context, and V1 visual evidence. Uses `canRejectCvFromJob`, preserves job/candidate context, supports ready/failure/cancel/parent-refresh state shells, and returns to job parent. Rejection reason catalog/API and exact form fields remain deferred. |
+| Figma-ready | `/job/:id/cv/:cv_id/schedule` | TaskFlow | task-overlays | H | R1 | Confirmed in router/metadata, task context tests, scheduling support, provider readiness gate integration, and V1 visual evidence. Uses `canScheduleInterviewFromJob`, preserves parent return/section, and captures ready/failure route shells. Provider-blocked/degraded/unavailable labels, slot selection, conflicts, and remediation copy remain deferred. |
+| Figma-ready | `/job/:id/cv/:cv_id/offer` | TaskFlow | task-overlays | H | R1 | Confirmed in router/metadata, task context tests, contract-signing support, and V1 visual evidence. Uses `canCreateOfferFromJob`, preserves parent return/section, attaches job-scoped contract signing action target, document placeholder, ready/success/parent-refresh state shells. Real offer/contract payload remains deferred. |
+| Figma-ready | `/build-requisition` | TaskFlow | workflow-state | M | R5 | Confirmed in router/metadata, requisition page, requisition state tests, and V1 visual evidence. Uses `canUseJobRequisitionBranching`, dashboard fallback, explicit-save/no-autosave draft state, and jobs-side route ownership. Data-loss warning and HRIS readiness labels remain deferred. |
+| Figma-ready | `/job-requisitions/:jobWorkflowUuid/:jobStageUuid?` | PageWithStatefulUrl | workflow-state | M | R5 | Confirmed in router/metadata, requisition page, requisition state/routing tests, and V1 visual evidence. Uses `canUseJobRequisitionBranching`, workflow/stage params, stale-workflow/workflow-drift authority, explicit parent target to jobs, HRIS operational state separation, and dashboard fallback. Exact workflow payload fields remain deferred. |
 
 
 #### Jobs review evidence and remaining blockers
@@ -224,13 +225,13 @@ Remaining blockers before `Figma-ready`:
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Contract-reviewed | `/candidate/:id/:job?/:status?/:order?/:filters?/:interview?` | PageWithStatefulUrl | detail-hub | H | R2 | Confirmed in router/metadata dynamic route arrays, route parsing/search validation, detail page, candidate store, panels, ATS adapters, and routing/product-depth tests. Covers direct/job/notification/database entry, optional job/status/order/filters/interview context, degraded sections, sequence prev/next, database return, ATS source state, documents/contracts, surveys/custom fields, collaboration, action links, upload CV, and safe telemetry. Still fixture-backed for candidate payloads; canonical hub visuals pending. |
-| Contract-reviewed | `/candidate/:id/.../cv/:cv_id/schedule` | TaskFlow | action-launchers | H | R2 | Confirmed in router/metadata action route arrays, task search validation, candidate task page, action context tests, and calendar scheduling support. Runtime route uses specific `canScheduleInterviewFromCandidate` boundary while metadata family records `canOpenCandidateAction`; preserves contextual or database-origin parent, recovery target, readiness gate, slots, submit/success/failure/cancel, and parent refresh intent. Schedule visuals and provider-blocked/degraded states pending. |
-| Contract-reviewed | `/candidate/:id/.../cv/:cv_id/offer` | TaskFlow | action-launchers | H | R2 | Confirmed in router/metadata action route arrays, task search validation, candidate task page, action context tests, and contract-signing support. Runtime route uses specific `canCreateOfferFromCandidate` boundary while metadata family records `canOpenCandidateAction`; preserves parent/recovery/database return, attaches candidate-scoped contract signing target, send/status-refresh telemetry, and parent refresh intent. Real offer payload and visuals pending. |
-| Contract-reviewed | `/candidate/:id/.../cv-reject/:cv_id` | TaskFlow | action-launchers | H | R2 | Confirmed in router/metadata action route arrays, task search validation, candidate task page, action context, and survey/review scoring support. Runtime route uses `canRejectCandidate` while metadata family records `canOpenCandidateAction`; preserves parent/recovery/database return, submit/failure/cancel/success, review/scoring terminal outcome, candidate store update, and parent refresh intent. Reject reason/review visuals pending. |
-| Contract-reviewed | `/candidates-old?query&page` | PageWithStatefulUrl | database-search | M | R4 | Confirmed in router/metadata as compatibility entry that redirects to canonical `/candidates-database` with sanitized state. Uses `canViewCandidateDatabase`; `canSearchCandidates` remains action capability. Preserves query/page/sort/order/stage/tags/advanced state through canonicalization. Visuals should use canonical database route, not legacy alias. |
-| Contract-reviewed | `/candidates-database?query&page` | PageWithStatefulUrl | database-search | M | R4 | Confirmed in router/metadata, database route parser, database page, candidate database routing tests, ATS adapters, and product-depth tests. Covers sanitized query/page/sort/order/stage/tags/advanced query, empty/ready/stale/degraded/retryable, advanced invalid/unsupported, bulk none/eligible/partial/blocked/failed/retryable, ATS duplicate/import state, and database-to-detail return target. Fixture-backed results only; canonical database visuals pending. |
-| Contract-reviewed | `/candidates-new?query&page` | PageWithStatefulUrl | database-search | M | R4 | Confirmed in router/metadata as compatibility entry that redirects to canonical `/candidates-database` with sanitized state. Uses `canViewCandidateDatabase`; `canSearchCandidates` remains action capability. Visuals should use canonical database route and document alias behavior only. |
+| Contract-reviewed | `/candidate/:id/:job?/:status?/:order?/:filters?/:interview?` | PageWithStatefulUrl | detail-hub | H | R2 | Confirmed in router/metadata dynamic route arrays, route parsing/search validation, detail page, candidate store, panels, ATS adapters, and routing/product-depth tests. Covers direct/job/notification/database entry, optional job/status/order/filters/interview context, degraded sections, sequence prev/next, database return, ATS source state, documents/contracts, surveys/custom fields, collaboration, action links, upload CV, and safe telemetry. Still fixture-backed for candidate payloads; current V2 product-composition evidence covers ready/context/degraded/upload states, while denied/not-found/unavailable/mobile variants remain deferred. |
+| Contract-reviewed | `/candidate/:id/.../cv/:cv_id/schedule` | TaskFlow | action-launchers | H | R2 | Confirmed in router/metadata action route arrays, task search validation, candidate task page, action context tests, and calendar scheduling support. Runtime route uses specific `canScheduleInterviewFromCandidate` boundary while metadata family records `canOpenCandidateAction`; preserves contextual or database-origin parent, recovery target, readiness gate, slots, submit/success/failure/cancel, and parent refresh intent. Current V2 product-composition evidence covers ready, job-context, failure/retry, cancel, and parent return; provider-blocked/degraded/unavailable variants remain deferred. |
+| Contract-reviewed | `/candidate/:id/.../cv/:cv_id/offer` | TaskFlow | action-launchers | H | R2 | Confirmed in router/metadata action route arrays, task search validation, candidate task page, action context tests, and contract-signing support. Runtime route uses specific `canCreateOfferFromCandidate` boundary while metadata family records `canOpenCandidateAction`; preserves parent/recovery/database return, attaches candidate-scoped contract signing target, send/status-refresh telemetry, and parent refresh intent. Current V2 product-composition evidence covers ready, database-origin parent, contract readiness, and success/refresh; real offer payload fields and terminal/read-only variants remain deferred. |
+| Contract-reviewed | `/candidate/:id/.../cv-reject/:cv_id` | TaskFlow | action-launchers | H | R2 | Confirmed in router/metadata action route arrays, task search validation, candidate task page, action context, and survey/review scoring support. Runtime route uses `canRejectCandidate` while metadata family records `canOpenCandidateAction`; preserves parent/recovery/database return, submit/failure/cancel/success, review/scoring terminal outcome, candidate store update, and parent refresh intent. Current V2 product-composition evidence covers the reject task shell and readiness boundary; reject reason catalog and terminal/read-only variants remain deferred. |
+| Contract-reviewed | `/candidates-old?query&page` | PageWithStatefulUrl | database-search | M | R4 | Confirmed in router/metadata and V2 evidence as a compatibility entry that maps to canonical `/candidates-database` with sanitized state. This row is documentation-only as an alias; do not create a standalone screen. |
+| Contract-reviewed | `/candidates-database?query&page` | PageWithStatefulUrl | database-search | M | R4 | Confirmed in router/metadata, database route parser, database page, candidate database routing tests, ATS adapters, and product-depth tests. Covers sanitized query/page/sort/order/stage/tags/advanced query, empty/ready/stale/degraded/retryable, advanced invalid/unsupported, bulk none/eligible/partial/blocked/failed/retryable, ATS duplicate/import state, and database-to-detail return target. Fixture-backed results only; current V2 product-composition evidence covers canonical database, filtered-empty recovery, advanced invalid/unsupported, bulk partial/blocked/failed, and ATS duplicate/import states. |
+| Contract-reviewed | `/candidates-new?query&page` | PageWithStatefulUrl | database-search | M | R4 | Confirmed in router/metadata and V2 evidence as a compatibility entry that maps to canonical `/candidates-database` with sanitized state. This row is documentation-only as an alias; do not create a standalone screen. |
 
 
 #### Candidates review evidence and remaining blockers
@@ -242,10 +243,10 @@ Confirmed evidence:
 - Candidate database canonicalizes legacy `/candidates-old` and `/candidates-new` entries to `/candidates-database` while preserving sanitized URL state.
 - Database/search, advanced search, bulk actions, ATS source state, duplicate/import/sync states, and detail handoff are modeled without inventing backend APIs.
 
-Remaining blockers before `Figma-ready`:
+Remaining blockers before expanding `Figma-ready` coverage:
 - Candidate data and database rows are fixture-backed adapter seams; Figma must not infer production backend fields beyond the documented state contract.
-- Canonical visuals are missing for candidate hub panels, sequence nav, database return, documents/contracts, survey/custom-field degradation, collaboration handoff, and CV upload.
-- Schedule/offer/reject launchers need separate frames/states for ready, provider-blocked/degraded/unavailable, submit, failure, retry, success, terminal/read-only, and parent-refresh outcomes.
+- Covered current greenfield product-composition captures promote database/detail/action rows only for the evidenced states. Legacy database/detail screenshots are reference-only.
+- Additional provider-blocked/degraded/unavailable, denied, not-found, stale, terminal/read-only, and mobile candidate variants require separate captures before promotion.
 - Route metadata uses `canOpenCandidateAction` as the task route-family gate while runtime route wrappers use specific action capabilities; keep this documented as family gate plus action-specific boundary, not a conflict.
 - Alias/reference row `/candidate/$id/.../cv/$cv_id/offer` must remain mapped to the canonical action route arrays and not become a separate route.
 
@@ -504,9 +505,9 @@ These rows are not independent canonical screens; they point to registered route
 
 ## Current blockers before Figma
 
-- Full domain-by-domain contract review is complete for all 103 canonical route rows and 4 alias/reference rows. No row is `Figma-ready` until canonical visuals are confirmed.
+- Full domain-by-domain contract review is complete for all 103 canonical route rows and 4 alias/reference rows. Rows become `Figma-ready` only when canonical evidence confirms their visual/state scope and unresolved debt is explicitly recorded.
 - Existing auth/dashboard visual references do not cover all token, callback, degraded, denied, stale, retry, and parent-return states.
-- Jobs, candidate, public/external, settings, and integrations exact visual references are still partial; do not start detailed Figma frames until their rows are contract-reviewed and signoff-ready.
+- V0 covered rows and V1 jobs screen-flow bases may proceed to Figma with deferred provider/form/schema annotations. V2 candidate rows are behaviour-evidenced but parity-blocked; public/external, settings, integrations, reports, billing, team/favorites, marketplace, and SysAdmin exact visual references are still partial.
 - Shell/dashboard visual parity debt remains tracked in `roadmap.md` and should be handled during visual refinement, not as API/data blocker.
 
 ## Next review order
@@ -515,7 +516,7 @@ Contract review is complete. The next pass is visual confirmation and Figma-read
 
 1. Auth public/token + SSO callback states.
 2. Shell, dashboard, notifications, inbox.
-3. Jobs list/detail/task overlays.
+3. Jobs list/detail/task overlays. Done for V1 screen-flow bases; provider/form/schema details remain deferred.
 4. Candidate hub/action launchers/database handoff.
 5. Public/external token flows.
 6. Settings, integrations, reports, billing, team/favorites, marketplace.

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useSyncExternalStore } from 'react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { useLocation } from '@tanstack/react-router';
 import { useCapabilities } from '../../../lib/access-control';
 import { createCorrelationId, ensureCorrelationId, setActiveCorrelationId } from '../../../lib/observability';
@@ -12,6 +12,8 @@ import type { CandidateContextSegments, CandidateDegradedSection, CandidateDetai
 import { buildCandidateActionPath, parseCandidateContextFromPathname, parseCandidateDetailSearchFromUrl } from '../support/routing';
 import { getCandidateRecord, subscribeCandidateStore, uploadCandidateCv } from '../support/store';
 import { buildCandidateDetailAtsStatus } from '../support/ats-operational-adapters';
+import { resolveCandidateHubProductState, resolveCandidateSequenceProductState, resolveCandidateActionProductState } from '../support/product-depth';
+import '../candidate-composition.css';
 import { normalizeAtsSourceIdentity } from '../../integrations/support';
 
 function buildCandidateDetailView(context: CandidateContextSegments, degradedSections: CandidateDegradedSection[], entry: 'direct' | 'job' | 'notification' | 'database', capabilities: ReturnType<typeof useCapabilities>, databaseReturnTarget?: string): CandidateDetailView {
@@ -108,6 +110,10 @@ export function CandidateDetailRoutePage() {
   const search = parseCandidateDetailSearchFromUrl(window.location.search);
   const storeSnapshot = useSyncExternalStore(subscribeCandidateStore, () => getCandidateRecord(context.candidateId), () => getCandidateRecord(context.candidateId));
 
+  const [uploadState, setUploadState] = useState<'ready' | 'pending' | 'success' | 'failure'>('ready');
+  const [stageMenuOpen, setStageMenuOpen] = useState(false);
+  const [moreActionsOpen, setMoreActionsOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'cv' | 'activity' | 'interview' | 'forms' | 'contracts' | 'comments' | 'emails'>('cv');
   const view = useMemo(
     () => buildCandidateDetailView(context, search.degrade, search.entry, capabilities, search.returnTo),
     [capabilities, context, search.degrade, search.entry, search.returnTo, storeSnapshot],
@@ -134,7 +140,9 @@ export function CandidateDetailRoutePage() {
 
   function handleUpload() {
     setActiveCorrelationId(createCorrelationId());
+    setUploadState('pending');
     uploadCandidateCv(view.candidateSummary.candidateId);
+    setUploadState(view.candidateSummary.candidateId.includes('upload-fail') ? 'failure' : 'success');
     observability.telemetry.track({
       name: 'candidate_cv_uploaded',
       data: {
@@ -156,61 +164,150 @@ export function CandidateDetailRoutePage() {
     });
   }
 
+  const hubState = resolveCandidateHubProductState({
+    denied: view.candidateSummary.candidateId.includes('denied'),
+    notFound: view.candidateSummary.candidateId.includes('not-found'),
+    unavailable: view.candidateSummary.candidateId.includes('unavailable'),
+    staleContext: view.candidateSummary.candidateId.includes('stale'),
+    degradedSections: view.degradedSections,
+  });
+  const sequenceProductState = resolveCandidateSequenceProductState({
+    entryMode: view.workflowState.entryMode,
+    hasSequence: view.workflowState.sequenceState === 'available',
+    stale: view.workflowState.sequenceState === 'stale',
+    databaseReturnTarget: view.workflowState.databaseReturnTarget,
+  });
+  const uploadProductState = resolveCandidateActionProductState({
+    kind: 'cv-upload',
+    saving: uploadState === 'pending',
+    succeeded: uploadState === 'success',
+    retryable: uploadState === 'failure',
+  });
+
   return (
-    <section>
-      <h1>Candidate hub</h1>
-      <p data-testid="candidate-detail-entry">{view.workflowState.entryMode}</p>
-      <p data-testid="candidate-detail-name">{view.candidateSummary.name}</p>
-      <p data-testid="candidate-detail-stage">{view.candidateSummary.stage}</p>
-      <p data-testid="candidate-detail-last-action">{view.candidateSummary.lastAction}</p>
-      <p data-testid="candidate-detail-headline">{view.candidateSummary.headline}</p>
-      <p data-testid="candidate-detail-job">{view.jobContext?.jobId ?? '—'}</p>
-      <p data-testid="candidate-detail-sequence-state">{view.workflowState.sequenceState}</p>
-      <p data-testid="candidate-detail-ats-state">{view.atsSourceStatus?.kind ?? 'unavailable'}</p>
-      <p data-testid="candidate-detail-ats-refresh">{view.atsSourceStatus?.refreshIntent ?? 'none'}</p>
-      <p data-testid="candidate-database-return-target">{view.workflowState.databaseReturnTarget ?? '—'}</p>
-      {view.workflowState.databaseReturnTarget ? (
-        <a href={view.workflowState.databaseReturnTarget} data-testid="candidate-database-return-link">
-          Return to candidate database
-        </a>
-      ) : null}
-      <div style={{ display: 'flex', gap: 12 }}>
-        {view.workflowState.previousCandidatePath ? (
-          <a href={view.workflowState.previousCandidatePath} data-testid="candidate-prev-link" onClick={() => trackSequence('candidate_sequence_previous')}>
-            Previous candidate
-          </a>
-        ) : null}
-        {view.workflowState.nextCandidatePath ? (
-          <a href={view.workflowState.nextCandidatePath} data-testid="candidate-next-link" onClick={() => trackSequence('candidate_sequence_next')}>
-            Next candidate
-          </a>
-        ) : null}
+    <section className="candidate-product-page" data-testid="candidate-detail-composition">
+      <p className="candidate-detail-breadcrumb">▣ My jobs &gt; Live jobs &gt; {view.jobContext?.jobId ?? 'Candidate database'}</p>
+
+      <div className="candidate-detail-titlebar">
+        <h1>candidate profile</h1>
+        <div className="candidate-detail-legacy-controls">
+          {view.workflowState.databaseReturnTarget ? (
+            <a className="candidate-product-link candidate-product-link--secondary" href={view.workflowState.databaseReturnTarget} data-testid="candidate-database-return-link">← Back to database</a>
+          ) : null}
+          {view.jobContext?.jobId ? (
+            <a className="candidate-product-link candidate-product-link--secondary" href={`/job/${view.jobContext.jobId}`} data-testid="candidate-back-to-job-link">← Back to job</a>
+          ) : null}
+          <div className="candidate-detail-menu-anchor">
+            <button className="candidate-detail-stage-select" type="button" onClick={() => setStageMenuOpen((open) => !open)} data-testid="candidate-stage-selector-button">Shortlisted (1) {stageMenuOpen ? '⌃' : '⌄'}</button>
+            {stageMenuOpen ? (
+              <div className="candidate-detail-dropdown candidate-detail-stage-menu" data-testid="candidate-stage-selector-menu">
+                {['New Candidate', 'Shortlisted', 'Phone Interview', 'Face to Face', 'Offering', 'Rejected'].map((stage) => <button type="button" key={stage} onClick={() => setStageMenuOpen(false)}>{stage}</button>)}
+              </div>
+            ) : null}
+          </div>
+          <span className="candidate-detail-count-badge">Candidate 1 of 1</span>
+          <span className="candidate-detail-hidden-state" data-testid="candidate-detail-entry">{view.workflowState.entryMode}</span>
+          <span className="candidate-detail-hidden-state" data-testid="candidate-detail-sequence-product-state">{sequenceProductState.kind}</span>
+          <span className="candidate-detail-hidden-state" data-testid="candidate-detail-hub-state">{hubState.kind}</span>
+          {view.workflowState.previousCandidatePath ? (
+            <a className="candidate-detail-hidden-state" href={view.workflowState.previousCandidatePath} data-testid="candidate-prev-link" onClick={() => trackSequence('candidate_sequence_previous')}>Previous</a>
+          ) : null}
+          {view.workflowState.nextCandidatePath ? (
+            <a className="candidate-detail-hidden-state" href={view.workflowState.nextCandidatePath} data-testid="candidate-next-link" onClick={() => trackSequence('candidate_sequence_next')}>Next</a>
+          ) : null}
+        </div>
       </div>
-      <div style={{ display: 'flex', gap: 12, marginTop: 12 }}>
-        {view.availableActions.schedule ? (
-          <a href={`${buildCandidateActionPath('schedule', context, view.candidateSummary.cvId)}${candidateActionSearch}`} data-testid="candidate-open-schedule-link">
-            Open schedule flow
-          </a>
-        ) : null}
-        {view.availableActions.offer ? (
-          <a href={`${buildCandidateActionPath('offer', context, view.candidateSummary.cvId)}${candidateActionSearch}`} data-testid="candidate-open-offer-link">
-            Open offer flow
-          </a>
-        ) : null}
-        {view.availableActions.reject ? (
-          <a href={`${buildCandidateActionPath('reject', context, view.candidateSummary.cvId)}${candidateActionSearch}`} data-testid="candidate-open-reject-link">
-            Open reject flow
-          </a>
-        ) : null}
-        {view.availableActions.upload ? (
-          <button type="button" onClick={handleUpload} data-testid="candidate-upload-cv-button">
-            Upload replacement CV
-          </button>
-        ) : null}
+
+      <div className="candidate-detail-layout">
+        <aside className="candidate-product-card candidate-profile-card" data-testid="candidate-detail-profile-summary">
+          <div className="candidate-profile-header">
+            <div className="candidate-profile-name-row">
+              <h2 data-testid="candidate-detail-name">{view.candidateSummary.name}</h2>
+              <span className="candidate-product-chip">✉</span>
+              <span className="candidate-product-chip candidate-product-chip--warning">!</span>
+            </div>
+            <p className="candidate-product-muted" data-testid="candidate-detail-headline">{view.candidateSummary.headline}</p>
+            <span className="candidate-product-chip" data-testid="candidate-detail-stage">{view.candidateSummary.stage}</span>
+          </div>
+
+          <div className="candidate-profile-actions" data-testid="candidate-detail-action-stack">
+            {view.availableActions.offer ? (
+              <a className="candidate-product-link" href={`${buildCandidateActionPath('offer', context, view.candidateSummary.cvId)}${candidateActionSearch}`} data-testid="candidate-open-offer-link">Hire</a>
+            ) : null}
+            {view.availableActions.reject ? (
+              <a className="candidate-product-link candidate-product-link--secondary" href={`${buildCandidateActionPath('reject', context, view.candidateSummary.cvId)}${candidateActionSearch}`} data-testid="candidate-open-reject-link">Reject</a>
+            ) : null}
+            <div className="candidate-detail-menu-anchor candidate-detail-more-actions">
+              <button className="candidate-product-button candidate-product-button--secondary" type="button" onClick={() => setMoreActionsOpen((open) => !open)} data-testid="candidate-more-actions-button">☰ More actions</button>
+              {moreActionsOpen ? (
+                <div className="candidate-detail-dropdown candidate-detail-more-menu" data-testid="candidate-more-actions-menu">
+                  {view.availableActions.schedule ? <a href={`${buildCandidateActionPath('schedule', context, view.candidateSummary.cvId)}${candidateActionSearch}`} data-testid="candidate-open-schedule-link">Schedule interview</a> : null}
+                  {view.availableActions.offer ? <a href={`${buildCandidateActionPath('offer', context, view.candidateSummary.cvId)}${candidateActionSearch}`}>Create offer</a> : null}
+                  {view.availableActions.reject ? <a href={`${buildCandidateActionPath('reject', context, view.candidateSummary.cvId)}${candidateActionSearch}`}>Reject candidate</a> : null}
+                  <button type="button" onClick={() => { setActiveTab('activity'); setMoreActionsOpen(false); }}>View activity</button>
+                  <button type="button" onClick={() => { setActiveTab('comments'); setMoreActionsOpen(false); }}>Add note</button>
+                </div>
+              ) : null}
+            </div>
+            {view.availableActions.upload ? (
+              <button className="candidate-product-button candidate-product-button--secondary" type="button" onClick={handleUpload} data-testid="candidate-upload-cv-button">Upload new CV</button>
+            ) : null}
+            <p data-testid="candidate-upload-cv-state">Upload: {uploadProductState.kind}</p>
+            {uploadState === 'failure' ? <p data-testid="candidate-upload-cv-retry">Upload failed. Retry keeps binary transfer details inside the adapter seam.</p> : null}
+          </div>
+
+          <div className="candidate-profile-meta">
+            <p data-testid="candidate-detail-ats-state">◉ ATS source: {view.atsSourceStatus?.kind ?? 'unavailable'}</p>
+            <p>✉ {view.profile.email}</p>
+            <p>☎ {view.profile.phone}</p>
+            <p>◆ {view.profile.location}</p>
+            <p data-testid="candidate-detail-job">▣ Job context: {view.jobContext?.jobId ?? 'Direct candidate profile'}</p>
+            <p data-testid="candidate-detail-sequence-state">⇆ Sequence: {view.workflowState.sequenceState}</p>
+            <p data-testid="candidate-detail-last-action">★ {view.candidateSummary.lastAction}</p>
+            <p data-testid="candidate-detail-ats-refresh">↻ ATS refresh: {view.atsSourceStatus?.refreshIntent ?? 'none'}</p>
+            <p data-testid="candidate-database-return-target">Return: {view.workflowState.databaseReturnTarget ?? '—'}</p>
+          </div>
+        </aside>
+
+        <main className="candidate-detail-main">
+          <div className="candidate-flow-line" aria-label="Hiring flow">
+            {['New Candidate', 'Shortlisted', 'Phone Interview', 'Face to Face', 'Offering'].map((step, index) => (
+              <span className={`candidate-flow-step ${index < 2 ? 'is-done' : ''}`} key={step}>
+                {step}<span className="candidate-flow-dot" />
+              </span>
+            ))}
+          </div>
+
+          <div className="candidate-detail-tabs" role="tablist" aria-label="Candidate detail tabs">
+            {[
+              ['cv', 'Latest CV'],
+              ['activity', 'Activity'],
+              ['interview', 'Interview score'],
+              ['forms', 'Forms & docs'],
+              ['contracts', 'Contracts'],
+              ['comments', 'Comments'],
+              ['emails', 'Emails'],
+            ].map(([tab, label]) => (
+              <button className={`candidate-detail-tab ${activeTab === tab ? 'is-active' : ''}`} type="button" role="tab" aria-selected={activeTab === tab} key={tab} onClick={() => setActiveTab(tab as typeof activeTab)} data-testid={`candidate-tab-${tab}`}>{label}</button>
+            ))}
+          </div>
+          <div className="candidate-cv-viewer" data-testid="candidate-detail-cv-viewer">
+            {activeTab === 'cv' ? <span>No preview available</span> : null}
+            {activeTab === 'activity' ? <div className="candidate-tab-panel"><h2>Activity</h2><p>CV received from Direct CV upload</p><p>Candidate status changed to Shortlisted</p></div> : null}
+            {activeTab === 'interview' ? <div className="candidate-tab-panel"><h2>Interview score</h2><p>{view.interviewsSummary.status}</p><p>Score details remain downstream-owned.</p></div> : null}
+            {activeTab === 'forms' ? <div className="candidate-tab-panel"><h2>Forms & docs</h2><p>{view.formsSummary.count} forms available</p><p>Form schemas are not invented in this view.</p></div> : null}
+            {activeTab === 'contracts' ? <div className="candidate-tab-panel"><h2>Contracts</h2><p>{view.contractsSummary.signingState.kind}</p><p>{view.contractsSummary.count} contract records</p></div> : null}
+            {activeTab === 'comments' ? <div className="candidate-tab-panel"><h2>Comments</h2>{view.comments.map((comment) => <p key={comment}>{comment}</p>)}</div> : null}
+            {activeTab === 'emails' ? <div className="candidate-tab-panel"><h2>Emails</h2><p>Candidate email history is available through the conversation boundary.</p></div> : null}
+          </div>
+
+          <div className="candidate-detail-panels" data-testid="candidate-detail-downstream-panels">
+            <CandidateDocumentsPanel view={view} />
+            <CandidateInsightsPanel view={view} />
+          </div>
+          <CandidateCollaborationPanel view={view} />
+        </main>
       </div>
-      <CandidateDocumentsPanel view={view} />
-      <CandidateInsightsPanel view={view} />
-      <CandidateCollaborationPanel view={view} />
     </section>
   );
 }

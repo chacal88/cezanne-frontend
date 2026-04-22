@@ -1,0 +1,301 @@
+{
+  "capturedAt": "2026-04-21T23:37:39.272Z",
+  "viewport": "1440x900",
+  "targets": [
+    {
+      "name": "greenfield-root-1440x900",
+      "url": "http://localhost:5173/",
+      "finalUrl": "http://localhost:5173/",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-root-1440x900.png",
+      "bodyText": "Log into your Cezanne Recruitment account \ud83d\udc64 \ud83d\udd12 \u25c9 Log In Or log in with: Log In with Google Log In with Microsoft ready Forgot password? Sign up for free now!",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-dashboard-1440x900",
+      "url": "http://localhost:5173/dashboard",
+      "finalUrl": "http://localhost:5173/dashboard",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-dashboard-1440x900.png",
+      "bodyText": "Access denied Fallback shell for denied entry.",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "legacy-root-1440x900",
+      "url": "http://localhost:4000/",
+      "finalUrl": "http://localhost:4000/",
+      "status": 200,
+      "title": "Cezanne Recruitment",
+      "screenshot": "docs/visual-evidence-assets/v0/legacy/legacy-root-1440x900.png",
+      "bodyText": "Log into your Cezanne Recruitment account Log In Or log in with: Log In with Google Log In with Microsoft Forgot password? Sign up for free now!",
+      "evidenceStatus": "canonical-reference"
+    },
+    {
+      "name": "legacy-dashboard-1440x900",
+      "url": "http://localhost:4000/dashboard",
+      "finalUrl": "http://localhost:4000/",
+      "status": 200,
+      "title": "Cezanne Recruitment",
+      "screenshot": "docs/visual-evidence-assets/v0/legacy/legacy-dashboard-1440x900.png",
+      "bodyText": "Log into your Cezanne Recruitment account Log In Or log in with: Log In with Google Log In with Microsoft Forgot password? Sign up for free now!",
+      "evidenceStatus": "canonical-reference"
+    },
+    {
+      "name": "greenfield-dashboard-seeded-session-1440x900",
+      "url": "http://localhost:5173/dashboard",
+      "finalUrl": "http://localhost:5173/dashboard",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-dashboard-seeded-session-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Welcome back, thereIt's good to see you again. ready normal Dashboard landing. My open jobs 0 Live jobs assigned to you My candidates 0 Candidates on live jobs My interviews 0 Scheduled interviews Calendar unavailable April 2026 today month week day Sun Mon Tue Wed Thu Fri Sat 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 Activity Open notifications Open inbox",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-forgot-password-1440x900",
+      "url": "http://localhost:5173/forgot-password",
+      "finalUrl": "http://localhost:5173/forgot-password",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-forgot-password-1440x900.png",
+      "bodyText": "Forgot password Password recovery entry. Send email Go to login idle",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-register-null-1440x900",
+      "url": "http://localhost:5173/register/null",
+      "finalUrl": "http://localhost:5173/register/null",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-register-null-1440x900.png",
+      "bodyText": "Register Hiring company Recruitment agency Register Go to login idle",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-reset-expired-1440x900",
+      "url": "http://localhost:5173/reset-password/expired-reset-token",
+      "finalUrl": "http://localhost:5173/reset-password/expired-reset-token",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-reset-expired-1440x900.png",
+      "bodyText": "Reset password Confirm This reset token is invalid. Go to login failed /",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-confirm-invalid-1440x900",
+      "url": "http://localhost:5173/confirm-registration/invalid-token",
+      "finalUrl": "http://localhost:5173/",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-confirm-invalid-1440x900.png",
+      "bodyText": "Log into your Cezanne Recruitment account \ud83d\udc64 \ud83d\udd12 \u25c9 Log In Or log in with: Log In with Google Log In with Microsoft ready Forgot password? Sign up for free now!",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-invite-missing-1440x900",
+      "url": "http://localhost:5173/users/invite-token",
+      "finalUrl": "http://localhost:5173/users/invite-token",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-invite-missing-1440x900.png",
+      "bodyText": "Invite token This auth token is invalid. invalid",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-saml-launch-1440x900",
+      "url": "http://localhost:5173/auth/saml",
+      "finalUrl": "http://localhost:5173/auth/saml",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-saml-launch-1440x900.png",
+      "bodyText": "SAML callback Continue with SAML Go to login ready",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "legacy-forgot-password-1440x900",
+      "url": "http://localhost:4000/forgot-password",
+      "finalUrl": "http://localhost:4000/forgot-password",
+      "status": 200,
+      "title": "Cezanne Recruitment",
+      "screenshot": "docs/visual-evidence-assets/v0/legacy/legacy-forgot-password-1440x900.png",
+      "bodyText": "Type your email to reset your password Send email Go to login page",
+      "evidenceStatus": "canonical-reference"
+    },
+    {
+      "name": "legacy-register-null-1440x900",
+      "url": "http://localhost:4000/register/null",
+      "finalUrl": "http://localhost:4000/",
+      "status": 200,
+      "title": "Cezanne Recruitment",
+      "screenshot": "docs/visual-evidence-assets/v0/legacy/legacy-register-null-1440x900.png",
+      "bodyText": "Invalid token. Log into your Cezanne Recruitment account Log In Or log in with: Log In with Google Log In with Microsoft Forgot password? Sign up for free now!",
+      "evidenceStatus": "canonical-reference"
+    },
+    {
+      "name": "greenfield-notifications-seeded-session-1440x900",
+      "url": "http://localhost:5173/notifications",
+      "finalUrl": "http://localhost:5173/notifications",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-notifications-seeded-session-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Notifications Notification access: allowed degraded 4 fixture notification list API, notification read-state mutation, notification destination payload schema Candidate follow-up is pending /candidate/candidate-123/job-456/screening/2/remote/interview-1 Destination is available. ready unread false Open destination Offer flow requires attention /job/job-456/cv/candidate-123/offer Destination is available. ready read false Open destination Inbox conversation message /inbox?conversation=conversation-123 Destination is available. ready unread false Open destination Billing notification requires a safe fallback /dashboard?reason=unsupported-destination&fallbackTarget=%2Fdashboard Destination is not owned by this frontend slice. unsupported-destination unread false Safe fallback: /dashboard Notification with unknown destination /dashboard?reason=missing-target Notification payload does not include a typed destination. unknown-destination unread false Safe fallback: /dashboard Stale candidate notification /dashboard?reason=stale-target&fallbackTarget=%2Fdashboard Destination exists but is stale and should refresh from dashboard. stale-target read true Safe fallback: ",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-inbox-seeded-session-1440x900",
+      "url": "http://localhost:5173/inbox",
+      "finalUrl": "http://localhost:5173/inbox",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-inbox-seeded-session-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Inbox This route owns shareable URL state through the `conversation` search param. Active conversation: none State empty Entry mode menu Subject \u2014 Participant \u2014 Can send false Retry allowed false Refresh required false Adapter contract fixture No conversation is selected. Inbox fallback inbox conversation list API, inbox conversation detail API, message send transport",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-logout-seeded-session-1440x900",
+      "url": "http://localhost:5173/logout",
+      "finalUrl": "http://localhost:5173/logout",
+      "status": 200,
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/superseded/greenfield-logout-seeded-session-1440x900.png",
+      "bodyText": "Access denied Fallback shell for denied entry.",
+      "evidenceStatus": "superseded-do-not-implement"
+    },
+    {
+      "name": "legacy-login-filled-seeded-user-1440x900",
+      "url": "http://localhost:4000/",
+      "finalUrl": "http://localhost:4000/",
+      "title": "Cezanne Recruitment",
+      "screenshot": "docs/visual-evidence-assets/v0/legacy/legacy-login-filled-seeded-user-1440x900.png",
+      "bodyText": "Log into your Cezanne Recruitment account Log In Or log in with: Log In with Google Log In with Microsoft Forgot password? Sign up for free now!",
+      "evidenceStatus": "canonical-reference"
+    },
+    {
+      "name": "legacy-dashboard-authenticated-seeded-user-1440x900",
+      "url": "http://localhost:4000/dashboard",
+      "finalUrl": "http://localhost:4000/dashboard",
+      "title": "Cezanne Recruitment",
+      "screenshot": "docs/visual-evidence-assets/v0/superseded/legacy-dashboard-authenticated-seeded-user-1440x900.png",
+      "bodyText": "Unlock Seamless Scheduling. Connect your calendar to Cezanne Recruitment and simplify your interview scheduling process. Connect Google Calendar Connect Outlook Calendar Connect iCloud Calendar Connect Office 365 Calendar Connect Microsoft Exchange Don't show again Close Get help 9 kaue dev Dashboard My jobs Inbox CV database Templates Team Settings Reports Billing Welcome back, kaue It's good to see you again. My open jobs 2 Live jobs assigned to you My candidates 7 Candidates on live jobs My interviews 0 Scheduled interviews All users kaue santos April 2026 todaymonthweekday Sun Mon Tue Wed Thu Fri Sat 29 30 31 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 1 2 3 4 5 6 7 8 9 Show pending schedules Activity A CV has been received from Indeed for API Seed Pipeline api-seed-1776816382-57083 a minute ago A CV has been received from Careers Page for API Seed Pipeline api-seed-1776816382-57083 a minute ago Local Manager just reviewed Diego ApiSeed: @kaue santos, I gave a Thumbs UP for this Candidate. Comment: Looks good for local API seed. a minute ago A CV has been received from Direct CV upload for API Seed Pipeline api-seed-1776816382-57083 a minute ago A CV has been received from Linkedin for API Seed Pipeline api-seed-1776816382-57083 a minute ago A CV has been received from Indeed for API Seed Pipeline api-seed-1776816382-57083 a minute ago A CV has been received from Careers Page for API Seed Pipeline api-seed-1776816382-57083 a minute ago A CV has been received from Direct CV upload for TESTE 3 hours ago Welcome to Cezanne Recruitment! ",
+      "evidenceStatus": "superseded-do-not-implement"
+    },
+    {
+      "name": "greenfield-login-filled-seeded-user-1440x900",
+      "url": "http://localhost:5173/",
+      "finalUrl": "http://localhost:5173/",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-login-filled-seeded-user-1440x900.png",
+      "bodyText": "Log into your Cezanne Recruitment account \ud83d\udc64 \ud83d\udd12 \u25c9 Log In Or log in with: Log In with Google Log In with Microsoft ready Forgot password? Sign up for free now!",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-login-after-submit-seeded-user-1440x900",
+      "url": "http://localhost:5173/",
+      "finalUrl": "http://localhost:5173/dashboard",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-login-after-submit-seeded-user-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Welcome back, kaueIt's good to see you again. ready normal Dashboard landing. My open jobs 2 Live jobs assigned to you My candidates 7 Candidates on live jobs My interviews 0 Scheduled interviews Calendar unavailable April 2026 today month week day 1 scheduler users available Sun Mon Tue Wed Thu Fri Sat 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 Pending Pending 26 27 28 29 30 Activity A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:42 PM A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:39 PM cv reviewed 4/21/2026, 9:06:39 PM A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:36 PM A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:33 PM A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:28 PM A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:24 PM A CV has been received for TESTE 4/21/2026, 5:48:16 PM company welcome 4/21/2026, 4:06:29 PM Open notifications Open inbox",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-dashboard-api-login-seeded-user-1440x900",
+      "url": "http://localhost:5173/dashboard",
+      "finalUrl": "http://localhost:5173/dashboard",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-dashboard-api-login-seeded-user-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Welcome back, kaueIt's good to see you again. ready normal Dashboard landing. My open jobs 2 Live jobs assigned to you My candidates 7 Candidates on live jobs My interviews 0 Scheduled interviews Calendar unavailable April 2026 today month week day 1 scheduler users available Sun Mon Tue Wed Thu Fri Sat 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 Pending Pending 26 27 28 29 30 Activity A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:42 PM A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:39 PM cv reviewed 4/21/2026, 9:06:39 PM A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:36 PM A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:33 PM A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:28 PM A CV has been received for API Seed Pipeline api-seed-1776816382-57083 4/21/2026, 9:06:24 PM A CV has been received for TESTE 4/21/2026, 5:48:16 PM company welcome 4/21/2026, 4:06:29 PM Open notifications Open inbox",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-logout-stable-logged-out-1440x900",
+      "url": "http://localhost:5173/logout",
+      "finalUrl": "http://localhost:5173/logout",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-logout-stable-logged-out-1440x900.png",
+      "bodyText": "Logout Signed-out exit route. Go to login logged-out /",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-login-invalid-credentials-1440x900",
+      "url": "http://localhost:5173/",
+      "finalUrl": "http://localhost:5173/",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-login-invalid-credentials-1440x900.png",
+      "bodyText": "Log into your Cezanne Recruitment account \ud83d\udc64 \ud83d\udd12 \u25c9 Log In Or log in with: Log In with Google Log In with Microsoft Login failed: invalid-credentials. failed Forgot password? Sign up for free now!",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-forgot-password-submitted-1440x900",
+      "url": "http://localhost:5173/forgot-password",
+      "finalUrl": "http://localhost:5173/forgot-password",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-forgot-password-submitted-1440x900.png",
+      "bodyText": "Forgot password Password recovery entry. Send email Password reset email sent. Go to login succeeded",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-reset-password-mismatch-1440x900",
+      "url": "http://localhost:5173/reset-password/valid-reset-token",
+      "finalUrl": "http://localhost:5173/reset-password/valid-reset-token",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-reset-password-mismatch-1440x900.png",
+      "bodyText": "Reset password Confirm Passwords do not match. Go to login failed",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-register-token-mismatch-1440x900",
+      "url": "http://localhost:5173/register/valid-register-token",
+      "finalUrl": "http://localhost:5173/register/valid-register-token",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-register-token-mismatch-1440x900.png",
+      "bodyText": "Register Hiring company Recruitment agency Register Passwords do not match. Go to login failed",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-cezanne-callback-missing-code-1440x900",
+      "url": "http://localhost:5173/auth/cezanne/callback",
+      "finalUrl": "http://localhost:5173/auth/cezanne/callback",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-cezanne-callback-missing-code-1440x900.png",
+      "bodyText": "Cezanne callback The callback could not continue. idle",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-cezanne-callback-error-1440x900",
+      "url": "http://localhost:5173/auth/cezanne/callback?error=access_denied",
+      "finalUrl": "http://localhost:5173/auth/cezanne/callback?error=access_denied",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-cezanne-callback-error-1440x900.png",
+      "bodyText": "Cezanne callback access_denied failed",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-saml-callback-error-1440x900",
+      "url": "http://localhost:5173/auth/saml?error=access_denied",
+      "finalUrl": "http://localhost:5173/auth/saml?error=access_denied",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-saml-callback-error-1440x900.png",
+      "bodyText": "SAML callback access_denied failed",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "greenfield-inbox-selected-conversation-1440x900",
+      "url": "http://localhost:5173/inbox?conversation=conversation-123",
+      "finalUrl": "http://localhost:5173/inbox?conversation=conversation-123",
+      "title": "Recruit Frontend",
+      "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-inbox-selected-conversation-1440x900.png",
+      "bodyText": "Hiring company Recruiter Dashboard Notifications Inbox Jobs Candidate database Integrations Reports Team Favorites Billing Careers settings Hiring flow Custom fields Templates Reject reasons API endpoints Forms and documents Account User profile Hiring company profile User settings Company settings Logout Get help \ud83d\udd14 \ud83d\udc64 Inbox This route owns shareable URL state through the `conversation` search param. Active conversation: conversation-123 State ready Entry mode direct-url Subject Candidate follow-up Participant Alex Candidate Can send false Retry allowed false Refresh required false Adapter contract fixture Conversation ready. inbox conversation list API, inbox conversation detail API, message send transport",
+      "evidenceStatus": "canonical-current"
+    },
+    {
+      "name": "legacy-dashboard-authenticated-seeded-user-clean-1440x900",
+      "url": "http://localhost:4000/dashboard",
+      "finalUrl": "http://localhost:4000/dashboard",
+      "title": "Cezanne Recruitment",
+      "screenshot": "docs/visual-evidence-assets/v0/legacy/legacy-dashboard-authenticated-seeded-user-clean-1440x900.png",
+      "bodyText": "Get help 9 kaue dev Dashboard My jobs Inbox CV database Templates Team Settings Reports Billing Welcome back, kaue It's good to see you again. My open jobs 2 Live jobs assigned to you My candidates 7 Candidates on live jobs My interviews 0 Scheduled interviews All users kaue santos April 2026 todaymonthweekday Sun Mon Tue Wed Thu Fri Sat 29 30 31 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 1 2 3 4 5 6 7 8 9 Show pending schedules Activity A CV has been received from Indeed for API Seed Pipeline api-seed-1776816382-57083 9 minutes ago A CV has been received from Careers Page for API Seed Pipeline api-seed-1776816382-57083 9 minutes ago Local Manager just reviewed Diego ApiSeed: @kaue santos, I gave a Thumbs UP for this Candidate. Comment: Looks good for local API seed. 9 minutes ago A CV has been received from Direct CV upload for API Seed Pipeline api-seed-1776816382-57083 10 minutes ago A CV has been received from Linkedin for API Seed Pipeline api-seed-1776816382-57083 10 minutes ago A CV has been received from Indeed for API Seed Pipeline api-seed-1776816382-57083 10 minutes ago A CV has been received from Careers Page for API Seed Pipeline api-seed-1776816382-57083 10 minutes ago A CV has been received from Direct CV upload for TESTE 3 hours ago Welcome to Cezanne Recruitment! 5 hours ago Version dev Copyright \u00a9 2026 Cezanne Recruitment. All rights reserved.",
+      "evidenceStatus": "canonical-reference"
+    }
+  ],
+  "updatedAt": "2026-04-22T00:16:12.961Z"
+}

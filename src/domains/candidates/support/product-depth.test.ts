@@ -12,7 +12,12 @@ describe('candidate product-depth state', () => {
   it('models database, action lifecycle, and downstream summary ownership', () => {
     expect(resolveCandidateDatabaseProductState({ resultCount: 0 })).toMatchObject({ kind: 'empty' });
     expect(resolveCandidateDatabaseProductState({ stale: true })).toMatchObject({ kind: 'stale' });
+    expect(resolveCandidateDatabaseProductState({ denied: true })).toMatchObject({ kind: 'denied' });
+    expect(resolveCandidateDatabaseProductState({ unavailable: true })).toMatchObject({ kind: 'unavailable' });
+    expect(resolveCandidateDatabaseProductState({ retryable: true })).toMatchObject({ kind: 'retryable' });
     expect(resolveCandidateActionProductState({ kind: 'offer', parentRefresh: true })).toMatchObject({ kind: 'parent-refresh-required', action: 'offer' });
+    expect(resolveCandidateActionProductState({ kind: 'schedule', blocked: true })).toMatchObject({ kind: 'blocked', action: 'schedule' });
+    expect(resolveCandidateActionProductState({ kind: 'reject', terminal: true })).toMatchObject({ kind: 'terminal', action: 'reject' });
     expect(resolveCandidateActionProductState({ kind: 'cv-upload', saving: true })).toMatchObject({ kind: 'saving', action: 'cv-upload' });
     expect(resolveCandidateActionProductState({ kind: 'cv-upload', retryable: true })).toMatchObject({ kind: 'retryable', action: 'cv-upload' });
     expect(resolveCandidateSummaryProductState({ stale: true }).kind).toBe('stale');
@@ -29,6 +34,8 @@ describe('candidate product-depth state', () => {
     expect(resolveCandidateDatabaseBulkActionState({ selectedCount: 2, eligibleCount: 2 })).toMatchObject({ kind: 'eligible' });
     expect(resolveCandidateDatabaseBulkActionState({ selectedCount: 2, eligibleCount: 1 })).toMatchObject({ kind: 'partially-eligible' });
     expect(resolveCandidateDatabaseBulkActionState({ selectedCount: 2, eligibleCount: 0, retryable: true })).toMatchObject({ kind: 'retryable' });
+    expect(resolveCandidateDatabaseBulkActionState({ selectedCount: 2, eligibleCount: 0, blocked: true })).toMatchObject({ kind: 'blocked' });
+    expect(resolveCandidateDatabaseBulkActionState({ selectedCount: 2, eligibleCount: 2, failed: true })).toMatchObject({ kind: 'failed' });
   });
 
   it('keeps telemetry allowlisted without raw candidate content', () => {

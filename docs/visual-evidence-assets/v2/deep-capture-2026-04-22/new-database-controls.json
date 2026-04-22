@@ -1,0 +1,425 @@
+[
+  {
+    "i": 0,
+    "tag": "A",
+    "text": "Cezanne Recruitment",
+    "href": "/dashboard",
+    "type": null,
+    "cls": "recruit-shell__logo",
+    "visible": true
+  },
+  {
+    "i": 1,
+    "tag": "A",
+    "text": "Dashboard",
+    "href": "/dashboard",
+    "type": null,
+    "cls": "recruit-shell__nav-item",
+    "visible": true
+  },
+  {
+    "i": 2,
+    "tag": "A",
+    "text": "My jobs",
+    "href": "/jobs/open",
+    "type": null,
+    "cls": "recruit-shell__nav-item recruit-shell__nav-group-trigger",
+    "visible": true
+  },
+  {
+    "i": 3,
+    "tag": "BUTTON",
+    "text": "Expand My jobs",
+    "href": null,
+    "type": "button",
+    "cls": "recruit-shell__nav-group-toggle",
+    "visible": true
+  },
+  {
+    "i": 4,
+    "tag": "A",
+    "text": "Inbox",
+    "href": "/inbox",
+    "type": null,
+    "cls": "recruit-shell__nav-item",
+    "visible": true
+  },
+  {
+    "i": 5,
+    "tag": "A",
+    "text": "CV database",
+    "href": "/candidates-database",
+    "type": null,
+    "cls": "recruit-shell__nav-item recruit-shell__nav-item is-active",
+    "visible": true
+  },
+  {
+    "i": 6,
+    "tag": "A",
+    "text": "Templates",
+    "href": "/templates",
+    "type": null,
+    "cls": "recruit-shell__nav-item recruit-shell__nav-group-trigger",
+    "visible": true
+  },
+  {
+    "i": 7,
+    "tag": "BUTTON",
+    "text": "Expand Templates",
+    "href": null,
+    "type": "button",
+    "cls": "recruit-shell__nav-group-toggle",
+    "visible": true
+  },
+  {
+    "i": 8,
+    "tag": "A",
+    "text": "Team",
+    "href": "/team",
+    "type": null,
+    "cls": "recruit-shell__nav-item recruit-shell__nav-group-trigger",
+    "visible": true
+  },
+  {
+    "i": 9,
+    "tag": "BUTTON",
+    "text": "Expand Team",
+    "href": null,
+    "type": "button",
+    "cls": "recruit-shell__nav-group-toggle",
+    "visible": true
+  },
+  {
+    "i": 10,
+    "tag": "A",
+    "text": "Settings",
+    "href": "/settings/user-settings",
+    "type": null,
+    "cls": "recruit-shell__nav-item recruit-shell__nav-group-trigger",
+    "visible": true
+  },
+  {
+    "i": 11,
+    "tag": "BUTTON",
+    "text": "Expand Settings",
+    "href": null,
+    "type": "button",
+    "cls": "recruit-shell__nav-group-toggle",
+    "visible": true
+  },
+  {
+    "i": 12,
+    "tag": "A",
+    "text": "Reports",
+    "href": "/report/candidates",
+    "type": null,
+    "cls": "recruit-shell__nav-item recruit-shell__nav-group-trigger",
+    "visible": true
+  },
+  {
+    "i": 13,
+    "tag": "BUTTON",
+    "text": "Expand Reports",
+    "href": null,
+    "type": "button",
+    "cls": "recruit-shell__nav-group-toggle",
+    "visible": true
+  },
+  {
+    "i": 14,
+    "tag": "A",
+    "text": "Billing",
+    "href": "/billing",
+    "type": null,
+    "cls": "recruit-shell__nav-item",
+    "visible": true
+  },
+  {
+    "i": 15,
+    "tag": "BUTTON",
+    "text": "Collapse sidebar",
+    "href": null,
+    "type": "button",
+    "cls": "recruit-shell__toggle",
+    "visible": true
+  },
+  {
+    "i": 16,
+    "tag": "A",
+    "text": "Get help",
+    "href": "#help",
+    "type": null,
+    "cls": "recruit-shell__help",
+    "visible": true
+  },
+  {
+    "i": 17,
+    "tag": "A",
+    "text": "19",
+    "href": "/notifications",
+    "type": null,
+    "cls": "recruit-shell__notif",
+    "visible": true
+  },
+  {
+    "i": 18,
+    "tag": "BUTTON",
+    "text": "User menu",
+    "href": null,
+    "type": "button",
+    "cls": "recruit-shell__user-button",
+    "visible": true
+  },
+  {
+    "i": 19,
+    "tag": "INPUT",
+    "text": "Search candidates",
+    "href": null,
+    "type": null,
+    "cls": "candidate-db-search-input",
+    "visible": true
+  },
+  {
+    "i": 20,
+    "tag": "A",
+    "text": "Search candidates",
+    "href": "/candidates-database?query=Riley",
+    "type": null,
+    "cls": "candidate-product-link",
+    "visible": true
+  },
+  {
+    "i": 21,
+    "tag": "BUTTON",
+    "text": "✚ Add new ⌄",
+    "href": null,
+    "type": "button",
+    "cls": "candidate-product-button candidate-db-add-button ",
+    "visible": true
+  },
+  {
+    "i": 22,
+    "tag": "BUTTON",
+    "text": "▾",
+    "href": null,
+    "type": "button",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 23,
+    "tag": "BUTTON",
+    "text": "⋮",
+    "href": null,
+    "type": "button",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 24,
+    "tag": "BUTTON",
+    "text": "⌃",
+    "href": null,
+    "type": "button",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 25,
+    "tag": "BUTTON",
+    "text": "⋮",
+    "href": null,
+    "type": "button",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 26,
+    "tag": "BUTTON",
+    "text": "only me 0",
+    "href": null,
+    "type": "button",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 27,
+    "tag": "BUTTON",
+    "text": "everyone 0",
+    "href": null,
+    "type": "button",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 28,
+    "tag": "BUTTON",
+    "text": "▣ Bulk Actions",
+    "href": null,
+    "type": "button",
+    "cls": "candidate-product-button candidate-db-bulk-button",
+    "visible": true
+  },
+  {
+    "i": 29,
+    "tag": "BUTTON",
+    "text": "▣ Add column ⌄",
+    "href": null,
+    "type": "button",
+    "cls": "candidate-product-button candidate-product-button--secondary",
+    "visible": true
+  },
+  {
+    "i": 30,
+    "tag": "A",
+    "text": "Full name ↕",
+    "href": "/candidates-database?sort=name&order=asc",
+    "type": null,
+    "cls": "candidate-db-sort-link",
+    "visible": true
+  },
+  {
+    "i": 31,
+    "tag": "A",
+    "text": "Email ↓",
+    "href": "/candidates-database?order=asc",
+    "type": null,
+    "cls": "candidate-db-sort-link",
+    "visible": true
+  },
+  {
+    "i": 32,
+    "tag": "A",
+    "text": "Hiring flow stage ↕",
+    "href": "/candidates-database?sort=stage&order=asc",
+    "type": null,
+    "cls": "candidate-db-sort-link",
+    "visible": true
+  },
+  {
+    "i": 33,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 34,
+    "tag": "A",
+    "text": "↗",
+    "href": "/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database",
+    "type": null,
+    "cls": "candidate-product-link",
+    "visible": true
+  },
+  {
+    "i": 35,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 36,
+    "tag": "A",
+    "text": "↗",
+    "href": "/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database",
+    "type": null,
+    "cls": "candidate-product-link",
+    "visible": true
+  },
+  {
+    "i": 37,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 38,
+    "tag": "A",
+    "text": "↗",
+    "href": "/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database",
+    "type": null,
+    "cls": "candidate-product-link",
+    "visible": true
+  },
+  {
+    "i": 39,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 40,
+    "tag": "A",
+    "text": "↗",
+    "href": "/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database",
+    "type": null,
+    "cls": "candidate-product-link",
+    "visible": true
+  },
+  {
+    "i": 41,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 42,
+    "tag": "A",
+    "text": "↗",
+    "href": "/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database",
+    "type": null,
+    "cls": "candidate-product-link",
+    "visible": true
+  },
+  {
+    "i": 43,
+    "tag": "INPUT",
+    "text": "on",
+    "href": null,
+    "type": "checkbox",
+    "cls": "",
+    "visible": true
+  },
+  {
+    "i": 44,
+    "tag": "A",
+    "text": "↗",
+    "href": "/candidate/candidate-123?entry=database&returnTo=%2Fcandidates-database",
+    "type": null,
+    "cls": "candidate-product-link",
+    "visible": true
+  },
+  {
+    "i": 45,
+    "tag": "BUTTON",
+    "text": "Prev",
+    "href": null,
+    "type": "button",
+    "cls": "candidate-db-pagination__button",
+    "visible": true
+  },
+  {
+    "i": 46,
+    "tag": "BUTTON",
+    "text": "Next",
+    "href": null,
+    "type": "button",
+    "cls": "candidate-db-pagination__button",
+    "visible": true
+  }
+]
