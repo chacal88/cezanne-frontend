@@ -17,13 +17,13 @@ V4 covers:
 
 | Family | Contract status | Visual status | Figma-ready? | Notes |
 |---|---|---|---|---|
-| Settings | Contract-reviewed | Pending | No | Subsection tabs, nested compatibility URLs, save/validation/retry, stale/degraded, and downstream impact visuals need confirmation. |
-| Integrations admin | Contract-reviewed | Pending | No | Provider index/detail, configuration/auth/diagnostics/readiness, unsupported provider family, and safe logs states need frames. |
-| Reports | Contract-reviewed | Pending | No | Report family filters/results/export/schedule, partial/stale/degraded states, and unsupported schedule need visual decisions. |
-| Billing | Contract-reviewed | Pending | No | Overview, plan change, SMS add-on, card overlay, payment challenge, pending/success/failure states need frames. |
-| Team | Contract-reviewed | Pending | No | Org team, recruiter visibility, and invite task states need visual confirmation. |
-| Favorites | Contract-reviewed | Pending | No | Org favorites list/detail/request workflow needs visual confirmation, separate from platform queues. |
-| Marketplace | Contract-reviewed | Pending | No | RA marketplace list types, empty/unavailable, and item cards/actions need frames. |
+| Settings | Contract-reviewed | Evidence complete for current-app screen-flow basis | Yes | Route-base, compatibility, validation/save/retry/saved, forms/docs state, API endpoint, job-listing, and representative denied states are captured. |
+| Integrations admin | Contract-reviewed | Evidence complete for current-app screen-flow basis | Yes | Provider index/detail, supported/unsupported states, save/auth/diagnostics/readiness outcomes, and safe logs-ready summaries are captured. |
+| Reports | Contract-reviewed | Evidence complete for current-app screen-flow basis | Yes | Report index/family/result states, export/schedule success, failed/retryable command state, stale/partial blocking, unsupported scheduling, and compatibility entries are captured. |
+| Billing | Contract-reviewed | Evidence complete for current-app screen-flow basis | Yes | Overview, upgrade, SMS, card variants, provider challenge, pending/success/failure/retry, stale/degraded/unavailable, card-blocked, and denied/hidden states are captured. |
+| Team | Contract-reviewed | Evidence complete for current-app screen-flow basis | Yes | Org team, recruiter visibility, invite base states, empty/stale/unavailable/refresh-required states, action readiness, and denied/fallback examples are captured. |
+| Favorites | Contract-reviewed | Evidence complete for current-app screen-flow basis | Yes | Org favorites list/detail/request workflows, empty/unavailable states, request terminal variants, and org/platform separation are captured. |
+| Marketplace | Contract-reviewed | Evidence complete for current-app screen-flow basis | Yes | RA marketplace list types, empty state, unknown-type unavailable, and HC denied fallback are captured. |
 
 ## Evidence sources
 
@@ -33,6 +33,7 @@ V4 covers:
 | OpenSpec specs | Settings, integrations, reports, billing, team, favorites, and marketplace specs under `../../openspec/specs` | Required state/action/error/parent-return coverage | Specs do not define final layout. |
 | Operational specs | Provider setup/readiness, downstream impact, report export/schedule, payment, messaging, survey/review, ATS source specs | Operational state semantics consumed by V4 modules | Do not invent provider/payment/backend schemas. |
 | Current greenfield source | `src/domains/settings/**`, `src/domains/integrations/**`, `src/domains/reports/**`, `src/domains/billing/**`, `src/domains/team/**`, `src/domains/favorites/**`, `src/domains/marketplace/**` | Runtime state and current UI behavior | Fixture-backed or adapter-backed data remains a seam. |
+| Current visual evidence | `visual-evidence-v4-operations.md`, `visual-evidence-assets/v4/v4-capture-manifest.json`, `visual-evidence-assets/v4/interactive-2026-04-22/interactive-capture-manifest.json` | Current-app route-base, state-variant, and safe local-fixture interaction evidence for V4 operations | Promotes V4 current-app screen-flow bases to `Figma-ready`; backend/provider/schema details remain annotated as deferred. |
 
 ## Settings frame set
 

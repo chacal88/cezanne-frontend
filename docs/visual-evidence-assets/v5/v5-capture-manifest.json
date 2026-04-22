@@ -1,0 +1,183 @@
+{
+  "captureDate": "2026-04-22",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "baseUrl": "http://localhost:5173",
+  "records": [
+    {
+      "fileName": "greenfield-v5-platform-dashboard-1440x900.png",
+      "route": "/dashboard",
+      "finalUrl": "/dashboard",
+      "title": "Platform administration",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-platform-users-list-filtered-1440x900.png",
+      "route": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1",
+      "finalUrl": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1",
+      "title": "Platform users",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-create-1440x900.png",
+      "route": "/users/new?search=platform",
+      "finalUrl": "/users/new?search=platform",
+      "title": "Create platform user",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-detail-1440x900.png",
+      "route": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform",
+      "finalUrl": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform",
+      "title": "Platform user user-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-edit-1440x900.png",
+      "route": "/users/edit/user-123?returnTo=/users/user-123",
+      "finalUrl": "/users/edit/user-123?returnTo=/users/user-123",
+      "title": "Edit platform user user-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-favorite-requests-queue-1440x900.png",
+      "route": "/favorites-request",
+      "finalUrl": "/favorites-request",
+      "title": "Favorite-request queue",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-favorite-request-detail-1440x900.png",
+      "route": "/favorites-request/request-123",
+      "finalUrl": "/favorites-request/request-123",
+      "title": "Favorite request request-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-hiring-companies-list-1440x900.png",
+      "route": "/hiring-companies",
+      "finalUrl": "/hiring-companies",
+      "title": "Hiring company list",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-detail-1440x900.png",
+      "route": "/hiring-companies/company-123",
+      "finalUrl": "/hiring-companies/company-123",
+      "title": "Hiring company detail company-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-edit-1440x900.png",
+      "route": "/hiring-companies/edit/company-123",
+      "finalUrl": "/hiring-companies/edit/company-123",
+      "title": "Edit Hiring company company-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-subscription-1440x900.png",
+      "route": "/hiring-company/company-123/subscription",
+      "finalUrl": "/hiring-company/company-123/subscription",
+      "title": "Company subscription for company-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agencies-list-1440x900.png",
+      "route": "/recruitment-agencies",
+      "finalUrl": "/recruitment-agencies",
+      "title": "Recruitment agency list",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-detail-1440x900.png",
+      "route": "/recruitment-agencies/agency-123",
+      "finalUrl": "/recruitment-agencies/agency-123",
+      "title": "Recruitment agency detail agency-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-edit-1440x900.png",
+      "route": "/recruitment-agencies/edit/agency-123",
+      "finalUrl": "/recruitment-agencies/edit/agency-123",
+      "title": "Edit Recruitment agency agency-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-subscriptions-list-1440x900.png",
+      "route": "/subscriptions",
+      "finalUrl": "/subscriptions",
+      "title": "Subscription list",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-subscription-detail-1440x900.png",
+      "route": "/subscriptions/subscription-123",
+      "finalUrl": "/subscriptions/subscription-123",
+      "title": "Subscription detail subscription-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-sectors-list-1440x900.png",
+      "route": "/sectors",
+      "finalUrl": "/sectors",
+      "title": "Sectors",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-sector-detail-1440x900.png",
+      "route": "/sectors/sector-123",
+      "finalUrl": "/sectors/sector-123",
+      "title": "Sector sector-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-subsectors-list-1440x900.png",
+      "route": "/sectors/sector-123/subsectors",
+      "finalUrl": "/sectors/sector-123/subsectors",
+      "title": "Subsectors for sector-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-subsector-detail-1440x900.png",
+      "route": "/subsectors/subsector-123",
+      "finalUrl": "/subsectors/subsector-123",
+      "title": "Subsector subsector-123",
+      "status": 200,
+      "context": "sysadmin"
+    },
+    {
+      "fileName": "greenfield-v5-platform-denied-fallback-1440x900.png",
+      "route": "/users",
+      "finalUrl": "/dashboard",
+      "title": "Welcome back, thereIt's good to see you again.",
+      "status": 200,
+      "context": "hc-admin"
+    }
+  ],
+  "securityExclusions": [
+    "no credentials",
+    "dev-only token label only",
+    "no tenant raw payloads"
+  ]
+}

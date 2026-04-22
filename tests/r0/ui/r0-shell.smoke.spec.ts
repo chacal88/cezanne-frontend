@@ -1,15 +1,92 @@
 import {expect, test} from '@playwright/test';
 
+const hcAdminAccess = {
+    isAuthenticated: true,
+    organizationType: 'hc',
+    isAdmin: true,
+    isSysAdmin: false,
+    pivotEntitlements: ['seeCandidates', 'jobRequisition'],
+    subscriptionCapabilities: ['calendarIntegration', 'formsDocs', 'surveys', 'customFields', 'candidateTags', 'reviewRequests', 'interviewFeedback', 'inbox', 'rejectionReason'],
+    rolloutFlags: ['customFieldsBeta'],
+};
+
+function serializeLocalSession(accessContext: typeof hcAdminAccess) {
+    return JSON.stringify({version: 1, accessContext, landingTarget: '/dashboard', token: 'r0-smoke-token'});
+}
+
+test.beforeEach(async ({page}) => {
+    await page.route('**/v2/cv?**', async (route) => {
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({
+                data: [{
+                    id: 34,
+                    uuid: '11111111-1111-4111-8111-111111111111',
+                    first_name: 'Alex',
+                    last_name: 'Candidate',
+                    email: 'alex.candidate@example.test',
+                    city_name: 'Austin, TX',
+                    status: 'screening',
+                    source: 'Indeed',
+                    job_id: 'job-456',
+                    hiring_flow_step_id: 'screening',
+                }],
+                current_page: 2,
+                per_page: 16,
+                total: 1,
+                from: 1,
+                to: 1,
+            }),
+        });
+    });
+    await page.route('**/graphql', async (route) => {
+        await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({
+                data: {
+                    monolith: {
+                        candidate: [{
+                            id: 34,
+                            uuid: '11111111-1111-4111-8111-111111111111',
+                            status: 'screening',
+                            fullName: 'Alex Candidate',
+                            email: 'alex.candidate@example.test',
+                            phone: '+1-555-0101',
+                            sourceName: 'Indeed',
+                            updatedAt: '2026-04-22T10:00:00Z',
+                            hiringFlowStep: {id: 'screening', name: 'screening'},
+                            location: {cityFullName: 'Austin, TX'},
+                            tags: [{name: 'remote'}, {name: 'senior'}],
+                            job: {id: 'job-456', title: 'Product Designer'},
+                            file: {url: '/assets/candidate-123-cv-v1.pdf'},
+                            forms: [],
+                            documents: [],
+                            interviewForms: [],
+                        }],
+                        candidateComments: [{message: 'API note'}],
+                    },
+                },
+            }),
+        });
+    });
+    await page.addInitScript((session) => {
+        window.localStorage.setItem('recruit.localAuthSession', session);
+        window.localStorage.setItem('oc_loginServiceToken', 'r0-smoke-token');
+    }, serializeLocalSession(hcAdminAccess));
+});
+
 test('notifications resolve registered candidate destinations and allow notification-driven entry', async ({page}) => {
     await page.goto('/notifications');
 
     await expect(page.getByRole('heading', {name: 'Notifications'})).toBeVisible();
-    await expect(page.getByTestId('notification-status-n-1')).toContainText('Ready to navigate.');
-    await expect(page.getByTestId('notification-status-n-2')).toContainText('Ready to navigate.');
+    await expect(page.getByTestId('notification-status-n-1')).toHaveText('ready');
+    await expect(page.getByTestId('notification-status-n-2')).toHaveText('ready');
 
     await page.getByTestId('notification-link-n-1').click();
     await expect(page).toHaveURL(/\/candidate\/candidate-123\/job-456\/screening\/2\/remote\/interview-1\?entry=notification/);
-    await expect(page.getByRole('heading', {name: 'Candidate hub'})).toBeVisible();
+    await expect(page.getByRole('heading', {name: 'candidate profile'})).toBeVisible();
     await expect(page.getByTestId('candidate-detail-entry')).toHaveText('notification');
 });
 
@@ -76,17 +153,18 @@ test('job detail and task routes preserve section and explicit parent return', a
 test('candidate detail preserves contextual direct entry and visible parent refresh after actions', async ({page}) => {
     await page.goto('/candidate/candidate-123/job-456/screening/2/remote/interview-1?entry=direct');
 
-    await expect(page.getByRole('heading', {name: 'Candidate hub'})).toBeVisible();
+    await expect(page.getByRole('heading', {name: 'candidate profile'})).toBeVisible();
     await expect(page.getByTestId('candidate-detail-entry')).toHaveText('direct');
-    await expect(page.getByTestId('candidate-detail-job')).toHaveText('job-456');
-    await expect(page.getByTestId('candidate-detail-sequence-state')).toHaveText('available');
+    await expect(page.getByTestId('candidate-detail-job')).toContainText('job-456');
+    await expect(page.getByTestId('candidate-detail-sequence-state')).toContainText('available');
 
     await page.getByTestId('candidate-open-offer-link').click();
-    await expect(page.getByTestId('candidate-task-parent')).toHaveText('/candidate/candidate-123/job-456/screening/2/remote/interview-1');
+    await expect(page.getByTestId('candidate-task-parent')).toContainText('/candidate/candidate-123/job-456/screening/2/remote/interview-1');
     await page.getByTestId('candidate-task-complete-link').click();
 
     await expect(page).toHaveURL(/\/candidate\/candidate-123\/job-456\/screening\/2\/remote\/interview-1/);
     await expect(page.getByTestId('candidate-detail-last-action')).toHaveText('offer completed');
+    await page.getByRole('tab', {name: 'Contracts'}).click();
     await expect(page.getByTestId('candidate-contracts-state')).toHaveText('sent');
 });
 
@@ -94,9 +172,9 @@ test('user profile closes back to dashboard', async ({page}) => {
     await page.goto('/user-profile');
 
     await expect(page.getByRole('heading', {name: 'User profile'})).toBeVisible();
-    await page.getByTestId('user-profile-close-link').click();
+    await page.getByTestId('user-profile-parent-link').click();
     await expect(page).toHaveURL(/\/dashboard$/);
-    await expect(page.getByRole('heading', {name: 'Dashboard'})).toBeVisible();
+    await expect(page.getByTestId('dashboard-card-jobs')).toBeVisible();
 });
 
 test('public token and access-denied routes render', async ({page}) => {
@@ -292,32 +370,39 @@ test('integration job callback supports normalized direct entry and expired toke
 
 test('SysAdmin platform foundation renders dashboard mode and platform placeholder fallback contract', async ({page}) => {
     await page.addInitScript(() => {
-        window.localStorage.setItem('recruit.accessContextOverride', JSON.stringify({
+        window.localStorage.setItem('recruit.localAuthSession', JSON.stringify({
+            version: 1,
+            landingTarget: '/dashboard',
+            token: 'r0-smoke-sysadmin-token',
+            accessContext: {
             organizationType: 'none',
+            isAuthenticated: true,
             isAdmin: true,
             isSysAdmin: true,
             pivotEntitlements: [],
             subscriptionCapabilities: [],
             rolloutFlags: [],
+            },
         }));
+        window.localStorage.setItem('oc_loginServiceToken', 'r0-smoke-sysadmin-token');
     });
 
     await page.goto('/dashboard');
     await expect(page.getByRole('heading', {name: 'Platform administration'})).toBeVisible();
-    await expect(page.getByTestId('platform-nav-master-data')).toBeVisible();
-    await expect(page.getByTestId('platform-nav-users-and-requests')).toBeVisible();
-    await expect(page.getByTestId('platform-nav-taxonomy')).toBeVisible();
+    await expect(page.getByRole('link', {name: /Master data/})).toBeVisible();
+    await expect(page.getByRole('link', {name: /Users and requests/})).toBeVisible();
+    await expect(page.getByRole('link', {name: /Taxonomy/})).toBeVisible();
 
     await page.goto('/hiring-companies');
-    await expect(page.getByRole('heading', {name: 'Hiring companies unavailable'})).toBeVisible();
-    await expect(page.getByTestId('platform-placeholder-state')).toHaveText('foundation-placeholder');
+    await expect(page.getByRole('heading', {name: 'Hiring company list'})).toBeVisible();
+    await expect(page.getByTestId('platform-master-data-state')).toHaveText('ready');
 });
 
 test('authenticated non-SysAdmin platform placeholder entry falls back to dashboard', async ({page}) => {
     await page.goto('/hiring-companies');
 
     await expect(page).toHaveURL(/\/dashboard$/);
-    await expect(page.getByRole('heading', {name: 'Dashboard'})).toBeVisible();
+    await expect(page.getByTestId('dashboard-card-jobs')).toBeVisible();
     await expect(page.getByRole('heading', {name: 'Platform administration'})).not.toBeVisible();
 });
 
@@ -333,12 +418,12 @@ test('candidate database restores URL state and preserves database-origin detail
     await expect(page.getByTestId('candidate-database-tags')).toHaveText('remote,senior');
 
     await page.getByTestId('candidate-database-detail-link').click();
-    await expect(page.getByRole('heading', {name: 'Candidate hub'})).toBeVisible();
+    await expect(page.getByRole('heading', {name: 'candidate profile'})).toBeVisible();
     await expect(page.getByTestId('candidate-detail-entry')).toHaveText('database');
-    await expect(page.getByTestId('candidate-database-return-target')).toHaveText('/candidates-database?query=alex&page=2&sort=name&order=asc&stage=screening&tags=remote%2Csenior');
+    await expect(page.getByTestId('candidate-database-return-target')).toContainText('/candidates-database?query=alex&page=2&sort=name&order=asc&stage=screening&tags=remote%2Csenior');
 
     await page.getByTestId('candidate-open-offer-link').click();
-    await expect(page.getByTestId('candidate-task-entry')).toHaveText('database');
+    await expect(page.getByTestId('candidate-task-entry')).toContainText('database');
     await page.getByTestId('candidate-task-close-link').click();
     await expect(page.getByTestId('candidate-detail-entry')).toHaveText('database');
     await page.getByTestId('candidate-database-return-link').click();
@@ -375,14 +460,14 @@ test('reports shell supports direct entry, family fallback, export, and scheduli
     await page.getByTestId('report-family-link-jobs').click();
     await expect(page).toHaveURL(/\/report\/jobs$/);
     await expect(page.getByRole('heading', {name: 'Jobs report'})).toBeVisible();
-    await expect(page.getByTestId('report-result-state')).toHaveText('data-ready');
+    await expect(page.getByTestId('report-result-state')).toHaveText('ready');
     await expect(page.getByTestId('report-export-state')).toHaveText('available');
     await expect(page.getByTestId('report-schedule-state')).toHaveText('available');
 
     await page.getByTestId('report-export-button').click();
-    await expect(page.getByTestId('report-command-export-state')).toHaveText('success');
+    await expect(page.getByTestId('report-command-export-state')).toHaveText('exported');
     await page.getByTestId('report-schedule-button').click();
-    await expect(page.getByTestId('report-command-schedule-state')).toHaveText('success');
+    await expect(page.getByTestId('report-command-schedule-state')).toHaveText('scheduled');
 
     await page.getByTestId('report-parent-link').click();
     await expect(page).toHaveURL(/\/report$/);
@@ -390,7 +475,7 @@ test('reports shell supports direct entry, family fallback, export, and scheduli
     await page.goto('/report/diversity?period=empty&owner=alex');
     await expect(page.getByRole('heading', {name: 'Diversity report'})).toBeVisible();
     await expect(page.getByTestId('report-result-state')).toHaveText('empty');
-    await expect(page.getByTestId('report-schedule-state')).toHaveText('unavailable');
+    await expect(page.getByTestId('report-schedule-state')).toHaveText('unsupported');
 
     await page.goto('/hiring-company/report/hiring-process');
     await expect(page).toHaveURL(/\/report\/hiring-process$/);
@@ -398,17 +483,17 @@ test('reports shell supports direct entry, family fallback, export, and scheduli
 
 test('org team foundation stays recruiter-core scoped and exposes invite/recruiter visibility placeholders', async ({page}) => {
     await page.goto('/team');
-    await expect(page.getByRole('heading', {name: 'Team'})).toBeVisible();
+    await expect(page.getByRole('heading', {name: 'Team', exact: true})).toBeVisible();
     await expect(page.getByTestId('org-team-route-kind')).toHaveText('team-index');
     await expect(page.getByTestId('org-team-platform-scope')).toHaveText('false');
 
     await page.getByTestId('org-team-recruiters-link').click();
     await expect(page).toHaveURL(/\/team\/recruiters$/);
-    await expect(page.getByRole('heading', {name: 'Recruiter visibility'})).toBeVisible();
+    await expect(page.locator('h1')).toHaveText('Recruiter visibility');
     await expect(page.getByTestId('org-team-route-kind')).toHaveText('recruiter-visibility');
 
     await page.getByTestId('org-team-invite-link').click();
     await expect(page).toHaveURL(/\/users\/invite$/);
-    await expect(page.getByRole('heading', {name: 'Invite foundation'})).toBeVisible();
+    await expect(page.locator('h1')).toHaveText('Invite management');
     await expect(page.getByTestId('org-team-pending-invite-count')).toHaveText('1');
 });

@@ -1,0 +1,106 @@
+{
+  "captureDate": "2026-04-22",
+  "viewport": "1440x900",
+  "baseUrl": "http://127.0.0.1:5173",
+  "sessionStorage": "recruit.localAuthSession",
+  "records": [
+    {
+      "name": "01-database-ready-density-pass",
+      "route": "/candidates-database",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/01-database-ready-density-pass.png",
+      "note": "Candidate database after saved filter/list and density parity pass.",
+      "status": "captured"
+    },
+    {
+      "name": "02-database-add-new-menu-density-pass",
+      "route": "/candidates-database",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/02-database-add-new-menu-density-pass.png",
+      "note": "Add new menu after compact database sidebar pass.",
+      "status": "captured"
+    },
+    {
+      "name": "03-database-saved-filter-menu-density-pass",
+      "route": "/candidates-database",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/03-database-saved-filter-menu-density-pass.png",
+      "note": "Saved filter kebab menu with comparable filter entries.",
+      "status": "captured"
+    },
+    {
+      "name": "04-database-saved-list-menu-density-pass",
+      "route": "/candidates-database",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/04-database-saved-list-menu-density-pass.png",
+      "note": "Saved list kebab menu with comparable list entries.",
+      "status": "captured"
+    },
+    {
+      "name": "05-database-row-selected-bulk-enabled",
+      "route": "/candidates-database",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/05-database-row-selected-bulk-enabled.png",
+      "note": "First row selected and bulk action toolbar enabled.",
+      "status": "captured"
+    },
+    {
+      "name": "10-detail-ready-after-parity-pass",
+      "route": "/candidate/11111111-1111-4111-8111-111111111111/job-13/rejected/2/remote/interview-1?entry=job&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/10-detail-ready-after-parity-pass.png",
+      "note": "Candidate detail ready state after legacy action modal entry pass.",
+      "status": "captured"
+    },
+    {
+      "name": "11-detail-more-actions-after-parity-pass",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/11-detail-more-actions-after-parity-pass.png",
+      "note": "Candidate detail More actions menu after adding legacy modal entries.",
+      "status": "captured"
+    },
+    {
+      "name": "12-detail-email-candidate-modal",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/12-detail-email-candidate-modal.png",
+      "note": "Legacy-style Email candidate modal entry.",
+      "status": "captured"
+    },
+    {
+      "name": "13-detail-send-to-hiring-manager-modal",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/13-detail-send-to-hiring-manager-modal.png",
+      "note": "Legacy-style Send to hiring manager modal entry.",
+      "status": "captured"
+    },
+    {
+      "name": "14-detail-move-job-modal",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/14-detail-move-job-modal.png",
+      "note": "Legacy-style Move to a different job modal entry.",
+      "status": "captured"
+    },
+    {
+      "name": "15-detail-score-now-modal",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/15-detail-score-now-modal.png",
+      "note": "Legacy-style Score now modal entry.",
+      "status": "captured"
+    },
+    {
+      "name": "20-action-schedule-modal-route",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1/cv/4/schedule?entry=direct",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/20-action-schedule-modal-route.png",
+      "note": "Route-owned Schedule task rendered as a modal surface over candidate profile.",
+      "status": "captured"
+    },
+    {
+      "name": "21-action-offer-modal-route",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1/cv/4/offer?entry=direct",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/21-action-offer-modal-route.png",
+      "note": "Route-owned Offer task rendered as a modal surface over candidate profile.",
+      "status": "captured"
+    },
+    {
+      "name": "22-action-reject-modal-route",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1/cv-reject/4?entry=direct",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/22-action-reject-modal-route.png",
+      "note": "Route-owned Reject task rendered as a modal surface over candidate profile.",
+      "status": "captured"
+    }
+  ]
+}

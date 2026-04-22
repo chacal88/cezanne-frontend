@@ -86,6 +86,7 @@ function describeBulkState(kind: string) {
   }
 }
 
+const defaultFilters = ["LIST KAUE", "FILTER KAUE"];
 const defaultLists = ["LIST KAUE", "FILTER KAUE"];
 const columnOptions = [
   "Tags",
@@ -156,6 +157,7 @@ export function CandidateDatabasePage() {
     "Everyone" | "Only me"
   >("Everyone");
   const [savedLists, setSavedLists] = useState<string[]>(defaultLists);
+  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [selectedList, setSelectedList] = useState<string | null>(null);
   const [filtersCollapsed, setFiltersCollapsed] = useState(false);
   const [listsCollapsed, setListsCollapsed] = useState(false);
@@ -209,7 +211,9 @@ export function CandidateDatabasePage() {
   const apiResult = apiState.result;
   const apiRows = apiResult?.rows ?? [];
   const filteredEmpty =
-    state.tags.includes("filtered-empty") || Boolean(selectedList);
+    state.tags.includes("filtered-empty") ||
+    Boolean(selectedFilter) ||
+    Boolean(selectedList);
   const empty = state.tags.includes("empty-list");
   const displayedRows = filteredEmpty || empty ? [] : apiRows;
   const resultCount = displayedRows.length;
@@ -260,7 +264,8 @@ export function CandidateDatabasePage() {
           ? "pending"
           : undefined,
   });
-  const activeFilters = hasActiveFilters(state) || Boolean(selectedList);
+  const activeFilters =
+    hasActiveFilters(state) || Boolean(selectedFilter) || Boolean(selectedList);
   const clearTarget = buildCandidateDatabasePath();
 
   function closeMenus() {
@@ -283,6 +288,7 @@ export function CandidateDatabasePage() {
   }
 
   function resetFilters() {
+    setSelectedFilter(null);
     setSelectedList(null);
     setFilterMenuOpen(false);
     setListMenuOpen(false);
@@ -417,10 +423,24 @@ export function CandidateDatabasePage() {
             ) : null}
           </div>
           {!filtersCollapsed ? (
-            <div className="candidate-db-section-body">
-              <span data-testid="candidate-database-query">
-                {state.query || "saved filters"}
-              </span>
+            <div
+              className="candidate-db-saved-list-items candidate-db-saved-filter-items"
+              data-testid="candidate-saved-filter-items"
+            >
+              {defaultFilters.map((filter) => (
+                <button
+                  className={selectedFilter === filter ? "is-selected" : ""}
+                  key={filter}
+                  type="button"
+                  onClick={() => {
+                    setSelectedFilter(filter);
+                    setSelectedList(null);
+                  }}
+                >
+                  <span>{filter}</span>
+                  <span className="candidate-db-count-pill">0</span>
+                </button>
+              ))}
             </div>
           ) : null}
 
@@ -463,7 +483,10 @@ export function CandidateDatabasePage() {
                   className={selectedList === list ? "is-selected" : ""}
                   key={list}
                   type="button"
-                  onClick={() => setSelectedList(list)}
+                  onClick={() => {
+                    setSelectedList(list);
+                    setSelectedFilter(null);
+                  }}
                 >
                   <span>{list}</span>
                   <span className="candidate-db-count-pill">0</span>
@@ -510,6 +533,7 @@ export function CandidateDatabasePage() {
                 className="candidate-product-button candidate-db-bulk-button"
                 type="button"
                 disabled={bulkActionState.kind === "blocked"}
+                data-testid="candidate-database-bulk-actions"
               >
                 ▣ Bulk Actions
               </button>
@@ -519,15 +543,20 @@ export function CandidateDatabasePage() {
                 <button
                   className="candidate-product-button candidate-product-button--secondary candidate-db-applied-filter"
                   type="button"
-                  onClick={() => setSelectedList(null)}
+                  onClick={() => {
+                    setSelectedFilter(null);
+                    setSelectedList(null);
+                  }}
                   data-testid="candidate-applied-list-filter"
                 >
-                  ✕ {selectedList ?? state.query}
+                  ✕ {selectedList ?? selectedFilter ?? state.query}
                 </button>
               ) : null}
               <span className="candidate-product-muted">
                 {selectedList
                   ? selectedList
+                  : selectedFilter
+                    ? selectedFilter
                   : describeBulkState(bulkActionState.kind)}
               </span>
               {activeFilters ? (
@@ -593,6 +622,24 @@ export function CandidateDatabasePage() {
             data-testid="candidate-database-ats-state"
           >
             {atsRow.atsState.kind}
+          </p>
+          <p className="candidate-detail-hidden-state" data-testid="candidate-database-query">
+            {state.query || selectedFilter || selectedList || "saved filters"}
+          </p>
+          <p className="candidate-detail-hidden-state" data-testid="candidate-database-page">
+            {state.page}
+          </p>
+          <p className="candidate-detail-hidden-state" data-testid="candidate-database-sort">
+            {state.sort}
+          </p>
+          <p className="candidate-detail-hidden-state" data-testid="candidate-database-order">
+            {state.order}
+          </p>
+          <p className="candidate-detail-hidden-state" data-testid="candidate-database-stage">
+            {state.stage ?? ""}
+          </p>
+          <p className="candidate-detail-hidden-state" data-testid="candidate-database-tags">
+            {state.tags.join(",")}
           </p>
 
           {apiState.status === "error" ? (

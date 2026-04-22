@@ -73,6 +73,8 @@ R3 implementation status (confirmed in code): the public/token route family now 
 
 R5 implementation status (confirmed in code/docs): platform master data, platform users/favorite-request queue, taxonomy, requisition authoring, API endpoints settings, `/parameters` compatibility, and requisition forms/download are implemented and validated. Generic integration tokenized entries were reconciled as already covered by R3 token-entry routes.
 
+V1-V5 review update (2026-04-22): V1, V3, and V4 are closed for current screen-flow handoff bases; V5 is foundation-complete but not final Figma-ready for non-ready/mutation/depth states; V2 is behaviour-covered but remains legacy-parity blocked. Product direction for V2 Candidates is full parity: no database/detail/action-flow deviation is accepted unless a future product decision explicitly records the exception and gap id. The first parity pass has improved V2 database density/saved lists, candidate action modal composition, candidate detail legacy modal entry points, and recapture seed parity for Finn/Diego/API-seed-style evidence, with `npm test`, `npm run build`, and `npm run smoke:r0:ui` green.
+
 ### Why this slicing (and not the original Waves)
 
 The frontend-2 waves were optimized for phased **co-existence** — Wave 1 had to be releasable alongside a still-running legacy. Greenfield doesn't have that constraint, so the slicing is optimized for two different goals:
@@ -460,10 +462,23 @@ Current status:
 | Provider readiness operational gates | Closed | `provider-readiness-operational-gates-plan.md`, `provider-readiness-operational-gates` | Operational routes consume normalized readiness outputs and preserve provider setup separation. |
 | Operational-depth consumer packages | Closed | `integration-operational-depth-sequence-plan.md` | All eight follow-on packages are implemented and validated. |
 | Design/flow preparation | Closed for contract package creation | `screen-design-flow-matrix.md`, `pre-figma-flow-review.md`, `v0-auth-shell-dashboard-visual-contract.md` through `v5-sysadmin-platform-visual-contract.md` | All route rows are contract-reviewed and V0-V5 visual-readiness packages exist. |
-| Visual evidence capture | In progress | V0-V5 visual contracts + `visual-evidence-capture-plan.md` + V0/V1/V2 evidence logs | V0 and V1 screen-flow bases are captured and partially unblocked for Figma. V2 candidate rows are behaviour-captured but parity-blocked; V2 deferred provider/schema/terminal variants plus V3-V5 still require evidence. |
+| Visual evidence capture | In progress | V0-V5 visual contracts + `visual-evidence-capture-plan.md` + V0/V1/V2/V3/V4/V5 evidence logs | V0, V1, V3, and V4 screen-flow bases are captured and unblocked for Figma with deferred backend/provider/schema annotations. V2 candidate rows are behaviour-captured but parity-blocked. V5 has first-pass current-app evidence and remains blocked for follow-up state capture, accepted deviations, and canonical Figma-ready decisions. |
 | Figma + screen-flow contracts | Next planned phase | future Figma references + screen-flow contracts | Attach canonical Figma nodes/frames to rows only after visual evidence makes them `Figma-ready`, without changing route/spec ownership. |
 
-Planning rule: do not reopen provider readiness gates as the current implementation package unless a new provider family or operational consumer is intentionally added. The active phase is visual evidence capture against the V0-V5 visual-readiness contracts. Figma production is partially unblocked only for rows/sub-blocks promoted to `Figma-ready` by evidence, excluding V2 candidate rows until side-by-side legacy parity blockers are resolved or explicitly accepted, not by visual preference alone.
+Planning rule: do not reopen provider readiness gates as the current implementation package unless a new provider family or operational consumer is intentionally added. The active phase is visual evidence capture against the V0-V5 visual-readiness contracts. Figma production is partially unblocked only for rows/sub-blocks promoted to `Figma-ready` by evidence, excluding V2 candidate rows until side-by-side legacy parity blockers are resolved or explicitly accepted, not by visual preference alone. V3 public/external and integration token rows plus V4 operations rows are promoted for screen-flow/base-frame Figma handoff; V5 first-pass screenshots remain current-app evidence only and do not promote rows until the remaining state gaps are captured or explicitly accepted.
+
+### V1-V5 review closeout
+
+The 2026-04-22 V1-V5 audit is recorded in `v1-v5-roadmap-review-2026-04-22.md`.
+
+Confirmed:
+- `npm run build` passes.
+- `npm test` passes with 102 test files and 422 tests.
+- V1 Jobs is closed for route/state/screen-flow basis.
+- V2 Candidates is behavior-covered but remains visual-parity blocked.
+- V3 public/external/token flows are promoted for Figma screen-flow/base-frame handoff with backend/API/schema details annotated as deferred.
+- V4 operations is promoted for current-app screen-flow handoff with backend/provider/schema details annotated as deferred.
+- V5 platform/long-tail is foundation-complete in route/runtime coverage, but not Figma-ready until missing platform state depth is captured or explicitly waived.
 
 ## 11. Contract gaps (backend dependencies)
 
@@ -663,4 +678,8 @@ V1 covered screen-flow bases may proceed to Figma: jobs list, job authoring, job
 
 ### V2 visual evidence gate
 
-V2 candidate evidence has been recaptured after product-composition implementation, but side-by-side legacy parity review found blocking visual/behaviour mismatches in the database, detail hub, and action launchers. These rows remain behaviour-evidenced but not final Figma-ready. Deferred provider/schema/terminal/mobile variants still require separate evidence before promotion. Candidate compatibility aliases are documented and must not become standalone screens.
+V2 candidate evidence has been recaptured after product-composition implementation, including a parity-pass recapture with comparable Finn/Diego/API-seed data. Side-by-side legacy parity review still found blocking visual/behaviour mismatches in the database, detail hub, and action launchers. These rows remain behaviour-evidenced but not final Figma-ready. Deferred provider/schema/terminal/mobile variants still require separate evidence before promotion. Candidate compatibility aliases are documented and must not become standalone screens.
+
+### V3 visual evidence gate
+
+V3 public/external and integration token flows may proceed to Figma for screen-flow/base-frame work. Evidence now covers desktop, mobile, narrow, lifecycle, and follow-up states for shared token lifecycle, external chat, interview request, review candidate, interview feedback, shared job, public application, public survey, requisition approval/forms, and integration CV/forms/job token callbacks. Deferred backend/API/schema details must remain annotated in Figma and must not be invented from screenshots.

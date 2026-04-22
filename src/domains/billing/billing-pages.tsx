@@ -1,8 +1,48 @@
 import { Link } from '@tanstack/react-router';
-import { buildBillingCardViewModel, buildBillingOverviewViewModel, buildBillingUpgradeViewModel, buildSmsAddonViewModel } from './support/billing-state';
+import {
+  buildBillingAdapterSnapshot,
+  buildBillingCardViewModel,
+  buildBillingOverviewViewModel,
+  buildBillingUpgradeViewModel,
+  buildSmsAddonViewModel,
+  type BillingFixtureName,
+  type BillingPlanId,
+  type BillingUpgradeState,
+  type SmsAddonState,
+} from './support/billing-state';
+
+const billingFixtures = new Set<BillingFixtureName>(['ready', 'loading', 'empty', 'denied', 'unavailable', 'stale', 'degraded', 'pending-change']);
+const upgradeStates = new Set<BillingUpgradeState>(['same-plan', 'card-blocked', 'confirmation', 'submitted', 'success', 'failure', 'retry', 'challenge-required', 'stale', 'degraded', 'denied', 'unavailable']);
+const smsStates = new Set<SmsAddonState>(['unavailable', 'inactive', 'trial', 'active', 'suspended', 'usage-warning', 'card-blocked', 'pending', 'success', 'partial-success', 'failed', 'retry', 'stale', 'degraded', 'denied']);
+const planIds = new Set<BillingPlanId>(['starter', 'growth', 'enterprise']);
+
+function getSearchParam(name: string) {
+  return new URLSearchParams(window.location.search).get(name);
+}
+
+function billingFixtureFromSearch() {
+  const value = getSearchParam('fixture');
+  return value && billingFixtures.has(value as BillingFixtureName) ? (value as BillingFixtureName) : undefined;
+}
+
+function billingUpgradeStateFromSearch() {
+  const value = getSearchParam('state');
+  return value && upgradeStates.has(value as BillingUpgradeState) ? (value as BillingUpgradeState) : undefined;
+}
+
+function smsStateFromSearch() {
+  const value = getSearchParam('state');
+  return value && smsStates.has(value as SmsAddonState) ? (value as SmsAddonState) : undefined;
+}
+
+function planIdFromSearch(name: string) {
+  const value = getSearchParam(name);
+  return value && planIds.has(value as BillingPlanId) ? (value as BillingPlanId) : undefined;
+}
 
 export function BillingOverviewPage() {
-  const view = buildBillingOverviewViewModel();
+  const fixture = billingFixtureFromSearch();
+  const view = fixture ? buildBillingOverviewViewModel(buildBillingAdapterSnapshot(fixture)) : buildBillingOverviewViewModel();
 
   return (
     <section>
@@ -40,7 +80,16 @@ export function BillingOverviewPage() {
 }
 
 export function BillingUpgradePage() {
-  const view = buildBillingUpgradeViewModel();
+  const state = billingUpgradeStateFromSearch();
+  const currentPlanId = planIdFromSearch('currentPlan');
+  const targetPlanId = planIdFromSearch('targetPlan');
+  const hasReadyCard = getSearchParam('readyCard') === 'false' ? false : true;
+  const view = buildBillingUpgradeViewModel({
+    currentPlanId,
+    targetPlanId,
+    hasReadyCard,
+    forcedState: state && state !== 'same-plan' && state !== 'card-blocked' && state !== 'confirmation' ? state : undefined,
+  });
 
   return (
     <section>
@@ -70,7 +119,10 @@ export function BillingUpgradePage() {
 }
 
 export function BillingSmsPage() {
-  const view = buildSmsAddonViewModel();
+  const state = smsStateFromSearch();
+  const hasReadyCard = getSearchParam('readyCard') === 'false' ? false : true;
+  const usage = state === 'active' ? { used: 200, limit: 1000, warningThreshold: 0.8 } : undefined;
+  const view = buildSmsAddonViewModel({ state, hasReadyCard, usage });
 
   return (
     <section>

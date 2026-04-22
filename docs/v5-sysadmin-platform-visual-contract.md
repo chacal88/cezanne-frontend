@@ -15,11 +15,11 @@ V5 covers:
 
 | Family | Contract status | Visual status | Figma-ready? | Notes |
 |---|---|---|---|---|
-| Platform users | Contract-reviewed | Pending | No | User filters/list/detail/create/edit, returnTo, stale/not-found/permission states need canonical platform frames. |
-| Platform favorite requests | Contract-reviewed | Pending | No | Queue/detail, approve/reject/reopen readiness, resolved/rejected/stale/inaccessible states need frames. |
-| Platform master data | Contract-reviewed | Pending | No | Company/agency/subscription list/detail/edit states need common master-data visuals. |
-| Company subscription admin | Contract-reviewed | Pending | No | Route capability vs mutation capability and mutation states need frames. |
-| Platform taxonomy | Contract-reviewed | Pending | No | Sector/subsector list/detail, parent targets, mutation success/error, stale/not-found/denied states need frames. |
+| Platform users | Contract-reviewed | Initial evidence captured | No | List filters, create, detail, and edit route shells are captured; stale/not-found/permission and richer backend-backed frames still need canonical platform evidence. |
+| Platform favorite requests | Contract-reviewed | Initial evidence captured | No | Queue/detail pending state and approve readiness are captured; resolved/rejected/stale/inaccessible/action-failure states still need frames. |
+| Platform master data | Contract-reviewed | Initial evidence captured | No | Company/agency/subscription list/detail/edit route shells are captured; non-ready states and entity-specific field layouts still need frames. |
+| Company subscription admin | Contract-reviewed | Initial evidence captured | No | Ready state and route-vs-mutation capability labels are captured; mutation blocked/success/error/stale/not-found states still need frames. |
+| Platform taxonomy | Contract-reviewed | Initial evidence captured | No | Sector/subsector ready states and parent targets are captured; mutation success/error, stale, not-found, and denied states still need frames. |
 
 ## Evidence sources
 
@@ -28,6 +28,7 @@ V5 covers:
 | Route and state contracts | `pre-figma-flow-review.md`, `screens.md`, `modules.md`, `capabilities.md` | Canonical product behavior for SysAdmin routes | Must not be overridden by screenshots. |
 | OpenSpec specs | `sysadmin-platform-foundation`, `platform-users-routes`, `platform-favorite-request-queue`, `platform-master-data-routes`, `platform-company-subscription-admin`, `platform-taxonomy-routes` | Required state/action/error/parent-return coverage | Specs do not define final layout. |
 | Current greenfield source | `src/domains/sysadmin/users-and-requests/**`, `src/domains/sysadmin/master-data/**`, `src/domains/sysadmin/taxonomy/**` | Runtime state and current UI behavior | Fixture-backed/platform adapter-backed data remains a seam. |
+| First-pass current evidence | `visual-evidence-v5-sysadmin-platform.md`, `visual-evidence-assets/v5/v5-capture-manifest.json` | Baseline route-shell, platform navigation, parent-target, and boundary evidence | Does not promote V5 rows to `Figma-ready`; follow-up state depth remains required. |
 | Shell/access contracts | `authenticated-shell-navigation-completion`, route metadata, access-control capability evaluation | Platform navigation and capability boundaries | Do not grant org-scoped permissions from platform visuals. |
 
 ## Platform users frame set
@@ -109,3 +110,9 @@ V5 covers:
 4. Company subscription admin visual map for route-vs-mutation capability, blocked, success/error, and refresh targets.
 5. Taxonomy visual map for sectors/subsectors list/detail/mutation/not-found/stale/denied states.
 6. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above.
+
+## First-pass evidence closeout
+
+`visual-evidence-v5-sysadmin-platform.md` completes the current runtime evidence pass for all V5 route families exposed today. It captures platform landing, users, favorite-request queue, master-data, company subscription, taxonomy, and non-SysAdmin fallback shells.
+
+This does not satisfy the required outputs above because the current runtime does not expose most non-ready, mutation, terminal, stale, not-found, or permission-denied state variants as navigable visual states. Future V5 promotion needs backend/API-backed states, explicit fixture/test-hook exposure, or product-approved omissions before any row moves to `Figma-ready`.

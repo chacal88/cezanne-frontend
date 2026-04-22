@@ -104,6 +104,17 @@ V2 candidate screens remain **parity-blocked**.
 
 The evidence package is now sufficient to start targeted implementation work, but it is not sufficient to sign off visual parity or final Figma readiness.
 
+## Product parity decision — 2026-04-22
+
+Product direction: **all V2 Candidates surfaces must preserve legacy parity**.
+
+Implications:
+- No listed V2 candidate visual or behaviour deviation is accepted by default.
+- Database, detail, panels, and action flows must match the authenticated legacy reference in layout, density, copy, menu/modal behaviour, and interaction model before promotion.
+- The legacy modal model for schedule, reject, email, review request, move job, upload CV, and score-now remains the target unless a future product decision explicitly names and accepts a specific divergence.
+- Greenfield route ownership may stay canonical internally, but the rendered user experience must match legacy composition where the legacy flow is the reference.
+- Future recapture may mark a gap `Resolved` only with side-by-side evidence, or `Accepted` only with an explicit product-approved exception.
+
 ## Recapture status update — 2026-04-22 detail cluster
 
 Evidence package: `docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/`
@@ -121,3 +132,96 @@ Legacy recapture was blocked by authentication (`docs/visual-evidence-assets/v2/
 | V2-GAP-019 | Improved; still blocked | Greenfield sequence control appears in `docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/20-candidate-detail-ready-viewport-job-context.png`, but count/context differs from `docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/20-candidate-detail-ready-viewport.png`. |
 | V2-GAP-020 | Improved | Greenfield tabs show legacy grouping in `docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/20-candidate-detail-ready-viewport-job-context.png` and tab captures `new/51-*`, `new/52-*`, `new/53-*`, `new/54-*`. |
 | V2-GAP-021 | Improved; still blocked | CV controls and preview frame are improved in `docs/visual-evidence-assets/v2/recapture-2026-04-22-detail/new/24-candidate-detail-latest-cv-tab.png`; exact preview/data parity remains blocked against `docs/visual-evidence-assets/v2/deep-capture-2026-04-22/legacy/24-candidate-detail-latest-cv-tab.png`. |
+
+## Implementation validation update — 2026-04-22 database/API handoff
+
+Confirmed fixes after the database/detail API pass:
+
+- Candidate database rows are no longer sourced from fixed in-component fixture rows. The greenfield database page fetches `/v2/cv` through the REST API adapter and maps API UUIDs, numeric CV ids, job ids, hiring-flow step ids, names, emails, locations, source, score, and action-readiness flags into table rows.
+- Database search now preserves the route-owned `query` state and sends it to the backend through the API adapter's `search` parameter.
+- Database-to-detail links now use the API candidate UUID plus job/step context segments and preserve `entry=database` with a sanitized `/candidates-database` return target.
+- Candidate detail now attempts an API-backed candidate aggregate fetch for database-origin, UUID, and numeric candidate entries. The fetched API candidate is cached into the candidate store to avoid fallback fixture data and unstable `useSyncExternalStore` snapshots.
+- Removed database compatibility entries are no longer registered in router metadata, route contracts, HTTP smoke routes, or active visual evidence aliases. `/candidates-database` is the only greenfield database route.
+
+Validation run:
+
+- `npm test -- src/domains/candidates/support/adapter-seams.test.ts src/domains/candidates/detail-hub/candidate-detail-api.test.ts src/domains/candidates/support/candidate-database-routing.test.ts src/lib/routing/route-metadata.test.ts`
+- `npm run build`
+
+Remaining V2 blockers after this update:
+
+- Greenfield visual recapture is now recorded for the database search/detail-handoff/return states after the API-backed data changes, including a status/stage-column validation pass: `docs/visual-evidence-v2-candidates-recapture-2026-04-22-database-detail-api.md`.
+- Legacy authenticated recapture remains required before any V2 Candidate row can move to `Figma-ready`.
+- High-priority visual parity gaps remain open for row density, saved filters/lists, bulk actions, detail side card geometry, hiring-flow timeline, and modal-vs-route action flow composition.
+
+## Implementation update — 2026-04-22 action modal parity start
+
+Confirmed change:
+- Candidate schedule/offer/reject task routes now keep canonical deep-link route ownership but render as a centered modal surface over a dimmed candidate-profile background.
+- Schedule now exposes a four-step interview scheduler stepper to match the legacy modal workflow direction.
+- Action task candidate context no longer exposes implementation/debug metadata in the visible UI; test ids remain available through visually hidden state for route/telemetry validation.
+- Candidate database saved filters and saved lists now use comparable `LIST KAUE` / `FILTER KAUE` entries, preserve route-owned state test coverage, and expose the default Bulk Actions control through a stable test id.
+- Candidate database row density and sidebar spacing were compacted toward the legacy layout.
+- Candidate detail now exposes legacy-style modal entry points for Email candidate, Send to hiring manager, Move job, and Score now. These are composition/parity starters only; they do not claim backend mutation parity.
+- The R0 Playwright smoke harness now seeds the current `recruit.localAuthSession` contract and mocks candidate `/v2/cv` + GraphQL reads for deterministic database/detail handoff validation.
+
+Validation run:
+- `npm test -- src/domains/candidates/action-launchers/candidate-action-context.test.ts src/domains/candidates/support/routing.test.ts src/domains/candidates/support/product-depth.test.ts`
+- `npm test -- src/domains/candidates/action-launchers/candidate-action-context.test.ts src/domains/candidates/support/routing.test.ts src/domains/candidates/support/product-depth.test.ts src/domains/candidates/support/candidate-database-routing.test.ts src/domains/candidates/detail-hub/candidate-detail-api.test.ts`
+- `npm test`
+- `npm run build`
+- `npm run smoke:r0:ui -- --grep "candidate"`
+- `npm run smoke:r0:ui`
+
+Gap impact:
+- V2-GAP-004 through V2-GAP-012, V2-GAP-016, V2-GAP-020, V2-GAP-024 through V2-GAP-030 are **improved but not closed**.
+- They still require side-by-side visual recapture against authenticated legacy references before any item can be marked resolved.
+- `npm run smoke:r0:ui` is now green for the route/state smoke suite (28 tests), but smoke success is not visual parity signoff.
+
+## Recapture status update — 2026-04-22 parity pass
+
+Evidence package: `docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/`
+Recapture log: `docs/visual-evidence-v2-candidates-recapture-2026-04-22-parity-pass.md`
+Capture script: `scripts/capture-v2-parity-recapture.mjs`
+
+This recapture records current greenfield evidence after the first explicit parity pass. It does not include fresh authenticated legacy screenshots, so no gap is marked resolved from this section alone.
+
+The recapture harness was tightened after the first run so the covered current-app screenshots now use legacy-comparable data:
+- database rows are API-seed-style candidates including Finn, Eva, Diego, Cara, Ben, and Ava ApiSeed;
+- the main detail ready state uses Finn ApiSeed to match the main legacy detail reference;
+- More actions and route-owned schedule/offer/reject action states use Diego ApiSeed to match the legacy supplement action references.
+
+| ID | Recapture marking | Screenshot-specific basis |
+|---|---|---|
+| V2-GAP-004 | Improved; still blocked | Add new menu captured in `new/02-database-add-new-menu-density-pass.png`; exact legacy menu spacing/icon parity still needs side-by-side review. |
+| V2-GAP-005 | Improved; still blocked | Saved filter entries and kebab menu captured in `new/03-database-saved-filter-menu-density-pass.png`; legacy title casing/geometry review still required. |
+| V2-GAP-006 | Improved; still blocked | Saved list entries and kebab menu captured in `new/04-database-saved-list-menu-density-pass.png`; legacy spacing/position review still required. |
+| V2-GAP-008 | Improved; still blocked | Selected-row bulk toolbar captured in `new/05-database-row-selected-bulk-enabled.png`; legacy bulk menu contents and geometry still need comparison. |
+| V2-GAP-010 | Improved; still blocked | Database ready density pass captured in `new/01-database-ready-density-pass.png`; API-seed rows are now comparable, but table density/geometry still differs from legacy. |
+| V2-GAP-015 | Partially improved; still blocked | Covered ready/action captures now use Finn/Diego ApiSeed-style data, but there is still no same-run authenticated legacy recapture and full state/data coverage is incomplete. |
+| V2-GAP-016 | Improved; still blocked | Detail ready state captured in `new/10-detail-ready-after-parity-pass.png`; side-card geometry, wrapping, and proportions still differ from legacy. |
+| V2-GAP-026 | Improved; still blocked | Email modal captured in `new/12-detail-email-candidate-modal.png`; exact legacy composer parity still requires comparison. |
+| V2-GAP-027 | Improved; still blocked | Send to hiring manager modal captured in `new/13-detail-send-to-hiring-manager-modal.png`; backend mutation and exact field parity remain deferred. |
+| V2-GAP-028 | Improved; still blocked | Move job modal captured in `new/14-detail-move-job-modal.png`; exact legacy search/list behaviour remains deferred. |
+| V2-GAP-030 | Improved; still blocked | Score now modal captured in `new/15-detail-score-now-modal.png`; exact scoring form parity remains deferred. |
+| V2-GAP-024 | Improved; still blocked | Schedule route now renders as a modal surface in `new/20-action-schedule-modal-route.png`; exact legacy step layout/fields still need comparison. |
+| V2-GAP-025 | Improved; still blocked | Reject route now renders as a modal surface in `new/22-action-reject-modal-route.png`; exact legacy reject modal fields remain deferred. |
+
+Important correction to prior wording: the current action launcher recapture is no longer a standalone task-page composition for schedule/offer/reject. The implementation now preserves canonical route ownership internally while rendering a modal-like user experience. V2 remains blocked because exact legacy modal parity is not yet proven.
+
+## Side-by-side review update — 2026-04-22 parity pass
+
+Manual side-by-side review was performed against the existing legacy references in `deep-capture-2026-04-22/legacy/` and `deep-capture-2026-04-22/legacy-supplement/`.
+
+No gap is marked resolved yet. The recapture closes part of the **evidence-quality** problem by aligning data, but it does not close visual parity.
+
+| Gap cluster | Review result | Remaining blocker |
+|---|---|---|
+| V2-GAP-004 to V2-GAP-008 | Improved; still blocked | Add new, saved list/filter, and bulk toolbar states exist with comparable data, but menu offsets, icon treatment, row heights, toolbar copy/spacing, and selected-state geometry still differ from legacy. |
+| V2-GAP-010 to V2-GAP-012 | Improved; still blocked | API-seed rows now appear, but table width, row density, column sizing, pagination placement, and stage/status column decisions still do not match the legacy database baseline. |
+| V2-GAP-014 to V2-GAP-021 | Improved; still blocked | Job-context detail and Finn ApiSeed data are closer, but profile-card width, email wrapping, stage selector placement, hiring-flow dot/line geometry, tabs, CV preview proportions, and notes/action area placement still differ. |
+| V2-GAP-024 | Improved; still blocked | Schedule is modal-like, but legacy uses a wider wizard with dark step header, candidate/job detail columns, interview type/location fields, radio groups, and different footer mechanics. |
+| V2-GAP-025 | Improved; still blocked | Reject is modal-like, but legacy requires the two-step reject flow with message/template editor, Bcc chip, toolbar, attachment control, and reject-with/without-message actions. |
+| V2-GAP-026 | Still blocked | The current greenfield email action is a small centered modal, while legacy evidence shows the full compose/editor surface with template selector, Bcc chip, toolbar, attachment control, draft, and send actions. |
+| V2-GAP-027 to V2-GAP-030 | Improved; still blocked | Review request, move job, and score-now entry points now exist, but exact field layout, candidate chip/header treatment, footer actions, search/list behavior, and score form contents still need legacy parity. |
+| V2-GAP-031 | Partially improved; still blocked | Covered recapture states now use Finn/Diego/API-seed-style data, but final parity still needs same-run authenticated legacy/current capture and broader state coverage. |

@@ -16,12 +16,12 @@ V3 covers:
 
 | Family | Contract status | Visual status | Figma-ready? | Notes |
 |---|---|---|---|---|
-| External chat | Contract-reviewed | Pending | No | Token states, grouped messages, composer, send failure, and participant identity need canonical public-layout frames. |
-| External review/interview | Contract-reviewed | Pending | No | Decision/review/feedback forms, validation, retry, completed terminal states, and inaccessible tokens need visual confirmation. |
-| Shared job + public application | Contract-reviewed | Pending | No | Shared presentation, application upload/submission failures, completion, and return behavior need frames. |
-| Public survey | Contract-reviewed | Pending | No | Survey schema/answer validation, submit retry, and terminal states need frames. |
-| Requisition approval/forms | Contract-reviewed | Pending | No | Approval decision, workflow drift, terminal conflicts, form download modes, and retryable download failures need frames. |
-| Integration token entry | Contract-reviewed | Pending | No | CV/forms/job callbacks need token lifecycle, action-specific states, upload/multi-step, and terminal states. |
+| External chat | Figma-ready for screen-flow bases | Evidence complete | Yes | Desktop, mobile, and narrow captures cover ready, send failure, expired/inaccessible token handling, empty, sent/post-refresh, and draft-preserved states. |
+| External review/interview | Figma-ready for screen-flow bases | Evidence complete | Yes | Desktop, mobile, and narrow captures cover decision/review/feedback bases, validation/submission failure, completed/scoring-pending terminal states, missing context/schema/template, inaccessible/token failures, and decline terminal. |
+| Shared job + public application | Figma-ready for screen-flow bases | Evidence complete | Yes | Desktop, mobile, and narrow captures cover shared presentation, invalid source, unavailable/used token, application validation, upload failures, submission failure, completion, uploaded-file re-entry, and inaccessible token. |
+| Public survey | Figma-ready for screen-flow bases | Evidence complete | Yes | Desktop, mobile, and narrow captures cover ready, missing-answer validation, submit failure, completion, missing schema, degraded, and expired token. |
+| Requisition approval/forms | Figma-ready for screen-flow bases | Evidence complete | Yes | Desktop, mobile, and narrow captures cover approval, rejection-comment validation, submission failure, workflow drift, terminal approval/rejection, used-on-submit, forms view/download, retryable download failure, invalid token, not-found, unavailable, and already-downloaded. |
+| Integration token entry | Figma-ready for screen-flow bases | Evidence complete | Yes | Desktop, mobile, and narrow captures cover CV interview/offer states, validation/conflict/completion/token failure, offer reject terminal, forms steps/upload validation/binary/persistence/completion/used token, and job callback ready/action/locked/invalid states. |
 
 ## Evidence sources
 
@@ -31,6 +31,7 @@ V3 covers:
 | OpenSpec specs | `public-token-lifecycle`, `public-token-product-depth`, `external-tokenized-chat`, `external-interview-request`, `external-review-candidate`, `external-interview-feedback`, `public-job-presentation`, `public-application-submission`, `public-survey-continuation`, `requisition-approval-token-flow`, `requisition-forms-download-route`, `integration-cv-token-entry`, `integration-forms-token-entry`, `integration-job-token-entry`, `integration-token-entry-implementation-depth-closeout` | Required state/action/error/parent-return coverage | Specs do not define final layout. |
 | Operational specs | `survey-review-scoring-operational-depth`, `messaging-communication-operational-depth`, `provider-readiness-operational-gates` | Shared review/survey/messaging/readiness semantics | Do not expose provider setup internals in public/token screens. |
 | Current greenfield source | `src/domains/public-external/**` and `src/domains/integrations/**` token pages | Runtime state and current UI behavior | Adapter-backed token payloads remain seams. |
+| Current V3 evidence log | `visual-evidence-v3-public-external-token.md` plus the V3 capture manifests | Desktop, mobile, narrow, lifecycle, and follow-up route/state captures for V3 public/token families | Evidence is not a backend schema or final Figma layout contract. |
 
 ## Public token lifecycle frame set
 
@@ -118,7 +119,7 @@ Every V3 public/token screen must share a consistent token-state treatment.
 |---|---|
 | Desktop primary | Public/token flows should be readable without authenticated shell chrome. |
 | Narrow desktop/tablet | Forms, token state panels, and upload/download actions must remain usable. |
-| Mobile | Public/token flows are likely mobile-relevant, but mobile parity requires explicit product confirmation before marking rows `Figma-ready`. |
+| Mobile | Covered for V3 screen-flow/base-frame handoff by the current mobile evidence set; final mobile product polish can still be refined without reopening route ownership. |
 
 ## Non-goals
 
@@ -137,3 +138,15 @@ Every V3 public/token screen must share a consistent token-state treatment.
 5. Public survey and requisition visual maps for validation, terminal, workflow drift, and download states.
 6. Integration token-entry visual map for CV/forms/job callback states with provider setup separation preserved.
 7. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above.
+
+## Promotion slices
+
+Use `visual-evidence-v3-public-external-token.md` as the working decision log. V3 should promote in slices:
+
+| Slice | Scope | Required before promotion |
+|---|---|---|
+| `V3-A` shared lifecycle | Shared token-state, retryable failure, and terminal components | Complete for Figma screen-flow/base-frame handoff. |
+| `V3-B` public application | Shared job and public application | Complete for Figma screen-flow/base-frame handoff; upload-progress omission documented. |
+| `V3-C` external review | Interview request, review candidate, interview feedback, public survey | Complete for Figma screen-flow/base-frame handoff; schema-placeholder and inaccessible/degraded reuse documented. |
+| `V3-D` requisition | Requisition approval and requisition forms download | Complete for Figma screen-flow/base-frame handoff; reject terminal and used-on-submit conflict captured. |
+| `V3-E` integration token | Integration CV, forms, and job callback routes | Complete for Figma screen-flow/base-frame handoff; provider setup separation and upload-depth omissions documented. |

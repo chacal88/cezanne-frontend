@@ -172,6 +172,9 @@ export function CandidateDetailRoutePage() {
     | "comments"
     | "emails"
   >("cv");
+  const [legacyModal, setLegacyModal] = useState<
+    "email" | "review" | "move" | "score" | null
+  >(null);
   const shouldFetchApiDetail =
     search.entry === "database" ||
     /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
@@ -488,9 +491,10 @@ export function CandidateDetailRoutePage() {
                     <button
                       type="button"
                       onClick={() => {
-                        setActiveTab("emails");
+                        setLegacyModal("email");
                         setMoreActionsOpen(false);
                       }}
+                      data-testid="candidate-open-email-modal"
                     >
                       ✉ Email candidate
                     </button>
@@ -502,11 +506,31 @@ export function CandidateDetailRoutePage() {
                         ▣ Interview scheduler
                       </a>
                     ) : null}
+                    {view.availableActions.offer ? (
+                      <a
+                        href={`${buildCandidateActionPath("offer", context, view.candidateSummary.cvId)}${candidateActionSearch}`}
+                        data-testid="candidate-open-offer-menu-link"
+                      >
+                        ◆ Create offer
+                      </a>
+                    ) : null}
                     <button
                       type="button"
                       onClick={() => {
+                        setLegacyModal("review");
                         setMoreActionsOpen(false);
                       }}
+                      data-testid="candidate-open-review-request-modal"
+                    >
+                      ☑ Send to hiring manager
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setLegacyModal("move");
+                        setMoreActionsOpen(false);
+                      }}
+                      data-testid="candidate-open-move-job-modal"
                     >
                       ↔ Move to a different job
                     </button>
@@ -732,6 +756,14 @@ export function CandidateDetailRoutePage() {
                 <h2>Interview score</h2>
                 <p>{view.interviewsSummary.status}</p>
                 <p>Score details remain downstream-owned.</p>
+                <button
+                  className="candidate-product-button"
+                  type="button"
+                  onClick={() => setLegacyModal("score")}
+                  data-testid="candidate-open-score-now-modal"
+                >
+                  Score now
+                </button>
               </div>
             ) : null}
             {activeTab === "forms" ? (
@@ -740,8 +772,12 @@ export function CandidateDetailRoutePage() {
             {activeTab === "contracts" ? (
               <div className="candidate-tab-panel">
                 <h2>Contracts</h2>
-                <p>{view.contractsSummary.signingState.kind}</p>
-                <p>{view.contractsSummary.count} contract records</p>
+                <p data-testid="candidate-contracts-state">
+                  {view.contractsSummary.signingState.kind}
+                </p>
+                <p data-testid="candidate-contracts-count">
+                  {view.contractsSummary.count} contract records
+                </p>
               </div>
             ) : null}
             {activeTab === "comments" ? (
@@ -759,6 +795,127 @@ export function CandidateDetailRoutePage() {
           </div>
         </main>
       </div>
+      {legacyModal ? (
+        <div className="candidate-legacy-modal-backdrop" role="presentation">
+          <div
+            className="candidate-legacy-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="candidate-legacy-modal-title"
+            data-testid={`candidate-${legacyModal}-legacy-modal`}
+          >
+            <header className="candidate-legacy-modal-header">
+              <div>
+                <p>Candidate action</p>
+                <h2 id="candidate-legacy-modal-title">
+                  {legacyModal === "email"
+                    ? "Email candidate"
+                    : legacyModal === "review"
+                      ? "Send to hiring manager"
+                      : legacyModal === "move"
+                        ? "Move to a different job"
+                        : "Score now"}
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setLegacyModal(null)}
+                aria-label="Close candidate action"
+              >
+                ×
+              </button>
+            </header>
+
+            {legacyModal === "email" ? (
+              <div className="candidate-legacy-modal-body candidate-legacy-modal-body--editor">
+                <label className="candidate-legacy-modal-full">
+                  <span>Select a template to load</span>
+                  <select value="" onChange={() => undefined}>
+                    <option value="">Change Template</option>
+                  </select>
+                </label>
+                <div className="candidate-legacy-recipient-chip">
+                  Bcc: {view.candidateSummary.name} &lt;{view.profile.email}&gt; ×
+                </div>
+                <input readOnly placeholder="Subject" />
+                <div className="candidate-legacy-editor-toolbar" aria-label="Email editor toolbar">
+                  <span>Normal</span>
+                  <strong>B</strong>
+                  <em>I</em>
+                  <span>U</span>
+                  <span>link</span>
+                  <span>list</span>
+                  <button type="button">Select a file...</button>
+                </div>
+                <textarea readOnly aria-label="Email body" />
+              </div>
+            ) : null}
+
+            {legacyModal === "review" ? (
+              <div className="candidate-legacy-modal-body">
+                <label>
+                  Hiring manager
+                  <input readOnly value="Select hiring manager" />
+                </label>
+                <label>
+                  Review due
+                  <input readOnly value="No deadline selected" />
+                </label>
+                <label className="candidate-legacy-modal-full">
+                  Instructions
+                  <textarea readOnly value="Review request payload remains backend-owned." />
+                </label>
+              </div>
+            ) : null}
+
+            {legacyModal === "move" ? (
+              <div className="candidate-legacy-modal-body">
+                <label>
+                  Current job
+                  <input readOnly value={view.jobContext?.jobId ?? "Candidate database"} />
+                </label>
+                <label>
+                  Destination job
+                  <input readOnly value="Search for a job" />
+                </label>
+                <p className="candidate-legacy-modal-note">
+                  Moving candidates is represented as a safe modal state only in this parity pass.
+                </p>
+              </div>
+            ) : null}
+
+            {legacyModal === "score" ? (
+              <div className="candidate-legacy-modal-body">
+                <label>
+                  Scorecard
+                  <input readOnly value="Interview score" />
+                </label>
+                <label>
+                  Score
+                  <input readOnly value="-" />
+                </label>
+                <label className="candidate-legacy-modal-full">
+                  Notes
+                  <textarea readOnly value="Score answers remain downstream-owned." />
+                </label>
+              </div>
+            ) : null}
+
+            <footer className="candidate-legacy-modal-footer">
+              <button
+                className="candidate-product-button candidate-product-button--secondary"
+                type="button"
+                onClick={() => setLegacyModal(null)}
+              >
+                Cancel
+              </button>
+              <button className="candidate-product-button" type="button">
+                Save
+              </button>
+            </footer>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }

@@ -1,0 +1,53 @@
+{
+  "date": "2026-04-22",
+  "viewport": "1440x900",
+  "baseUrl": "http://localhost:5173",
+  "flow": "/candidates-database search -> first candidate -> detail -> return",
+  "searchTerm": "Ben",
+  "database": {
+    "selected": "",
+    "name": "Ben ApiSeed",
+    "email": "api-seed-2-api-seed-1776815573-51263@example.test",
+    "location": "Dublin, Ireland",
+    "openHref": "/candidate/f5db4334-3dea-4ed2-843d-8101987f05bc/10/36?entry=database&returnTo=%2Fcandidates-database%3Fquery%3DBen"
+  },
+  "detail": {
+    "name": "Ben ApiSeed",
+    "email": "api-seed-2-api-seed-1776815573-51263@example.test",
+    "status": "Rejected",
+    "apiState": "API: ready",
+    "entry": "database",
+    "returnTarget": "/candidates-database?query=Ben"
+  },
+  "validations": {
+    "databaseNameMatchesDetail": true,
+    "databaseEmailMatchesDetail": true,
+    "detailHasStatus": true,
+    "detailApiReady": true,
+    "entryIsDatabase": true,
+    "returnTargetIsDatabaseSearch": true
+  },
+  "records": [
+    {
+      "name": "10-candidates-database-search-ready",
+      "url": "http://localhost:5173/candidates-database?query=Ben",
+      "screenshot": "docs/visual-evidence-assets/v2/recapture-2026-04-22-database-detail-api/new/10-candidates-database-search-ready.png",
+      "note": "Database searched by first candidate term: Ben",
+      "bodyText": "Dashboard My jobs Inbox CV database Templates Team Settings Reports Billing Get help 19 Candidate database Search by name, email, city or job ⌕ Search candidates ✚ Add new ⌄ ▾ ▾ saved filters ⋮ Ben ⌃ ☷ saved lists ⋮ LIST KAUE 0 FILTER KAUE 0 ▣ Bulk Actions ✕ Ben Select candidates to enable bulk actions. ↻ Reset to default ▣ Add column ⌄ Candidate database is ready. Simple search mode is active. source-linked Full name ↕ Email ↓ Location Ben ApiSeed api-seed-2-api-seed-1776815573-51263@example.test Dublin, Ireland ↗ Ben ApiSeed api-seed-2-api-seed-1776815701-53063@example.test Dublin, Ireland ↗ Candidate path: /candidates-database?query=Ben Prev 1-2 of 2 Next Copyright © 2026 Cezanne Recruitment. All rights reserved. Version dev"
+    },
+    {
+      "name": "20-candidate-detail-api-ready",
+      "url": "http://localhost:5173/candidate/f5db4334-3dea-4ed2-843d-8101987f05bc/10/36?entry=database&returnTo=%2Fcandidates-database%3Fquery%3DBen&degrade=%5B%5D",
+      "screenshot": "docs/visual-evidence-assets/v2/recapture-2026-04-22-database-detail-api/new/20-candidate-detail-api-ready.png",
+      "note": "First database result opened into Candidate hub with API-ready detail state.",
+      "bodyText": "Dashboard My jobs Inbox CV database Templates Team Settings Reports Billing Get help 19 ▣ My jobs > Live jobs > 10 candidate profile ← Back to database ← Back to job New Candidate Shortlisted Phone Interview Face to Face Offering Rejected Candidate 1 of 1 database database-return ready Ben ApiSeed ✉ ▣ CV received 9 hours ago from Indeed ✒ First time applicant Re-accept CV ↻ ☰ More actions - /100 - CV score Upload: ready ✉ api-seed-2-api-seed-1776815573-51263@example.test ☎ +353 1 555 02 ◆ Dublin, Ireland 🏷 Select tags or type to add... Rejected ATS source: source-linked Job context: 10 Sequence: unavailable Updated 2026-04-21 23:54:34 API: ready ATS refresh: none Return: /candidates-database?query=Ben Notes ＋ Delete candidate Edit candidate Export candidate profile Virtual contact file (vCard) New Candidate Shortlisted Phone Interview Face to Face Offering Latest CV Activity Interview score Forms & docs Contracts Comments Emails CV Cover note ↻ Reload CV ⇧ Upload new CV Download CV ▾ ↗ No preview available Copyright © 2026 Cezanne Recruitment. All rights reserved. Version dev"
+    },
+    {
+      "name": "30-candidates-database-return-preserved",
+      "url": "http://localhost:5173/candidates-database?query=Ben",
+      "screenshot": "docs/visual-evidence-assets/v2/recapture-2026-04-22-database-detail-api/new/30-candidates-database-return-preserved.png",
+      "note": "Return link restored the candidate database search URL.",
+      "bodyText": "Dashboard My jobs Inbox CV database Templates Team Settings Reports Billing Get help 19 Candidate database Search by name, email, city or job ⌕ Search candidates ✚ Add new ⌄ ▾ ▾ saved filters ⋮ Ben ⌃ ☷ saved lists ⋮ LIST KAUE 0 FILTER KAUE 0 ▣ Bulk Actions ✕ Ben Select candidates to enable bulk actions. ↻ Reset to default ▣ Add column ⌄ Candidate database is ready. Simple search mode is active. source-linked Full name ↕ Email ↓ Location Ben ApiSeed api-seed-2-api-seed-1776815573-51263@example.test Dublin, Ireland ↗ Ben ApiSeed api-seed-2-api-seed-1776815701-53063@example.test Dublin, Ireland ↗ Candidate path: /candidates-database?query=Ben Prev 1-2 of 2 Next Copyright © 2026 Cezanne Recruitment. All rights reserved. Version dev"
+    }
+  ]
+}

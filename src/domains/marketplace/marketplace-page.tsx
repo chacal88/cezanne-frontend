@@ -1,7 +1,8 @@
 import { buildMarketplaceListViewModel } from './support/marketplace-state';
 
 export function MarketplaceListPage({ type }: { type: string }) {
-  const view = buildMarketplaceListViewModel(type);
+  const forceEmpty = new URLSearchParams(window.location.search).get('state') === 'empty';
+  const view = buildMarketplaceListViewModel(type, { forceEmpty });
 
   return (
     <section>

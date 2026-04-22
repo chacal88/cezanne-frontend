@@ -1,0 +1,119 @@
+{
+  "capturedAt": "2026-04-22T22:18:52.236Z",
+  "app": "http://127.0.0.1:5174",
+  "slice": "V3-A shared lifecycle",
+  "screenshots": [
+    {
+      "name": "v3-a-token-invalid",
+      "route": "/shared/product-designer/invalid-public/referral",
+      "state": "token-invalid",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/mobile/v3-a-token-invalid-390x844.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-token-expired",
+      "route": "/chat/expired-chat/user-recruiter",
+      "state": "token-expired",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/mobile/v3-a-token-expired-390x844.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-token-used",
+      "route": "/shared/product-designer/used-public/referral",
+      "state": "token-used",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/mobile/v3-a-token-used-390x844.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-token-inaccessible",
+      "route": "/product-designer/application/inaccessible-apply/referral",
+      "state": "token-inaccessible",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/mobile/v3-a-token-inaccessible-390x844.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-resource-unavailable",
+      "route": "/shared/closed-product-designer/valid-public/referral",
+      "state": "resource-unavailable",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/mobile/v3-a-resource-unavailable-390x844.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-retryable-failure",
+      "route": "/product-designer/application/valid-lifecycle-submit/referral",
+      "state": "retryable-failure",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/mobile/v3-a-retryable-failure-390x844.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-terminal-success",
+      "route": "/product-designer/application/valid-lifecycle-complete/referral",
+      "state": "terminal-success",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/mobile/v3-a-terminal-success-390x844.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-token-invalid",
+      "route": "/shared/product-designer/invalid-public/referral",
+      "state": "token-invalid",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/narrow/v3-a-token-invalid-768x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-token-expired",
+      "route": "/chat/expired-chat/user-recruiter",
+      "state": "token-expired",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/narrow/v3-a-token-expired-768x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-token-used",
+      "route": "/shared/product-designer/used-public/referral",
+      "state": "token-used",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/narrow/v3-a-token-used-768x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-token-inaccessible",
+      "route": "/product-designer/application/inaccessible-apply/referral",
+      "state": "token-inaccessible",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/narrow/v3-a-token-inaccessible-768x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-resource-unavailable",
+      "route": "/shared/closed-product-designer/valid-public/referral",
+      "state": "resource-unavailable",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/narrow/v3-a-resource-unavailable-768x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-retryable-failure",
+      "route": "/product-designer/application/valid-lifecycle-submit/referral",
+      "state": "retryable-failure",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/narrow/v3-a-retryable-failure-768x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "v3-a-terminal-success",
+      "route": "/product-designer/application/valid-lifecycle-complete/referral",
+      "state": "terminal-success",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/narrow/v3-a-terminal-success-768x900.png",
+      "status": "captured"
+    }
+  ]
+}

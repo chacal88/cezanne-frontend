@@ -1,0 +1,496 @@
+{
+  "captureDate": "2026-04-22",
+  "viewport": "1440x900",
+  "baseURL": "http://127.0.0.1:5173",
+  "sessionStorage": "recruit.localAuthSession",
+  "records": [
+    {
+      "name": "settings-careers-page-ready",
+      "route": "/settings/careers-page",
+      "profile": "hcAdmin",
+      "url": "/settings/careers-page",
+      "screenshot": "visual-evidence-assets/v4/current/settings-careers-page-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-application-page-questions-fields",
+      "route": "/settings/application-page/company-1/questions/fields",
+      "profile": "hcAdmin",
+      "url": "/settings/application-page/company-1/questions/fields",
+      "screenshot": "visual-evidence-assets/v4/current/settings-application-page-questions-fields-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-job-listings-draft-brand",
+      "route": "/settings/job-listings?tab=draft&brand=acme",
+      "profile": "hcAdmin",
+      "url": "/settings/job-listings?tab=draft&brand=acme",
+      "screenshot": "visual-evidence-assets/v4/current/settings-job-listings-draft-brand-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-job-listing-editor-new",
+      "route": "/settings/job-listings/edit?new=true&brand=acme",
+      "profile": "hcAdmin",
+      "url": "/settings/job-listings/edit?new=true&brand=acme&mode=create",
+      "screenshot": "visual-evidence-assets/v4/current/settings-job-listing-editor-new-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-job-listing-editor-existing",
+      "route": "/settings/job-listings/edit/listing-1?brand=acme&returnTab=published",
+      "profile": "hcAdmin",
+      "url": "/settings/job-listings/edit/listing-1?brand=acme&returnTab=published",
+      "screenshot": "visual-evidence-assets/v4/current/settings-job-listing-editor-existing-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-hiring-flow-ready",
+      "route": "/settings/hiring-flow",
+      "profile": "hcAdmin",
+      "url": "/settings/hiring-flow",
+      "screenshot": "visual-evidence-assets/v4/current/settings-hiring-flow-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-custom-fields-ready",
+      "route": "/settings/custom-fields",
+      "profile": "hcAdmin",
+      "url": "/settings/custom-fields",
+      "screenshot": "visual-evidence-assets/v4/current/settings-custom-fields-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-templates-index",
+      "route": "/templates",
+      "profile": "hcAdmin",
+      "url": "/templates",
+      "screenshot": "visual-evidence-assets/v4/current/settings-templates-index-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-templates-detail",
+      "route": "/templates/template-1",
+      "profile": "hcAdmin",
+      "url": "/templates/template-1",
+      "screenshot": "visual-evidence-assets/v4/current/settings-templates-detail-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-templates-smart-questions",
+      "route": "/templates/smart-questions",
+      "profile": "hcAdmin",
+      "url": "/templates/smart-questions",
+      "screenshot": "visual-evidence-assets/v4/current/settings-templates-smart-questions-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-templates-diversity-questions",
+      "route": "/templates/diversity-questions",
+      "profile": "hcAdmin",
+      "url": "/templates/diversity-questions",
+      "screenshot": "visual-evidence-assets/v4/current/settings-templates-diversity-questions-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-templates-interview-scoring",
+      "route": "/templates/interview-scoring",
+      "profile": "hcAdmin",
+      "url": "/templates/interview-scoring",
+      "screenshot": "visual-evidence-assets/v4/current/settings-templates-interview-scoring-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-reject-reasons-ready",
+      "route": "/reject-reasons",
+      "profile": "hcAdmin",
+      "url": "/reject-reasons",
+      "screenshot": "visual-evidence-assets/v4/current/settings-reject-reasons-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-api-endpoints-ready",
+      "route": "/settings/api-endpoints",
+      "profile": "hcAdmin",
+      "url": "/settings/api-endpoints",
+      "screenshot": "visual-evidence-assets/v4/current/settings-api-endpoints-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-forms-docs-ready",
+      "route": "/settings/forms-docs",
+      "profile": "hcAdmin",
+      "url": "/settings/forms-docs",
+      "screenshot": "visual-evidence-assets/v4/current/settings-forms-docs-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-requisition-workflows-ready",
+      "route": "/requisition-workflows",
+      "profile": "hcAdmin",
+      "url": "/requisition-workflows",
+      "screenshot": "visual-evidence-assets/v4/current/settings-requisition-workflows-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-parameters-root-compat",
+      "route": "/parameters",
+      "profile": "hcAdmin",
+      "url": "/settings/hiring-flow",
+      "screenshot": "visual-evidence-assets/v4/current/settings-parameters-root-compat-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-parameters-hiring-flow-compat",
+      "route": "/parameters/company/settings/hiring-flow",
+      "profile": "hcAdmin",
+      "url": "/settings/hiring-flow",
+      "screenshot": "visual-evidence-assets/v4/current/settings-parameters-hiring-flow-compat-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "settings-agency-settings-ready",
+      "route": "/settings/agency-settings",
+      "profile": "raAdmin",
+      "url": "/settings/agency-settings",
+      "screenshot": "visual-evidence-assets/v4/current/settings-agency-settings-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "integrations-index-ready",
+      "route": "/integrations",
+      "profile": "hcAdmin",
+      "url": "/integrations",
+      "screenshot": "visual-evidence-assets/v4/current/integrations-index-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "integrations-google-calendar-connected",
+      "route": "/integrations/google-calendar",
+      "profile": "hcAdmin",
+      "url": "/integrations/google-calendar",
+      "screenshot": "visual-evidence-assets/v4/current/integrations-google-calendar-connected-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "integrations-lever-degraded",
+      "route": "/integrations/lever",
+      "profile": "hcAdmin",
+      "url": "/integrations/lever",
+      "screenshot": "visual-evidence-assets/v4/current/integrations-lever-degraded-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "integrations-workday-reauth-required",
+      "route": "/integrations/workday",
+      "profile": "hcAdmin",
+      "url": "/integrations/workday",
+      "screenshot": "visual-evidence-assets/v4/current/integrations-workday-reauth-required-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "integrations-indeed-disconnected",
+      "route": "/integrations/indeed",
+      "profile": "hcAdmin",
+      "url": "/integrations/indeed",
+      "screenshot": "visual-evidence-assets/v4/current/integrations-indeed-disconnected-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "integrations-custom-provider-unavailable",
+      "route": "/integrations/custom-provider",
+      "profile": "hcAdmin",
+      "url": "/integrations/custom-provider",
+      "screenshot": "visual-evidence-assets/v4/current/integrations-custom-provider-unavailable-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "reports-index-ready",
+      "route": "/report",
+      "profile": "hcAdmin",
+      "url": "/report",
+      "screenshot": "visual-evidence-assets/v4/current/reports-index-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "reports-jobs-ready",
+      "route": "/report/jobs",
+      "profile": "hcAdmin",
+      "url": "/report/jobs",
+      "screenshot": "visual-evidence-assets/v4/current/reports-jobs-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "reports-jobs-empty",
+      "route": "/report/jobs?period=empty",
+      "profile": "hcAdmin",
+      "url": "/report/jobs?period=empty",
+      "screenshot": "visual-evidence-assets/v4/current/reports-jobs-empty-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "reports-jobs-degraded",
+      "route": "/report/jobs?result=degraded",
+      "profile": "hcAdmin",
+      "url": "/report/jobs?result=degraded",
+      "screenshot": "visual-evidence-assets/v4/current/reports-jobs-degraded-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "reports-jobs-partial",
+      "route": "/report/jobs?result=partial",
+      "profile": "hcAdmin",
+      "url": "/report/jobs?result=partial",
+      "screenshot": "visual-evidence-assets/v4/current/reports-jobs-partial-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "reports-jobs-stale",
+      "route": "/report/jobs?result=stale",
+      "profile": "hcAdmin",
+      "url": "/report/jobs?result=stale",
+      "screenshot": "visual-evidence-assets/v4/current/reports-jobs-stale-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "reports-jobs-retryable",
+      "route": "/report/jobs?result=retryable",
+      "profile": "hcAdmin",
+      "url": "/report/jobs?result=retryable",
+      "screenshot": "visual-evidence-assets/v4/current/reports-jobs-retryable-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "reports-diversity-schedule-unsupported",
+      "route": "/report/diversity",
+      "profile": "hcAdmin",
+      "url": "/report/diversity",
+      "screenshot": "visual-evidence-assets/v4/current/reports-diversity-schedule-unsupported-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "reports-source-unsupported-result",
+      "route": "/report/source?result=unsupported",
+      "profile": "hcAdmin",
+      "url": "/report/source?result=unsupported",
+      "screenshot": "visual-evidence-assets/v4/current/reports-source-unsupported-result-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "reports-legacy-compat-known",
+      "route": "/hiring-company/report/jobs",
+      "profile": "hcAdmin",
+      "url": "/report/jobs",
+      "screenshot": "visual-evidence-assets/v4/current/reports-legacy-compat-known-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "reports-legacy-compat-unknown",
+      "route": "/hiring-company/report/legacy-42",
+      "profile": "hcAdmin",
+      "url": "/report/jobs",
+      "screenshot": "visual-evidence-assets/v4/current/reports-legacy-compat-unknown-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "billing-overview-ready",
+      "route": "/billing",
+      "profile": "hcAdmin",
+      "url": "/billing",
+      "screenshot": "visual-evidence-assets/v4/current/billing-overview-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "billing-upgrade-confirmation",
+      "route": "/billing/upgrade",
+      "profile": "hcAdmin",
+      "url": "/billing/upgrade",
+      "screenshot": "visual-evidence-assets/v4/current/billing-upgrade-confirmation-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "billing-sms-usage-warning",
+      "route": "/billing/sms",
+      "profile": "hcAdmin",
+      "url": "/billing/sms",
+      "screenshot": "visual-evidence-assets/v4/current/billing-sms-usage-warning-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "billing-card-primary",
+      "route": "/billing/card/card-primary",
+      "profile": "hcAdmin",
+      "url": "/billing/card/card-primary",
+      "screenshot": "visual-evidence-assets/v4/current/billing-card-primary-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "billing-card-new",
+      "route": "/billing/card/new",
+      "profile": "hcAdmin",
+      "url": "/billing/card/new",
+      "screenshot": "visual-evidence-assets/v4/current/billing-card-new-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "billing-card-expired",
+      "route": "/billing/card/card-expired",
+      "profile": "hcAdmin",
+      "url": "/billing/card/card-expired",
+      "screenshot": "visual-evidence-assets/v4/current/billing-card-expired-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "billing-card-challenge",
+      "route": "/billing/card/card-challenge",
+      "profile": "hcAdmin",
+      "url": "/billing/card/card-challenge",
+      "screenshot": "visual-evidence-assets/v4/current/billing-card-challenge-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "billing-card-failed",
+      "route": "/billing/card/card-failed",
+      "profile": "hcAdmin",
+      "url": "/billing/card/card-failed",
+      "screenshot": "visual-evidence-assets/v4/current/billing-card-failed-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "billing-card-unavailable",
+      "route": "/billing/card/card-unknown",
+      "profile": "hcAdmin",
+      "url": "/billing/card/card-unknown",
+      "screenshot": "visual-evidence-assets/v4/current/billing-card-unavailable-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "team-index-ready",
+      "route": "/team",
+      "profile": "hcAdmin",
+      "url": "/team",
+      "screenshot": "visual-evidence-assets/v4/current/team-index-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "team-recruiters-ready",
+      "route": "/team/recruiters",
+      "profile": "hcAdmin",
+      "url": "/team/recruiters",
+      "screenshot": "visual-evidence-assets/v4/current/team-recruiters-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "team-invite-management-ready",
+      "route": "/users/invite",
+      "profile": "hcAdmin",
+      "url": "/users/invite",
+      "screenshot": "visual-evidence-assets/v4/current/team-invite-management-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "favorites-index-ready",
+      "route": "/favorites",
+      "profile": "hcAdmin",
+      "url": "/favorites",
+      "screenshot": "visual-evidence-assets/v4/current/favorites-index-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "favorites-detail-personal",
+      "route": "/favorites/favorite-1",
+      "profile": "hcAdmin",
+      "url": "/favorites/favorite-1",
+      "screenshot": "visual-evidence-assets/v4/current/favorites-detail-personal-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "favorites-detail-unavailable",
+      "route": "/favorites/favorite-unknown",
+      "profile": "hcAdmin",
+      "url": "/favorites/favorite-unknown",
+      "screenshot": "visual-evidence-assets/v4/current/favorites-detail-unavailable-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "favorites-request-draft",
+      "route": "/favorites/request",
+      "profile": "hcAdmin",
+      "url": "/favorites/request",
+      "screenshot": "visual-evidence-assets/v4/current/favorites-request-draft-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "favorites-request-pending",
+      "route": "/favorites/request/request-pending",
+      "profile": "hcAdmin",
+      "url": "/favorites/request/request-pending",
+      "screenshot": "visual-evidence-assets/v4/current/favorites-request-pending-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "favorites-request-approved",
+      "route": "/favorites/request/request-approved",
+      "profile": "hcAdmin",
+      "url": "/favorites/request/request-approved",
+      "screenshot": "visual-evidence-assets/v4/current/favorites-request-approved-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "favorites-request-rejected",
+      "route": "/favorites/request/request-rejected",
+      "profile": "hcAdmin",
+      "url": "/favorites/request/request-rejected",
+      "screenshot": "visual-evidence-assets/v4/current/favorites-request-rejected-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "favorites-request-unavailable",
+      "route": "/favorites/request/request-unknown",
+      "profile": "hcAdmin",
+      "url": "/favorites/request/request-unknown",
+      "screenshot": "visual-evidence-assets/v4/current/favorites-request-unavailable-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "marketplace-fill-ready",
+      "route": "/jobmarket/fill",
+      "profile": "raAdmin",
+      "url": "/jobmarket/fill",
+      "screenshot": "visual-evidence-assets/v4/current/marketplace-fill-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "marketplace-bidding-ready",
+      "route": "/jobmarket/bidding",
+      "profile": "raAdmin",
+      "url": "/jobmarket/bidding",
+      "screenshot": "visual-evidence-assets/v4/current/marketplace-bidding-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "marketplace-cvs-ready",
+      "route": "/jobmarket/cvs",
+      "profile": "raAdmin",
+      "url": "/jobmarket/cvs",
+      "screenshot": "visual-evidence-assets/v4/current/marketplace-cvs-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "marketplace-assigned-ready",
+      "route": "/jobmarket/assigned",
+      "profile": "raAdmin",
+      "url": "/jobmarket/assigned",
+      "screenshot": "visual-evidence-assets/v4/current/marketplace-assigned-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "name": "marketplace-unknown-unavailable",
+      "route": "/jobmarket/unknown",
+      "profile": "raAdmin",
+      "url": "/jobmarket/unknown",
+      "screenshot": "visual-evidence-assets/v4/current/marketplace-unknown-unavailable-1440x900.png",
+      "status": "captured"
+    }
+  ]
+}

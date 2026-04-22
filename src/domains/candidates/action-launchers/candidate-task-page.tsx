@@ -26,7 +26,7 @@ function getCvIdFromPathname(pathname: string): string {
 }
 
 function describeTask(kind: CandidateActionKind) {
-  if (kind === 'schedule') return { title: 'Schedule interview', readiness: 'Calendar readiness and slot selection stay task-local.', primary: 'Schedule interview' };
+  if (kind === 'schedule') return { title: 'Interview scheduler', readiness: 'Calendar readiness and slot selection stay task-local.', primary: 'Schedule interview' };
   if (kind === 'offer') return { title: 'Create offer', readiness: 'Contract and signing readiness stay bounded to this launcher.', primary: 'Send offer' };
   return { title: 'Reject candidate', readiness: 'Required review context is shown without inventing a reason catalog.', primary: 'Reject candidate' };
 }
@@ -163,21 +163,42 @@ export function CandidateTaskRoutePage() {
   const copy = describeTask(actionContext.kind);
 
   return (
-    <section className="candidate-product-page candidate-task-page" data-testid="candidate-task-composition">
-      <p className="candidate-detail-breadcrumb">▣ My jobs &gt; Live jobs &gt; {actionContext.jobId ?? 'Candidate'} &gt; {copy.title}</p>
-
-      <div className="candidate-detail-titlebar">
-        <h1>{copy.title}</h1>
-        <div className="candidate-detail-legacy-controls">
-          <button className="candidate-product-link candidate-product-link--secondary" type="button" onClick={() => handleClose('cancel')} data-testid="candidate-task-close-link">← Back to candidate</button>
-          <span className="candidate-detail-count-badge" data-testid="candidate-task-product-state">{actionProductState.kind}</span>
-          <span className="candidate-detail-hidden-state" data-testid="candidate-task-kind">{actionContext.kind}</span>
+    <section className="candidate-product-page candidate-task-page candidate-task-modal-page" data-testid="candidate-task-composition">
+      <div className="candidate-task-modal-background" aria-hidden="true">
+        <p className="candidate-detail-breadcrumb">▣ My jobs &gt; Live jobs &gt; {actionContext.jobId ?? 'Candidate'}</p>
+        <div className="candidate-task-background-card">
+          <h1>candidate profile</h1>
+          <p>{record.name}</p>
+          <p>{record.stage}</p>
         </div>
       </div>
 
-      <div className="candidate-task-legacy-layout">
-        <aside className="candidate-product-card candidate-profile-card candidate-task-candidate-card">
-          <div className="candidate-profile-header">
+      <div className="candidate-task-modal-backdrop" role="presentation">
+        <div className={`candidate-task-modal candidate-task-modal--${actionContext.kind}`} role="dialog" aria-modal="true" aria-labelledby="candidate-task-title">
+          <header className="candidate-task-modal-header">
+            <div>
+              <p className="candidate-task-modal-eyebrow">Candidate workflow</p>
+              <h1 id="candidate-task-title">{copy.title}</h1>
+            </div>
+            <button className="candidate-task-modal-close" type="button" onClick={() => handleClose('cancel')} data-testid="candidate-task-close-link" aria-label="Back to candidate">×</button>
+            <span className="candidate-detail-hidden-state" data-testid="candidate-task-product-state">{actionProductState.kind}</span>
+            <span className="candidate-detail-hidden-state" data-testid="candidate-task-kind">{actionContext.kind}</span>
+          </header>
+
+          {actionContext.kind === 'schedule' ? (
+            <ol className="candidate-task-stepper" aria-label="Interview scheduler steps">
+              {['Interview details', 'Choose slots', 'Invite interviewers', 'Review and send'].map((step, index) => (
+                <li className={index === 0 ? 'is-active' : ''} key={step}>
+                  <span>{index + 1}</span>
+                  {step}
+                </li>
+              ))}
+            </ol>
+          ) : null}
+
+          <div className="candidate-task-legacy-layout">
+            <aside className="candidate-product-card candidate-profile-card candidate-task-candidate-card">
+              <div className="candidate-profile-header">
             <div className="candidate-profile-name-row">
               <h2>{record.name}</h2>
               <span className="candidate-product-chip">✉</span>
@@ -186,14 +207,29 @@ export function CandidateTaskRoutePage() {
             <span className="candidate-product-chip">{record.stage}</span>
           </div>
           <div className="candidate-profile-meta">
-            <p data-testid="candidate-task-candidate">◉ Candidate: {actionContext.candidateId}</p>
-            <p data-testid="candidate-task-cv">▣ CV: {actionContext.cvId}</p>
-            <p data-testid="candidate-task-parent">↩ Parent: {actionContext.returnTarget}</p>
-            <p data-testid="candidate-task-recovery">↻ Recovery: {actionContext.recoveryTarget}</p>
-            <p data-testid="candidate-task-entry">★ Entry: {actionContext.entryMode}</p>
-            <p data-testid="candidate-task-last-action">✓ Last action: {record.lastAction}</p>
-            <p data-testid="candidate-task-capability">⚿ Capability: {actionContext.capabilityKey}</p>
+            <p>✉ <span>{record.email}</span></p>
+            <p>☎ <span>{record.phone}</span></p>
+            <p>◆ <span>{record.location}</span></p>
+            <p>✓ <span>{record.lastAction}</span></p>
+            <p className="candidate-detail-hidden-state" data-testid="candidate-task-candidate">Candidate: {actionContext.candidateId}</p>
+            <p className="candidate-detail-hidden-state" data-testid="candidate-task-cv">CV: {actionContext.cvId}</p>
+            <p className="candidate-detail-hidden-state" data-testid="candidate-task-parent">Parent: {actionContext.returnTarget}</p>
+            <p className="candidate-detail-hidden-state" data-testid="candidate-task-recovery">Recovery: {actionContext.recoveryTarget}</p>
+            <p className="candidate-detail-hidden-state" data-testid="candidate-task-entry">Entry: {actionContext.entryMode}</p>
+            <p className="candidate-detail-hidden-state" data-testid="candidate-task-last-action">Last action: {record.lastAction}</p>
+            <p className="candidate-detail-hidden-state" data-testid="candidate-task-capability">Capability: {actionContext.capabilityKey}</p>
           </div>
+
+          {actionContext.kind === 'schedule' ? (
+            <div className="candidate-task-job-summary" aria-label="Job details">
+              <h3>Job details</h3>
+              <p><strong>Negotiable salary</strong></p>
+              <p>Job type: Permanent</p>
+              <p>Job terms: Full-time</p>
+              <p>Address: Dublin, Ireland</p>
+              <p>Sector: Accounting &amp; Finance | Other</p>
+            </div>
+          ) : null}
         </aside>
 
         <main className="candidate-product-card candidate-task-form-card" data-testid="candidate-task-action-body">
@@ -204,11 +240,19 @@ export function CandidateTaskRoutePage() {
 
           {actionContext.kind === 'schedule' ? (
             <div className="candidate-task-form-grid">
-              <label>Interview type<input readOnly value="Phone Interview" /></label>
-              <label>Date<input readOnly value="21 Apr 2026" /></label>
-              <label>Time<input readOnly value="10:00" /></label>
-              <label>Interviewer<input readOnly value="Sam Warner" /></label>
-              <label className="candidate-task-full">Location / link<input readOnly value="Calendar readiness controls final provider slot details" /></label>
+              <label className="candidate-task-full">Interview type<select value="" onChange={() => undefined}><option value="">Select interview type...</option></select></label>
+              <label className="candidate-task-full">Location<input readOnly value="" placeholder="Input location for the interview..." /></label>
+              <fieldset className="candidate-task-radio-group">
+                <legend>Group</legend>
+                <label><input type="radio" readOnly /> Yes</label>
+                <label><input type="radio" readOnly defaultChecked /> No</label>
+              </fieldset>
+              <fieldset className="candidate-task-radio-group candidate-task-full">
+                <legend>Already scheduled an interview time with this candidate?</legend>
+                <p>Send confirmation of the timeslot instead of an invite.</p>
+                <label><input type="radio" readOnly /> Yes</label>
+                <label><input type="radio" readOnly defaultChecked /> No</label>
+              </fieldset>
             </div>
           ) : null}
 
@@ -221,14 +265,35 @@ export function CandidateTaskRoutePage() {
           ) : null}
 
           {actionContext.kind === 'reject' ? (
-            <div className="candidate-task-form-grid">
-              <label>Reason<select value="not-suitable" onChange={() => undefined}><option value="not-suitable">Not suitable for this role</option></select></label>
-              <label>Review outcome<input readOnly value={actionContext.surveyReviewScoringState?.kind ?? 'ready'} /></label>
-              <label className="candidate-task-full">Internal note<textarea readOnly value="Reject reason catalog remains backend-owned." /></label>
-            </div>
+            <>
+              <ol className="candidate-task-reject-steps" aria-label="Reject candidate steps">
+                <li className="is-active"><span>1</span> Add message</li>
+                <li><span>2</span> Leave internal reason for rejection</li>
+              </ol>
+              <div className="candidate-task-message-editor">
+                <h3>Send a message to the candidate</h3>
+                <p>Let candidates know that they were unsuccessful at this time.</p>
+                <label className="candidate-task-full">
+                  <span>Select a template to load</span>
+                  <select value="" onChange={() => undefined}><option value="">Change Template</option></select>
+                </label>
+                <div className="candidate-task-recipient-chip">Bcc: {record.name} &lt;{record.email}&gt; ×</div>
+                <input readOnly placeholder="Subject" />
+                <div className="candidate-task-editor-toolbar" aria-label="Message editor toolbar">
+                  <span>normal</span>
+                  <strong>B</strong>
+                  <em>I</em>
+                  <span>U</span>
+                  <span>link</span>
+                  <span>☰</span>
+                  <button type="button">Select a file...</button>
+                </div>
+                <textarea readOnly aria-label="Message body" />
+              </div>
+            </>
           ) : null}
 
-          <section className="candidate-task-readiness-strip" data-testid="candidate-task-readiness-panel">
+          <section className="candidate-task-readiness-strip candidate-detail-hidden-state" data-testid="candidate-task-readiness-panel">
             <span data-testid="candidate-schedule-task-state">Calendar: {actionContext.schedulingState?.kind ?? 'not-schedule-task'}</span>
             <span data-testid="candidate-contract-task-state">Contract: {actionContext.contractSigningState?.kind ?? 'not-contract-task'}</span>
             <span data-testid="candidate-contract-task-refresh">{actionContext.contractSigningState?.parentRefresh ? 'refresh required' : 'refresh pending action'}</span>
@@ -245,6 +310,8 @@ export function CandidateTaskRoutePage() {
             <button className="candidate-product-button" type="button" onClick={handleComplete} disabled={blocked || terminal} data-testid="candidate-task-complete-link">{copy.primary}</button>
           </footer>
         </main>
+          </div>
+        </div>
       </div>
     </section>
   );

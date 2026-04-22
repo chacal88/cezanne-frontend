@@ -77,6 +77,10 @@ Confirmed:
 - the roadmap now marks **visual evidence capture** as the current next phase after contract package creation and before Figma + screen-flow contracts
 - `screen-design-flow-matrix.md` is the active contract-first bridge from implemented route/state depth to canonical Figma references
 - `pre-figma-flow-review.md` is the active gate for visual-readiness: all 103 canonical route rows plus 4 alias/reference rows are contract-reviewed and V0-V5 visual contracts are prepared, but Figma/screen-flow production remains blocked until evidence capture marks the relevant rows `Figma-ready`
+- V3 public/external and integration token flows now have complete screen-flow/base-frame visual evidence in `visual-evidence-v3-public-external-token.md`, `visual-evidence-assets/v3/v3-capture-manifest.json`, `visual-evidence-assets/v3/v3-a-lifecycle-manifest.json`, and `visual-evidence-assets/v3/v3-follow-up-manifest.json`; V3 covered rows may proceed to Figma with backend/API/schema details annotated as deferred
+- V4 operations now has authenticated baseline plus final safe local-fixture interaction evidence in `visual-evidence-v4-operations.md`, `visual-evidence-assets/v4/v4-capture-manifest.json`, and `visual-evidence-assets/v4/interactive-2026-04-22/interactive-capture-manifest.json`; V4 may proceed to Figma for current-app screen-flow/base-frame work with backend/provider/schema unknowns annotated
+- V5 SysAdmin/platform now has first-pass current-app visual evidence in `visual-evidence-v5-sysadmin-platform.md` and `visual-evidence-assets/v5/v5-capture-manifest.json`; this is foundation evidence only and does not promote V5 rows to `Figma-ready`
+- The V1-V5 roadmap review requested on 2026-04-22 is recorded in `v1-v5-roadmap-review-2026-04-22.md`: build and test validation pass, V1/V3/V4 are closed for their current screen-flow handoff bases, V2 remains candidate visual-parity blocked after the Finn/Diego/API-seed parity-pass recapture, and V5 remains foundation-complete but not Figma-ready.
 
 ## Post-cleanup documentation semantics
 
@@ -155,6 +159,11 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 54. `visual-evidence-v0-auth-shell-dashboard.md` — captured V0 evidence log for primary login, dashboard, logout, notifications, inbox, and deferred auth/token states
 55. `visual-evidence-v1-jobs.md` — captured V1 evidence log for jobs list, authoring, detail, task overlays, and requisition route-state bases
 56. `visual-evidence-v2-candidates.md` — captured V2 evidence log for candidate database/detail/action routes, including legacy references and side-by-side parity blockers
+57. `visual-evidence-v2-candidates-recapture-2026-04-22-parity-pass.md` — greenfield V2 recapture after the first explicit legacy-parity pass, now seeded with comparable Finn/Diego/API-seed data; current-app evidence only, not final parity signoff
+58. `visual-evidence-v3-public-external-token.md` — completed V3 evidence log for public/external and integration token screen-flow bases
+59. `visual-evidence-v4-operations.md` — first-pass current-app evidence log for settings, integrations admin, reports, billing, team, favorites, and marketplace route-state bases
+60. `visual-evidence-v5-sysadmin-platform.md` — first-pass current-app evidence log for SysAdmin/platform route-state bases
+61. `v1-v5-roadmap-review-2026-04-22.md` — audit closeout for the completed V1-V5 roadmap pass, including verification commands, item-level status, and remaining Figma/backend follow-ups
 
 ## Package roles
 
@@ -214,6 +223,11 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `visual-evidence-v0-auth-shell-dashboard.md` | records V0 current/legacy screenshot evidence, local seed scope, accepted fixture-backed decisions, deferred states, and sub-block Figma-ready decisions |
 | `visual-evidence-v1-jobs.md` | records V1 current/legacy screenshot evidence, accepted jobs fixture/reference decisions, deferred provider/form/schema details, and Figma-ready screen-flow decisions |
 | `visual-evidence-v2-candidates.md` | records V2 current/legacy screenshot evidence, candidate alias/reference decisions, side-by-side parity blockers, and remaining work before final Figma-ready promotion |
+| `visual-evidence-v2-candidates-recapture-2026-04-22-parity-pass.md` | records the current greenfield recapture after the first V2 parity pass for database density, detail legacy modal entries, route-owned action modal surfaces, and comparable Finn/Diego/API-seed capture data; it is not legacy parity signoff |
+| `visual-evidence-v3-public-external-token.md` | records V3 desktop, mobile, narrow, lifecycle, and follow-up evidence for public/external and integration token flows, plus deferred backend/API unknowns for Figma annotation |
+| `visual-evidence-v4-operations.md` | records V4 authenticated baseline and safe local-fixture interaction screenshot evidence, captured route/state families, deferred product-depth/backend/API unknowns, and the Figma-ready decision for current-app screen-flow bases |
+| `visual-evidence-v5-sysadmin-platform.md` | records V5 first-pass current-app screenshot evidence for SysAdmin/platform routes, deferred platform state gaps, backend/API unknowns, and the non-promotion decision before Figma-ready |
+| `v1-v5-roadmap-review-2026-04-22.md` | records the V1-V5 audit result, validation commands, release-by-release verification matrix, and follow-ups before deeper Figma/backend work |
 
 ## Source relationship
 

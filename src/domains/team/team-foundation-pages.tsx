@@ -1,8 +1,64 @@
 import { Link } from "@tanstack/react-router";
 import {
   buildOrgTeamViewModel,
+  fixtureOrgTeamAdapter,
+  type OrgTeamAdapter,
+  type OrgTeamLoadState,
   type OrgTeamRouteKind,
+  type RecruiterVisibilityFilter,
 } from "./support/team-foundation";
+
+const teamLoadStates = new Set<OrgTeamLoadState>([
+  "ready",
+  "empty",
+  "partial",
+  "stale",
+  "unavailable",
+  "refresh-required",
+]);
+const recruiterFilters = new Set<RecruiterVisibilityFilter>([
+  "all",
+  "visible",
+  "limited",
+  "hidden",
+]);
+
+function buildEvidenceTeamAdapter(): OrgTeamAdapter {
+  const params = new URLSearchParams(window.location.search);
+  const stateParam = params.get("state");
+  const loadState = stateParam && teamLoadStates.has(stateParam as OrgTeamLoadState)
+    ? (stateParam as OrgTeamLoadState)
+    : undefined;
+  const filterParam = params.get("filter");
+  const filter = filterParam && recruiterFilters.has(filterParam as RecruiterVisibilityFilter)
+    ? (filterParam as RecruiterVisibilityFilter)
+    : undefined;
+  const refreshRequired = params.get("refreshRequired") === "true";
+
+  return {
+    getTeamSnapshot: () => {
+      const snapshot = fixtureOrgTeamAdapter.getTeamSnapshot();
+      const resolvedLoadState = loadState ?? snapshot.loadState;
+      return {
+        ...snapshot,
+        loadState: resolvedLoadState,
+        refreshRequired: refreshRequired || resolvedLoadState === "refresh-required",
+        members: resolvedLoadState === "empty" ? [] : snapshot.members,
+        invites: resolvedLoadState === "empty" ? [] : snapshot.invites,
+      };
+    },
+    getRecruiterVisibilitySnapshot: () => {
+      const snapshot = fixtureOrgTeamAdapter.getRecruiterVisibilitySnapshot(filter);
+      const resolvedLoadState = loadState ?? snapshot.loadState;
+      return {
+        ...snapshot,
+        loadState: resolvedLoadState,
+        refreshRequired: refreshRequired || resolvedLoadState === "refresh-required",
+        recruiters: resolvedLoadState === "empty" ? [] : snapshot.recruiters,
+      };
+    },
+  };
+}
 
 function OrgTeamFoundationPage({
   kind,
@@ -11,7 +67,7 @@ function OrgTeamFoundationPage({
   kind: OrgTeamRouteKind;
   title: string;
 }) {
-  const view = buildOrgTeamViewModel(kind);
+  const view = buildOrgTeamViewModel(kind, buildEvidenceTeamAdapter());
 
   return (
     <section>

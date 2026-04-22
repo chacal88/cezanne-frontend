@@ -1,0 +1,348 @@
+{
+  "capturedAt": "2026-04-22T22:21:56.358Z",
+  "app": "http://127.0.0.1:5173",
+  "slices": [
+    "V3-B",
+    "V3-C",
+    "V3-D",
+    "V3-E"
+  ],
+  "screenshots": [
+    {
+      "slice": "V3-B",
+      "name": "v3-b-shared-job-ready",
+      "route": "/shared/product-designer/valid-public-followup/referral",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-b-shared-job-ready-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-B",
+      "name": "v3-b-public-application-ready",
+      "route": "/product-designer/application/valid-apply-followup/referral",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-b-public-application-ready-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-B",
+      "name": "v3-b-public-application-validation",
+      "route": "/product-designer/application/valid-apply-validation-followup/referral",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-b-public-application-validation-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-B",
+      "name": "v3-b-public-application-uploaded-file-state",
+      "route": "/product-designer/application/valid-apply-uploaded-followup/referral",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-b-public-application-uploaded-file-state-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-chat-empty",
+      "route": "/chat/valid-empty-chat/user-recruiter",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-chat-empty-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-chat-sent-refresh",
+      "route": "/chat/valid-sent-chat/user-recruiter",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-chat-sent-refresh-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-chat-draft-preserved",
+      "route": "/chat/valid-draft-chat/user-recruiter",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-chat-draft-preserved-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-interview-request-decline-terminal",
+      "route": "/interview-request/schedule-decline/valid-decline-followup",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-interview-request-decline-terminal-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-review-candidate-inaccessible",
+      "route": "/review-candidate/inaccessible-reviewer-followup",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-review-candidate-inaccessible-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-interview-feedback-validation",
+      "route": "/interview-feedback/valid-feedback-validation-followup",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-interview-feedback-validation-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-public-survey-degraded",
+      "route": "/surveys/valid-degraded-survey/job-1/cv-1",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-public-survey-degraded-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-D",
+      "name": "v3-d-requisition-reject-terminal",
+      "route": "/job-requisition-approval?token=valid-reject-comment-followup",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-d-requisition-reject-terminal-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-D",
+      "name": "v3-d-requisition-used-on-submit-approved",
+      "route": "/job-requisition-approval?token=valid-used-on-submit-approved-followup",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-d-requisition-used-on-submit-approved-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-D",
+      "name": "v3-d-requisition-used-on-submit-rejected",
+      "route": "/job-requisition-approval?token=valid-used-on-submit-rejected-followup",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-d-requisition-used-on-submit-rejected-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-D",
+      "name": "v3-d-requisition-forms-unavailable",
+      "route": "/job-requisition-forms/unavailable-bundle?token=valid-forms-followup",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-d-requisition-forms-unavailable-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-cv-offer-reject-terminal",
+      "route": "/integration/cv/valid-offer-reject-followup/offer",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-cv-offer-reject-terminal-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-cv-used-token",
+      "route": "/integration/cv/used-candidate-followup",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-cv-used-token-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-cv-inaccessible-token",
+      "route": "/integration/cv/valid-forms-family",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-cv-inaccessible-token-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-forms-binary-transfer",
+      "route": "/integration/forms/valid-forms-binary-followup",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-forms-binary-transfer-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-forms-persistence-failure",
+      "route": "/integration/forms/valid-forms-persist-followup",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-forms-persistence-failure-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-job-mobile-ready",
+      "route": "/integration/job/valid-finance-london-followup",
+      "viewport": "390x844",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-job-mobile-ready-390x844.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-B",
+      "name": "v3-b-shared-job-ready",
+      "route": "/shared/product-designer/valid-public-followup/referral",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-b-shared-job-ready-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-B",
+      "name": "v3-b-public-application-ready",
+      "route": "/product-designer/application/valid-apply-followup/referral",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-b-public-application-ready-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-B",
+      "name": "v3-b-public-application-validation",
+      "route": "/product-designer/application/valid-apply-validation-followup/referral",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-b-public-application-validation-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-B",
+      "name": "v3-b-public-application-uploaded-file-state",
+      "route": "/product-designer/application/valid-apply-uploaded-followup/referral",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-b-public-application-uploaded-file-state-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-chat-empty",
+      "route": "/chat/valid-empty-chat/user-recruiter",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-chat-empty-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-chat-sent-refresh",
+      "route": "/chat/valid-sent-chat/user-recruiter",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-chat-sent-refresh-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-chat-draft-preserved",
+      "route": "/chat/valid-draft-chat/user-recruiter",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-chat-draft-preserved-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-interview-request-decline-terminal",
+      "route": "/interview-request/schedule-decline/valid-decline-followup",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-interview-request-decline-terminal-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-review-candidate-inaccessible",
+      "route": "/review-candidate/inaccessible-reviewer-followup",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-review-candidate-inaccessible-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-interview-feedback-validation",
+      "route": "/interview-feedback/valid-feedback-validation-followup",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-interview-feedback-validation-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-C",
+      "name": "v3-c-public-survey-degraded",
+      "route": "/surveys/valid-degraded-survey/job-1/cv-1",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-c-public-survey-degraded-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-D",
+      "name": "v3-d-requisition-reject-terminal",
+      "route": "/job-requisition-approval?token=valid-reject-comment-followup",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-d-requisition-reject-terminal-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-D",
+      "name": "v3-d-requisition-used-on-submit-approved",
+      "route": "/job-requisition-approval?token=valid-used-on-submit-approved-followup",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-d-requisition-used-on-submit-approved-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-D",
+      "name": "v3-d-requisition-used-on-submit-rejected",
+      "route": "/job-requisition-approval?token=valid-used-on-submit-rejected-followup",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-d-requisition-used-on-submit-rejected-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-D",
+      "name": "v3-d-requisition-forms-unavailable",
+      "route": "/job-requisition-forms/unavailable-bundle?token=valid-forms-followup",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-d-requisition-forms-unavailable-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-cv-offer-reject-terminal",
+      "route": "/integration/cv/valid-offer-reject-followup/offer",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-cv-offer-reject-terminal-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-cv-used-token",
+      "route": "/integration/cv/used-candidate-followup",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-cv-used-token-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-cv-inaccessible-token",
+      "route": "/integration/cv/valid-forms-family",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-cv-inaccessible-token-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-forms-binary-transfer",
+      "route": "/integration/forms/valid-forms-binary-followup",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-forms-binary-transfer-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-forms-persistence-failure",
+      "route": "/integration/forms/valid-forms-persist-followup",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-forms-persistence-failure-768x900.png",
+      "status": "captured"
+    },
+    {
+      "slice": "V3-E",
+      "name": "v3-e-integration-job-mobile-ready",
+      "route": "/integration/job/valid-finance-london-followup",
+      "viewport": "768x900",
+      "file": "visual-evidence-assets/v3/follow-up/v3-e-integration-job-mobile-ready-768x900.png",
+      "status": "captured"
+    }
+  ]
+}

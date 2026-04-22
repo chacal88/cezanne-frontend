@@ -1,0 +1,824 @@
+{
+  "captureDate": "2026-04-22",
+  "viewport": "1440x900",
+  "baseURL": "http://127.0.0.1:5173",
+  "mode": "interactive-safe-fixture",
+  "records": [
+    {
+      "name": "settings-templates-save-failed",
+      "route": "/templates",
+      "url": "/templates",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-templates-save-failed-1440x900.png",
+      "status": "captured",
+      "note": "Simulated recoverable save failure with retry control."
+    },
+    {
+      "name": "settings-templates-retry-saved",
+      "route": "/templates",
+      "url": "/templates",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-templates-retry-saved-1440x900.png",
+      "status": "captured",
+      "note": "Retry after clearing simulated failure reaches saved state."
+    },
+    {
+      "name": "settings-hiring-flow-save-failed",
+      "route": "/settings/hiring-flow",
+      "url": "/settings/hiring-flow",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-hiring-flow-save-failed-1440x900.png",
+      "status": "captured",
+      "note": "Simulated recoverable save failure with retry control."
+    },
+    {
+      "name": "settings-hiring-flow-retry-saved",
+      "route": "/settings/hiring-flow",
+      "url": "/settings/hiring-flow",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-hiring-flow-retry-saved-1440x900.png",
+      "status": "captured",
+      "note": "Retry after clearing simulated failure reaches saved state."
+    },
+    {
+      "name": "settings-custom-fields-save-failed",
+      "route": "/settings/custom-fields",
+      "url": "/settings/custom-fields",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-custom-fields-save-failed-1440x900.png",
+      "status": "captured",
+      "note": "Simulated recoverable save failure with retry control."
+    },
+    {
+      "name": "settings-custom-fields-retry-saved",
+      "route": "/settings/custom-fields",
+      "url": "/settings/custom-fields",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-custom-fields-retry-saved-1440x900.png",
+      "status": "captured",
+      "note": "Retry after clearing simulated failure reaches saved state."
+    },
+    {
+      "name": "settings-reject-reasons-save-failed",
+      "route": "/reject-reasons",
+      "url": "/reject-reasons",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-reject-reasons-save-failed-1440x900.png",
+      "status": "captured",
+      "note": "Simulated recoverable save failure with retry control."
+    },
+    {
+      "name": "settings-reject-reasons-retry-saved",
+      "route": "/reject-reasons",
+      "url": "/reject-reasons",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-reject-reasons-retry-saved-1440x900.png",
+      "status": "captured",
+      "note": "Retry after clearing simulated failure reaches saved state."
+    },
+    {
+      "name": "settings-forms-docs-empty",
+      "route": "/settings/forms-docs",
+      "url": "/settings/forms-docs",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-forms-docs-empty-1440x900.png",
+      "status": "captured",
+      "note": "Simulated empty forms/docs controls state."
+    },
+    {
+      "name": "settings-forms-docs-stale",
+      "route": "/settings/forms-docs",
+      "url": "/settings/forms-docs",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-forms-docs-stale-1440x900.png",
+      "status": "captured",
+      "note": "Simulated stale downstream forms/docs state."
+    },
+    {
+      "name": "settings-forms-docs-degraded",
+      "route": "/settings/forms-docs",
+      "url": "/settings/forms-docs",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-forms-docs-degraded-1440x900.png",
+      "status": "captured",
+      "note": "Simulated degraded downstream forms/docs state."
+    },
+    {
+      "name": "settings-forms-docs-unavailable",
+      "route": "/settings/forms-docs",
+      "url": "/settings/forms-docs",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-forms-docs-unavailable-1440x900.png",
+      "status": "captured",
+      "note": "Simulated unavailable backend contract state."
+    },
+    {
+      "name": "settings-forms-docs-save-failed",
+      "route": "/settings/forms-docs",
+      "url": "/settings/forms-docs",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-forms-docs-save-failed-1440x900.png",
+      "status": "captured",
+      "note": "Simulated recoverable forms/docs save failure."
+    },
+    {
+      "name": "settings-forms-docs-retry-saved",
+      "route": "/settings/forms-docs",
+      "url": "/settings/forms-docs",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-forms-docs-retry-saved-1440x900.png",
+      "status": "captured",
+      "note": "Retry after clearing simulated forms/docs failure reaches saved state."
+    },
+    {
+      "name": "settings-api-endpoints-validation-error",
+      "route": "/settings/api-endpoints",
+      "url": "/settings/api-endpoints",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-api-endpoints-validation-error-1440x900.png",
+      "status": "captured",
+      "note": "HTTPS validation error before save."
+    },
+    {
+      "name": "settings-api-endpoints-save-error",
+      "route": "/settings/api-endpoints",
+      "url": "/settings/api-endpoints",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-api-endpoints-save-error-1440x900.png",
+      "status": "captured",
+      "note": "Simulated API endpoints save failure."
+    },
+    {
+      "name": "settings-api-endpoints-saved",
+      "route": "/settings/api-endpoints",
+      "url": "/settings/api-endpoints",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-api-endpoints-saved-1440x900.png",
+      "status": "captured",
+      "note": "API endpoints saved state with secret-safe fields."
+    },
+    {
+      "name": "settings-job-listing-editor-saved",
+      "route": "/settings/job-listings/edit?new=true&brand=acme",
+      "url": "/settings/job-listings/edit?new=true&brand=acme&mode=create",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-job-listing-editor-saved-1440x900.png",
+      "status": "captured",
+      "note": "Job listing editor save workflow completed against local fixture."
+    },
+    {
+      "name": "settings-job-listing-editor-published",
+      "route": "/settings/job-listings/edit?new=true&brand=acme",
+      "url": "/settings/job-listings/edit?new=true&brand=acme&mode=create",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/settings-job-listing-editor-published-1440x900.png",
+      "status": "captured",
+      "note": "Job listing publish workflow completed against local fixture."
+    },
+    {
+      "name": "integrations-google-calendar-invalid-save",
+      "route": "/integrations/google-calendar",
+      "url": "/integrations/google-calendar",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-google-calendar-invalid-save-1440x900.png",
+      "status": "captured",
+      "note": "Invalid provider configuration save outcome."
+    },
+    {
+      "name": "integrations-google-calendar-saved",
+      "route": "/integrations/google-calendar",
+      "url": "/integrations/google-calendar",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-google-calendar-saved-1440x900.png",
+      "status": "captured",
+      "note": "Provider configuration save outcome."
+    },
+    {
+      "name": "integrations-google-calendar-auth-action",
+      "route": "/integrations/google-calendar",
+      "url": "/integrations/google-calendar",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-google-calendar-auth-action-1440x900.png",
+      "status": "captured",
+      "note": "Provider auth/connect/reauthorize action outcome."
+    },
+    {
+      "name": "integrations-google-calendar-diagnostics",
+      "route": "/integrations/google-calendar",
+      "url": "/integrations/google-calendar",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-google-calendar-diagnostics-1440x900.png",
+      "status": "captured",
+      "note": "Provider diagnostics action outcome."
+    },
+    {
+      "name": "integrations-workday-invalid-save",
+      "route": "/integrations/workday",
+      "url": "/integrations/workday",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-workday-invalid-save-1440x900.png",
+      "status": "captured",
+      "note": "Invalid provider configuration save outcome."
+    },
+    {
+      "name": "integrations-workday-saved",
+      "route": "/integrations/workday",
+      "url": "/integrations/workday",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-workday-saved-1440x900.png",
+      "status": "captured",
+      "note": "Provider configuration save outcome."
+    },
+    {
+      "name": "integrations-workday-auth-action",
+      "route": "/integrations/workday",
+      "url": "/integrations/workday",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-workday-auth-action-1440x900.png",
+      "status": "captured",
+      "note": "Provider auth/connect/reauthorize action outcome."
+    },
+    {
+      "name": "integrations-workday-diagnostics",
+      "route": "/integrations/workday",
+      "url": "/integrations/workday",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-workday-diagnostics-1440x900.png",
+      "status": "captured",
+      "note": "Provider diagnostics action outcome."
+    },
+    {
+      "name": "integrations-lever-invalid-save",
+      "route": "/integrations/lever",
+      "url": "/integrations/lever",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-lever-invalid-save-1440x900.png",
+      "status": "captured",
+      "note": "Invalid provider configuration save outcome."
+    },
+    {
+      "name": "integrations-lever-saved",
+      "route": "/integrations/lever",
+      "url": "/integrations/lever",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-lever-saved-1440x900.png",
+      "status": "captured",
+      "note": "Provider configuration save outcome."
+    },
+    {
+      "name": "integrations-lever-auth-action",
+      "route": "/integrations/lever",
+      "url": "/integrations/lever",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-lever-auth-action-1440x900.png",
+      "status": "captured",
+      "note": "Provider auth/connect/reauthorize action outcome."
+    },
+    {
+      "name": "integrations-lever-diagnostics",
+      "route": "/integrations/lever",
+      "url": "/integrations/lever",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-lever-diagnostics-1440x900.png",
+      "status": "captured",
+      "note": "Provider diagnostics action outcome."
+    },
+    {
+      "name": "integrations-custom-provider-invalid-save",
+      "route": "/integrations/custom-provider",
+      "url": "/integrations/custom-provider",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-custom-provider-invalid-save-1440x900.png",
+      "status": "captured",
+      "note": "Invalid provider configuration save outcome."
+    },
+    {
+      "name": "integrations-custom-provider-saved",
+      "route": "/integrations/custom-provider",
+      "url": "/integrations/custom-provider",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-custom-provider-saved-1440x900.png",
+      "status": "captured",
+      "note": "Provider configuration save outcome."
+    },
+    {
+      "name": "integrations-custom-provider-auth-action",
+      "route": "/integrations/custom-provider",
+      "url": "/integrations/custom-provider",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-custom-provider-auth-action-1440x900.png",
+      "status": "captured",
+      "note": "Provider auth/connect/reauthorize action outcome."
+    },
+    {
+      "name": "integrations-custom-provider-diagnostics",
+      "route": "/integrations/custom-provider",
+      "url": "/integrations/custom-provider",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-custom-provider-diagnostics-1440x900.png",
+      "status": "captured",
+      "note": "Provider diagnostics action outcome."
+    },
+    {
+      "name": "reports-jobs-export-command",
+      "route": "/report/jobs",
+      "url": "/report/jobs",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/reports-jobs-export-command-1440x900.png",
+      "status": "captured",
+      "note": "Report export command outcome."
+    },
+    {
+      "name": "reports-jobs-schedule-command",
+      "route": "/report/jobs",
+      "url": "/report/jobs",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/reports-jobs-schedule-command-1440x900.png",
+      "status": "captured",
+      "note": "Report schedule command outcome."
+    },
+    {
+      "name": "reports-jobs-stale-export-blocked",
+      "route": "/report/jobs?result=stale",
+      "url": "/report/jobs?result=stale",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/reports-jobs-stale-export-blocked-1440x900.png",
+      "status": "captured",
+      "note": "Report export command blocked by result state."
+    },
+    {
+      "name": "reports-jobs-stale-schedule-blocked",
+      "route": "/report/jobs?result=stale",
+      "url": "/report/jobs?result=stale",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/reports-jobs-stale-schedule-blocked-1440x900.png",
+      "status": "captured",
+      "note": "Report schedule command blocked or unsupported."
+    },
+    {
+      "name": "reports-jobs-partial-export-blocked",
+      "route": "/report/jobs?result=partial",
+      "url": "/report/jobs?result=partial",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/reports-jobs-partial-export-blocked-1440x900.png",
+      "status": "captured",
+      "note": "Report export command blocked by result state."
+    },
+    {
+      "name": "reports-jobs-partial-schedule-blocked",
+      "route": "/report/jobs?result=partial",
+      "url": "/report/jobs?result=partial",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/reports-jobs-partial-schedule-blocked-1440x900.png",
+      "status": "captured",
+      "note": "Report schedule command blocked or unsupported."
+    },
+    {
+      "name": "reports-diversity-export-command",
+      "route": "/report/diversity",
+      "url": "/report/diversity",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/reports-diversity-export-command-1440x900.png",
+      "status": "captured",
+      "note": "Report export command outcome."
+    },
+    {
+      "name": "reports-diversity-schedule-blocked",
+      "route": "/report/diversity",
+      "url": "/report/diversity",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/reports-diversity-schedule-blocked-1440x900.png",
+      "status": "captured",
+      "note": "Report schedule command blocked or unsupported."
+    },
+    {
+      "name": "billing-overview-loading",
+      "route": "/billing?fixture=loading",
+      "url": "/billing?fixture=loading",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-overview-loading-1440x900.png",
+      "status": "captured",
+      "note": "Billing overview loading fixture."
+    },
+    {
+      "name": "billing-overview-empty",
+      "route": "/billing?fixture=empty",
+      "url": "/billing?fixture=empty",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-overview-empty-1440x900.png",
+      "status": "captured",
+      "note": "Billing overview empty fixture."
+    },
+    {
+      "name": "billing-overview-denied",
+      "route": "/billing?fixture=denied",
+      "url": "/billing?fixture=denied",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-overview-denied-1440x900.png",
+      "status": "captured",
+      "note": "Billing overview denied/hidden commercial fixture."
+    },
+    {
+      "name": "billing-overview-unavailable",
+      "route": "/billing?fixture=unavailable",
+      "url": "/billing?fixture=unavailable",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-overview-unavailable-1440x900.png",
+      "status": "captured",
+      "note": "Billing overview unavailable fixture."
+    },
+    {
+      "name": "billing-overview-stale",
+      "route": "/billing?fixture=stale",
+      "url": "/billing?fixture=stale",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-overview-stale-1440x900.png",
+      "status": "captured",
+      "note": "Billing overview stale refresh-required fixture."
+    },
+    {
+      "name": "billing-overview-degraded",
+      "route": "/billing?fixture=degraded",
+      "url": "/billing?fixture=degraded",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-overview-degraded-1440x900.png",
+      "status": "captured",
+      "note": "Billing overview degraded fixture."
+    },
+    {
+      "name": "billing-overview-pending-change",
+      "route": "/billing?fixture=pending-change",
+      "url": "/billing?fixture=pending-change",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-overview-pending-change-1440x900.png",
+      "status": "captured",
+      "note": "Billing overview pending subscription change fixture."
+    },
+    {
+      "name": "billing-upgrade-same-plan",
+      "route": "/billing/upgrade?currentPlan=growth&targetPlan=growth",
+      "url": "/billing/upgrade?currentPlan=growth&targetPlan=growth",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-upgrade-same-plan-1440x900.png",
+      "status": "captured",
+      "note": "Upgrade same-plan blocked state."
+    },
+    {
+      "name": "billing-upgrade-card-blocked",
+      "route": "/billing/upgrade?targetPlan=enterprise&readyCard=false",
+      "url": "/billing/upgrade?targetPlan=enterprise&readyCard=false",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-upgrade-card-blocked-1440x900.png",
+      "status": "captured",
+      "note": "Upgrade card-blocked state with add-card target."
+    },
+    {
+      "name": "billing-upgrade-submitted",
+      "route": "/billing/upgrade?state=submitted",
+      "url": "/billing/upgrade?state=submitted",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-upgrade-submitted-1440x900.png",
+      "status": "captured",
+      "note": "Upgrade submitted/pending state."
+    },
+    {
+      "name": "billing-upgrade-success",
+      "route": "/billing/upgrade?state=success",
+      "url": "/billing/upgrade?state=success",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-upgrade-success-1440x900.png",
+      "status": "captured",
+      "note": "Upgrade success state."
+    },
+    {
+      "name": "billing-upgrade-failure",
+      "route": "/billing/upgrade?state=failure&targetPlan=enterprise",
+      "url": "/billing/upgrade?state=failure&targetPlan=enterprise",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-upgrade-failure-1440x900.png",
+      "status": "captured",
+      "note": "Upgrade failure state."
+    },
+    {
+      "name": "billing-upgrade-retry",
+      "route": "/billing/upgrade?state=retry&targetPlan=enterprise",
+      "url": "/billing/upgrade?state=retry&targetPlan=enterprise",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-upgrade-retry-1440x900.png",
+      "status": "captured",
+      "note": "Upgrade retry state preserving selected plan."
+    },
+    {
+      "name": "billing-upgrade-challenge-required",
+      "route": "/billing/upgrade?state=challenge-required",
+      "url": "/billing/upgrade?state=challenge-required",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-upgrade-challenge-required-1440x900.png",
+      "status": "captured",
+      "note": "Upgrade provider challenge-required state."
+    },
+    {
+      "name": "billing-upgrade-stale",
+      "route": "/billing/upgrade?state=stale",
+      "url": "/billing/upgrade?state=stale",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-upgrade-stale-1440x900.png",
+      "status": "captured",
+      "note": "Upgrade stale blocked state."
+    },
+    {
+      "name": "billing-upgrade-degraded",
+      "route": "/billing/upgrade?state=degraded",
+      "url": "/billing/upgrade?state=degraded",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-upgrade-degraded-1440x900.png",
+      "status": "captured",
+      "note": "Upgrade degraded blocked state."
+    },
+    {
+      "name": "billing-upgrade-unavailable",
+      "route": "/billing/upgrade?state=unavailable",
+      "url": "/billing/upgrade?state=unavailable",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-upgrade-unavailable-1440x900.png",
+      "status": "captured",
+      "note": "Upgrade unavailable blocked state."
+    },
+    {
+      "name": "billing-sms-inactive",
+      "route": "/billing/sms?state=inactive",
+      "url": "/billing/sms?state=inactive",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-inactive-1440x900.png",
+      "status": "captured",
+      "note": "SMS inactive state."
+    },
+    {
+      "name": "billing-sms-trial",
+      "route": "/billing/sms?state=trial",
+      "url": "/billing/sms?state=trial",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-trial-1440x900.png",
+      "status": "captured",
+      "note": "SMS trial state."
+    },
+    {
+      "name": "billing-sms-active",
+      "route": "/billing/sms?state=active",
+      "url": "/billing/sms?state=active",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-active-1440x900.png",
+      "status": "captured",
+      "note": "SMS active state below warning threshold."
+    },
+    {
+      "name": "billing-sms-suspended",
+      "route": "/billing/sms?state=suspended",
+      "url": "/billing/sms?state=suspended",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-suspended-1440x900.png",
+      "status": "captured",
+      "note": "SMS suspended state."
+    },
+    {
+      "name": "billing-sms-card-blocked",
+      "route": "/billing/sms?state=inactive&readyCard=false",
+      "url": "/billing/sms?state=inactive&readyCard=false",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-card-blocked-1440x900.png",
+      "status": "captured",
+      "note": "SMS card-blocked activation state."
+    },
+    {
+      "name": "billing-sms-pending",
+      "route": "/billing/sms?state=pending",
+      "url": "/billing/sms?state=pending",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-pending-1440x900.png",
+      "status": "captured",
+      "note": "SMS pending change state."
+    },
+    {
+      "name": "billing-sms-success",
+      "route": "/billing/sms?state=success",
+      "url": "/billing/sms?state=success",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-success-1440x900.png",
+      "status": "captured",
+      "note": "SMS success state."
+    },
+    {
+      "name": "billing-sms-partial-success",
+      "route": "/billing/sms?state=partial-success",
+      "url": "/billing/sms?state=partial-success",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-partial-success-1440x900.png",
+      "status": "captured",
+      "note": "SMS partial success state."
+    },
+    {
+      "name": "billing-sms-failed",
+      "route": "/billing/sms?state=failed",
+      "url": "/billing/sms?state=failed",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-failed-1440x900.png",
+      "status": "captured",
+      "note": "SMS failed state."
+    },
+    {
+      "name": "billing-sms-retry",
+      "route": "/billing/sms?state=retry",
+      "url": "/billing/sms?state=retry",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-retry-1440x900.png",
+      "status": "captured",
+      "note": "SMS retry state."
+    },
+    {
+      "name": "billing-sms-stale",
+      "route": "/billing/sms?state=stale",
+      "url": "/billing/sms?state=stale",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-stale-1440x900.png",
+      "status": "captured",
+      "note": "SMS stale state."
+    },
+    {
+      "name": "billing-sms-degraded",
+      "route": "/billing/sms?state=degraded",
+      "url": "/billing/sms?state=degraded",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-degraded-1440x900.png",
+      "status": "captured",
+      "note": "SMS degraded state."
+    },
+    {
+      "name": "billing-sms-denied",
+      "route": "/billing/sms?state=denied",
+      "url": "/billing/sms?state=denied",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-denied-1440x900.png",
+      "status": "captured",
+      "note": "SMS denied state."
+    },
+    {
+      "name": "billing-sms-unavailable",
+      "route": "/billing/sms?state=unavailable",
+      "url": "/billing/sms?state=unavailable",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-sms-unavailable-1440x900.png",
+      "status": "captured",
+      "note": "SMS unavailable state."
+    },
+    {
+      "name": "billing-card-backup",
+      "route": "/billing/card/card-backup",
+      "url": "/billing/card/card-backup",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-card-backup-1440x900.png",
+      "status": "captured",
+      "note": "Backup card ready state."
+    },
+    {
+      "name": "billing-card-missing",
+      "route": "/billing/card/card-missing",
+      "url": "/billing/card/card-missing",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-card-missing-1440x900.png",
+      "status": "captured",
+      "note": "Missing card detail state."
+    },
+    {
+      "name": "billing-card-pending",
+      "route": "/billing/card/card-pending",
+      "url": "/billing/card/card-pending",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/billing-card-pending-1440x900.png",
+      "status": "captured",
+      "note": "Card pending confirmation state."
+    },
+    {
+      "name": "integrations-google-calendar-auth-pending",
+      "route": "/integrations/google-calendar?workflow=auth-pending",
+      "url": "/integrations/google-calendar?workflow=auth-pending",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-google-calendar-auth-pending-1440x900.png",
+      "status": "captured",
+      "note": "Provider auth pending state."
+    },
+    {
+      "name": "integrations-google-calendar-auth-failed",
+      "route": "/integrations/google-calendar?workflow=auth-failed",
+      "url": "/integrations/google-calendar?workflow=auth-failed",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-google-calendar-auth-failed-1440x900.png",
+      "status": "captured",
+      "note": "Provider auth failed state."
+    },
+    {
+      "name": "integrations-google-calendar-diagnostics-passed",
+      "route": "/integrations/google-calendar?workflow=diagnostics-passed",
+      "url": "/integrations/google-calendar?workflow=diagnostics-passed",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-google-calendar-diagnostics-passed-1440x900.png",
+      "status": "captured",
+      "note": "Provider diagnostics passed state."
+    },
+    {
+      "name": "integrations-google-calendar-diagnostics-failed",
+      "route": "/integrations/google-calendar?workflow=diagnostics-failed",
+      "url": "/integrations/google-calendar?workflow=diagnostics-failed",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-google-calendar-diagnostics-failed-1440x900.png",
+      "status": "captured",
+      "note": "Provider diagnostics failed state."
+    },
+    {
+      "name": "integrations-google-calendar-diagnostics-logs-ready",
+      "route": "/integrations/google-calendar?workflow=diagnostics-logs-ready",
+      "url": "/integrations/google-calendar?workflow=diagnostics-logs-ready",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-google-calendar-diagnostics-logs-ready-1440x900.png",
+      "status": "captured",
+      "note": "Provider diagnostics logs-ready safe summary state."
+    },
+    {
+      "name": "integrations-workday-auth-failed",
+      "route": "/integrations/workday?workflow=auth-failed",
+      "url": "/integrations/workday?workflow=auth-failed",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-workday-auth-failed-1440x900.png",
+      "status": "captured",
+      "note": "Provider reauthorization failed state."
+    },
+    {
+      "name": "integrations-lever-diagnostics-failed",
+      "route": "/integrations/lever?workflow=diagnostics-failed",
+      "url": "/integrations/lever?workflow=diagnostics-failed",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/integrations-lever-diagnostics-failed-1440x900.png",
+      "status": "captured",
+      "note": "Degraded provider diagnostics failed state."
+    },
+    {
+      "name": "reports-jobs-command-failed",
+      "route": "/report/jobs?command=failed",
+      "url": "/report/jobs?command=failed",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/reports-jobs-command-failed-1440x900.png",
+      "status": "captured",
+      "note": "Report command failed state from route query."
+    },
+    {
+      "name": "reports-jobs-command-retryable",
+      "route": "/report/jobs?command=retryable",
+      "url": "/report/jobs?command=retryable",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/reports-jobs-command-retryable-1440x900.png",
+      "status": "captured",
+      "note": "Report command retryable state from route query."
+    },
+    {
+      "name": "team-index-empty",
+      "route": "/team?state=empty",
+      "url": "/team?state=empty",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/team-index-empty-1440x900.png",
+      "status": "captured",
+      "note": "Team empty state."
+    },
+    {
+      "name": "team-index-stale",
+      "route": "/team?state=stale",
+      "url": "/team?state=stale",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/team-index-stale-1440x900.png",
+      "status": "captured",
+      "note": "Team stale state."
+    },
+    {
+      "name": "team-index-unavailable",
+      "route": "/team?state=unavailable",
+      "url": "/team?state=unavailable",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/team-index-unavailable-1440x900.png",
+      "status": "captured",
+      "note": "Team unavailable state."
+    },
+    {
+      "name": "team-index-refresh-required",
+      "route": "/team?state=refresh-required",
+      "url": "/team?state=refresh-required",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/team-index-refresh-required-1440x900.png",
+      "status": "captured",
+      "note": "Team refresh-required state."
+    },
+    {
+      "name": "team-recruiters-hidden-filter",
+      "route": "/team/recruiters?filter=hidden",
+      "url": "/team/recruiters?filter=hidden",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/team-recruiters-hidden-filter-1440x900.png",
+      "status": "captured",
+      "note": "Recruiter visibility hidden filter."
+    },
+    {
+      "name": "team-recruiters-stale-hidden",
+      "route": "/team/recruiters?state=stale&filter=hidden",
+      "url": "/team/recruiters?state=stale&filter=hidden",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/team-recruiters-stale-hidden-1440x900.png",
+      "status": "captured",
+      "note": "Recruiter visibility stale hidden-filter state."
+    },
+    {
+      "name": "team-recruiters-refresh-required",
+      "route": "/team/recruiters?state=refresh-required",
+      "url": "/team/recruiters?state=refresh-required",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/team-recruiters-refresh-required-1440x900.png",
+      "status": "captured",
+      "note": "Recruiter visibility refresh-required state."
+    },
+    {
+      "name": "team-invite-unavailable",
+      "route": "/users/invite?state=unavailable",
+      "url": "/users/invite?state=unavailable",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/team-invite-unavailable-1440x900.png",
+      "status": "captured",
+      "note": "Invite management unavailable state."
+    },
+    {
+      "name": "favorites-index-empty",
+      "route": "/favorites?state=empty",
+      "url": "/favorites?state=empty",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/favorites-index-empty-1440x900.png",
+      "status": "captured",
+      "note": "Favorites empty state."
+    },
+    {
+      "name": "favorites-index-unavailable",
+      "route": "/favorites?state=unavailable",
+      "url": "/favorites?state=unavailable",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/favorites-index-unavailable-1440x900.png",
+      "status": "captured",
+      "note": "Favorites unavailable state."
+    },
+    {
+      "name": "marketplace-assigned-empty",
+      "route": "/jobmarket/assigned?state=empty",
+      "url": "/jobmarket/assigned?state=empty",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/marketplace-assigned-empty-1440x900.png",
+      "status": "captured",
+      "note": "Marketplace assigned empty state."
+    },
+    {
+      "name": "denied-settings-templates-hc-user",
+      "route": "/templates",
+      "url": "/templates",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/denied-settings-templates-hc-user-1440x900.png",
+      "status": "captured",
+      "note": "Settings denied fallback for non-admin HC user where subsection requires admin/feature access."
+    },
+    {
+      "name": "denied-integrations-hc-user",
+      "route": "/integrations",
+      "url": "/dashboard",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/denied-integrations-hc-user-1440x900.png",
+      "status": "captured",
+      "note": "Integrations denied-to-dashboard fallback for non-admin HC user."
+    },
+    {
+      "name": "denied-reports-hc-user",
+      "route": "/report/jobs",
+      "url": "/dashboard",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/denied-reports-hc-user-1440x900.png",
+      "status": "captured",
+      "note": "Reports denied-to-index/dashboard fallback for non-admin HC user."
+    },
+    {
+      "name": "denied-billing-hidden",
+      "route": "/billing",
+      "url": "/dashboard",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/denied-billing-hidden-1440x900.png",
+      "status": "captured",
+      "note": "Billing hidden rollout denied fallback."
+    },
+    {
+      "name": "denied-marketplace-hc-admin",
+      "route": "/jobmarket/fill",
+      "url": "/dashboard",
+      "screenshot": "visual-evidence-assets/v4/interactive-2026-04-22/current/denied-marketplace-hc-admin-1440x900.png",
+      "status": "captured",
+      "note": "Marketplace denied fallback for HC admin outside RA scope."
+    }
+  ]
+}

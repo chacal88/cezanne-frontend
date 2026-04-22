@@ -2,7 +2,11 @@ import { Link } from '@tanstack/react-router';
 import { buildOrgFavoriteDetailViewModel, buildOrgFavoriteRequestViewModel, buildOrgFavoritesListViewModel } from './support/favorites-state';
 
 export function OrgFavoritesIndexPage() {
-  const view = buildOrgFavoritesListViewModel();
+  const params = new URLSearchParams(window.location.search);
+  const view = buildOrgFavoritesListViewModel({
+    forceEmpty: params.get('state') === 'empty',
+    unavailableReason: params.get('state') === 'unavailable' ? 'Favorites are unavailable for visual evidence.' : undefined,
+  });
 
   return (
     <section>

@@ -12,8 +12,8 @@ It defines what must be captured, where evidence must be recorded, and when a ro
 |---|---|---|
 | Route contract review | Done | All 103 canonical route rows plus 4 alias/reference rows are contract-reviewed. |
 | V0-V5 visual contracts | Done | Prepared under `v0-*` through `v5-*` visual contract files. |
-| Visual evidence capture | Current phase | Evidence must be captured from current app, legacy/reference app, or explicitly accepted screenshots. |
-| Figma production | Blocked | Remains blocked until rows are promoted to `Figma-ready`. |
+| Visual evidence capture | Current phase | Evidence must be captured from current app, legacy/reference app, or explicitly accepted screenshots. V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; V5 has first-pass foundation evidence. |
+| Figma production | Partially unblocked | V0, V1, V3, and V4 covered rows may proceed to Figma. Other rows remain blocked until promoted to `Figma-ready`. |
 
 ## Evidence package schema
 

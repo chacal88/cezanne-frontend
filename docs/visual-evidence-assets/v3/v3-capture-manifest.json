@@ -1,0 +1,338 @@
+{
+  "capturedAt": "2026-04-22T22:06:37.291Z",
+  "app": "http://127.0.0.1:5173",
+  "viewport": "1440x900",
+  "screenshotCount": 66,
+  "screenshots": [
+    {
+      "name": "greenfield-v3-external-chat-inaccessible-thread",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-external-chat-inaccessible-thread-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-external-chat-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-external-chat-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-external-chat-send-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-external-chat-send-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-external-chat-token-expired",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-external-chat-token-expired-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-cv-complete",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-cv-complete-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-cv-conflict",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-cv-conflict-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-cv-interview-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-cv-interview-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-cv-offer-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-cv-offer-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-cv-token-expired",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-cv-token-expired-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-cv-validation-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-cv-validation-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-forms-complete",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-forms-complete-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-forms-file-required",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-forms-file-required-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-forms-step-one-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-forms-step-one-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-forms-step-two",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-forms-step-two-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-forms-token-used",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-forms-token-used-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-forms-upload-handshake-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-forms-upload-handshake-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-job-action",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-job-action-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-job-locked",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-job-locked-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-job-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-job-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-integration-job-token-invalid",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-integration-job-token-invalid-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-interview-feedback-missing-template",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-interview-feedback-missing-template-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-interview-feedback-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-interview-feedback-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-interview-feedback-scoring-pending",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-interview-feedback-scoring-pending-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-interview-feedback-submit-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-interview-feedback-submit-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-interview-request-complete",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-interview-request-complete-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-interview-request-missing-context",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-interview-request-missing-context-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-interview-request-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-interview-request-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-interview-request-submit-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-interview-request-submit-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-interview-request-token-invalid",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-interview-request-token-invalid-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-application-binary-transfer-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-application-binary-transfer-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-application-complete",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-application-complete-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-application-metadata-persistence-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-application-metadata-persistence-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-application-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-application-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-application-submit-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-application-submit-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-application-token-inaccessible",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-application-token-inaccessible-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-application-upload-handshake-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-application-upload-handshake-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-application-validation-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-application-validation-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-survey-complete",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-survey-complete-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-survey-missing-schema",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-survey-missing-schema-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-survey-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-survey-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-survey-submit-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-survey-submit-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-survey-token-expired",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-survey-token-expired-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-public-survey-validation-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-public-survey-validation-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-approval-approved",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-approval-approved-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-approval-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-approval-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-approval-reject-validation",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-approval-reject-validation-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-approval-submit-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-approval-submit-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-approval-used-approved",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-approval-used-approved-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-approval-workflow-drift",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-approval-workflow-drift-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-forms-already-downloaded",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-forms-already-downloaded-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-forms-download-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-forms-download-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-forms-download-mode",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-forms-download-mode-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-forms-downloaded",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-forms-downloaded-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-forms-not-found",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-forms-not-found-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-forms-token-invalid",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-forms-token-invalid-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-requisition-forms-view-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-requisition-forms-view-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-review-candidate-complete",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-review-candidate-complete-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-review-candidate-missing-schema",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-review-candidate-missing-schema-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-review-candidate-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-review-candidate-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-review-candidate-submit-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-review-candidate-submit-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-review-candidate-token-expired",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-review-candidate-token-expired-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-review-candidate-validation-failed",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-review-candidate-validation-failed-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-shared-job-invalid-source",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-shared-job-invalid-source-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-shared-job-ready",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-shared-job-ready-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-shared-job-token-used",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-shared-job-token-used-1440x900.png",
+      "viewport": "1440x900"
+    },
+    {
+      "name": "greenfield-v3-shared-job-unavailable",
+      "file": "visual-evidence-assets/v3/current/greenfield-v3-shared-job-unavailable-1440x900.png",
+      "viewport": "1440x900"
+    }
+  ]
+}

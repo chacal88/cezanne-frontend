@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { listIntegrationProviders, resolveIntegrationProvider } from './support/admin-state';
 import { runProviderAuthAction, runProviderDiagnostics, saveProviderConfiguration } from './support/provider-setup-workflow';
@@ -29,12 +29,27 @@ export function IntegrationProviderDetailPage({ providerId }: { providerId: stri
   const [message, setMessage] = useState('');
   const [lastTelemetryName, setLastTelemetryName] = useState('');
   const [lastSectionState, setLastSectionState] = useState('');
+  const forcedWorkflow = new URLSearchParams(window.location.search).get('workflow');
 
   function record(result: { message: string; status: string; telemetry: { name: string } }) {
     setMessage(result.message);
     setLastSectionState(result.status);
     setLastTelemetryName(result.telemetry.name);
   }
+
+  useEffect(() => {
+    if (forcedWorkflow === 'auth-failed') {
+      const action = provider.state === 'reauth_required' ? 'reauthorize' : 'connect';
+      record(runProviderAuthAction(provider, action, { forceFailure: true }));
+    }
+    if (forcedWorkflow === 'auth-pending') {
+      const action = provider.state === 'reauth_required' ? 'reauthorize' : 'connect';
+      record(runProviderAuthAction(provider, action));
+    }
+    if (forcedWorkflow === 'diagnostics-passed') record(runProviderDiagnostics(provider));
+    if (forcedWorkflow === 'diagnostics-failed') record(runProviderDiagnostics(provider, { forceFailure: true }));
+    if (forcedWorkflow === 'diagnostics-logs-ready') record(runProviderDiagnostics(provider, { logsReady: true }));
+  }, [forcedWorkflow, providerId]);
 
   return (
     <section>
