@@ -1,0 +1,1258 @@
+{
+  "captureDate": "2026-04-23",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "baseUrl": "http://127.0.0.1:5173",
+  "totalRecords": 124,
+  "records": [
+    {
+      "fileName": "greenfield-v5-platform-users-list-ready-1440x900.png",
+      "route": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1&fixtureState=ready",
+      "finalUrl": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1&fixtureState=ready",
+      "family": "platform-users-list",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform users list fixture states with URL filters preserved."
+    },
+    {
+      "fileName": "greenfield-v5-platform-users-list-loading-1440x900.png",
+      "route": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1&fixtureState=loading",
+      "finalUrl": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1&fixtureState=loading",
+      "family": "platform-users-list",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform users list fixture states with URL filters preserved."
+    },
+    {
+      "fileName": "greenfield-v5-platform-users-list-empty-1440x900.png",
+      "route": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1&fixtureState=empty",
+      "finalUrl": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1&fixtureState=empty",
+      "family": "platform-users-list",
+      "fixtureState": "empty",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform users list fixture states with URL filters preserved."
+    },
+    {
+      "fileName": "greenfield-v5-platform-users-list-error-1440x900.png",
+      "route": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1&fixtureState=error",
+      "finalUrl": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1&fixtureState=error",
+      "family": "platform-users-list",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform users list fixture states with URL filters preserved."
+    },
+    {
+      "fileName": "greenfield-v5-platform-users-list-denied-1440x900.png",
+      "route": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1&fixtureState=denied",
+      "finalUrl": "/users?page=2&search=platform&hiringCompanyId=hc-1&recruitmentAgencyId=ra-1&fixtureState=denied",
+      "family": "platform-users-list",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform users list fixture states with URL filters preserved."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-create-editing-1440x900.png",
+      "route": "/users/new?search=platform&fixtureState=editing",
+      "finalUrl": "/users/new?search=platform&fixtureState=editing",
+      "family": "platform-user-create",
+      "fixtureState": "editing",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user create lifecycle states with list return context."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-create-saving-1440x900.png",
+      "route": "/users/new?search=platform&fixtureState=saving",
+      "finalUrl": "/users/new?search=platform&fixtureState=saving",
+      "family": "platform-user-create",
+      "fixtureState": "saving",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user create lifecycle states with list return context."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-create-success-1440x900.png",
+      "route": "/users/new?search=platform&fixtureState=success",
+      "finalUrl": "/users/new?search=platform&fixtureState=success",
+      "family": "platform-user-create",
+      "fixtureState": "success",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user create lifecycle states with list return context."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-create-cancelled-1440x900.png",
+      "route": "/users/new?search=platform&fixtureState=cancelled",
+      "finalUrl": "/users/new?search=platform&fixtureState=cancelled",
+      "family": "platform-user-create",
+      "fixtureState": "cancelled",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user create lifecycle states with list return context."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-create-error-1440x900.png",
+      "route": "/users/new?search=platform&fixtureState=error",
+      "finalUrl": "/users/new?search=platform&fixtureState=error",
+      "family": "platform-user-create",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user create lifecycle states with list return context."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-create-permission-denied-1440x900.png",
+      "route": "/users/new?search=platform&fixtureState=permission-denied",
+      "finalUrl": "/users/new?search=platform&fixtureState=permission-denied",
+      "family": "platform-user-create",
+      "fixtureState": "permission-denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user create lifecycle states with list return context."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-detail-ready-1440x900.png",
+      "route": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform&fixtureState=ready",
+      "finalUrl": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform&fixtureState=ready",
+      "family": "platform-user-detail",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user detail states with sanitized parent return."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-detail-loading-1440x900.png",
+      "route": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform&fixtureState=loading",
+      "finalUrl": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform&fixtureState=loading",
+      "family": "platform-user-detail",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user detail states with sanitized parent return."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-detail-not-found-1440x900.png",
+      "route": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform&fixtureState=not-found",
+      "finalUrl": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform&fixtureState=not-found",
+      "family": "platform-user-detail",
+      "fixtureState": "not-found",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user detail states with sanitized parent return."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-detail-stale-1440x900.png",
+      "route": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform&fixtureState=stale",
+      "finalUrl": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform&fixtureState=stale",
+      "family": "platform-user-detail",
+      "fixtureState": "stale",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user detail states with sanitized parent return."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-detail-permission-denied-1440x900.png",
+      "route": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform&fixtureState=permission-denied",
+      "finalUrl": "/users/user-123?returnTo=/users%3Fpage%3D2%26search%3Dplatform&fixtureState=permission-denied",
+      "family": "platform-user-detail",
+      "fixtureState": "permission-denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user detail states with sanitized parent return."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-edit-editing-1440x900.png",
+      "route": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=editing",
+      "finalUrl": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=editing",
+      "family": "platform-user-edit",
+      "fixtureState": "editing",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user edit lifecycle states with cancel/success target."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-edit-saving-1440x900.png",
+      "route": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=saving",
+      "finalUrl": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=saving",
+      "family": "platform-user-edit",
+      "fixtureState": "saving",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user edit lifecycle states with cancel/success target."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-edit-success-1440x900.png",
+      "route": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=success",
+      "finalUrl": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=success",
+      "family": "platform-user-edit",
+      "fixtureState": "success",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user edit lifecycle states with cancel/success target."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-edit-cancelled-1440x900.png",
+      "route": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=cancelled",
+      "finalUrl": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=cancelled",
+      "family": "platform-user-edit",
+      "fixtureState": "cancelled",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user edit lifecycle states with cancel/success target."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-edit-error-1440x900.png",
+      "route": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=error",
+      "finalUrl": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=error",
+      "family": "platform-user-edit",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user edit lifecycle states with cancel/success target."
+    },
+    {
+      "fileName": "greenfield-v5-platform-user-edit-permission-denied-1440x900.png",
+      "route": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=permission-denied",
+      "finalUrl": "/users/edit/user-123?returnTo=/users/user-123&fixtureState=permission-denied",
+      "family": "platform-user-edit",
+      "fixtureState": "permission-denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform user edit lifecycle states with cancel/success target."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-requests-queue-pending-1440x900.png",
+      "route": "/favorites-request?fixtureState=pending",
+      "finalUrl": "/favorites-request?fixtureState=pending",
+      "family": "favorite-requests-queue",
+      "fixtureState": "pending",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request queue states, retry exposure, and org-flow separation."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-requests-queue-resolved-1440x900.png",
+      "route": "/favorites-request?fixtureState=resolved",
+      "finalUrl": "/favorites-request?fixtureState=resolved",
+      "family": "favorite-requests-queue",
+      "fixtureState": "resolved",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request queue states, retry exposure, and org-flow separation."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-requests-queue-rejected-1440x900.png",
+      "route": "/favorites-request?fixtureState=rejected",
+      "finalUrl": "/favorites-request?fixtureState=rejected",
+      "family": "favorite-requests-queue",
+      "fixtureState": "rejected",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request queue states, retry exposure, and org-flow separation."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-requests-queue-stale-1440x900.png",
+      "route": "/favorites-request?fixtureState=stale",
+      "finalUrl": "/favorites-request?fixtureState=stale",
+      "family": "favorite-requests-queue",
+      "fixtureState": "stale",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request queue states, retry exposure, and org-flow separation."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-requests-queue-inaccessible-1440x900.png",
+      "route": "/favorites-request?fixtureState=inaccessible",
+      "finalUrl": "/favorites-request?fixtureState=inaccessible",
+      "family": "favorite-requests-queue",
+      "fixtureState": "inaccessible",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request queue states, retry exposure, and org-flow separation."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-requests-queue-empty-1440x900.png",
+      "route": "/favorites-request?fixtureState=empty",
+      "finalUrl": "/favorites-request?fixtureState=empty",
+      "family": "favorite-requests-queue",
+      "fixtureState": "empty",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request queue states, retry exposure, and org-flow separation."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-requests-queue-error-1440x900.png",
+      "route": "/favorites-request?fixtureState=error",
+      "finalUrl": "/favorites-request?fixtureState=error",
+      "family": "favorite-requests-queue",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request queue states, retry exposure, and org-flow separation."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-requests-queue-action-failure-1440x900.png",
+      "route": "/favorites-request?fixtureState=action-failure",
+      "finalUrl": "/favorites-request?fixtureState=action-failure",
+      "family": "favorite-requests-queue",
+      "fixtureState": "action-failure",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request queue states, retry exposure, and org-flow separation."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-request-detail-pending-1440x900.png",
+      "route": "/favorites-request/request-123?fixtureState=pending",
+      "finalUrl": "/favorites-request/request-123?fixtureState=pending",
+      "family": "favorite-request-detail",
+      "fixtureState": "pending",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request detail states with approve/reject/reopen readiness."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-request-detail-resolved-1440x900.png",
+      "route": "/favorites-request/request-123?fixtureState=resolved",
+      "finalUrl": "/favorites-request/request-123?fixtureState=resolved",
+      "family": "favorite-request-detail",
+      "fixtureState": "resolved",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request detail states with approve/reject/reopen readiness."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-request-detail-rejected-1440x900.png",
+      "route": "/favorites-request/request-123?fixtureState=rejected",
+      "finalUrl": "/favorites-request/request-123?fixtureState=rejected",
+      "family": "favorite-request-detail",
+      "fixtureState": "rejected",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request detail states with approve/reject/reopen readiness."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-request-detail-stale-1440x900.png",
+      "route": "/favorites-request/request-123?fixtureState=stale",
+      "finalUrl": "/favorites-request/request-123?fixtureState=stale",
+      "family": "favorite-request-detail",
+      "fixtureState": "stale",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request detail states with approve/reject/reopen readiness."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-request-detail-inaccessible-1440x900.png",
+      "route": "/favorites-request/request-123?fixtureState=inaccessible",
+      "finalUrl": "/favorites-request/request-123?fixtureState=inaccessible",
+      "family": "favorite-request-detail",
+      "fixtureState": "inaccessible",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request detail states with approve/reject/reopen readiness."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-request-detail-empty-1440x900.png",
+      "route": "/favorites-request/request-123?fixtureState=empty",
+      "finalUrl": "/favorites-request/request-123?fixtureState=empty",
+      "family": "favorite-request-detail",
+      "fixtureState": "empty",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request detail states with approve/reject/reopen readiness."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-request-detail-error-1440x900.png",
+      "route": "/favorites-request/request-123?fixtureState=error",
+      "finalUrl": "/favorites-request/request-123?fixtureState=error",
+      "family": "favorite-request-detail",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request detail states with approve/reject/reopen readiness."
+    },
+    {
+      "fileName": "greenfield-v5-favorite-request-detail-action-failure-1440x900.png",
+      "route": "/favorites-request/request-123?fixtureState=action-failure",
+      "finalUrl": "/favorites-request/request-123?fixtureState=action-failure",
+      "family": "favorite-request-detail",
+      "fixtureState": "action-failure",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform favorite-request detail states with approve/reject/reopen readiness."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-list-ready-1440x900.png",
+      "route": "/hiring-companies?fixtureState=ready",
+      "finalUrl": "/hiring-companies?fixtureState=ready",
+      "family": "hiring-company-list",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-list-loading-1440x900.png",
+      "route": "/hiring-companies?fixtureState=loading",
+      "finalUrl": "/hiring-companies?fixtureState=loading",
+      "family": "hiring-company-list",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-list-empty-1440x900.png",
+      "route": "/hiring-companies?fixtureState=empty",
+      "finalUrl": "/hiring-companies?fixtureState=empty",
+      "family": "hiring-company-list",
+      "fixtureState": "empty",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-list-error-1440x900.png",
+      "route": "/hiring-companies?fixtureState=error",
+      "finalUrl": "/hiring-companies?fixtureState=error",
+      "family": "hiring-company-list",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-list-denied-1440x900.png",
+      "route": "/hiring-companies?fixtureState=denied",
+      "finalUrl": "/hiring-companies?fixtureState=denied",
+      "family": "hiring-company-list",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-detail-ready-1440x900.png",
+      "route": "/hiring-companies/company-123?fixtureState=ready",
+      "finalUrl": "/hiring-companies/company-123?fixtureState=ready",
+      "family": "hiring-company-detail",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-detail-loading-1440x900.png",
+      "route": "/hiring-companies/company-123?fixtureState=loading",
+      "finalUrl": "/hiring-companies/company-123?fixtureState=loading",
+      "family": "hiring-company-detail",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-detail-not-found-1440x900.png",
+      "route": "/hiring-companies/company-123?fixtureState=not-found",
+      "finalUrl": "/hiring-companies/company-123?fixtureState=not-found",
+      "family": "hiring-company-detail",
+      "fixtureState": "not-found",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-detail-stale-1440x900.png",
+      "route": "/hiring-companies/company-123?fixtureState=stale",
+      "finalUrl": "/hiring-companies/company-123?fixtureState=stale",
+      "family": "hiring-company-detail",
+      "fixtureState": "stale",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-detail-denied-1440x900.png",
+      "route": "/hiring-companies/company-123?fixtureState=denied",
+      "finalUrl": "/hiring-companies/company-123?fixtureState=denied",
+      "family": "hiring-company-detail",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-edit-editing-1440x900.png",
+      "route": "/hiring-companies/edit/company-123?fixtureState=editing",
+      "finalUrl": "/hiring-companies/edit/company-123?fixtureState=editing",
+      "family": "hiring-company-edit",
+      "fixtureState": "editing",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-edit-saving-1440x900.png",
+      "route": "/hiring-companies/edit/company-123?fixtureState=saving",
+      "finalUrl": "/hiring-companies/edit/company-123?fixtureState=saving",
+      "family": "hiring-company-edit",
+      "fixtureState": "saving",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-edit-success-1440x900.png",
+      "route": "/hiring-companies/edit/company-123?fixtureState=success",
+      "finalUrl": "/hiring-companies/edit/company-123?fixtureState=success",
+      "family": "hiring-company-edit",
+      "fixtureState": "success",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-edit-cancelled-1440x900.png",
+      "route": "/hiring-companies/edit/company-123?fixtureState=cancelled",
+      "finalUrl": "/hiring-companies/edit/company-123?fixtureState=cancelled",
+      "family": "hiring-company-edit",
+      "fixtureState": "cancelled",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-edit-error-1440x900.png",
+      "route": "/hiring-companies/edit/company-123?fixtureState=error",
+      "finalUrl": "/hiring-companies/edit/company-123?fixtureState=error",
+      "family": "hiring-company-edit",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-edit-denied-1440x900.png",
+      "route": "/hiring-companies/edit/company-123?fixtureState=denied",
+      "finalUrl": "/hiring-companies/edit/company-123?fixtureState=denied",
+      "family": "hiring-company-edit",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Hiring company master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-list-ready-1440x900.png",
+      "route": "/recruitment-agencies?fixtureState=ready",
+      "finalUrl": "/recruitment-agencies?fixtureState=ready",
+      "family": "recruitment-agency-list",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-list-loading-1440x900.png",
+      "route": "/recruitment-agencies?fixtureState=loading",
+      "finalUrl": "/recruitment-agencies?fixtureState=loading",
+      "family": "recruitment-agency-list",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-list-empty-1440x900.png",
+      "route": "/recruitment-agencies?fixtureState=empty",
+      "finalUrl": "/recruitment-agencies?fixtureState=empty",
+      "family": "recruitment-agency-list",
+      "fixtureState": "empty",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-list-error-1440x900.png",
+      "route": "/recruitment-agencies?fixtureState=error",
+      "finalUrl": "/recruitment-agencies?fixtureState=error",
+      "family": "recruitment-agency-list",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-list-denied-1440x900.png",
+      "route": "/recruitment-agencies?fixtureState=denied",
+      "finalUrl": "/recruitment-agencies?fixtureState=denied",
+      "family": "recruitment-agency-list",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-detail-ready-1440x900.png",
+      "route": "/recruitment-agencies/agency-123?fixtureState=ready",
+      "finalUrl": "/recruitment-agencies/agency-123?fixtureState=ready",
+      "family": "recruitment-agency-detail",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-detail-loading-1440x900.png",
+      "route": "/recruitment-agencies/agency-123?fixtureState=loading",
+      "finalUrl": "/recruitment-agencies/agency-123?fixtureState=loading",
+      "family": "recruitment-agency-detail",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-detail-not-found-1440x900.png",
+      "route": "/recruitment-agencies/agency-123?fixtureState=not-found",
+      "finalUrl": "/recruitment-agencies/agency-123?fixtureState=not-found",
+      "family": "recruitment-agency-detail",
+      "fixtureState": "not-found",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-detail-stale-1440x900.png",
+      "route": "/recruitment-agencies/agency-123?fixtureState=stale",
+      "finalUrl": "/recruitment-agencies/agency-123?fixtureState=stale",
+      "family": "recruitment-agency-detail",
+      "fixtureState": "stale",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-detail-denied-1440x900.png",
+      "route": "/recruitment-agencies/agency-123?fixtureState=denied",
+      "finalUrl": "/recruitment-agencies/agency-123?fixtureState=denied",
+      "family": "recruitment-agency-detail",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-edit-editing-1440x900.png",
+      "route": "/recruitment-agencies/edit/agency-123?fixtureState=editing",
+      "finalUrl": "/recruitment-agencies/edit/agency-123?fixtureState=editing",
+      "family": "recruitment-agency-edit",
+      "fixtureState": "editing",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-edit-saving-1440x900.png",
+      "route": "/recruitment-agencies/edit/agency-123?fixtureState=saving",
+      "finalUrl": "/recruitment-agencies/edit/agency-123?fixtureState=saving",
+      "family": "recruitment-agency-edit",
+      "fixtureState": "saving",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-edit-success-1440x900.png",
+      "route": "/recruitment-agencies/edit/agency-123?fixtureState=success",
+      "finalUrl": "/recruitment-agencies/edit/agency-123?fixtureState=success",
+      "family": "recruitment-agency-edit",
+      "fixtureState": "success",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-edit-cancelled-1440x900.png",
+      "route": "/recruitment-agencies/edit/agency-123?fixtureState=cancelled",
+      "finalUrl": "/recruitment-agencies/edit/agency-123?fixtureState=cancelled",
+      "family": "recruitment-agency-edit",
+      "fixtureState": "cancelled",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-edit-error-1440x900.png",
+      "route": "/recruitment-agencies/edit/agency-123?fixtureState=error",
+      "finalUrl": "/recruitment-agencies/edit/agency-123?fixtureState=error",
+      "family": "recruitment-agency-edit",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-recruitment-agency-edit-denied-1440x900.png",
+      "route": "/recruitment-agencies/edit/agency-123?fixtureState=denied",
+      "finalUrl": "/recruitment-agencies/edit/agency-123?fixtureState=denied",
+      "family": "recruitment-agency-edit",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Recruitment agency master-data edit lifecycle states."
+    },
+    {
+      "fileName": "greenfield-v5-subscription-list-ready-1440x900.png",
+      "route": "/subscriptions?fixtureState=ready",
+      "finalUrl": "/subscriptions?fixtureState=ready",
+      "family": "subscription-list",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform subscription master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-subscription-list-loading-1440x900.png",
+      "route": "/subscriptions?fixtureState=loading",
+      "finalUrl": "/subscriptions?fixtureState=loading",
+      "family": "subscription-list",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform subscription master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-subscription-list-empty-1440x900.png",
+      "route": "/subscriptions?fixtureState=empty",
+      "finalUrl": "/subscriptions?fixtureState=empty",
+      "family": "subscription-list",
+      "fixtureState": "empty",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform subscription master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-subscription-list-error-1440x900.png",
+      "route": "/subscriptions?fixtureState=error",
+      "finalUrl": "/subscriptions?fixtureState=error",
+      "family": "subscription-list",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform subscription master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-subscription-list-denied-1440x900.png",
+      "route": "/subscriptions?fixtureState=denied",
+      "finalUrl": "/subscriptions?fixtureState=denied",
+      "family": "subscription-list",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform subscription master-data list states."
+    },
+    {
+      "fileName": "greenfield-v5-subscription-detail-ready-1440x900.png",
+      "route": "/subscriptions/subscription-123?fixtureState=ready",
+      "finalUrl": "/subscriptions/subscription-123?fixtureState=ready",
+      "family": "subscription-detail",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform subscription master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-subscription-detail-loading-1440x900.png",
+      "route": "/subscriptions/subscription-123?fixtureState=loading",
+      "finalUrl": "/subscriptions/subscription-123?fixtureState=loading",
+      "family": "subscription-detail",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform subscription master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-subscription-detail-not-found-1440x900.png",
+      "route": "/subscriptions/subscription-123?fixtureState=not-found",
+      "finalUrl": "/subscriptions/subscription-123?fixtureState=not-found",
+      "family": "subscription-detail",
+      "fixtureState": "not-found",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform subscription master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-subscription-detail-stale-1440x900.png",
+      "route": "/subscriptions/subscription-123?fixtureState=stale",
+      "finalUrl": "/subscriptions/subscription-123?fixtureState=stale",
+      "family": "subscription-detail",
+      "fixtureState": "stale",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform subscription master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-subscription-detail-denied-1440x900.png",
+      "route": "/subscriptions/subscription-123?fixtureState=denied",
+      "finalUrl": "/subscriptions/subscription-123?fixtureState=denied",
+      "family": "subscription-detail",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Platform subscription master-data detail states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-subscription-ready-1440x900.png",
+      "route": "/hiring-company/company-123/subscription?fixtureState=ready",
+      "finalUrl": "/hiring-company/company-123/subscription?fixtureState=ready",
+      "family": "hiring-company-subscription",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Company subscription route-vs-mutation capability and refresh-target states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-subscription-loading-1440x900.png",
+      "route": "/hiring-company/company-123/subscription?fixtureState=loading",
+      "finalUrl": "/hiring-company/company-123/subscription?fixtureState=loading",
+      "family": "hiring-company-subscription",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Company subscription route-vs-mutation capability and refresh-target states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-subscription-denied-1440x900.png",
+      "route": "/hiring-company/company-123/subscription?fixtureState=denied",
+      "finalUrl": "/hiring-company/company-123/subscription?fixtureState=denied",
+      "family": "hiring-company-subscription",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Company subscription route-vs-mutation capability and refresh-target states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-subscription-not-found-1440x900.png",
+      "route": "/hiring-company/company-123/subscription?fixtureState=not-found",
+      "finalUrl": "/hiring-company/company-123/subscription?fixtureState=not-found",
+      "family": "hiring-company-subscription",
+      "fixtureState": "not-found",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Company subscription route-vs-mutation capability and refresh-target states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-subscription-stale-1440x900.png",
+      "route": "/hiring-company/company-123/subscription?fixtureState=stale",
+      "finalUrl": "/hiring-company/company-123/subscription?fixtureState=stale",
+      "family": "hiring-company-subscription",
+      "fixtureState": "stale",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Company subscription route-vs-mutation capability and refresh-target states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-subscription-mutation-blocked-1440x900.png",
+      "route": "/hiring-company/company-123/subscription?fixtureState=mutation-blocked",
+      "finalUrl": "/hiring-company/company-123/subscription?fixtureState=mutation-blocked",
+      "family": "hiring-company-subscription",
+      "fixtureState": "mutation-blocked",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Company subscription route-vs-mutation capability and refresh-target states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-subscription-mutation-success-1440x900.png",
+      "route": "/hiring-company/company-123/subscription?fixtureState=mutation-success",
+      "finalUrl": "/hiring-company/company-123/subscription?fixtureState=mutation-success",
+      "family": "hiring-company-subscription",
+      "fixtureState": "mutation-success",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Company subscription route-vs-mutation capability and refresh-target states."
+    },
+    {
+      "fileName": "greenfield-v5-hiring-company-subscription-mutation-error-1440x900.png",
+      "route": "/hiring-company/company-123/subscription?fixtureState=mutation-error",
+      "finalUrl": "/hiring-company/company-123/subscription?fixtureState=mutation-error",
+      "family": "hiring-company-subscription",
+      "fixtureState": "mutation-error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Company subscription route-vs-mutation capability and refresh-target states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-list-ready-1440x900.png",
+      "route": "/sectors?fixtureState=ready",
+      "finalUrl": "/sectors?fixtureState=ready",
+      "family": "sector-list",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-list-loading-1440x900.png",
+      "route": "/sectors?fixtureState=loading",
+      "finalUrl": "/sectors?fixtureState=loading",
+      "family": "sector-list",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-list-empty-1440x900.png",
+      "route": "/sectors?fixtureState=empty",
+      "finalUrl": "/sectors?fixtureState=empty",
+      "family": "sector-list",
+      "fixtureState": "empty",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-list-error-1440x900.png",
+      "route": "/sectors?fixtureState=error",
+      "finalUrl": "/sectors?fixtureState=error",
+      "family": "sector-list",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-list-denied-1440x900.png",
+      "route": "/sectors?fixtureState=denied",
+      "finalUrl": "/sectors?fixtureState=denied",
+      "family": "sector-list",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-list-not-found-1440x900.png",
+      "route": "/sectors?fixtureState=not-found",
+      "finalUrl": "/sectors?fixtureState=not-found",
+      "family": "sector-list",
+      "fixtureState": "not-found",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-list-stale-1440x900.png",
+      "route": "/sectors?fixtureState=stale",
+      "finalUrl": "/sectors?fixtureState=stale",
+      "family": "sector-list",
+      "fixtureState": "stale",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-list-mutation-success-1440x900.png",
+      "route": "/sectors?fixtureState=mutation-success",
+      "finalUrl": "/sectors?fixtureState=mutation-success",
+      "family": "sector-list",
+      "fixtureState": "mutation-success",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-list-mutation-error-1440x900.png",
+      "route": "/sectors?fixtureState=mutation-error",
+      "finalUrl": "/sectors?fixtureState=mutation-error",
+      "family": "sector-list",
+      "fixtureState": "mutation-error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-detail-ready-1440x900.png",
+      "route": "/sectors/sector-123?fixtureState=ready",
+      "finalUrl": "/sectors/sector-123?fixtureState=ready",
+      "family": "sector-detail",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector detail taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-detail-loading-1440x900.png",
+      "route": "/sectors/sector-123?fixtureState=loading",
+      "finalUrl": "/sectors/sector-123?fixtureState=loading",
+      "family": "sector-detail",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector detail taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-detail-empty-1440x900.png",
+      "route": "/sectors/sector-123?fixtureState=empty",
+      "finalUrl": "/sectors/sector-123?fixtureState=empty",
+      "family": "sector-detail",
+      "fixtureState": "empty",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector detail taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-detail-error-1440x900.png",
+      "route": "/sectors/sector-123?fixtureState=error",
+      "finalUrl": "/sectors/sector-123?fixtureState=error",
+      "family": "sector-detail",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector detail taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-detail-denied-1440x900.png",
+      "route": "/sectors/sector-123?fixtureState=denied",
+      "finalUrl": "/sectors/sector-123?fixtureState=denied",
+      "family": "sector-detail",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector detail taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-detail-not-found-1440x900.png",
+      "route": "/sectors/sector-123?fixtureState=not-found",
+      "finalUrl": "/sectors/sector-123?fixtureState=not-found",
+      "family": "sector-detail",
+      "fixtureState": "not-found",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector detail taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-detail-stale-1440x900.png",
+      "route": "/sectors/sector-123?fixtureState=stale",
+      "finalUrl": "/sectors/sector-123?fixtureState=stale",
+      "family": "sector-detail",
+      "fixtureState": "stale",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector detail taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-detail-mutation-success-1440x900.png",
+      "route": "/sectors/sector-123?fixtureState=mutation-success",
+      "finalUrl": "/sectors/sector-123?fixtureState=mutation-success",
+      "family": "sector-detail",
+      "fixtureState": "mutation-success",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector detail taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-sector-detail-mutation-error-1440x900.png",
+      "route": "/sectors/sector-123?fixtureState=mutation-error",
+      "finalUrl": "/sectors/sector-123?fixtureState=mutation-error",
+      "family": "sector-detail",
+      "fixtureState": "mutation-error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector detail taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-list-ready-1440x900.png",
+      "route": "/sectors/sector-123/subsectors?fixtureState=ready",
+      "finalUrl": "/sectors/sector-123/subsectors?fixtureState=ready",
+      "family": "subsector-list",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector-scoped subsector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-list-loading-1440x900.png",
+      "route": "/sectors/sector-123/subsectors?fixtureState=loading",
+      "finalUrl": "/sectors/sector-123/subsectors?fixtureState=loading",
+      "family": "subsector-list",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector-scoped subsector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-list-empty-1440x900.png",
+      "route": "/sectors/sector-123/subsectors?fixtureState=empty",
+      "finalUrl": "/sectors/sector-123/subsectors?fixtureState=empty",
+      "family": "subsector-list",
+      "fixtureState": "empty",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector-scoped subsector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-list-error-1440x900.png",
+      "route": "/sectors/sector-123/subsectors?fixtureState=error",
+      "finalUrl": "/sectors/sector-123/subsectors?fixtureState=error",
+      "family": "subsector-list",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector-scoped subsector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-list-denied-1440x900.png",
+      "route": "/sectors/sector-123/subsectors?fixtureState=denied",
+      "finalUrl": "/sectors/sector-123/subsectors?fixtureState=denied",
+      "family": "subsector-list",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector-scoped subsector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-list-not-found-1440x900.png",
+      "route": "/sectors/sector-123/subsectors?fixtureState=not-found",
+      "finalUrl": "/sectors/sector-123/subsectors?fixtureState=not-found",
+      "family": "subsector-list",
+      "fixtureState": "not-found",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector-scoped subsector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-list-stale-1440x900.png",
+      "route": "/sectors/sector-123/subsectors?fixtureState=stale",
+      "finalUrl": "/sectors/sector-123/subsectors?fixtureState=stale",
+      "family": "subsector-list",
+      "fixtureState": "stale",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector-scoped subsector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-list-mutation-success-1440x900.png",
+      "route": "/sectors/sector-123/subsectors?fixtureState=mutation-success",
+      "finalUrl": "/sectors/sector-123/subsectors?fixtureState=mutation-success",
+      "family": "subsector-list",
+      "fixtureState": "mutation-success",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector-scoped subsector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-list-mutation-error-1440x900.png",
+      "route": "/sectors/sector-123/subsectors?fixtureState=mutation-error",
+      "finalUrl": "/sectors/sector-123/subsectors?fixtureState=mutation-error",
+      "family": "subsector-list",
+      "fixtureState": "mutation-error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Sector-scoped subsector list taxonomy fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-detail-ready-1440x900.png",
+      "route": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=ready",
+      "finalUrl": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=ready",
+      "family": "subsector-detail",
+      "fixtureState": "ready",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Subsector detail taxonomy with sector parent context fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-detail-loading-1440x900.png",
+      "route": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=loading",
+      "finalUrl": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=loading",
+      "family": "subsector-detail",
+      "fixtureState": "loading",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Subsector detail taxonomy with sector parent context fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-detail-empty-1440x900.png",
+      "route": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=empty",
+      "finalUrl": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=empty",
+      "family": "subsector-detail",
+      "fixtureState": "empty",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Subsector detail taxonomy with sector parent context fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-detail-error-1440x900.png",
+      "route": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=error",
+      "finalUrl": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=error",
+      "family": "subsector-detail",
+      "fixtureState": "error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Subsector detail taxonomy with sector parent context fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-detail-denied-1440x900.png",
+      "route": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=denied",
+      "finalUrl": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=denied",
+      "family": "subsector-detail",
+      "fixtureState": "denied",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Subsector detail taxonomy with sector parent context fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-detail-not-found-1440x900.png",
+      "route": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=not-found",
+      "finalUrl": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=not-found",
+      "family": "subsector-detail",
+      "fixtureState": "not-found",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Subsector detail taxonomy with sector parent context fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-detail-stale-1440x900.png",
+      "route": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=stale",
+      "finalUrl": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=stale",
+      "family": "subsector-detail",
+      "fixtureState": "stale",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Subsector detail taxonomy with sector parent context fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-detail-mutation-success-1440x900.png",
+      "route": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=mutation-success",
+      "finalUrl": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=mutation-success",
+      "family": "subsector-detail",
+      "fixtureState": "mutation-success",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Subsector detail taxonomy with sector parent context fixture states."
+    },
+    {
+      "fileName": "greenfield-v5-subsector-detail-mutation-error-1440x900.png",
+      "route": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=mutation-error",
+      "finalUrl": "/subsectors/subsector-123?sectorId=sector-123&fixtureState=mutation-error",
+      "family": "subsector-detail",
+      "fixtureState": "mutation-error",
+      "status": 200,
+      "context": "sysadmin",
+      "note": "Subsector detail taxonomy with sector parent context fixture states."
+    }
+  ],
+  "securityExclusions": [
+    "no credentials",
+    "dev-only token label only",
+    "no tenant raw payloads",
+    "no payment provider payloads",
+    "no platform diagnostics"
+  ]
+}

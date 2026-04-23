@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "capture:v0:state-evidence": "node scripts/capture-v0-state-evidence.mjs",
     "smoke:r0": "npm run smoke:r0:http && npm run smoke:r0:ui",
     "smoke:r0:ui": "env -u NO_COLOR playwright test -c playwright.r0.config.ts",
     "smoke:r0:http": "sh ./scripts/r0-smoke-http.sh",

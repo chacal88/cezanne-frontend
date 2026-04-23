@@ -204,6 +204,7 @@ The recapture harness was tightened after the first run so the covered current-a
 | V2-GAP-004 | Improved; still blocked | Add new menu captured in `new/02-database-add-new-menu-density-pass.png`; Add/new-filter/new-list icon treatment is closer, but exact legacy FontAwesome glyphs and menu offset still need side-by-side review. |
 | V2-GAP-005 | Improved; still blocked | Saved filter entries and kebab menu captured in `new/03-database-saved-filter-menu-density-pass.png`; legacy title casing/geometry review still required. |
 | V2-GAP-006 | Improved; still blocked | Saved list entries and kebab menu captured in `new/04-database-saved-list-menu-density-pass.png`; legacy spacing/position review still required. |
+| V2-GAP-007 | Improved; still blocked | Add column menu captured in `new/06-database-add-column-menu-parity-pass.png`; exact legacy option order, checkbox/selected treatment, menu dimensions, and side-by-side behaviour still need review. |
 | V2-GAP-008 | Improved; still blocked | Selected-row bulk toolbar captured in `new/05-database-row-selected-bulk-enabled.png`; default/selected bulk icon treatment is closer, but exact selected-toolbar width, copy, and dropdown geometry still need comparison. |
 | V2-GAP-010 | Improved; still blocked | Database ready density pass captured in `new/01-database-ready-density-pass.png`; API-seed rows, 8-row viewport cadence, title/search/table rhythm, search sizing, card edge, sidebar/table split, row heights, table edge geometry, Reset to default, and column-header kebabs are now closer, but exact column, glyph, and selected-bulk geometry still differ from legacy. |
 | V2-GAP-015 | Partially improved; still blocked | Covered ready/action captures now use Finn/Diego ApiSeed-style data, but there is still no same-run authenticated legacy recapture and full state/data coverage is incomplete. |
@@ -212,8 +213,8 @@ The recapture harness was tightened after the first run so the covered current-a
 | V2-GAP-027 | Improved; still blocked | Send to hiring manager modal captured in `new/13-detail-send-to-hiring-manager-modal.png`; backend mutation and exact field parity remain deferred. |
 | V2-GAP-028 | Improved; still blocked | Move job modal captured in `new/14-detail-move-job-modal.png`; exact legacy search/list behaviour remains deferred. |
 | V2-GAP-030 | Improved; still blocked | Score now modal captured in `new/15-detail-score-now-modal.png`; exact scoring form parity remains deferred. |
-| V2-GAP-024 | Improved; still blocked | Schedule route now renders as a fixed full-viewport modal wizard in `new/20-action-schedule-modal-route.png`; header-contained stepper, left/right split, fields, radio groups, and `next step` footer are closer to legacy, but exact job/candidate card internals and stepper dot treatment remain open. |
-| V2-GAP-025 | Improved; still blocked | Reject route now renders as a compact two-step message/editor modal in `new/22-action-reject-modal-route.png`; modal width, sidecard removal, and footer labels are closer, but exact editor toolbar, chip layout, and reject-with/without-message behavior remain open. |
+| V2-GAP-024 | Improved; still blocked | Schedule route now renders as a fixed full-viewport modal wizard in `new/30-action-schedule-modal-route.png`; header-contained stepper, left/right split, fields, radio groups, and `next step` footer are closer to legacy, but exact job/candidate card internals and stepper dot treatment remain open. |
+| V2-GAP-025 | Improved; still blocked | Reject route now renders as a compact two-step message/editor modal in `new/32-action-reject-modal-route.png`; modal width, sidecard removal, and footer labels are closer, but exact editor toolbar, chip layout, and reject-with/without-message behavior remain open. |
 
 Important correction to prior wording: the current action launcher recapture is no longer a standalone task-page composition for schedule/offer/reject. The implementation now preserves canonical route ownership internally while rendering a modal-like user experience. V2 remains blocked because exact legacy modal parity is not yet proven.
 
@@ -238,14 +239,17 @@ No gap is marked resolved yet. The recapture closes part of the **evidence-quali
 
 Confirmed change:
 - Candidate database Reset to default now navigates back to canonical `/candidates-database`, making the no-match recovery path deterministic instead of leaving the page on stale no-result data.
-- `scripts/capture-v2-parity-recapture.mjs` now captures `new/06-database-search-no-match.png` and `new/07-database-reset-default-after-search.png`.
+- `scripts/capture-v2-parity-recapture.mjs` now captures `new/07-database-search-no-match.png` and `new/08-database-reset-default-after-search.png`.
 - Candidate detail `fixtureAction` hooks can now open safe modal states directly for supported hub actions instead of exposing only hidden test text.
-- The recapture script now captures upload success plus direct review-request blocked and move-job parent-refresh states in `new/16-detail-upload-new-cv-success.png`, `new/17-detail-review-request-blocked-hook.png`, and `new/18-detail-move-parent-refresh-hook.png`.
+- The recapture script now captures the Add column menu in `new/06-database-add-column-menu-parity-pass.png`.
+- The recapture script now captures upload success plus direct review-request blocked, move-job parent-refresh, hire success, and unhire terminal states in `new/16-detail-upload-new-cv-success.png`, `new/17-detail-review-request-blocked-hook.png`, `new/18-detail-move-parent-refresh-hook.png`, `new/19-detail-hire-success-hook.png`, and `new/20-detail-unhire-terminal-hook.png`.
+- Route-owned action modal captures were renumbered to `new/30-action-schedule-modal-route.png`, `new/31-action-offer-modal-route.png`, and `new/32-action-reject-modal-route.png`; older 20/21/22 route screenshots are retained only as superseded audit artifacts.
 
 Gap impact:
 - V2-GAP-009 is fixed as a current-app behavior/capture-path gap, but remains visual-parity blocked until side-by-side review against legacy no-match/reset screenshots.
+- V2-GAP-007 is improved by dedicated Add column current-app capture, but remains visual-parity blocked pending exact side-by-side option and checkbox review.
 - V2-GAP-029 and V2-GAP-032 are improved by safe capture coverage, but full upload modal/file-control behavior and non-destructive action boundary parity remain open.
-- V2-GAP-033 remains open for denied, unavailable, stale, terminal/read-only, and mobile state coverage.
+- V2-GAP-033 remains open for denied, unavailable, stale, and mobile state coverage; terminal/read-only coverage is now partially evidenced for unhire only and is not broad enough to close the gap.
 - No V2 gap is marked `Resolved` or `Accepted`; V2 remains not Figma-ready.
 
 ## Current V2 gap audit after this pass
@@ -258,7 +262,7 @@ Gap impact:
 | V2-GAP-004 | Improved; still blocked on exact Add new menu glyphs, width, and offset. |
 | V2-GAP-005 | Improved; still blocked on saved filter title/row/kebab geometry. |
 | V2-GAP-006 | Improved; still blocked on saved list spacing, casing, and comparable data signoff. |
-| V2-GAP-007 | Still blocked; Add column state exists but needs exact side-by-side option/checkbox review. |
+| V2-GAP-007 | Improved; still blocked; Add column state is now captured in the parity-pass recapture, but exact side-by-side option/checkbox review remains required. |
 | V2-GAP-008 | Improved; still blocked on selected bulk toolbar copy, width, and menu geometry. |
 | V2-GAP-009 | Capture-path fixed; still blocked for visual parity review against legacy no-match/reset. |
 | V2-GAP-010 | Improved; still blocked on exact row/cell/header density and glyph parity. |
@@ -283,5 +287,5 @@ Gap impact:
 | V2-GAP-029 | Improved by upload success capture; still blocked on upload modal/file-control/error-state parity. |
 | V2-GAP-030 | Improved; still blocked on score-now form contents and footer/action parity. |
 | V2-GAP-031 | Partially improved; still blocked pending same-run authenticated legacy/current data coverage. |
-| V2-GAP-032 | Improved by safe visible action-state hooks; still blocked for full non-destructive boundaries across all destructive actions. |
-| V2-GAP-033 | Still blocked; denied, unavailable, stale, terminal/read-only, and mobile variants remain uncaptured. |
+| V2-GAP-032 | Improved by safe visible action-state hooks for review-request, move, hire, and unhire; still blocked for full non-destructive boundaries across all destructive actions. |
+| V2-GAP-033 | Still blocked; denied, unavailable, stale, and mobile variants remain uncaptured, and terminal/read-only is only partially evidenced through the unhire terminal hook. |

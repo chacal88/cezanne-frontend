@@ -1,7 +1,7 @@
 {
   "captureDate": "2026-04-22",
   "viewport": "1440x900",
-  "baseUrl": "http://127.0.0.1:5176",
+  "baseUrl": "http://127.0.0.1:5173",
   "sessionStorage": "recruit.localAuthSession",
   "records": [
     {

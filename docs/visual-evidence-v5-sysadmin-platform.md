@@ -10,11 +10,11 @@ It supports `v5-sysadmin-platform-visual-contract.md` and keeps screenshots as v
 
 | Field | Value |
 |---|---|
-| Capture date | 2026-04-22; runtime hook update 2026-04-22; state-depth audit update 2026-04-23 |
+| Capture date | 2026-04-22; runtime hook update 2026-04-22; state-depth capture 2026-04-23 |
 | Viewport | Desktop `1440x900`, device scale factor `1` |
 | Current app | `http://localhost:5173` |
 | Capture tool | Local Playwright script from `@playwright/test` / `playwright` dependency |
-| Manifest | `visual-evidence-assets/v5/v5-capture-manifest.json` |
+| Manifest | `visual-evidence-assets/v5/v5-capture-manifest.json`; `visual-evidence-assets/v5/state-hooks-2026-04-23/v5-state-hooks-manifest.json` |
 | Security exclusions | No credentials, raw tokens, tenant payloads, payment provider payloads, platform diagnostics, or raw PII payloads are stored in this log. |
 | Local session | Dev-only local session seeded through `recruit.localAuthSession` with SysAdmin platform context. The stored token label is non-sensitive visual-evidence data only. |
 
@@ -43,11 +43,11 @@ It supports `v5-sysadmin-platform-visual-contract.md` and keeps screenshots as v
 | `/sectors/:sector_id/subsectors` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield app | `visual-evidence-assets/v5/current/greenfield-v5-subsectors-list-1440x900.png` | Sector-scoped subsector list ready state and parent target | Partial evidence only |
 | `/subsectors/:id` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield app | `visual-evidence-assets/v5/current/greenfield-v5-subsector-detail-1440x900.png` | Subsector detail ready state and fallback parent target | Partial evidence only |
 | non-SysAdmin `/users` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield app | `visual-evidence-assets/v5/current/greenfield-v5-platform-denied-fallback-1440x900.png` | Authenticated HC admin denied from platform `/users`, fallback to `/dashboard` | Partial evidence only |
-| Platform users `?fixtureState=` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | List loading/empty/error/denied; create saving/success/cancelled/error/permission-denied; detail loading/not-found/stale/permission-denied; edit saving/success/cancelled/error/permission-denied | Runtime/test-hook covered; final backend fields deferred |
-| Platform favorite requests `?fixtureState=` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | Queue/detail pending/resolved/rejected/stale/inaccessible/empty/error/action-failure plus approve/reject/reopen readiness and retry labels | Runtime/test-hook covered; action payloads deferred |
-| Platform master data `?fixtureState=` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | Company/agency/subscription list loading/ready/empty/error/denied; detail loading/ready/not-found/stale/denied; edit editing/saving/success/cancelled/error/denied | Runtime/test-hook covered; entity schemas deferred |
-| Company subscription `?fixtureState=` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | Ready/loading/denied/not-found/stale/mutation-blocked/mutation-success/mutation-error with route-vs-mutation labels, blocked reasons, and refresh targets | Runtime/test-hook covered; mutation payload deferred |
-| Platform taxonomy `?fixtureState=` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | Sector/subsector list/detail ready/loading/empty/error/denied/not-found/stale/mutation-success/mutation-error and parent-target variants | Runtime/test-hook covered; taxonomy schemas deferred |
+| Platform users `?fixtureState=` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield runtime | `visual-evidence-assets/v5/state-hooks-2026-04-23/current/greenfield-v5-platform-users-list-loading-1440x900.png` and sibling manifest entries | List ready/loading/empty/error/denied; create editing/saving/success/cancelled/error/permission-denied; detail ready/loading/not-found/stale/permission-denied; edit editing/saving/success/cancelled/error/permission-denied | Captured for desktop current-app Figma drafting; final backend fields deferred |
+| Platform favorite requests `?fixtureState=` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield runtime | `visual-evidence-assets/v5/state-hooks-2026-04-23/current/greenfield-v5-favorite-request-detail-action-failure-1440x900.png` and sibling manifest entries | Queue/detail pending/resolved/rejected/stale/inaccessible/empty/error/action-failure plus approve/reject/reopen readiness and retry labels | Captured for desktop current-app Figma drafting; action payloads deferred |
+| Platform master data `?fixtureState=` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield runtime | `visual-evidence-assets/v5/state-hooks-2026-04-23/current/greenfield-v5-hiring-company-edit-saving-1440x900.png` and sibling manifest entries | Company/agency/subscription list loading/ready/empty/error/denied; detail loading/ready/not-found/stale/denied; edit editing/saving/success/cancelled/error/denied | Captured for desktop current-app Figma drafting; entity schemas deferred |
+| Company subscription `?fixtureState=` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield runtime | `visual-evidence-assets/v5/state-hooks-2026-04-23/current/greenfield-v5-hiring-company-subscription-mutation-blocked-1440x900.png` and sibling manifest entries | Ready/loading/denied/not-found/stale/mutation-blocked/mutation-success/mutation-error with route-vs-mutation labels and refresh targets | Captured for desktop current-app Figma drafting; mutation payload deferred |
+| Platform taxonomy `?fixtureState=` | `v5-sysadmin-platform-visual-contract.md` | Current greenfield runtime | `visual-evidence-assets/v5/state-hooks-2026-04-23/current/greenfield-v5-sector-list-mutation-error-1440x900.png` and sibling manifest entries | Sector/subsector list/detail ready/loading/empty/error/denied/not-found/stale/mutation-success/mutation-error and parent-target variants | Captured for desktop current-app Figma drafting; taxonomy schemas deferred |
 
 ## Confirmed visual observations
 
@@ -59,26 +59,37 @@ It supports `v5-sysadmin-platform-visual-contract.md` and keeps screenshots as v
 - Company subscription administration exposes the route capability and mutation capability as separate concepts.
 - Taxonomy routes expose sector/subsector surfaces with explicit parent targets and remain separate from settings subsections.
 - A non-SysAdmin authenticated context attempting `/users` falls back to `/dashboard`, confirming the platform denial boundary is visible.
-- Runtime now exposes deterministic fixture hooks for every V5 state family listed in the visual contract, including platform user create lifecycle, favorite-request action failure/retry, and company subscription loading. The hooks are intentionally query-param driven (`fixtureState`) so Figma capture can proceed without inventing backend schemas.
+- Runtime exposes deterministic fixture hooks for every V5 state family listed in the visual contract, including platform user create lifecycle, favorite-request action failure/retry, and company subscription loading. The hooks are query-param driven (`fixtureState`) and the 2026-04-23 capture pass records them as screenshots without inventing backend schemas.
 
 ## Accepted deviations in this pass
 
 - This is a greenfield-only capture pass. No legacy SysAdmin visual reference was captured or treated as canonical in this pass.
 - Current screens are foundation-level route/state shells and are accepted only as initial visual evidence for route ownership, navigation grouping, parent targets, and platform boundary behavior.
-- The new fixture hooks are accepted as runtime state coverage only until screenshots are captured. They do not prove production APIs, mutation payloads, or final platform data fields.
+- The fixture hooks are accepted as desktop current-app state evidence for Figma drafting. They do not prove production APIs, mutation payloads, responsive/mobile scope, or final platform data fields.
 - Sparse labels and placeholder ids such as `user-123`, `company-123`, `agency-123`, `subscription-123`, `sector-123`, and `subsector-123` are examples only. They are not backend schema evidence.
 - The denied fallback screenshot confirms route fallback behavior, not final dashboard visual parity.
 
 ## Deferred visual debt
 
-- Capture the new `fixtureState` hooks for loading, empty, error, denied, not-found, stale, permission-denied, saving, success, cancelled, mutation-success, mutation-error, resolved, rejected, inaccessible, action-failure, retry, and blocked labels.
 - Capture richer platform users list/detail/create/edit visuals once backend user columns, role assignment, tenant assignment, validation, and mutation contracts are confirmed.
-- Capture favorite-request resolved/rejected/reopen, action-failure, and retry states now that the runtime can represent those states visually.
-- Capture master-data list/detail/edit non-ready states and entity-specific field layouts once backend contracts are confirmed.
-- Capture company subscription mutation-blocked, mutation-success, mutation-error, stale, and not-found states with explicit route-vs-mutation capability behavior.
-- Capture taxonomy mutation/not-found/stale/denied states and any nested parent-sector resolution once runtime data contracts are confirmed.
+- Capture richer favorite-request queue/detail layouts once queue item schemas and approve/reject/reopen payloads are confirmed.
+- Capture master-data entity-specific field layouts once backend contracts are confirmed.
+- Capture company subscription production mutation payload fields once backend contracts are confirmed.
+- Capture taxonomy production field layouts once backend taxonomy contracts are confirmed.
 - Capture narrow desktop/tablet variants if product decides V5 needs responsive Figma-ready coverage.
 - Polish visible platform dashboard copy before Figma promotion; this pass captured concatenated dashboard copy in the activity/heading area that should be treated as visual debt, not as canonical content.
+
+## State-hook capture update
+
+The 2026-04-23 capture pass added `visual-evidence-assets/v5/state-hooks-2026-04-23/v5-state-hooks-manifest.json` and 124 desktop screenshots under `visual-evidence-assets/v5/state-hooks-2026-04-23/current/`.
+
+| Family | Screenshot count | States captured | Figma-ready decision |
+|---|---:|---|---|
+| Platform users list/create/detail/edit | 22 | list ready/loading/empty/error/denied; create editing/saving/success/cancelled/error/permission-denied; detail ready/loading/not-found/stale/permission-denied; edit editing/saving/success/cancelled/error/permission-denied | Figma-ready for desktop current-app screen-flow/base-frame drafting |
+| Favorite requests queue/detail | 16 | pending/resolved/rejected/stale/inaccessible/empty/error/action-failure across queue and detail, including retry and action-readiness labels | Figma-ready for desktop current-app screen-flow/base-frame drafting |
+| Master data company/agency/subscription | 58 | company and agency list/detail/edit states; subscription list/detail states; loading/ready/empty/error/denied/not-found/stale/saving/success/cancelled variants as applicable | Figma-ready for desktop current-app screen-flow/base-frame drafting |
+| Company subscription admin | 8 | ready/loading/denied/not-found/stale/mutation-blocked/mutation-success/mutation-error, route capability, mutation capability, mutation allowed, and refresh targets | Figma-ready for desktop current-app screen-flow/base-frame drafting |
+| Taxonomy sectors/subsectors | 36 | sector list/detail and subsector list/detail ready/loading/empty/error/denied/not-found/stale/mutation-success/mutation-error | Figma-ready for desktop current-app screen-flow/base-frame drafting |
 
 ## Runtime reachability audit
 
@@ -86,26 +97,26 @@ This pass also reviewed the V5 runtime pages and state helpers to determine whet
 
 | Family | State helper coverage | Runtime visual exposure today | Capture outcome |
 |---|---|---|---|
-| Platform users | List supports `ready`, `loading`, `empty`, `error`, `denied`; create supports `editing`, `saving`, `success`, `cancelled`, `error`, `permission-denied`; detail supports `ready`, `loading`, `not-found`, `permission-denied`, `stale`; edit supports `editing`, `saving`, `success`, `cancelled`, `error`, `permission-denied`. | `/users*?fixtureState=` exposes all list/create/detail/edit variants for deterministic capture. | Runtime hook coverage complete; screenshot capture pending before Figma-ready promotion. |
-| Platform favorite requests | Queue/detail support `pending`, `resolved`, `rejected`, `stale`, `inaccessible`, `empty`, `error`, `action-failure`; actions support approve/reject/reopen readiness and retry exposure for stale/error/action-failure. | `/favorites-request*?fixtureState=` exposes queue/detail states, action readiness labels, and retry labels. | Runtime hook coverage complete; screenshot capture pending before Figma-ready promotion. |
-| Platform master data | List supports `loading`, `empty`, `error`, `denied`, `ready`; detail supports `loading`, `not-found`, `stale`, `denied`, `ready`; edit supports `editing`, `saving`, `success`, `cancelled`, `error`, `denied`. | Company, agency, and subscription routes accept `?fixtureState=` for list/detail/edit variants. | Runtime hook coverage complete; screenshot capture pending before Figma-ready promotion. |
-| Company subscription admin | Supports `ready`, `loading`, `stale`, `denied`, `not-found`, `mutation-blocked`, `mutation-success`, and `mutation-error`; denied records route capability failure separately from mutation capability failure. | `/hiring-company/:id/subscription?fixtureState=` exposes loading, route-vs-mutation blocked/success/error/stale/not-found states with refresh targets. | Runtime hook coverage complete; screenshot capture pending before Figma-ready promotion. |
-| Platform taxonomy | Supports `ready`, `loading`, `empty`, `error`, `denied`, `not-found`, `stale`, `mutation-success`, and `mutation-error`. | Sector/subsector routes accept `?fixtureState=`; subsector detail also accepts `sectorId` for parent-target evidence. | Runtime hook coverage complete; screenshot capture pending before Figma-ready promotion. |
+| Platform users | List supports `ready`, `loading`, `empty`, `error`, `denied`; create supports `editing`, `saving`, `success`, `cancelled`, `error`, `permission-denied`; detail supports `ready`, `loading`, `not-found`, `permission-denied`, `stale`; edit supports `editing`, `saving`, `success`, `cancelled`, `error`, `permission-denied`. | `/users*?fixtureState=` exposes all list/create/detail/edit variants for deterministic capture. | Screenshot capture complete in the 2026-04-23 state-hook manifest. |
+| Platform favorite requests | Queue/detail support `pending`, `resolved`, `rejected`, `stale`, `inaccessible`, `empty`, `error`, `action-failure`; actions support approve/reject/reopen readiness and retry exposure for stale/error/action-failure. | `/favorites-request*?fixtureState=` exposes queue/detail states, action readiness labels, and retry labels. | Screenshot capture complete in the 2026-04-23 state-hook manifest. |
+| Platform master data | List supports `loading`, `empty`, `error`, `denied`, `ready`; detail supports `loading`, `not-found`, `stale`, `denied`, `ready`; edit supports `editing`, `saving`, `success`, `cancelled`, `error`, `denied`. | Company, agency, and subscription routes accept `?fixtureState=` for list/detail/edit variants. | Screenshot capture complete in the 2026-04-23 state-hook manifest. |
+| Company subscription admin | Supports `ready`, `loading`, `stale`, `denied`, `not-found`, `mutation-blocked`, `mutation-success`, and `mutation-error`; denied records route capability failure separately from mutation capability failure. | `/hiring-company/:id/subscription?fixtureState=` exposes loading, route-vs-mutation blocked/success/error/stale/not-found states with refresh targets. | Screenshot capture complete in the 2026-04-23 state-hook manifest. |
+| Platform taxonomy | Supports `ready`, `loading`, `empty`, `error`, `denied`, `not-found`, `stale`, `mutation-success`, and `mutation-error`. | Sector/subsector routes accept `?fixtureState=`; subsector detail also accepts `sectorId` for parent-target evidence. | Screenshot capture complete in the 2026-04-23 state-hook manifest. |
 | Platform fallback | Access boundary falls back to `/dashboard` for non-SysAdmin platform route entry. | Non-SysAdmin `/users` entry is reachable through a local HC admin session. | Captured denied/fallback boundary. |
 
 ## V5 family closeout
 
 | Family | First-pass evidence complete? | Figma-ready? | Closeout reason |
 |---|---|---|---|
-| Platform dashboard | Yes for current platform landing shell | No | Platform landing and navigation groups are captured, but dashboard copy/polish and unavailable/denied platform variants remain unresolved. |
-| Platform users | Yes for exposed route shells and runtime fixture hooks | No | Required list/create/detail/edit non-ready states are now reachable and tested, but screenshot evidence and backend-backed user fields remain pending. |
-| Platform favorite requests | Yes for exposed pending queue/detail and runtime fixture hooks | No | Terminal/action-failure/retry states are now reachable and tested; screenshot evidence and action payload contracts remain pending. |
-| Platform master data | Yes for exposed route shells and runtime fixture hooks | No | Non-ready states are now reachable; screenshot evidence and entity-specific backend fields remain pending. |
-| Company subscription admin | Yes for ready route and runtime fixture hooks | No | Loading, route denial, mutation block, mutation outcome, and stale/not-found states are now reachable and tested; screenshot evidence and mutation payload remain pending. |
-| Platform taxonomy | Yes for ready route shells and runtime fixture hooks | No | Non-ready and mutation states are now reachable; screenshot evidence and taxonomy schema remain pending. |
+| Platform dashboard | Yes for current platform landing shell | No by itself | Platform landing and navigation groups are captured, but dashboard copy/polish and unavailable/denied platform variants remain unresolved. |
+| Platform users | Yes for route shells and state-hook screenshots | Yes, desktop current-app base | Required list/create/detail/edit non-ready states are captured; backend-backed user fields remain deferred. |
+| Platform favorite requests | Yes for pending queue/detail and state-hook screenshots | Yes, desktop current-app base | Terminal/action-failure/retry states are captured; action payload contracts remain deferred. |
+| Platform master data | Yes for route shells and state-hook screenshots | Yes, desktop current-app base | Non-ready states are captured; entity-specific backend fields remain deferred. |
+| Company subscription admin | Yes for ready route and state-hook screenshots | Yes, desktop current-app base | Loading, route denial, mutation block, mutation outcome, and stale/not-found states are captured; mutation payload remains deferred. |
+| Platform taxonomy | Yes for ready route shells and state-hook screenshots | Yes, desktop current-app base | Non-ready and mutation states are captured; taxonomy schema remains deferred. |
 | Platform access fallback | Yes for non-SysAdmin `/users` fallback | No by itself | This validates the boundary but does not satisfy family-specific visual state depth. |
 
-V5 first-pass capture is complete for every currently reachable SysAdmin/platform runtime route, and the required fixture/test-hook exposure now exists. The remaining V5 work is capture/promotion work: record the new hook states as screenshots, keep backend/API schemas deferred, and only then promote rows to `Figma-ready`.
+V5 first-pass capture is complete for every currently reachable SysAdmin/platform runtime route, and the required state-hook screenshots now exist. The covered V5 SysAdmin route rows can move to desktop current-app `Figma-ready` for Figma/screen-flow drafting, while backend/API schemas remain deferred.
 
 ## Backend/API unknowns
 
@@ -117,10 +128,10 @@ V5 first-pass capture is complete for every currently reachable SysAdmin/platfor
 | Area | Decision | Reason |
 |---|---|---|
 | Platform dashboard | Not yet | Platform navigation and landing are captured, but responsive and denied/unavailable platform variants are not complete. |
-| Platform users | Runtime hook covered; not visual-ready | List/create/detail/edit route shells and URL return behavior are captured; list/create/detail/edit non-ready states are hook-reachable, while screenshot evidence and backend field contracts remain pending. |
-| Platform favorite requests | Runtime hook covered; not visual-ready | Pending queue/detail and approve readiness are captured; terminal/action-failure/retry states are hook-reachable, while screenshot evidence and action payload contracts remain pending. |
-| Platform master data | Runtime hook covered; not visual-ready | Company/agency/subscription list/detail/edit shells are captured; non-ready states are hook-reachable, while screenshot evidence and entity-specific fields remain pending. |
-| Company subscription admin | Runtime hook covered; not visual-ready | Ready state and route/mutation capability labels are captured; loading, mutation-blocked/success/error/stale/not-found/denied states are hook-reachable, while screenshot evidence and mutation payload remain pending. |
-| Platform taxonomy | Runtime hook covered; not visual-ready | Sector/subsector ready states and parent targets are captured; mutation/not-found/stale/denied variants are hook-reachable, while screenshot evidence and taxonomy schema remain pending. |
+| Platform users | Figma-ready for desktop current-app base | List/create/detail/edit route shells, URL return behavior, and non-ready/lifecycle states are captured; backend field contracts remain pending. |
+| Platform favorite requests | Figma-ready for desktop current-app base | Pending queue/detail, terminal/action-failure/retry states, and approve/reject/reopen readiness are captured; action payload contracts remain pending. |
+| Platform master data | Figma-ready for desktop current-app base | Company/agency/subscription list/detail/edit shells and non-ready states are captured; entity-specific field contracts remain pending. |
+| Company subscription admin | Figma-ready for desktop current-app base | Ready state, route/mutation capability labels, loading, mutation-blocked/success/error/stale/not-found/denied states, and refresh targets are captured; mutation payload remains pending. |
+| Platform taxonomy | Figma-ready for desktop current-app base | Sector/subsector ready states, parent targets, mutation/not-found/stale/denied/error variants are captured; taxonomy schema remains pending. |
 
-V5 first-pass capture is complete for the runtime surface currently exposed by the app, but no V5 row should be promoted to `Figma-ready` from this pass alone.
+V5 can move from foundation verified to desktop current-app `Figma-ready` for the covered SysAdmin/platform route rows. It is not replacement-approved: backend schemas, responsive/mobile scope, platform dashboard copy polish, and legacy pixel-parity review where applicable remain blockers before production replacement.
