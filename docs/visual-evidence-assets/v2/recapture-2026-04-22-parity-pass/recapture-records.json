@@ -1,6 +1,10 @@
 {
   "captureDate": "2026-04-22",
   "viewport": "1440x900",
+  "viewports": [
+    "1440x900",
+    "390x844"
+  ],
   "baseUrl": "http://127.0.0.1:5173",
   "sessionStorage": "recruit.localAuthSession",
   "records": [
@@ -36,7 +40,7 @@
       "name": "05-database-row-selected-bulk-enabled",
       "route": "/candidates-database",
       "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/05-database-row-selected-bulk-enabled.png",
-      "note": "First row selected and bulk action toolbar enabled.",
+      "note": "First row selected with legacy-style bulk action toolbar and dropdown visible.",
       "status": "captured"
     },
     {
@@ -58,6 +62,27 @@
       "route": "/candidates-database",
       "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/08-database-reset-default-after-search.png",
       "note": "Reset to default returns from no-match search to the default candidate list.",
+      "status": "captured"
+    },
+    {
+      "name": "09-database-denied-state",
+      "route": "/candidates-database?tags=denied",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/09-database-denied-state.png",
+      "note": "Candidate database denied state made visible for parity coverage.",
+      "status": "captured"
+    },
+    {
+      "name": "09b-database-stale-state",
+      "route": "/candidates-database?tags=stale",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/09b-database-stale-state.png",
+      "note": "Candidate database stale state made visible for parity coverage.",
+      "status": "captured"
+    },
+    {
+      "name": "09c-database-unavailable-state",
+      "route": "/candidates-database?tags=unavailable",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/09c-database-unavailable-state.png",
+      "note": "Candidate database unavailable state made visible for parity coverage.",
       "status": "captured"
     },
     {
@@ -138,6 +163,27 @@
       "status": "captured"
     },
     {
+      "name": "21-detail-denied-state",
+      "route": "/candidate/candidate-denied/job-13/shortlisted/1/remote/interview-1?entry=job&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/21-detail-denied-state.png",
+      "note": "Candidate detail denied state made visible for parity coverage.",
+      "status": "captured"
+    },
+    {
+      "name": "22-detail-stale-state",
+      "route": "/candidate/candidate-stale/job-13/stale/stale/remote/interview-1?entry=job&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/22-detail-stale-state.png",
+      "note": "Candidate detail stale-context state made visible for parity coverage.",
+      "status": "captured"
+    },
+    {
+      "name": "23-detail-unavailable-state",
+      "route": "/candidate/candidate-unavailable/job-13/shortlisted/1/remote/interview-1?entry=job&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/23-detail-unavailable-state.png",
+      "note": "Candidate detail unavailable state made visible for parity coverage.",
+      "status": "captured"
+    },
+    {
       "name": "30-action-schedule-modal-route",
       "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1/cv/4/schedule?entry=direct",
       "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/30-action-schedule-modal-route.png",
@@ -156,6 +202,20 @@
       "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1/cv-reject/4?entry=direct",
       "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/32-action-reject-modal-route.png",
       "note": "Route-owned Reject task rendered as a modal surface over candidate profile.",
+      "status": "captured"
+    },
+    {
+      "name": "40-mobile-database-ready",
+      "route": "/candidates-database",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/40-mobile-database-ready.png",
+      "note": "Mobile-width current database ready frame for coverage only.",
+      "status": "captured"
+    },
+    {
+      "name": "41-mobile-detail-ready",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/41-mobile-detail-ready.png",
+      "note": "Mobile-width current candidate detail ready frame for coverage only.",
       "status": "captured"
     }
   ]

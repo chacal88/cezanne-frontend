@@ -82,6 +82,7 @@ Confirmed:
 - V4 operations now has authenticated baseline plus final safe local-fixture interaction evidence in `visual-evidence-v4-operations.md`, `visual-evidence-assets/v4/v4-capture-manifest.json`, and `visual-evidence-assets/v4/interactive-2026-04-22/interactive-capture-manifest.json`; V4 may proceed to Figma for current-app screen-flow/base-frame work with backend/provider/schema unknowns annotated, but still needs legacy pixel-parity replacement signoff where legacy screens exist
 - V5 SysAdmin/platform now has first-pass current-app visual evidence plus 124 state-hook screenshots in `visual-evidence-v5-sysadmin-platform.md`, `visual-evidence-assets/v5/v5-capture-manifest.json`, and `visual-evidence-assets/v5/state-hooks-2026-04-23/v5-state-hooks-manifest.json`; covered V5 rows may proceed to desktop current-app Figma drafting with backend/API schemas deferred
 - The V1-V5 roadmap review requested on 2026-04-22 is recorded in `v1-v5-roadmap-review-2026-04-22.md`: build and test validation pass, V1/V3/V4/V5 are closed for their current screen-flow drafting bases, V2 remains candidate visual-parity blocked after the Finn/Diego/API-seed parity-pass recapture. None of these rows are replacement-approved until legacy pixel parity is confirmed where legacy exists.
+- `figma-screen-flow-handoff-index.md` is the active V0-V5 Figma/screen-flow handoff index for evidence-covered drafting. It includes V0 covered auth/shell/dashboard sub-blocks, V1 Jobs rows, V3 public/external/token rows, V4 operations rows, and V5 desktop current-app SysAdmin/platform rows. It keeps V2 excluded from Figma-ready promotion and keeps every legacy-backed row blocked from replacement approval.
 
 ## Post-cleanup documentation semantics
 
@@ -165,6 +166,8 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 59. `visual-evidence-v4-operations.md` — first-pass current-app evidence log for settings, integrations admin, reports, billing, team, favorites, and marketplace route-state bases
 60. `visual-evidence-v5-sysadmin-platform.md` — first-pass current-app evidence log for SysAdmin/platform route-state bases
 61. `v1-v5-roadmap-review-2026-04-22.md` — audit closeout for the completed V1-V5 roadmap pass, including verification commands, item-level status, and remaining Figma/backend follow-ups
+62. `figma-screen-flow-handoff-index.md` — consolidated V0-V5 Figma/screen-flow handoff index for evidence-covered drafting rows, with V2 parity-blocked and no replacement approvals granted
+63. `backend-api-contract-backlog.md` — V0-V5 backend/API/provider/schema blocker backlog for the next implementation phase, keeping backend readiness separate from Figma drafting and replacement approval
 
 ## Package roles
 
@@ -229,6 +232,8 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `visual-evidence-v4-operations.md` | records V4 authenticated baseline and safe local-fixture interaction screenshot evidence, captured route/state families, deferred product-depth/backend/API unknowns, and the Figma-ready decision for current-app screen-flow bases; replacement approval still requires legacy pixel-parity signoff where legacy screens exist |
 | `visual-evidence-v5-sysadmin-platform.md` | records V5 first-pass current-app screenshot evidence and 2026-04-23 state-hook screenshot evidence for SysAdmin/platform routes, backend/API unknowns, and the desktop current-app Figma-ready decision |
 | `v1-v5-roadmap-review-2026-04-22.md` | records the V1-V5 audit result, validation commands, release-by-release verification matrix, and follow-ups before deeper Figma/backend work |
+| `figma-screen-flow-handoff-index.md` | consolidates the Figma/screen-flow handoff rows for every V0-V5 area that is evidence-covered and allowed for drafting, while explicitly excluding V2 and preserving replacement-approval blockers |
+| `backend-api-contract-backlog.md` | records the actionable V0-V5 backend/API/provider/schema blocker matrix and recommended backend decision order for the next implementation phase |
 
 ## Source relationship
 

@@ -249,7 +249,7 @@ Gap impact:
 - V2-GAP-009 is fixed as a current-app behavior/capture-path gap, but remains visual-parity blocked until side-by-side review against legacy no-match/reset screenshots.
 - V2-GAP-007 is improved by dedicated Add column current-app capture, but remains visual-parity blocked pending exact side-by-side option and checkbox review.
 - V2-GAP-029 and V2-GAP-032 are improved by safe capture coverage, but full upload modal/file-control behavior and non-destructive action boundary parity remain open.
-- V2-GAP-033 remains open for denied, unavailable, stale, and mobile state coverage; terminal/read-only coverage is now partially evidenced for unhire only and is not broad enough to close the gap.
+- V2-GAP-033 is fixed-current-capture-only for database/detail denied, stale/stale-context, unavailable, and mobile-width ready captures. It remains parity-blocked because same-run authenticated legacy/mobile comparison, product-approved mobile scope, provider-blocked, and broader terminal/read-only coverage are still missing.
 - No V2 gap is marked `Resolved` or `Accepted`; V2 remains not Figma-ready.
 
 ## Current V2 gap audit after this pass
@@ -288,4 +288,46 @@ Gap impact:
 | V2-GAP-030 | Improved; still blocked on score-now form contents and footer/action parity. |
 | V2-GAP-031 | Partially improved; still blocked pending same-run authenticated legacy/current data coverage. |
 | V2-GAP-032 | Improved by safe visible action-state hooks for review-request, move, hire, and unhire; still blocked for full non-destructive boundaries across all destructive actions. |
-| V2-GAP-033 | Still blocked; denied, unavailable, stale, and mobile variants remain uncaptured, and terminal/read-only is only partially evidenced through the unhire terminal hook. |
+| V2-GAP-033 | Fixed-current-capture-only; database/detail denied, stale/stale-context, unavailable, and mobile-width ready frames are captured in current-app evidence, but same-run legacy/mobile parity and broader provider-blocked/terminal coverage remain open. |
+
+## Final V2 gap matrix — current pass
+
+Status values are intentionally limited to `open`, `improved`, `fixed-current-capture-only`, `parity-resolved`, or `product-exception-needed`.
+
+| ID | Status | Blocker class |
+|---|---|---|
+| V2-GAP-001 | open | Visual parity |
+| V2-GAP-002 | improved | Visual parity |
+| V2-GAP-003 | open | Visual parity |
+| V2-GAP-004 | improved | Visual parity |
+| V2-GAP-005 | improved | Visual parity |
+| V2-GAP-006 | improved | Visual parity |
+| V2-GAP-007 | improved | Visual parity |
+| V2-GAP-008 | improved | Visual parity |
+| V2-GAP-009 | fixed-current-capture-only | Visual parity |
+| V2-GAP-010 | improved | Visual parity |
+| V2-GAP-011 | improved | Visual parity + backend/API |
+| V2-GAP-012 | product-exception-needed | Visual parity + backend/API |
+| V2-GAP-013 | open | Visual parity |
+| V2-GAP-014 | improved | Visual parity |
+| V2-GAP-015 | improved | Visual parity + backend/API |
+| V2-GAP-016 | improved | Visual parity + backend/API |
+| V2-GAP-017 | improved | Visual parity + backend/API |
+| V2-GAP-018 | improved | Visual parity + backend/API |
+| V2-GAP-019 | improved | Visual parity + backend/API |
+| V2-GAP-020 | improved | Visual parity + backend/API |
+| V2-GAP-021 | improved | Visual parity + backend/API |
+| V2-GAP-022 | improved | Visual parity + backend/API |
+| V2-GAP-023 | improved | Visual parity + backend/API |
+| V2-GAP-024 | improved | Visual parity + backend/API |
+| V2-GAP-025 | improved | Visual parity + backend/API |
+| V2-GAP-026 | improved | Visual parity + backend/API |
+| V2-GAP-027 | improved | Visual parity + backend/API |
+| V2-GAP-028 | improved | Visual parity + backend/API |
+| V2-GAP-029 | improved | Visual parity + backend/API |
+| V2-GAP-030 | improved | Visual parity + backend/API |
+| V2-GAP-031 | improved | Visual parity + backend/API |
+| V2-GAP-032 | improved | Visual parity + backend/API |
+| V2-GAP-033 | fixed-current-capture-only | Visual parity + backend/API |
+
+No gap is `parity-resolved` in this pass. V2 remains not Figma-ready.

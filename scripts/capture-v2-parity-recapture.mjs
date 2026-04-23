@@ -307,7 +307,9 @@ async function main() {
   await waitForReady(page, 'candidate-database-composition');
   await page.locator('tbody input[type="checkbox"]').first().check();
   await page.getByTestId('candidate-database-selected-toolbar').waitFor({ state: 'visible' });
-  await capture(page, records, '05-database-row-selected-bulk-enabled', 'First row selected and bulk action toolbar enabled.');
+  await page.getByTestId('candidate-database-bulk-actions-enabled').click();
+  await page.getByTestId('candidate-database-bulk-menu').waitFor({ state: 'visible' });
+  await capture(page, records, '05-database-row-selected-bulk-enabled', 'First row selected with legacy-style bulk action toolbar and dropdown visible.');
 
   await page.goto(`${baseUrl}/candidates-database`);
   await waitForReady(page, 'candidate-database-composition');
@@ -327,6 +329,21 @@ async function main() {
   await waitForReady(page, 'candidate-database-composition');
   await page.locator('tbody input[type="checkbox"]').first().waitFor({ state: 'visible' });
   await capture(page, records, '08-database-reset-default-after-search', 'Reset to default returns from no-match search to the default candidate list.');
+
+  await page.goto(`${baseUrl}/candidates-database?tags=denied`);
+  await waitForReady(page, 'candidate-database-composition');
+  await page.getByTestId('candidate-database-visible-state').waitFor({ state: 'visible' });
+  await capture(page, records, '09-database-denied-state', 'Candidate database denied state made visible for parity coverage.');
+
+  await page.goto(`${baseUrl}/candidates-database?tags=stale`);
+  await waitForReady(page, 'candidate-database-composition');
+  await page.getByTestId('candidate-database-visible-state').waitFor({ state: 'visible' });
+  await capture(page, records, '09b-database-stale-state', 'Candidate database stale state made visible for parity coverage.');
+
+  await page.goto(`${baseUrl}/candidates-database?tags=unavailable`);
+  await waitForReady(page, 'candidate-database-composition');
+  await page.getByTestId('candidate-database-visible-state').waitFor({ state: 'visible' });
+  await capture(page, records, '09c-database-unavailable-state', 'Candidate database unavailable state made visible for parity coverage.');
 
   await page.goto(`${baseUrl}/candidate/${finnUuid}/job-13/rejected/2/remote/interview-1?entry=job`);
   await waitForReady(page, 'candidate-detail-composition');
@@ -385,6 +402,21 @@ async function main() {
   await page.getByTestId('candidate-unhire-legacy-modal').waitFor({ state: 'visible' });
   await capture(page, records, '20-detail-unhire-terminal-hook', 'Deterministic unhire terminal fixtureAction state.');
 
+  await page.goto(`${baseUrl}/candidate/candidate-denied/job-13/shortlisted/1/remote/interview-1?entry=job`);
+  await waitForReady(page, 'candidate-detail-composition');
+  await page.getByTestId('candidate-detail-visible-state').waitFor({ state: 'visible' });
+  await capture(page, records, '21-detail-denied-state', 'Candidate detail denied state made visible for parity coverage.');
+
+  await page.goto(`${baseUrl}/candidate/candidate-stale/job-13/stale/stale/remote/interview-1?entry=job`);
+  await waitForReady(page, 'candidate-detail-composition');
+  await page.getByTestId('candidate-detail-visible-state').waitFor({ state: 'visible' });
+  await capture(page, records, '22-detail-stale-state', 'Candidate detail stale-context state made visible for parity coverage.');
+
+  await page.goto(`${baseUrl}/candidate/candidate-unavailable/job-13/shortlisted/1/remote/interview-1?entry=job`);
+  await waitForReady(page, 'candidate-detail-composition');
+  await page.getByTestId('candidate-detail-visible-state').waitFor({ state: 'visible' });
+  await capture(page, records, '23-detail-unavailable-state', 'Candidate detail unavailable state made visible for parity coverage.');
+
   await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1/cv/4/schedule`);
   await waitForReady(page, 'candidate-task-composition');
   await capture(page, records, '30-action-schedule-modal-route', 'Route-owned Schedule task rendered as a modal surface over candidate profile.');
@@ -397,9 +429,19 @@ async function main() {
   await waitForReady(page, 'candidate-task-composition');
   await capture(page, records, '32-action-reject-modal-route', 'Route-owned Reject task rendered as a modal surface over candidate profile.');
 
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`${baseUrl}/candidates-database`);
+  await waitForReady(page, 'candidate-database-composition');
+  await capture(page, records, '40-mobile-database-ready', 'Mobile-width current database ready frame for coverage only.');
+
+  await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1?entry=job`);
+  await waitForReady(page, 'candidate-detail-composition');
+  await capture(page, records, '41-mobile-detail-ready', 'Mobile-width current candidate detail ready frame for coverage only.');
+
   await fs.writeFile(recordsPath, `${JSON.stringify({
     captureDate: '2026-04-22',
     viewport: '1440x900',
+    viewports: ['1440x900', '390x844'],
     baseUrl,
     sessionStorage: 'recruit.localAuthSession',
     records,

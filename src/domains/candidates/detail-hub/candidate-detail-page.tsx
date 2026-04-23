@@ -48,6 +48,23 @@ function fixtureActionToModal(action: CandidateHubActionKind | undefined) {
   return null;
 }
 
+function describeHubState(kind: string) {
+  switch (kind) {
+    case "denied":
+      return "Candidate profile is restricted for this entry point.";
+    case "not-found":
+      return "Candidate profile was not found for this route context.";
+    case "unavailable":
+      return "Candidate profile data is temporarily unavailable.";
+    case "stale-context":
+      return "Candidate profile is shown with stale route context; refresh parent ordering before acting.";
+    case "partial-degraded":
+      return "Candidate profile is usable, but one or more downstream panels are degraded.";
+    default:
+      return "Candidate profile is ready.";
+  }
+}
+
 function buildCandidateDetailView(
   context: CandidateContextSegments,
   record: CandidateRecord,
@@ -487,6 +504,15 @@ export function CandidateDetailRoutePage() {
           </span>
         </div>
       </div>
+
+      {hubState.kind !== "ready" ? (
+        <div
+          className={`candidate-product-state candidate-product-state--${hubState.kind}`}
+          data-testid="candidate-detail-visible-state"
+        >
+          {describeHubState(hubState.kind)}
+        </div>
+      ) : null}
 
       <div className="candidate-detail-layout">
         <aside

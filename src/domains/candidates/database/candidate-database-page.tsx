@@ -98,6 +98,12 @@ const columnOptions = [
   "Email",
   "Location",
 ];
+
+const bulkOptions = [
+  { label: "Add to list", icon: "fas fa-bookmark" },
+  { label: "Move to job", icon: "fas fa-exchange-alt" },
+  { label: "Send email", icon: "fas fa-envelope" },
+];
 type CandidateColumn =
   | "tags"
   | "stage"
@@ -143,7 +149,7 @@ function SortHeader({
         {label} {active ? (state.order === "asc" ? "↑" : "↓") : ""}
       </a>
       <button className="candidate-db-column-kebab" type="button" aria-label={`${label} column menu`}>
-        ⋮
+        <i className="fas fa-ellipsis-v" aria-hidden="true" />
       </button>
     </span>
   );
@@ -154,7 +160,7 @@ function PlainHeader({ label }: { label: string }) {
     <span className="candidate-db-column-heading">
       <span>{label}</span>
       <button className="candidate-db-column-kebab" type="button" aria-label={`${label} column menu`}>
-        ⋮
+        <i className="fas fa-ellipsis-v" aria-hidden="true" />
       </button>
     </span>
   );
@@ -178,6 +184,7 @@ export function CandidateDatabasePage() {
   const [filtersCollapsed, setFiltersCollapsed] = useState(false);
   const [listsCollapsed, setListsCollapsed] = useState(false);
   const [addColumnOpen, setAddColumnOpen] = useState(false);
+  const [bulkMenuOpen, setBulkMenuOpen] = useState(false);
   const [visibleColumns, setVisibleColumns] = useState<CandidateColumn[]>([
     "email",
     "location",
@@ -289,6 +296,7 @@ export function CandidateDatabasePage() {
     setFilterMenuOpen(false);
     setListMenuOpen(false);
     setAddColumnOpen(false);
+    setBulkMenuOpen(false);
   }
 
   function createList() {
@@ -385,8 +393,8 @@ export function CandidateDatabasePage() {
               }}
               data-testid="candidate-database-add-new-button"
             >
-              <span><span className="candidate-db-icon candidate-db-icon-plus" aria-hidden="true" /> Add new</span>
-              <span className="candidate-db-chevron">{addMenuOpen ? "⌃" : "⌄"}</span>
+              <span><i className="fas fa-plus-circle candidate-db-fa" aria-hidden="true" /> Add new</span>
+              <i className={`fas ${addMenuOpen ? "fa-chevron-up" : "fa-chevron-down"} candidate-db-chevron`} aria-hidden="true" />
             </button>
             {addMenuOpen ? (
               <div
@@ -394,7 +402,7 @@ export function CandidateDatabasePage() {
                 data-testid="candidate-database-add-new-menu"
               >
                 <button type="button" onClick={() => setAddMenuOpen(false)}>
-                  <span className="candidate-db-icon candidate-db-icon-filter" aria-hidden="true" /> New filter
+                  <i className="fas fa-filter candidate-db-fa" aria-hidden="true" /> New filter
                 </button>
                 <button
                   type="button"
@@ -403,7 +411,7 @@ export function CandidateDatabasePage() {
                     setNewListOpen(true);
                   }}
                 >
-                  <span className="candidate-db-icon candidate-db-icon-list" aria-hidden="true" /> New list
+                  <i className="fas fa-list candidate-db-fa" aria-hidden="true" /> New list
                 </button>
               </div>
             ) : null}
@@ -414,9 +422,9 @@ export function CandidateDatabasePage() {
               type="button"
               onClick={() => setFiltersCollapsed((value) => !value)}
             >
-              ▾
+              <i className={`fas ${filtersCollapsed ? "fa-chevron-right" : "fa-chevron-down"}`} aria-hidden="true" />
             </button>
-            <strong><span className="candidate-db-icon candidate-db-icon-filter" aria-hidden="true" /> Saved filters</strong>
+            <strong><i className="fas fa-filter candidate-db-fa" aria-hidden="true" /> Saved filters</strong>
             <button
               type="button"
               onClick={() => {
@@ -425,16 +433,16 @@ export function CandidateDatabasePage() {
               }}
               data-testid="candidate-filter-menu-button"
             >
-              ⋮
+              <i className="fas fa-ellipsis-v" aria-hidden="true" />
             </button>
             {filterMenuOpen ? (
               <div
                 className="candidate-db-dropdown candidate-db-kebab-menu"
                 data-testid="candidate-filter-menu"
               >
-                <button type="button">◉ Show all filters</button>
-                <button type="button">◒ Only show my private filters</button>
-                <button type="button">▣ Edit filters</button>
+                <button type="button"><i className="far fa-eye candidate-db-fa" aria-hidden="true" /> Show all filters</button>
+                <button type="button"><i className="fas fa-lock candidate-db-fa" aria-hidden="true" /> Only show my private filters</button>
+                <button type="button"><i className="fas fa-cog candidate-db-fa" aria-hidden="true" /> Edit filters</button>
               </div>
             ) : null}
           </div>
@@ -465,9 +473,9 @@ export function CandidateDatabasePage() {
               type="button"
               onClick={() => setListsCollapsed((value) => !value)}
             >
-              {listsCollapsed ? "⌄" : "⌃"}
+              <i className={`fas ${listsCollapsed ? "fa-chevron-right" : "fa-chevron-down"}`} aria-hidden="true" />
             </button>
-            <strong><span className="candidate-db-icon candidate-db-icon-list" aria-hidden="true" /> Saved lists</strong>
+            <strong><i className="fas fa-list candidate-db-fa" aria-hidden="true" /> Saved lists</strong>
             <button
               type="button"
               onClick={() => {
@@ -476,16 +484,16 @@ export function CandidateDatabasePage() {
               }}
               data-testid="candidate-list-menu-button"
             >
-              ⋮
+              <i className="fas fa-ellipsis-v" aria-hidden="true" />
             </button>
             {listMenuOpen ? (
               <div
                 className="candidate-db-dropdown candidate-db-kebab-menu"
                 data-testid="candidate-list-menu"
               >
-                <button type="button">◉ Show all lists</button>
-                <button type="button">◒ Only show my private lists</button>
-                <button type="button">▣ Edit lists</button>
+                <button type="button"><i className="far fa-eye candidate-db-fa" aria-hidden="true" /> Show all lists</button>
+                <button type="button"><i className="fas fa-lock candidate-db-fa" aria-hidden="true" /> Only show my private lists</button>
+                <button type="button"><i className="fas fa-cog candidate-db-fa" aria-hidden="true" /> Edit lists</button>
               </div>
             ) : null}
           </div>
@@ -525,10 +533,13 @@ export function CandidateDatabasePage() {
                 <button
                   type="button"
                   className="candidate-db-selection-clear"
-                  onClick={() => setSelectedRows(new Set())}
+                  onClick={() => {
+                    setSelectedRows(new Set());
+                    setBulkMenuOpen(false);
+                  }}
                   aria-label="Clear selected candidates"
                 >
-                  ×
+                  <i className="fas fa-times" aria-hidden="true" />
                 </button>
                 <button
                   type="button"
@@ -540,9 +551,23 @@ export function CandidateDatabasePage() {
                   type="button"
                   className="candidate-product-button candidate-product-button--secondary candidate-db-bulk-button"
                   data-testid="candidate-database-bulk-actions-enabled"
+                  onClick={() => setBulkMenuOpen((open) => !open)}
                 >
-                  With Selected ({selectedRows.size})⌄
+                  <span>With Selected ({selectedRows.size})</span>
+                  <i className={`fas ${bulkMenuOpen ? "fa-chevron-up" : "fa-chevron-down"}`} aria-hidden="true" />
                 </button>
+                {bulkMenuOpen ? (
+                  <div
+                    className="candidate-db-dropdown candidate-db-bulk-menu"
+                    data-testid="candidate-database-bulk-menu"
+                  >
+                    {bulkOptions.map((option) => (
+                      <button type="button" key={option.label}>
+                        <i className={`${option.icon} candidate-db-fa`} aria-hidden="true" /> {option.label}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             ) : (
               <button
@@ -552,7 +577,7 @@ export function CandidateDatabasePage() {
                 title={describeBulkState(bulkActionState.kind)}
                 data-testid="candidate-database-bulk-actions"
               >
-                <span className="candidate-db-icon candidate-db-icon-bulk" aria-hidden="true" /> Bulk Actions
+                <i className="fas fa-mail-bulk candidate-db-fa" aria-hidden="true" /> Bulk Actions
               </button>
             )}
             <div className="candidate-product-actions">
@@ -575,7 +600,7 @@ export function CandidateDatabasePage() {
                 onClick={resetFilters}
                 data-testid="candidate-database-clear-filters-link"
               >
-                <span className="candidate-db-reset-icon" aria-hidden="true">↻</span> Reset to default
+                <i className="fas fa-undo candidate-db-fa" aria-hidden="true" /> Reset to default
               </button>
               <div className="candidate-db-menu-anchor">
                 <button
@@ -587,7 +612,7 @@ export function CandidateDatabasePage() {
                   }}
                   data-testid="candidate-add-column-button"
                 >
-                  <span className="candidate-db-icon candidate-db-icon-columns" aria-hidden="true" /> Add column {addColumnOpen ? "⌃" : "⌄"}
+                  <i className="fas fa-columns candidate-db-fa" aria-hidden="true" /> Add column <i className={`fas ${addColumnOpen ? "fa-chevron-up" : "fa-chevron-down"} candidate-db-chevron`} aria-hidden="true" />
                 </button>
                 {addColumnOpen ? (
                   <div
@@ -603,7 +628,11 @@ export function CandidateDatabasePage() {
                           key={option}
                           onClick={() => toggleColumn(column)}
                         >
-                          {selected ? "✓" : "＋"} {option}
+                          <i
+                            className={`${selected ? "fas fa-check-square" : "far fa-square"} candidate-db-column-check`}
+                            aria-hidden="true"
+                          />
+                          {option}
                         </button>
                       );
                     })}
@@ -656,6 +685,15 @@ export function CandidateDatabasePage() {
               data-testid="candidate-database-api-error"
             >
               Candidate database API request failed. Retry from the current URL.
+            </div>
+          ) : null}
+
+          {["denied", "unavailable", "stale", "degraded", "retryable"].includes(productState.kind) ? (
+            <div
+              className={`candidate-product-state candidate-product-state--${productState.kind}`}
+              data-testid="candidate-database-visible-state"
+            >
+              {describeDatabaseState(productState.kind)}
             </div>
           ) : null}
 
@@ -795,7 +833,7 @@ export function CandidateDatabasePage() {
                             )}
                             data-testid="candidate-database-detail-link"
                           >
-                            ↗
+                            <i className="fas fa-external-link-alt" aria-hidden="true" />
                           </a>
                         </td>
                       </tr>

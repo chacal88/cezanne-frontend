@@ -14,8 +14,8 @@ Product decision on 2026-04-22: the whole replacement project requires pixel par
 |---|---|---|
 | Route contract review | Done | All 104 canonical route rows plus 4 alias/reference rows are contract-reviewed. |
 | V0-V5 visual contracts | Done | Prepared under `v0-*` through `v5-*` visual contract files. |
-| Visual evidence capture | Current phase | Evidence must be captured from current app and the matching legacy/reference app wherever legacy exists. V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; both still need replacement pixel-parity signoff where legacy/reference surfaces exist. V5 has first-pass foundation evidence. |
-| Figma production | Partially unblocked | V0, V1, V3, and V4 covered rows may proceed to Figma drafting. Other rows remain blocked until promoted to `Figma-ready`. No row is replacement-approved until pixel parity is confirmed or a product exception is recorded. |
+| Visual evidence capture | Current phase | Evidence must be captured from current app and the matching legacy/reference app wherever legacy exists. V0 covered sub-blocks, V1 Jobs, V3 public/external/token, V4 operations, and V5 desktop current-app SysAdmin/platform rows now have enough evidence for Figma/screen-flow drafting. V2 remains candidate parity-blocked. |
+| Figma production | Partially unblocked | Use `figma-screen-flow-handoff-index.md` as the consolidated handoff index for allowed drafting rows. V0, V1, V3, V4, and covered V5 rows may proceed to Figma drafting with deferred unknowns annotated. V2 remains blocked. No row is replacement-approved until pixel parity is confirmed or a product exception is recorded. |
 
 ## Evidence package schema
 
@@ -84,6 +84,8 @@ Use one log file per package when evidence capture begins:
 | V3 | `visual-evidence-v3-public-external-token.md` |
 | V4 | `visual-evidence-v4-operations.md` |
 | V5 | `visual-evidence-v5-sysadmin-platform.md` |
+
+The consolidated handoff index for rows that are already evidence-covered and allowed for drafting is `figma-screen-flow-handoff-index.md`.
 
 Do not create empty evidence logs preemptively. Create each log only when capture for that package starts.
 

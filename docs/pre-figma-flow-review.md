@@ -90,6 +90,8 @@ Contract review is complete, and Figma production is partially unblocked only fo
 
 ## Visual contract package inventory
 
+The consolidated Figma/screen-flow handoff index for currently evidence-covered drafting rows is `figma-screen-flow-handoff-index.md`. It does not replace this gate: V2 remains excluded from Figma-ready promotion, and no legacy-backed route is replacement-approved by the handoff index.
+
 | Package | Covered phase | Status | Next evidence action |
 |---|---|---|---|
 | `v0-auth-shell-dashboard-visual-contract.md` | V0 auth, shell, dashboard, notifications, inbox | Evidence captured for current-app state hooks | `visual-evidence-v0-auth-shell-dashboard.md` records current-app auth/token/SSO/session/account hook evidence plus dashboard/notifications/inbox captures; backend/live API contracts and pixel-parity replacement signoff remain pending. |

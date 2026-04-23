@@ -110,6 +110,46 @@
   color: #777;
 }
 
+.candidate-product-state {
+  margin: 0 0 12px;
+  padding: 11px 14px;
+  border: 1px solid #d7dbe1;
+  border-radius: 3px;
+  background: #fafafa;
+  color: #667085;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.candidate-product-state--warning,
+.candidate-product-state--unavailable,
+.candidate-product-state--retryable {
+  border-color: #f2c9a0;
+  background: #fff7e6;
+  color: #9a5b00;
+}
+
+.candidate-product-state--denied {
+  border-color: #f1b7b2;
+  background: #fff0ef;
+  color: #b42318;
+}
+
+.candidate-product-state--stale,
+.candidate-product-state--stale-context,
+.candidate-product-state--degraded,
+.candidate-product-state--partial-degraded {
+  border-color: #b7d8ec;
+  background: #eef7ff;
+  color: #1f5f8b;
+}
+
+.candidate-product-state--not-found {
+  border-color: #d7dbe1;
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
 /* Candidate database: closer to the legacy CV database layout. */
 .candidate-db-heading {
   display: flex;
@@ -220,6 +260,7 @@
 }
 
 .candidate-db-selected-toolbar {
+  position: relative;
   display: inline-flex;
   align-items: stretch;
   min-height: 40px;
@@ -253,6 +294,25 @@
   border-radius: 0 3px 3px 0;
   color: #444;
   font-weight: 500;
+}
+
+.candidate-db-bulk-menu {
+  top: 42px;
+  left: 116px;
+  min-width: 220px;
+}
+
+.candidate-db-fa {
+  width: 16px;
+  min-width: 16px;
+  text-align: center;
+}
+
+.candidate-db-column-check {
+  width: 17px;
+  min-width: 17px;
+  color: #555;
+  text-align: center;
 }
 
 .candidate-db-table-wrap {
@@ -326,10 +386,11 @@
 }
 
 .candidate-product-table input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   margin: 0;
   vertical-align: middle;
+  accent-color: #009688;
 }
 
 .candidate-product-table tr.is-selected td {
