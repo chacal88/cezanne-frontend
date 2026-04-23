@@ -1078,6 +1078,34 @@
   cursor: pointer;
 }
 
+.candidate-legacy-modal-state {
+  margin: 0;
+  padding: 11px 26px;
+  border-bottom: 1px solid #e0e2e6;
+  background: #fafafa;
+  color: #667085;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.candidate-legacy-modal-state--blocked,
+.candidate-legacy-modal-state--failed,
+.candidate-legacy-modal-state--retryable {
+  background: #fff7e6;
+  color: #9a5b00;
+}
+
+.candidate-legacy-modal-state--terminal {
+  background: #fff0ef;
+  color: #b42318;
+}
+
+.candidate-legacy-modal-state--succeeded,
+.candidate-legacy-modal-state--parent-refresh-required {
+  background: #e5f8f5;
+  color: #008b7a;
+}
+
 .candidate-legacy-modal-body {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

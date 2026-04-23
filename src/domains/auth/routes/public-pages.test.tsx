@@ -1,10 +1,10 @@
-import { screen } from '@testing-library/react';
+import { cleanup, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
 import { renderWithProviders } from '../../../testing/render';
 import { publicAccessContext } from '../../../lib/access-control';
 import { foundationAuthAdapter } from '../api';
-import { ConfirmRegistrationPage, ForgotPasswordPage, PublicHomePage, RegisterPage, SessionLossPage } from './public-pages';
+import { CezanneAuthPage, CezanneCallbackPage, ConfirmRegistrationPage, ForgotPasswordPage, InviteTokenPage, LogoutPage, PublicHomePage, RegisterPage, ResetPasswordPage, SamlCallbackPage, SessionLossPage } from './public-pages';
 
 describe('PublicHomePage login flow', () => {
   beforeEach(() => {
@@ -45,12 +45,74 @@ describe('PublicHomePage login flow', () => {
     expect(screen.queryByTestId('auth-login-continue')).not.toBeInTheDocument();
   });
 
-  it('exposes auth visual states without backend contracts', () => {
-    window.history.pushState({}, '', '/?visualState=two-factor-required');
+  it.each([
+    ['submitting'],
+    ['two-factor-required'],
+    ['two-factor-failed'],
+    ['sso-mandatory'],
+    ['activation-required'],
+    ['setup-required'],
+    ['bootstrap-failure'],
+    ['redirecting'],
+  ])('exposes the %s login visual state without backend contracts', (visualState) => {
+    window.history.pushState({}, '', `/?visualState=${visualState}`);
     renderWithProviders(<PublicHomePage authAdapter={foundationAuthAdapter} autoRedirect={false} />, { accessContext: publicAccessContext });
 
-    expect(screen.getByTestId('auth-route-state')).toHaveTextContent('two-factor-required');
-    expect(screen.getByTestId('auth-login-code')).toBeInTheDocument();
+    expect(screen.getByTestId('auth-route-state')).toHaveTextContent(visualState);
+    if (visualState.startsWith('two-factor')) expect(screen.getByTestId('auth-login-code')).toBeInTheDocument();
+    if (visualState === 'redirecting') expect(screen.getByTestId('auth-landing-target')).toHaveTextContent('/dashboard');
+  });
+
+  it.each([
+    ['missing'],
+    ['invalid'],
+    ['expired'],
+    ['valid'],
+    ['success'],
+    ['failure'],
+    ['retry'],
+    ['pending-approval'],
+    ['bootstrap-failure'],
+  ])('exposes the %s token-flow visual state without backend contracts', (visualState) => {
+    const tokenPages = [
+      <ConfirmRegistrationPage key="confirm" token="token" />,
+      <ResetPasswordPage key="reset" token="token" />,
+      <RegisterPage key="register" token="token" />,
+      <ForgotPasswordPage key="forgot" />,
+      <InviteTokenPage key="invite" token="token" />,
+    ];
+
+    for (const page of tokenPages) {
+      window.history.pushState({}, '', `/token-test?visualState=${visualState}`);
+      renderWithProviders(page, { accessContext: publicAccessContext });
+      expect(screen.getByTestId('auth-route-state')).toHaveTextContent(visualState);
+      cleanup();
+    }
+  });
+
+  it.each([
+    ['launch'],
+    ['missing-tenant'],
+    ['missing-code'],
+    ['provider-error'],
+    ['exchanging'],
+    ['exchange-failure'],
+    ['bootstrap-failure'],
+    ['success'],
+  ])('exposes the %s SSO/callback visual state without provider payloads', (visualState) => {
+    const callbackPages = [
+      <CezanneAuthPage key="cezanne-launch" tenantGuid="tenant-1" />,
+      <CezanneCallbackPage key="cezanne-callback" />,
+      <SamlCallbackPage key="saml" />,
+    ];
+
+    for (const page of callbackPages) {
+      window.history.pushState({}, '', `/auth-test?visualState=${visualState}`);
+      renderWithProviders(page, { accessContext: publicAccessContext });
+      expect(screen.getByTestId('auth-route-state')).toHaveTextContent(visualState);
+      expect(document.body.textContent).not.toContain('auth_code');
+      cleanup();
+    }
   });
 
   it('launches provider sign-in through the auth service routes', async () => {
@@ -87,6 +149,12 @@ describe('PublicHomePage login flow', () => {
   });
 
   it('separates session loss from explicit logout', () => {
+    renderWithProviders(<LogoutPage />, { accessContext: publicAccessContext });
+
+    expect(screen.getByTestId('auth-route-state')).toHaveTextContent('logged-out');
+    expect(screen.getByTestId('auth-landing-target')).toHaveTextContent('/');
+    cleanup();
+
     renderWithProviders(<SessionLossPage />, { accessContext: publicAccessContext });
 
     expect(screen.getByTestId('auth-route-state')).toHaveTextContent('session-expired');

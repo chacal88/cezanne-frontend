@@ -308,7 +308,7 @@ export function CandidateDatabasePage() {
     setSelectedList(null);
     setFilterMenuOpen(false);
     setListMenuOpen(false);
-    window.history.replaceState(null, "", clearTarget);
+    window.location.assign(clearTarget);
   }
 
   function toggleColumn(column: CandidateColumn) {

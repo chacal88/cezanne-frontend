@@ -40,6 +40,14 @@ import "../candidate-composition.css";
 import { normalizeAtsSourceIdentity } from "../../integrations/support";
 import { fetchCandidateDetailRecord } from "./candidate-detail-api";
 
+function fixtureActionToModal(action: CandidateHubActionKind | undefined) {
+  if (action === "review-request") return "review";
+  if (action === "move" || action === "hire" || action === "unhire") {
+    return action;
+  }
+  return null;
+}
+
 function buildCandidateDetailView(
   context: CandidateContextSegments,
   record: CandidateRecord,
@@ -176,7 +184,7 @@ export function CandidateDetailRoutePage() {
   >("cv");
   const [legacyModal, setLegacyModal] = useState<
     "email" | "review" | "move" | "hire" | "unhire" | "score" | null
-  >(null);
+  >(() => fixtureActionToModal(search.fixtureAction));
   const [hubActionOutcome, setHubActionOutcome] =
     useState<CandidateHubActionFixtureState>("ready");
   const [emailComposerOpen, setEmailComposerOpen] = useState(false);
@@ -961,6 +969,17 @@ export function CandidateDetailRoutePage() {
                 ×
               </button>
             </header>
+            {search.fixtureAction && activeHubAction && hubActionProductState ? (
+              <p
+                className={`candidate-legacy-modal-state candidate-legacy-modal-state--${hubActionProductState.kind}`}
+                data-testid="candidate-hub-action-visible-state"
+              >
+                {activeHubAction} is {hubActionProductState.kind}.
+                {hubActionProductState.kind === "parent-refresh-required"
+                  ? " Parent candidate detail must refresh before parity signoff."
+                  : null}
+              </p>
+            ) : null}
 
             {legacyModal === "email" ? (
               <div className="candidate-legacy-modal-body candidate-legacy-modal-body--editor">

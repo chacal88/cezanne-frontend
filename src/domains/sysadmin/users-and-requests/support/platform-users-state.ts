@@ -28,9 +28,18 @@ export type PlatformUserEditState = {
   orgScope: false;
 };
 
+export type PlatformUserCreateState = {
+  kind: 'editing' | 'saving' | 'success' | 'cancelled' | 'error' | 'permission-denied';
+  parentTarget: string;
+  successTarget: string;
+  cancelTarget: string;
+  orgScope: false;
+};
+
 const platformUserListStateKinds: PlatformUserListState['kind'][] = ['ready', 'loading', 'empty', 'error', 'denied'];
 const platformUserDetailStateKinds: PlatformUserDetailState['kind'][] = ['ready', 'loading', 'not-found', 'permission-denied', 'stale'];
 const platformUserEditStateKinds: PlatformUserEditState['kind'][] = ['editing', 'saving', 'success', 'cancelled', 'error', 'permission-denied'];
+const platformUserCreateStateKinds: PlatformUserCreateState['kind'][] = ['editing', 'saving', 'success', 'cancelled', 'error', 'permission-denied'];
 
 export function parsePlatformUserListStateKind(value: unknown): PlatformUserListState['kind'] {
   return typeof value === 'string' && platformUserListStateKinds.includes(value as PlatformUserListState['kind'])
@@ -47,6 +56,12 @@ export function parsePlatformUserDetailStateKind(value: unknown): PlatformUserDe
 export function parsePlatformUserEditStateKind(value: unknown): PlatformUserEditState['kind'] {
   return typeof value === 'string' && platformUserEditStateKinds.includes(value as PlatformUserEditState['kind'])
     ? (value as PlatformUserEditState['kind'])
+    : 'editing';
+}
+
+export function parsePlatformUserCreateStateKind(value: unknown): PlatformUserCreateState['kind'] {
+  return typeof value === 'string' && platformUserCreateStateKinds.includes(value as PlatformUserCreateState['kind'])
+    ? (value as PlatformUserCreateState['kind'])
     : 'editing';
 }
 
@@ -82,6 +97,11 @@ export function buildPlatformUserDetailState(userId: string, returnTo = '/users'
 export function buildPlatformUserEditState(userId: string, returnTo = `/users/${userId}`, kind: PlatformUserEditState['kind'] = 'editing'): PlatformUserEditState {
   const parentTarget = sanitizePlatformUsersReturn(returnTo);
   return { kind, userId, parentTarget, successTarget: parentTarget, cancelTarget: parentTarget, orgScope: false };
+}
+
+export function buildPlatformUserCreateState(returnTo = '/users', kind: PlatformUserCreateState['kind'] = 'editing'): PlatformUserCreateState {
+  const parentTarget = sanitizePlatformUsersReturn(returnTo);
+  return { kind, parentTarget, successTarget: parentTarget, cancelTarget: parentTarget, orgScope: false };
 }
 
 export function sanitizePlatformUsersReturn(value: string) {

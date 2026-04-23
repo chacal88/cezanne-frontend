@@ -37,6 +37,7 @@
     "detailTitle": "Platform user {{id}}",
     "editTitle": "Edit platform user {{id}}",
     "listCopy": "Platform-scoped user management foundation. Org invites and team membership stay in R4 team routes.",
+    "createCopy": "Platform user creation foundation with deterministic saving, success, cancel, error, and permission states.",
     "detailCopy": "Read-only platform user detail foundation with list return behavior.",
     "editCopy": "Platform user edit foundation with deterministic cancel and success targets.",
     "filtersLabel": "Sanitized filters",

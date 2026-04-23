@@ -89,20 +89,35 @@ export function parseAccountSettingsFixtureState(value: unknown): AccountSetting
 }
 
 export function accountSettingsOptionsFromFixtureState(state: AccountSettingsStateKind | undefined) {
-  return {
-    routeAllowed: state === 'denied' ? false : undefined,
-    loading: state === 'loading',
-    empty: state === 'empty',
-    unavailable: state === 'unavailable',
-    stale: state === 'stale',
-    degraded: state === 'degraded',
-    dirty: state === 'dirty',
-    saving: state === 'saving',
-    saved: state === 'saved',
-    failed: state === 'save-failed',
-    retry: state === 'retry',
-    success: state === 'success',
-  };
+  const options: {
+    routeAllowed?: boolean;
+    loading?: boolean;
+    empty?: boolean;
+    unavailable?: boolean;
+    stale?: boolean;
+    degraded?: boolean;
+    dirty?: boolean;
+    saving?: boolean;
+    saved?: boolean;
+    failed?: boolean;
+    retry?: boolean;
+    success?: boolean;
+  } = {};
+
+  if (state === 'denied') options.routeAllowed = false;
+  if (state === 'loading') options.loading = true;
+  if (state === 'empty') options.empty = true;
+  if (state === 'unavailable') options.unavailable = true;
+  if (state === 'stale') options.stale = true;
+  if (state === 'degraded') options.degraded = true;
+  if (state === 'dirty') options.dirty = true;
+  if (state === 'saving') options.saving = true;
+  if (state === 'saved') options.saved = true;
+  if (state === 'save-failed') options.failed = true;
+  if (state === 'retry') options.retry = true;
+  if (state === 'success') options.success = true;
+
+  return options;
 }
 
 export function buildAccountSettingsState(

@@ -16,13 +16,13 @@ V0 covers:
 
 | Family | Contract status | Visual status | Figma-ready? | Notes |
 |---|---|---|---|---|
-| Auth entry `/` | Contract-reviewed | Primary login reference exists; non-happy states runtime-hook reachable | No | Login parity has source evidence, and 2FA, SSO-required, bootstrap failure, activation/setup, submitting, and redirecting states are hook-reachable; canonical screenshots remain pending. |
-| Auth token flows | Contract-reviewed | Runtime hooks added | No | Register, confirm, reset, forgot, and invite-token state hooks exist; visual confirmation remains pending. |
-| SSO/callback/logout | Contract-reviewed | Runtime hooks added for callbacks and session-loss | No | Provider launch/callback waiting/failure and session-loss states are hook-reachable; logged-out is captured; canonical screenshots remain pending. |
-| Shell/navigation/account | Contract-reviewed | Account profile runtime hooks added | No | Sidebar/topbar/account menu/profile states need canonical layout decisions across org and platform modes; profile state hooks exist for capture. |
+| Auth entry `/` | Contract-reviewed | Primary login reference plus current-app state-hook screenshots captured | Partial | Login parity has source evidence, and submitting, 2FA, SSO-required, activation/setup, bootstrap failure, and redirecting states are visually captured as deterministic current-app hooks. Backend policy/copy remains deferred. |
+| Auth token flows | Contract-reviewed | Current-app token state-hook screenshots captured | Partial | Register, confirm, reset, forgot, and invite-token hooks are implemented/tested; representative screenshots cover missing/invalid/expired/valid/success/failure/retry/pending-approval/bootstrap-failure. Legacy continuation details remain deferred. |
+| SSO/callback/logout | Contract-reviewed | Current-app callback, missing-tenant, session-loss, and logout screenshots captured | Partial | Provider launch/callback waiting/failure/success, missing tenant, missing code, session-loss, and logged-out states are covered. Provider popup behavior and backend payload details remain deferred. |
+| Shell/navigation/account | Contract-reviewed | Account profile current-app state-hook screenshots captured | Partial | User, hiring-company, and recruitment-agency profile dirty/saving/saved/save-failed/retry/degraded/denied states plus close target are visually captured. Sidebar/topbar/account-menu parity still needs canonical layout decisions. |
 | Dashboard | Contract-reviewed | Partial source/legacy visual evidence | No | Current API-backed dashboard exists; visual parity debt is intentionally deferred until this pass. |
-| Notifications | Contract-reviewed | Pending | No | Notification resolver states need list/detail/fallback visual decisions. |
-| Inbox | Contract-reviewed | Pending | No | Fixture-backed conversation states need visual decisions before live transport contracts are known. |
+| Notifications | Contract-reviewed | Fixture-backed current-app resolver screenshots captured | Partial | Destination categories are accepted for V0 screen-flow input; live notification API and final replacement parity remain deferred. |
+| Inbox | Contract-reviewed | Fixture-backed empty/selected current-app screenshots captured | Partial | Conversation list/detail basics are accepted for V0 screen-flow input; send/provider-blocked/live transport remain deferred. |
 
 ## Evidence sources
 
@@ -116,3 +116,13 @@ V0 covers:
 5. Dashboard pixel-parity debt list with explicit blockers and product-approved exceptions only.
 6. Notifications and inbox visual state map.
 7. Updated `pre-figma-flow-review.md` rows from `Contract-reviewed` to `Figma-ready` only for states covered by the evidence above.
+
+## Current V0 Evidence Status Matrix
+
+| Area | Confirmed implemented states | Visual evidence captured | Deferred backend/API states | Replacement approval |
+|---|---|---|---|---|
+| Auth entry | empty, filled, invalid credentials, submitting, 2FA required, 2FA failed, SSO mandatory, activation required, setup required, bootstrap failure, redirecting | Current and legacy primary login; current state hooks in `visual-evidence-assets/v0/v0-state-hooks-manifest.json` | final auth error taxonomy, 2FA delivery/lockout, activation/setup reason payloads | Not replacement-approved |
+| Token flows | missing, invalid, expired, valid, success, failure, retry, pending approval, bootstrap failure | Existing forgot/reset/register/invite captures plus state-hook manifest | invite continuation payload, registration approval semantics, token backend schemas | Not replacement-approved |
+| SSO/callback/session | Cezanne launch, missing tenant, provider error, missing code, exchanging, exchange failure, bootstrap failure, success, explicit logout, session loss | Existing SAML/error/logout captures plus state-hook manifest | provider popup framing, provider-specific error copy, callback exchange payload | Not replacement-approved |
+| Shell/account profiles | user profile, hiring-company profile, recruitment-agency profile ready/dirty/saving/saved/save-failed/retry/degraded/denied and dashboard close target | Current state-hook manifest | persistence API, server validation schema, exact account-menu interaction parity | Not replacement-approved |
+| Dashboard/notifications/inbox | dashboard ready/degraded/fallback, notification resolver categories, inbox empty/selected conversation | Existing V0 captures | live notification API, live inbox transport, final dashboard aggregates/calendar source | Not replacement-approved |

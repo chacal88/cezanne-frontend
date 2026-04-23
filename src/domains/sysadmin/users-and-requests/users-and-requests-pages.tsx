@@ -1,8 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import {
+  buildPlatformUserCreateState,
   buildPlatformUserDetailState,
   buildPlatformUserEditState,
   buildPlatformUserListState,
+  parsePlatformUserCreateStateKind,
   parsePlatformUserDetailStateKind,
   parsePlatformUserEditStateKind,
   parsePlatformUserListStateKind,
@@ -18,8 +20,16 @@ export function PlatformUsersListPage({ search }: { search: Record<string, unkno
 
 export function PlatformUserCreatePage({ search }: { search: Record<string, unknown> }) {
   const { t } = useTranslation('sysadmin');
-  const state = buildPlatformUserListState(search, parsePlatformUserListStateKind(search.fixtureState));
-  return <PlatformUsersStateSection title={t('users.createTitle')} state={{ ...state, kind: 'ready' }} />;
+  const listState = buildPlatformUserListState(search);
+  const state = buildPlatformUserCreateState(listState.returnTo, parsePlatformUserCreateStateKind(search.fixtureState));
+  return (
+    <section aria-labelledby="platform-user-title">
+      <p>{t('users.eyebrow')}</p>
+      <h1 id="platform-user-title">{t('users.createTitle')}</h1>
+      <p>{t('users.createCopy')}</p>
+      <StateDescription state={state.kind} parent={state.cancelTarget} />
+    </section>
+  );
 }
 
 export function PlatformUserDetailPage({ userId, returnTo, fixtureState }: { userId: string; returnTo?: string; fixtureState?: unknown }) {
@@ -57,6 +67,10 @@ export function PlatformFavoriteRequestsPage({ search = {} }: { search?: Record<
       <h1 id="favorite-request-title">{t('favoriteRequests.listTitle')}</h1>
       <p>{t('favoriteRequests.listCopy')}</p>
       <StateDescription state={state.kind} parent={state.parentTarget} />
+      <dl>
+        <dt>Retry</dt>
+        <dd data-testid="platform-favorite-request-retry">{String(state.retryAvailable)}</dd>
+      </dl>
     </section>
   );
 }
@@ -80,6 +94,8 @@ export function PlatformFavoriteRequestDetailPage({ requestId, fixtureState }: {
         <dd data-testid="platform-favorite-request-reject-action">{reject.available ? 'available' : reject.blockedReason}</dd>
         <dt>Reopen</dt>
         <dd data-testid="platform-favorite-request-reopen-action">{reopen.available ? 'available' : reopen.blockedReason}</dd>
+        <dt>Retry</dt>
+        <dd data-testid="platform-favorite-request-retry">{String(state.retryAvailable)}</dd>
       </dl>
     </section>
   );

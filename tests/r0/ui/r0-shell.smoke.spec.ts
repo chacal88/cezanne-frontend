@@ -181,6 +181,10 @@ test('public token and access-denied routes render', async ({page}) => {
     await page.goto('/confirm-registration/example-token');
     await expect(page.getByRole('heading', {name: 'Confirm registration'})).toBeVisible();
 
+    await page.goto('/auth/cezanne');
+    await expect(page.getByRole('heading', {name: 'Cezanne auth'})).toBeVisible();
+    await expect(page.getByTestId('auth-route-state')).toHaveText('missing-tenant');
+
     await page.goto('/access-denied');
     await expect(page.getByRole('heading', {name: 'Access denied'})).toBeVisible();
 });

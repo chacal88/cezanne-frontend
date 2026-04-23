@@ -35,7 +35,7 @@ export type CompanySubscriptionState = {
   routeCapability: 'canManageHiringCompanies';
   mutationCapability: 'canManagePlatformSubscriptions';
   canMutateSubscription: boolean;
-  blockedReason?: 'missing-platform-subscription-capability' | 'stale-company' | 'not-found';
+  blockedReason?: 'missing-hiring-company-capability' | 'missing-platform-subscription-capability' | 'stale-company' | 'not-found';
   refreshTargets: Array<'company-detail' | 'company-subscription' | 'subscriptions-list'>;
 };
 
@@ -68,6 +68,7 @@ export function buildMasterDataListState(entity: MasterDataEntity, count = 1, ki
 }
 
 export function buildCompanySubscriptionFixtureOptions(kind: CompanySubscriptionState['kind'] | undefined) {
+  if (kind === 'loading') return { loading: true };
   if (kind === 'denied') return { routeAllowed: false };
   if (kind === 'not-found') return { notFound: true };
   if (kind === 'stale') return { stale: true };
@@ -88,14 +89,18 @@ export function buildMasterDataEditState(entity: MasterDataEntity, id: string, k
 
 export function buildCompanySubscriptionState(
   companyId: string,
-  options: { routeAllowed?: boolean; mutationAllowed?: boolean; stale?: boolean; notFound?: boolean; mutationOutcome?: 'success' | 'error' } = {},
+  options: { routeAllowed?: boolean; mutationAllowed?: boolean; loading?: boolean; stale?: boolean; notFound?: boolean; mutationOutcome?: 'success' | 'error' } = {},
 ): CompanySubscriptionState {
   const routeAllowed = options.routeAllowed ?? true;
   const mutationAllowed = options.mutationAllowed ?? true;
   const parentTarget = `/hiring-companies/${companyId}`;
 
+  if (options.loading) {
+    return baseCompanySubscriptionState(companyId, parentTarget, 'loading', false);
+  }
+
   if (!routeAllowed) {
-    return baseCompanySubscriptionState(companyId, parentTarget, 'denied', false, 'missing-platform-subscription-capability');
+    return baseCompanySubscriptionState(companyId, parentTarget, 'denied', false, 'missing-hiring-company-capability');
   }
 
   if (options.notFound) {

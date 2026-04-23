@@ -43,13 +43,13 @@ export function AccountSettingsPage({ routeKind, titleKey, descriptionKey, isOve
   const routeAllowed = capabilities[routeCapabilityMap[routeKind]] && (!requiredOrganization || accessContext.organizationType === requiredOrganization);
   const fixtureOptions = accountSettingsOptionsFromFixtureState(parseAccountSettingsFixtureState(fixtureState));
   const state = buildAccountSettingsState(routeKind, {
-    ...fixtureOptions,
     routeAllowed,
     empty: routeAllowed && !draft,
     dirty,
     saved,
     failed,
     unavailable: routeAllowed && !fixture,
+    ...fixtureOptions,
     ...(fixtureOptions.routeAllowed === false ? { routeAllowed: false } : {}),
   });
 

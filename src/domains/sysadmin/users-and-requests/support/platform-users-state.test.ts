@@ -1,7 +1,9 @@
 import {
+  buildPlatformUserCreateState,
   buildPlatformUserDetailState,
   buildPlatformUserEditState,
   buildPlatformUserListState,
+  parsePlatformUserCreateStateKind,
   parsePlatformUserDetailStateKind,
   parsePlatformUserEditStateKind,
   parsePlatformUserFilters,
@@ -33,10 +35,26 @@ describe('platform user state', () => {
     });
   });
 
+  it('models create lifecycle hooks without reusing org invite state', () => {
+    expect(buildPlatformUserCreateState('/users?page=2', 'saving')).toMatchObject({
+      kind: 'saving',
+      parentTarget: '/users?page=2',
+      successTarget: '/users?page=2',
+      cancelTarget: '/users?page=2',
+      orgScope: false,
+    });
+    expect(buildPlatformUserCreateState('/users/invite', 'permission-denied')).toMatchObject({
+      kind: 'permission-denied',
+      parentTarget: '/users',
+      orgScope: false,
+    });
+  });
+
   it('parses fixture state hooks for visual evidence coverage', () => {
     expect(parsePlatformUserListStateKind('denied')).toBe('denied');
     expect(parsePlatformUserDetailStateKind('permission-denied')).toBe('permission-denied');
     expect(parsePlatformUserEditStateKind('saving')).toBe('saving');
+    expect(parsePlatformUserCreateStateKind('cancelled')).toBe('cancelled');
     expect(parsePlatformUserEditStateKind('unknown')).toBe('editing');
   });
 });

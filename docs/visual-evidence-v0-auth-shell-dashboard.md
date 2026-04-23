@@ -10,12 +10,12 @@ It supports `v0-auth-shell-dashboard-visual-contract.md` and keeps evidence sepa
 
 | Field | Value |
 |---|---|
-| Capture date | 2026-04-21; runtime hook update 2026-04-22 |
+| Capture date | 2026-04-21; runtime hook update 2026-04-22; state-hook visual capture 2026-04-23 |
 | Viewport | Desktop `1440x900`, device scale factor `1` |
 | Current app | `http://localhost:5173` |
 | Legacy/reference app | `http://localhost:4000` |
 | Capture tool | Local Playwright script from `@playwright/test` dependency |
-| Manifest | `visual-evidence-assets/v0/v0-capture-manifest.json` |
+| Manifest | `visual-evidence-assets/v0/v0-capture-manifest.json`; state-hook manifest `visual-evidence-assets/v0/v0-state-hooks-manifest.json` |
 | Security exclusions | No credentials, raw tokens, auth codes, provider payloads, signed URLs, or message bodies are stored in this log. The seeded dashboard screenshot uses a non-sensitive dev-only visual evidence token. |
 | Local seed | `local-dev/scripts/seed-api-data.sh` with owner `kauemsc@gmail.com`, company `Warner Brothers`, 6 candidates, job id `12`, job uuid `be52b884-c06a-4d05-86e3-afb244c69c7b`. Passwords and auth tokens are intentionally omitted. |
 
@@ -51,11 +51,11 @@ It supports `v0-auth-shell-dashboard-visual-contract.md` and keeps evidence sepa
 | `/inbox` | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield app with dev-seeded local session | `visual-evidence-assets/v0/current/greenfield-inbox-seeded-session-1440x900.png` | Inbox empty/no-conversation state, fixture adapter contract, URL search-param note | Partial evidence only; fixture-backed inbox proof, not live transport proof |
 | `/inbox?conversation=conversation-123` | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield app with dev-seeded local session | `visual-evidence-assets/v0/current/greenfield-inbox-selected-conversation-1440x900.png` | Selected conversation fixture state and direct-url entry mode | Covered for fixture-backed list/detail state; live send remains deferred |
 | `/logout` stable logged-out | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield app after route fix | `visual-evidence-assets/v0/current/greenfield-logout-stable-logged-out-1440x900.png` | Stable logged-out page, return to login, local session cleared | Covered |
-| `/` login visual-state hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | `?visualState=submitting`, `two-factor-required`, `two-factor-failed`, `sso-mandatory`, `activation-required`, `setup-required`, `bootstrap-failure`, `redirecting` | Runtime/test-hook covered; visual capture pending |
-| Auth token visual-state hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | `?visualState=missing`, `invalid`, `expired`, `valid`, `success`, `failure`, `retry`, `pending-approval`, `bootstrap-failure` on forgot/reset/confirm/register/invite flows where applicable | Runtime/test-hook covered; backend schemas deferred |
-| SSO/callback visual-state hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | `?visualState=launch`, `missing-tenant`, `missing-code`, `provider-error`, `exchanging`, `exchange-failure`, `bootstrap-failure`, `success-redirect` | Runtime/test-hook covered; provider payloads deferred |
-| `/session-lost` | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | Session-loss transition separate from explicit `/logout`, clears local session, returns to public entry | Runtime/test-hook covered |
-| Shell/account profile hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | Pending screenshot capture | `?fixtureState=ready`, `dirty`, `saving`, `saved`, `save-failed`, `retry`, `degraded`, `denied` on `/user-profile`, `/hiring-company-profile`, and `/recruitment-agency-profile`; close/parent target remains visible | Runtime/test-hook covered |
+| `/` login visual-state hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | `visual-evidence-assets/v0/current/state-hooks/greenfield-login-*-1440x900.png` | `?visualState=submitting`, `two-factor-required`, `two-factor-failed`, `sso-mandatory`, `activation-required`, `setup-required`, `bootstrap-failure`, `redirecting` | Current-app evidence captured; backend policy/copy deferred |
+| Auth token visual-state hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | `visual-evidence-assets/v0/current/state-hooks/greenfield-token-*-1440x900.png` | `?visualState=missing`, `invalid`, `expired`, `valid`, `success`, `failure`, `retry`, `pending-approval`, `bootstrap-failure` on token flows where applicable | Current-app evidence captured; backend schemas deferred |
+| SSO/callback visual-state hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | `visual-evidence-assets/v0/current/state-hooks/greenfield-sso-*-1440x900.png` | `?visualState=launch`, `missing-tenant`, `missing-code`, `provider-error`, `exchanging`, `exchange-failure`, `bootstrap-failure`, `success` | Current-app evidence captured; provider payloads deferred |
+| `/session-lost` | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | `visual-evidence-assets/v0/current/state-hooks/greenfield-session-loss-session-expired-1440x900.png` | Session-loss transition separate from explicit `/logout`, clears local session, returns to public entry | Current-app evidence captured |
+| Shell/account profile hooks | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield runtime | `visual-evidence-assets/v0/current/state-hooks/greenfield-user-profile-*-1440x900.png`, `greenfield-hiring-company-profile-*-1440x900.png`, `greenfield-recruitment-agency-profile-*-1440x900.png` | `?fixtureState=dirty`, `saving`, `saved`, `save-failed`, `retry`, `degraded`, `denied`; close/parent target remains visible | Current-app evidence captured; persistence API/schema deferred |
 
 ## Superseded captures
 
@@ -78,7 +78,8 @@ These files are retained for audit trail only and must not be used for implement
 - Register-token behavior differs between current and legacy for `null` token: current renders a form, while legacy redirects to login with invalid-token messaging.
 - Local API seeding now provides matching authenticated dashboard evidence for current and legacy apps: both show seeded open jobs/candidates/activity from the Warner Brothers seed slice. The canonical legacy dashboard evidence uses the clean capture with the calendar-connect popup dismissed.
 - The logout visual handoff was corrected so `/logout` is captured as a stable public/session page instead of falling through to access-denied.
-- Runtime now exposes deterministic V0 visual-state hooks for missing auth/token/SSO states and a separate `/session-lost` route. These are current-app test hooks only until screenshots are captured.
+- Runtime now exposes deterministic V0 visual-state hooks for missing auth/token/SSO states and a separate `/session-lost` route. Current-app screenshots for those hooks are captured in `visual-evidence-assets/v0/v0-state-hooks-manifest.json`.
+- `/auth/cezanne` without a tenant now renders the public missing-tenant state instead of falling through to access denied.
 
 ## Accepted deviations in this pass
 
@@ -92,10 +93,7 @@ These files are retained for audit trail only and must not be used for implement
 ## Deferred visual debt
 
 - Capture dashboard with live API-backed aggregates once backend data parity is intentionally addressed.
-- Capture the new login visual-state hooks for submitting, 2FA-required, 2FA-failed, SSO-mandatory, activation/setup required, bootstrap failure, and redirecting states.
-- Capture the new token-flow visual-state hooks for reset/confirm/register/invite missing/invalid/expired/valid/success/failure/retry/pending-approval/bootstrap-failure states with confirmed legacy behavior where legacy exists.
-- Capture the new Cezanne/SAML launch/callback visual-state hooks without exposing provider payloads.
-- Capture `/session-lost` separately from explicit logout.
+- Confirm legacy references for login non-happy states, token terminal states, SSO/callback failures, and account profile states where the legacy frontend exposes matching screens.
 - Replace notification resolver fixtures with live API-backed data when available, preserving accepted categories.
 - Capture inbox send/provider-blocked states when live transport or a confirmed adapter contract is available.
 
@@ -109,13 +107,14 @@ These files are retained for audit trail only and must not be used for implement
 
 | Area | Decision | Reason |
 |---|---|---|
-| Login primary desktop | Figma-ready sub-block | Empty, filled, invalid-credentials, provider button ordering, secondary links, and API-backed success redirect are captured. 2FA/SSO-mandatory/bootstrap-failure remain separate deferred states, so the aggregate `/` row should not claim full auth-state coverage. |
-| Auth token flows | Runtime hooks covered; not visual-ready | Forgot-password ready/sent and reset/register validation states are captured; missing variants are now navigable through `visualState` hooks but still need screenshots/legacy confirmation. |
-| SSO/callback | Runtime hooks covered; not visual-ready | SAML launch plus Cezanne/SAML provider-error states are captured; missing variants are now navigable through `visualState` hooks but still need screenshots/legacy confirmation. |
-| Logout | Figma-ready sub-block | `/logout` now has a stable logged-out page capture and return-to-login handoff. Session-loss remains separate debt. |
-| Session loss | Runtime hooks covered; not visual-ready | `/session-lost` separates session expiry from explicit logout and is covered by tests; screenshot evidence remains pending. |
+| Login primary desktop | Figma-ready sub-block; replacement not approved | Empty, filled, invalid-credentials, provider button ordering, secondary links, API-backed success redirect, and current-app non-happy state hooks are captured. Final backend policy/copy and legacy parity remain deferred. |
+| Auth token flows | Current-app visual evidence captured; replacement not approved | Forgot-password ready/sent, reset/register validation, and representative token state hooks are captured. Legacy continuation and backend schemas remain deferred. |
+| SSO/callback | Current-app visual evidence captured; replacement not approved | SAML launch, Cezanne missing-tenant, Cezanne/SAML provider-error, callback waiting/failure/success hooks are captured. Provider popup decisions and backend payload details remain deferred. |
+| Logout | Figma-ready sub-block; replacement not approved | `/logout` now has a stable logged-out page capture and return-to-login handoff. Session-loss is separately captured and tracked as its own transition. |
+| Session loss | Current-app visual evidence captured; replacement not approved | `/session-lost` separates session expiry from explicit logout and is covered by tests and screenshot evidence. |
 | Shell/dashboard | Figma-ready sub-block | Current API-backed dashboard and authenticated legacy dashboard are captured against local seed data. Visual/data parity refinements remain tracked as debt, not a V0 blocker. |
 | Notifications | Figma-ready sub-block | Fixture-backed resolver states are explicitly accepted for V0 Figma input; live API replacement remains deferred. |
 | Inbox | Figma-ready sub-block | Fixture-backed empty and selected-conversation states are explicitly accepted for V0 Figma input; send/provider-blocked states remain deferred. |
+| Account/profile states | Current-app visual evidence captured; replacement not approved | User, hiring-company, and recruitment-agency dirty/saving/saved/save-failed/retry/degraded/denied states and dashboard close target are captured. Persistence API and account-menu parity remain deferred. |
 
-Only covered V0 sub-blocks may be promoted. Full auth/token/SSO/session-loss coverage remains `Contract-reviewed` until the deferred states above are captured or explicitly accepted.
+Only covered V0 sub-blocks may be promoted for Figma/screen-flow drafting. No V0 surface is production replacement-approved in this evidence pass.

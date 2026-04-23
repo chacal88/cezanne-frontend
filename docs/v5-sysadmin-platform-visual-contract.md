@@ -17,10 +17,10 @@ V5 covers:
 
 | Family | Contract status | Visual status | Figma-ready? | Notes |
 |---|---|---|---|---|
-| Platform users | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | List filters, create, detail, edit, stale/not-found/permission/saving/success/cancel/error states are hook-reachable; screenshot capture and backend-backed fields remain pending. |
-| Platform favorite requests | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | Queue/detail pending/resolved/rejected/stale/inaccessible/empty/error plus approve/reject/reopen readiness are hook-reachable; screenshot capture and action payloads remain pending. |
+| Platform users | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | List filters, create, detail, edit, stale/not-found/permission-denied/saving/success/cancelled/error states are hook-reachable and tested; screenshot capture and backend-backed fields remain pending. |
+| Platform favorite requests | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | Queue/detail pending/resolved/rejected/stale/inaccessible/empty/error/action-failure plus approve/reject/reopen readiness and retry labels are hook-reachable and tested; screenshot capture and action payloads remain pending. |
 | Platform master data | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | Company/agency/subscription list/detail/edit non-ready states are hook-reachable; screenshot capture and entity field layouts remain pending. |
-| Company subscription admin | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | Route-vs-mutation capability labels and mutation blocked/success/error/stale/not-found states are hook-reachable; screenshot capture and mutation payloads remain pending. |
+| Company subscription admin | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | Loading plus route-vs-mutation capability labels and mutation blocked/success/error/stale/not-found states are hook-reachable and tested; screenshot capture and mutation payloads remain pending. |
 | Platform taxonomy | Contract-reviewed | Initial evidence captured; runtime fixture hooks added | No | Sector/subsector list/detail mutation/not-found/stale/denied/error states are hook-reachable; screenshot capture and taxonomy schemas remain pending. |
 
 ## Evidence sources
@@ -48,10 +48,10 @@ V5 covers:
 | Frame/state | Required behavior | Visual notes | Backend/API unknowns |
 |---|---|---|---|
 | Queue pending | `/favorites-request` platform queue with pending requests | Separate from org `/favorites/request*`. | Queue item schema unknown. |
-| Queue empty/error/inaccessible/stale | Queue state variants | Stale/inaccessible/error must have different recovery affordances. | Error taxonomy unknown. |
+| Queue empty/error/inaccessible/stale/action-failure | Queue state variants | Stale/error/action-failure expose retry; inaccessible and empty must remain distinct non-retry states. | Error taxonomy unknown. |
 | Detail pending | `/favorites-request/:id`, approve/reject readiness | Show action readiness and parent `/favorites-request`. | Detail schema/action payload unknown. |
 | Resolved/rejected | Reopen readiness; approve/reject blocked | Make terminal vs reopenable state explicit. | Reopen payload unknown. |
-| Action failure/retry | Approve/reject/reopen failed | Retry without losing context. | Action error schema unknown. |
+| Action failure/retry | Approve/reject/reopen failed | Retry without losing context; approve/reject/reopen remain visible as the failed action context until backend outcome refresh resolves. | Action error schema unknown. |
 
 ## Platform master-data frame set
 
@@ -66,8 +66,8 @@ V5 covers:
 | Frame/state | Required behavior | Visual notes | Backend/API unknowns |
 |---|---|---|---|
 | Ready | `/hiring-company/:id/subscription` with company context and subscription controls | Route access requires `canManageHiringCompanies`; mutation requires `canManagePlatformSubscriptions`. | Subscription mutation payload unknown. |
-| Loading/not-found/denied/stale | Company subscription context unavailable or stale | Block mutation when route/mutation capabilities or freshness fail. | Stale/not-found reason details unknown. |
-| Mutation blocked | Missing platform subscription mutation capability or stale/not-found context | Show blocked reason without implying route denial. | None. |
+| Loading/not-found/denied/stale | Company subscription context unavailable or stale | Loading blocks mutation while context resolves; denied is route capability failure for `canManageHiringCompanies`; stale/not-found block mutation because company context is not fresh. | Stale/not-found reason details unknown. |
+| Mutation blocked | Missing platform subscription mutation capability with route access still allowed | Show blocked reason without implying route denial. | None. |
 | Mutation success/error | Subscription mutation outcome and refresh targets | Refresh company detail, company subscription, and subscriptions list as documented. | Error schema unknown. |
 
 ## Platform taxonomy frame set
@@ -106,8 +106,8 @@ V5 covers:
 
 ## Required outputs before marking V5 rows `Figma-ready`
 
-1. Platform users visual map for list filters, create, detail, edit, returnTo, stale/not-found/permission-denied, and error states.
-2. Platform favorite-request queue visual map for pending/resolved/rejected/stale/inaccessible/error and approve/reject/reopen readiness.
+1. Platform users visual map for list filters, create lifecycle, detail, edit, returnTo, stale/not-found/permission-denied, saving, success, cancelled, and error states.
+2. Platform favorite-request queue visual map for pending/resolved/rejected/stale/inaccessible/empty/error/action-failure and approve/reject/reopen readiness plus retry behavior.
 3. Master-data visual map for hiring companies, recruitment agencies, and subscriptions list/detail/edit states.
 4. Company subscription admin visual map for route-vs-mutation capability, blocked, success/error, and refresh targets.
 5. Taxonomy visual map for sectors/subsectors list/detail/mutation/not-found/stale/denied states.
@@ -117,4 +117,4 @@ V5 covers:
 
 `visual-evidence-v5-sysadmin-platform.md` completes the current runtime evidence pass for all V5 route families exposed today. It captures platform landing, users, favorite-request queue, master-data, company subscription, taxonomy, and non-SysAdmin fallback shells.
 
-The 2026-04-22 runtime update adds explicit fixture/test-hook exposure for the non-ready, mutation, terminal, stale, not-found, and permission-denied state variants through `fixtureState` query parameters. This still does not move V5 rows to `Figma-ready` by itself: the hook states must be captured as visual evidence, and backend/API schemas must remain deferred unless confirmed.
+The runtime state-depth update adds explicit fixture/test-hook exposure for the non-ready, mutation, terminal, stale, not-found, permission-denied, action-failure, and retry state variants through `fixtureState` query parameters. This still does not move V5 rows to `Figma-ready` by itself: the hook states must be captured as visual evidence, and backend/API schemas must remain deferred unless confirmed.

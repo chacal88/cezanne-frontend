@@ -49,13 +49,22 @@ describe('platform master-data state', () => {
       blockedReason: 'missing-platform-subscription-capability',
       refreshTargets: ['company-detail', 'company-subscription', 'subscriptions-list'],
     });
+
+    expect(buildCompanySubscriptionState('company-1', { routeAllowed: false })).toMatchObject({
+      kind: 'denied',
+      routeCapability: 'canManageHiringCompanies',
+      mutationCapability: 'canManagePlatformSubscriptions',
+      blockedReason: 'missing-hiring-company-capability',
+    });
   });
 
   it('parses master-data and company-subscription fixture states', () => {
     expect(parseMasterDataListStateKind('loading')).toBe('loading');
     expect(parseMasterDataDetailStateKind('not-found')).toBe('not-found');
     expect(parseMasterDataEditStateKind('cancelled')).toBe('cancelled');
+    expect(parseCompanySubscriptionStateKind('loading')).toBe('loading');
     expect(parseCompanySubscriptionStateKind('mutation-error')).toBe('mutation-error');
+    expect(buildCompanySubscriptionFixtureOptions('loading')).toEqual({ loading: true });
     expect(buildCompanySubscriptionFixtureOptions('stale')).toEqual({ stale: true });
   });
 });

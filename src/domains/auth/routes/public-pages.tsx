@@ -36,7 +36,7 @@ type LoginVisualState =
 
 const loginVisualStates: LoginVisualState[] = ['submitting', 'two-factor-required', 'two-factor-failed', 'sso-mandatory', 'activation-required', 'setup-required', 'bootstrap-failure', 'redirecting'];
 const tokenVisualStates = ['missing', 'invalid', 'expired', 'valid', 'success', 'failure', 'retry', 'pending-approval', 'bootstrap-failure'] as const;
-const callbackVisualStates = ['launch', 'missing-tenant', 'missing-code', 'provider-error', 'exchanging', 'exchange-failure', 'bootstrap-failure', 'success-redirect'] as const;
+const callbackVisualStates = ['launch', 'missing-tenant', 'missing-code', 'provider-error', 'exchanging', 'exchange-failure', 'bootstrap-failure', 'success', 'success-redirect'] as const;
 
 function redirectTo(target: string) {
   window.location.assign(target);

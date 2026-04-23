@@ -233,3 +233,55 @@ No gap is marked resolved yet. The recapture closes part of the **evidence-quali
 | V2-GAP-026 | Improved; still blocked | Email now uses the Emails-tab compose surface with draft/send affordances, but exact toolbar glyphs, delete/back controls, chip styling, and send/draft behavior still differ. |
 | V2-GAP-027 to V2-GAP-030 | Improved; still blocked | Review request, move job, and score-now entry points now exist, but exact field layout, candidate chip/header treatment, footer actions, search/list behavior, and score form contents still need legacy parity. |
 | V2-GAP-031 | Partially improved; still blocked | Covered recapture states now use Finn/Diego/API-seed-style data, but final parity still needs same-run authenticated legacy/current capture and broader state coverage. |
+
+## Implementation update — 2026-04-22 no-match and safe action-state capture
+
+Confirmed change:
+- Candidate database Reset to default now navigates back to canonical `/candidates-database`, making the no-match recovery path deterministic instead of leaving the page on stale no-result data.
+- `scripts/capture-v2-parity-recapture.mjs` now captures `new/06-database-search-no-match.png` and `new/07-database-reset-default-after-search.png`.
+- Candidate detail `fixtureAction` hooks can now open safe modal states directly for supported hub actions instead of exposing only hidden test text.
+- The recapture script now captures upload success plus direct review-request blocked and move-job parent-refresh states in `new/16-detail-upload-new-cv-success.png`, `new/17-detail-review-request-blocked-hook.png`, and `new/18-detail-move-parent-refresh-hook.png`.
+
+Gap impact:
+- V2-GAP-009 is fixed as a current-app behavior/capture-path gap, but remains visual-parity blocked until side-by-side review against legacy no-match/reset screenshots.
+- V2-GAP-029 and V2-GAP-032 are improved by safe capture coverage, but full upload modal/file-control behavior and non-destructive action boundary parity remain open.
+- V2-GAP-033 remains open for denied, unavailable, stale, terminal/read-only, and mobile state coverage.
+- No V2 gap is marked `Resolved` or `Accepted`; V2 remains not Figma-ready.
+
+## Current V2 gap audit after this pass
+
+| ID | Current audit marking |
+|---|---|
+| V2-GAP-001 | Still blocked; shell/sidebar parity is outside this V2-only pass and requires a product-approved shell decision or separate V0/shell work. |
+| V2-GAP-002 | Still blocked; database copy is closer but still needs side-by-side signoff. |
+| V2-GAP-003 | Still blocked; topbar notification/account parity is outside this V2-only pass. |
+| V2-GAP-004 | Improved; still blocked on exact Add new menu glyphs, width, and offset. |
+| V2-GAP-005 | Improved; still blocked on saved filter title/row/kebab geometry. |
+| V2-GAP-006 | Improved; still blocked on saved list spacing, casing, and comparable data signoff. |
+| V2-GAP-007 | Still blocked; Add column state exists but needs exact side-by-side option/checkbox review. |
+| V2-GAP-008 | Improved; still blocked on selected bulk toolbar copy, width, and menu geometry. |
+| V2-GAP-009 | Capture-path fixed; still blocked for visual parity review against legacy no-match/reset. |
+| V2-GAP-010 | Improved; still blocked on exact row/cell/header density and glyph parity. |
+| V2-GAP-011 | Partially improved by API-seed-style capture data; still blocked pending same-run legacy/current data parity. |
+| V2-GAP-012 | Improved; still blocked on final column/status-stage decision and side-by-side table parity. |
+| V2-GAP-013 | Still blocked; legacy first-row open action capture remains incomplete. |
+| V2-GAP-014 | Improved; still blocked pending authenticated same-run legacy job-context recapture. |
+| V2-GAP-015 | Partially improved by Finn/Diego ApiSeed-style data; still blocked for full same-run data parity. |
+| V2-GAP-016 | Improved; still blocked on exact side-card dimensions, wrapping, and field hierarchy. |
+| V2-GAP-017 | Improved; still blocked on exact native selector placement/options evidence. |
+| V2-GAP-018 | Improved; still blocked on timeline dot/line spacing and selected-state parity. |
+| V2-GAP-019 | Improved; still blocked on exact sequence count/context behavior. |
+| V2-GAP-020 | Improved; still blocked pending final legacy grouping/count signoff. |
+| V2-GAP-021 | Improved; still blocked on CV preview proportions and exact toolbar behavior. |
+| V2-GAP-022 | Still blocked; combined Forms & docs parity needs side-by-side content/state review. |
+| V2-GAP-023 | Still blocked; comments/email history and composer behavior need side-by-side parity. |
+| V2-GAP-024 | Improved; still blocked on exact schedule wizard copy, dot treatment, card internals, and footer behavior. |
+| V2-GAP-025 | Improved; still blocked on exact reject editor controls, chip wrapping, and reject-with/without-message behavior. |
+| V2-GAP-026 | Improved; still blocked on exact email toolbar, delete/back controls, chip styling, and send/draft behavior. |
+| V2-GAP-027 | Improved; still blocked on send-to-hiring-manager candidate chip/header/footer and backend-safe field parity. |
+| V2-GAP-028 | Improved; still blocked on move-job search/list behavior and exact modal footer. |
+| V2-GAP-029 | Improved by upload success capture; still blocked on upload modal/file-control/error-state parity. |
+| V2-GAP-030 | Improved; still blocked on score-now form contents and footer/action parity. |
+| V2-GAP-031 | Partially improved; still blocked pending same-run authenticated legacy/current data coverage. |
+| V2-GAP-032 | Improved by safe visible action-state hooks; still blocked for full non-destructive boundaries across all destructive actions. |
+| V2-GAP-033 | Still blocked; denied, unavailable, stale, terminal/read-only, and mobile variants remain uncaptured. |

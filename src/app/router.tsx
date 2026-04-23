@@ -145,6 +145,7 @@ const registerRoute = createRoute({
     return <RegisterPage token={token} />;
   },
 });
+const cezanneMissingTenantRoute = createRoute({ getParentRoute: () => publicLayoutRoute, path: '/auth/cezanne', component: CezanneAuthPage });
 const cezanneAuthRoute = createRoute({
   getParentRoute: () => publicLayoutRoute,
   path: '/auth/cezanne/$tenantGuid',
@@ -1444,6 +1445,7 @@ const routeTree = rootRoute.addChildren([
     resetPasswordRoute,
     registerIndexRoute,
     registerRoute,
+    cezanneMissingTenantRoute,
     cezanneAuthRoute,
     cezanneCallbackRoute,
     samlCallbackRoute,

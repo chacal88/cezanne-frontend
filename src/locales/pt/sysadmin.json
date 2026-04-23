@@ -37,6 +37,7 @@
     "detailTitle": "Usuário da plataforma {{id}}",
     "editTitle": "Editar usuário da plataforma {{id}}",
     "listCopy": "Fundação de gestão de usuários da plataforma. Convites da organização e membros do time ficam nas rotas R4 de time.",
+    "createCopy": "Fundação de criação de usuário da plataforma com estados determinísticos de salvar, sucesso, cancelamento, erro e permissão.",
     "detailCopy": "Fundação de detalhe de usuário da plataforma com retorno para lista.",
     "editCopy": "Fundação de edição de usuário da plataforma com destinos determinísticos de cancelar e sucesso.",
     "filtersLabel": "Filtros sanitizados",

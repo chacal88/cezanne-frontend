@@ -309,6 +309,19 @@ async function main() {
   await page.getByTestId('candidate-database-selected-toolbar').waitFor({ state: 'visible' });
   await capture(page, records, '05-database-row-selected-bulk-enabled', 'First row selected and bulk action toolbar enabled.');
 
+  await page.goto(`${baseUrl}/candidates-database?query=no-parity-match`);
+  await waitForReady(page, 'candidate-database-composition');
+  await page.getByText('No candidates found').waitFor({ state: 'visible' });
+  await capture(page, records, '06-database-search-no-match', 'No-match search state with route-owned query preserved.');
+
+  await Promise.all([
+    page.waitForURL('**/candidates-database'),
+    page.getByTestId('candidate-database-clear-filters-link').click(),
+  ]);
+  await waitForReady(page, 'candidate-database-composition');
+  await page.locator('tbody input[type="checkbox"]').first().waitFor({ state: 'visible' });
+  await capture(page, records, '07-database-reset-default-after-search', 'Reset to default returns from no-match search to the default candidate list.');
+
   await page.goto(`${baseUrl}/candidate/${finnUuid}/job-13/rejected/2/remote/interview-1?entry=job`);
   await waitForReady(page, 'candidate-detail-composition');
   await capture(page, records, '10-detail-ready-after-parity-pass', 'Candidate detail ready state after legacy action modal entry pass.');
@@ -340,6 +353,21 @@ async function main() {
   await page.getByTestId('candidate-open-score-now-modal').click();
   await page.getByTestId('candidate-score-legacy-modal').waitFor({ state: 'visible' });
   await capture(page, records, '15-detail-score-now-modal', 'Legacy-style Score now modal entry.');
+
+  await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1?entry=job`);
+  await waitForReady(page, 'candidate-detail-composition');
+  await page.getByTestId('candidate-upload-cv-button').click();
+  await capture(page, records, '16-detail-upload-new-cv-success', 'Upload new CV control and success state from the legacy CV tab area.');
+
+  await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1?entry=job&fixtureAction=review-request&fixtureActionState=blocked`);
+  await waitForReady(page, 'candidate-detail-composition');
+  await page.getByTestId('candidate-review-legacy-modal').waitFor({ state: 'visible' });
+  await capture(page, records, '17-detail-review-request-blocked-hook', 'Deterministic review-request blocked fixtureAction state.');
+
+  await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1?entry=job&fixtureAction=move&fixtureActionState=parent-refresh-required`);
+  await waitForReady(page, 'candidate-detail-composition');
+  await page.getByTestId('candidate-move-legacy-modal').waitFor({ state: 'visible' });
+  await capture(page, records, '18-detail-move-parent-refresh-hook', 'Deterministic move-job parent-refresh fixtureAction state.');
 
   await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1/cv/4/schedule`);
   await waitForReady(page, 'candidate-task-composition');

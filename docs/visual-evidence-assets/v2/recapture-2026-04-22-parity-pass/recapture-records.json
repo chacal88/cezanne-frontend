@@ -1,7 +1,7 @@
 {
   "captureDate": "2026-04-22",
   "viewport": "1440x900",
-  "baseUrl": "http://127.0.0.1:5173",
+  "baseUrl": "http://127.0.0.1:5174",
   "sessionStorage": "recruit.localAuthSession",
   "records": [
     {
@@ -37,6 +37,20 @@
       "route": "/candidates-database",
       "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/05-database-row-selected-bulk-enabled.png",
       "note": "First row selected and bulk action toolbar enabled.",
+      "status": "captured"
+    },
+    {
+      "name": "06-database-search-no-match",
+      "route": "/candidates-database?query=no-parity-match",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/06-database-search-no-match.png",
+      "note": "No-match search state with route-owned query preserved.",
+      "status": "captured"
+    },
+    {
+      "name": "07-database-reset-default-after-search",
+      "route": "/candidates-database",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/07-database-reset-default-after-search.png",
+      "note": "Reset to default returns from no-match search to the default candidate list.",
       "status": "captured"
     },
     {
@@ -79,6 +93,27 @@
       "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&degrade=%5B%5D",
       "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/15-detail-score-now-modal.png",
       "note": "Legacy-style Score now modal entry.",
+      "status": "captured"
+    },
+    {
+      "name": "16-detail-upload-new-cv-success",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/16-detail-upload-new-cv-success.png",
+      "note": "Upload new CV control and success state from the legacy CV tab area.",
+      "status": "captured"
+    },
+    {
+      "name": "17-detail-review-request-blocked-hook",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&fixtureAction=review-request&fixtureActionState=blocked&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/17-detail-review-request-blocked-hook.png",
+      "note": "Deterministic review-request blocked fixtureAction state.",
+      "status": "captured"
+    },
+    {
+      "name": "18-detail-move-parent-refresh-hook",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&fixtureAction=move&fixtureActionState=parent-refresh-required&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/18-detail-move-parent-refresh-hook.png",
+      "note": "Deterministic move-job parent-refresh fixtureAction state.",
       "status": "captured"
     },
     {

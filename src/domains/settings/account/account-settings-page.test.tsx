@@ -1,7 +1,8 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { AccessProvider, type AccessContext } from '../../../lib/access-control';
 import { AccountSettingsPage } from './account-settings-page';
+import type { AccountSettingsRouteKind, AccountSettingsStateKind } from './support/account-settings-state';
 
 function buildAccessContext(overrides: Partial<AccessContext> = {}): AccessContext {
   return {
@@ -51,5 +52,28 @@ describe('AccountSettingsPage', () => {
 
     expect(screen.getByTestId('company-settings-parent-link')).toHaveAttribute('href', '/dashboard');
     expect(screen.getByTestId('company-settings-unknown-fields')).toHaveTextContent('profile-persistence-api');
+  });
+
+  it('exposes deterministic V0 profile fixture states and close targets', () => {
+    const routes: Array<{ routeKind: AccountSettingsRouteKind; titleKey: string; descriptionKey: string; accessContext: AccessContext; parentLabel: string }> = [
+      { routeKind: 'user-profile', titleKey: 'userProfile.title', descriptionKey: 'userProfile.detail', accessContext: buildAccessContext(), parentLabel: 'user-profile-parent-link' },
+      { routeKind: 'hiring-company-profile', titleKey: 'organizationProfile.hiringCompany.title', descriptionKey: 'organizationProfile.hiringCompany.detail', accessContext: buildAccessContext(), parentLabel: 'hiring-company-profile-parent-link' },
+      { routeKind: 'recruitment-agency-profile', titleKey: 'organizationProfile.recruitmentAgency.title', descriptionKey: 'organizationProfile.recruitmentAgency.detail', accessContext: buildAccessContext({ organizationType: 'ra' }), parentLabel: 'recruitment-agency-profile-parent-link' },
+    ];
+    const states: AccountSettingsStateKind[] = ['dirty', 'saving', 'saved', 'save-failed', 'retry', 'degraded', 'denied'];
+
+    for (const route of routes) {
+      for (const state of states) {
+        render(
+          <AccessProvider value={route.accessContext}>
+            <AccountSettingsPage routeKind={route.routeKind} titleKey={route.titleKey} descriptionKey={route.descriptionKey} fixtureState={state} parentTarget={route.routeKind === 'user-profile' ? '/dashboard' : undefined} isOverlay={route.routeKind === 'user-profile'} />
+          </AccessProvider>,
+        );
+
+        expect(screen.getByTestId(`${route.routeKind}-state`)).toHaveTextContent(state);
+        expect(screen.getByTestId(route.parentLabel)).toHaveAttribute('href', '/dashboard');
+        cleanup();
+      }
+    }
   });
 });
