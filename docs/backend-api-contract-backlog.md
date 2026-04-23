@@ -10,6 +10,32 @@ Rules for this document:
 - Figma drafting status is separate from backend readiness;
 - no route family is replacement-approved by this backlog.
 
+## Active Change Plan
+
+The execution package for closing this backlog is `backend-api-contract-change-plan.md`.
+
+The plan preserves the recommended backend decision order in this document:
+1. Auth/token/session;
+2. Notifications/inbox;
+3. Jobs and Candidates aggregates/mutations;
+4. provider readiness/setup plus upload/download contracts;
+5. V4/V5 admin schemas.
+
+Phase 1 draft artifact:
+- `backend-api-contract-auth-token-session.md` records the backend-facing Auth/token/session envelope proposal, confirmed current frontend calls, open backend decisions, telemetry/security rules, and remaining blockers.
+
+Phase 2 draft artifact:
+- `backend-api-contract-notifications-inbox.md` records the backend-facing Notifications/inbox contract draft, including notification DTOs, typed destinations, read-state mutation, inbox conversation/send transport, deliverability readiness, realtime policy, and safety rules.
+
+Phase 3 draft artifact:
+- `backend-api-contract-jobs-candidates.md` records the backend-facing Jobs and Candidates aggregate/mutation contract draft, including list/detail aggregates, draft persistence, task/action mutations, candidate database/detail APIs, upload/document phases, parent-refresh semantics, and safety rules.
+
+Phase 4 draft artifact:
+- `backend-api-contract-provider-upload-download.md` records the backend-facing provider readiness/setup and file-transfer primitive contract draft, including provider index/detail, configuration/auth/diagnostics mutations, normalized readiness signals, public/token integration callbacks, upload/download lifecycles, report export delivery, payment tokenization/challenge boundaries, and safety rules.
+
+Phase 5 draft artifact:
+- `backend-api-contract-admin-v4-v5-schemas.md` records the backend-facing V4/V5 admin schema contract draft, including Settings, Reports, Billing, Team, Favorites, Marketplace, platform users, platform favorite requests, platform master data, company subscription admin, taxonomy, dashboard aggregate decisions, and safety rules.
+
 ## Evidence Baseline
 
 Confirmed runtime/code evidence:

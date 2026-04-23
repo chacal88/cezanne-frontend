@@ -171,17 +171,23 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 62. `figma-screen-flow-handoff-index.md` — consolidated V0-V5 Figma/screen-flow handoff index for evidence-covered drafting rows, with V2 parity-blocked and only `/logout` granted replacement approval
 63. `figma-handoff-released-areas-change.md` — active Figma production change for V0 partial, V1, V3, V4, and V5 desktop handoff work, keeping V2 excluded and replacement approval blocked except `/logout`
 64. `backend-api-contract-backlog.md` — V0-V5 backend/API/provider/schema blocker backlog for the next implementation phase, keeping backend readiness separate from Figma drafting and replacement approval
-65. `replacement-approval-audit-v0-v5.md` — V0-V5 replacement approval checklist, including backend/API readiness, visual parity readiness, responsive readiness, product-exception needs, and the recommended first approval target
-66. `replacement-approval-evidence-template.md` — reusable evidence-pack template/checklist for future replacement approval records; the template itself does not grant approval
-67. `replacement-evidence-v0-logout.md` — first focused V0 `/logout` replacement evidence record; decision is Pixel-parity-approved for `/logout` only
-68. `auth-replacement-readiness-inventory.md` — OpenSpec-driven inventory of auth route/state replacement-readiness classifications and blockers
-69. `replacement-evidence-v0-forgot-password.md` — focused V0 `/forgot-password` evidence record with same-run captures; decision remains blocked
-70. `replacement-evidence-v0-auth-entry.md` — focused V0 auth-entry evidence record; decision remains blocked
-71. `replacement-evidence-v0-reset-password.md` — focused V0 reset-password evidence record; decision remains blocked
-72. `replacement-evidence-v0-confirm-registration.md` — focused V0 confirm-registration evidence record; decision remains blocked
-73. `replacement-evidence-v0-register-invite-token.md` — focused V0 register/invite-token evidence record; decision remains blocked
-74. `replacement-evidence-v0-provider-callbacks.md` — focused V0 provider callback evidence record; decision remains blocked
-75. `replacement-evidence-v0-session-loss.md` — focused V0 session-loss evidence record; decision remains blocked
+65. `backend-api-contract-change-plan.md` — active planning package for closing Auth/token/session, Notifications/inbox, Jobs/Candidates, provider/upload/download, and V4/V5 admin schema contracts
+66. `backend-api-contract-auth-token-session.md` — Phase 1 backend-facing Auth/token/session contract draft with current frontend calls, target envelopes, open backend decisions, and safety rules
+67. `backend-api-contract-notifications-inbox.md` — Phase 2 backend-facing Notifications/inbox contract draft with typed destinations, read-state mutation, inbox transport, send/retry semantics, and deliverability readiness
+68. `backend-api-contract-jobs-candidates.md` — Phase 3 backend-facing Jobs and Candidates aggregate/mutation contract draft with list/detail aggregates, task/action mutations, uploads, parent-refresh semantics, and safety rules
+69. `backend-api-contract-provider-upload-download.md` — Phase 4 backend-facing provider readiness/setup and upload/download primitive contract draft with public/token callbacks, report export delivery, payment challenge boundaries, and safety rules
+70. `backend-api-contract-admin-v4-v5-schemas.md` — Phase 5 backend-facing V4/V5 admin schema contract draft with Settings, Reports, Billing, Team, Favorites, Marketplace, SysAdmin/platform schemas, and safety rules
+71. `replacement-approval-audit-v0-v5.md` — V0-V5 replacement approval checklist, including backend/API readiness, visual parity readiness, responsive readiness, product-exception needs, and the recommended first approval target
+72. `replacement-approval-evidence-template.md` — reusable evidence-pack template/checklist for future replacement approval records; the template itself does not grant approval
+73. `replacement-evidence-v0-logout.md` — first focused V0 `/logout` replacement evidence record; decision is Pixel-parity-approved for `/logout` only
+74. `auth-replacement-readiness-inventory.md` — OpenSpec-driven inventory of auth route/state replacement-readiness classifications and blockers
+75. `replacement-evidence-v0-forgot-password.md` — focused V0 `/forgot-password` evidence record with same-run captures; decision remains blocked
+76. `replacement-evidence-v0-auth-entry.md` — focused V0 auth-entry evidence record; decision remains blocked
+77. `replacement-evidence-v0-reset-password.md` — focused V0 reset-password evidence record; decision remains blocked
+78. `replacement-evidence-v0-confirm-registration.md` — focused V0 confirm-registration evidence record; decision remains blocked
+79. `replacement-evidence-v0-register-invite-token.md` — focused V0 register/invite-token evidence record; decision remains blocked
+80. `replacement-evidence-v0-provider-callbacks.md` — focused V0 provider callback evidence record; decision remains blocked
+81. `replacement-evidence-v0-session-loss.md` — focused V0 session-loss evidence record; decision remains blocked
 
 ## Package roles
 
@@ -249,6 +255,12 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `v1-v5-roadmap-review-2026-04-22.md` | records the V1-V5 audit result, validation commands, release-by-release verification matrix, and follow-ups before deeper Figma/backend work |
 | `figma-screen-flow-handoff-index.md` | consolidates the Figma/screen-flow handoff rows for every V0-V5 area that is evidence-covered and allowed for drafting, while explicitly excluding V2 and preserving replacement-approval blockers |
 | `backend-api-contract-backlog.md` | records the actionable V0-V5 backend/API/provider/schema blocker matrix and recommended backend decision order for the next implementation phase |
+| `backend-api-contract-change-plan.md` | records the planned execution package, phase order, acceptance criteria, deliverables, and task list for closing backend/API/provider/schema contracts |
+| `backend-api-contract-auth-token-session.md` | records the Phase 1 backend-facing Auth/token/session contract draft, including current frontend calls, target envelopes, open decisions, telemetry/security rules, and remaining blockers |
+| `backend-api-contract-notifications-inbox.md` | records the Phase 2 backend-facing Notifications/inbox contract draft, including typed destination DTOs, notification read-state mutation, inbox conversation/send contracts, deliverability readiness, realtime policy, and safety rules |
+| `backend-api-contract-jobs-candidates.md` | records the Phase 3 backend-facing Jobs and Candidates aggregate/mutation contract draft, including list/detail aggregates, draft persistence, task/action mutations, candidate database/detail APIs, upload phases, parent-refresh semantics, and safety rules |
+| `backend-api-contract-provider-upload-download.md` | records the Phase 4 backend-facing provider readiness/setup and upload/download primitive contract draft, including provider setup mutations, readiness handoff, public/token callbacks, file-transfer lifecycles, report export delivery, payment challenge boundaries, and safety rules |
+| `backend-api-contract-admin-v4-v5-schemas.md` | records the Phase 5 backend-facing V4/V5 admin schema contract draft, including Settings, Reports, Billing, Team, Favorites, Marketplace, platform users, favorite requests, master data, company subscription admin, taxonomy, platform dashboard, and safety rules |
 | `replacement-approval-audit-v0-v5.md` | records that only `/logout` is replacement-approved and defines the checklist/shortest path for future pixel-parity approval packages |
 | `replacement-approval-evidence-template.md` | provides the reusable route/family evidence-pack template for future matched legacy/current/Figma approval records; copying or completing the template does not approve replacement without an explicit final decision |
 | `replacement-evidence-v0-logout.md` | records the first route-specific replacement evidence pack; `/logout` is Pixel-parity-approved after login-field parity recapture |
