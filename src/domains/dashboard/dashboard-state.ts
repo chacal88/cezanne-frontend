@@ -87,6 +87,47 @@ const emptyOverview: DashboardOverview = {
   calendarEvents: [],
 };
 
+const fixtureCompanyNames = [
+  'Northstar Biolabs',
+  'LumenForge Systems',
+  'Harbor Peak Logistics',
+  'Velvet Oak Finance',
+  'Cinderpath Health',
+  'Atlas Bloom Retail',
+  'Blue Quill Energy',
+  'Silver Kite Media',
+  'Aurora Vale Hospitality',
+  'Granite Loop Manufacturing',
+];
+
+function fixtureDateAt(dayOffset: number, hour: number, minute = 0): string {
+  const value = new Date();
+  value.setHours(hour, minute, 0, 0);
+  value.setDate(value.getDate() + dayOffset);
+  return value.toISOString();
+}
+
+const fixtureActivityItems: DashboardActivityItem[] = fixtureCompanyNames.map(
+  (companyName, index) => ({
+    id: `fixture-activity-${index + 1}`,
+    message:
+      index % 2 === 0
+        ? `A CV has been received from ${companyName} for Senior Account Executive`
+        : `Interview activity for ${companyName} Growth Operations Lead`,
+    createdAt: fixtureDateAt(index - 4, 9 + (index % 4), 15),
+    target: '/notifications',
+  }),
+);
+
+const fixtureCalendarEvents: DashboardCalendarEvent[] = fixtureCompanyNames.map(
+  (companyName, index) => ({
+    id: `fixture-calendar-${index + 1}`,
+    title: index % 3 === 0 ? `${companyName} kickoff` : index % 3 === 1 ? `${companyName} review` : `${companyName} panel`,
+    start: fixtureDateAt((index % 10) + 1, 10 + (index % 5), index % 2 === 0 ? 0 : 30),
+    status: index % 3 === 0 ? 'confirmed' : index % 3 === 1 ? 'pending' : 'busy',
+  }),
+);
+
 function safeFallbackAction(fallbackTarget?: string): DashboardSafeAction | undefined {
   if (!fallbackTarget) return undefined;
   return { kind: 'return-to-fallback', label: 'Return to safe target', target: fallbackTarget, refreshIntent: 'target' };
@@ -251,8 +292,8 @@ export const fixtureDashboardOverview: DashboardOverview = {
   users: [],
   auth: { firstName: 'there', occupopEmailConfirmed: true },
   calendarIntegrationState: 'ready',
-  notificationCount: 3,
+  notificationCount: fixtureActivityItems.length,
   inboxConversationCount: 2,
-  activityItems: [],
-  calendarEvents: [],
+  activityItems: fixtureActivityItems,
+  calendarEvents: fixtureCalendarEvents,
 };

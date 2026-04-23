@@ -14,7 +14,7 @@
 }
 
 .recruit-shell--candidate-database {
-  grid-template-columns: 230px minmax(0, 1fr);
+  grid-template-columns: 174px minmax(0, 1fr);
 }
 
 .recruit-shell__sidebar {
@@ -338,8 +338,47 @@
 }
 
 .recruit-shell--candidate-database .recruit-shell__logo {
-  height: 82px;
-  padding: 0 28px;
+  height: 74px;
+  padding: 0 17px;
+}
+
+.recruit-shell__candidate-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 12px 0 14px;
+  color: #fff;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.recruit-shell__candidate-user i {
+  width: 16px;
+  min-width: 16px;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+}
+
+.recruit-shell__candidate-user-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.recruit-shell__candidate-user-copy strong,
+.recruit-shell__candidate-user-copy span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recruit-shell__candidate-user-copy strong {
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .recruit-shell--candidate-database .recruit-shell__nav {
@@ -348,15 +387,15 @@
 }
 
 .recruit-shell--candidate-database .recruit-shell__nav-item {
-  gap: 10px;
-  min-height: 44px;
-  padding: 5px 12px 5px 20px;
-  font-size: 14px;
+  gap: 8px;
+  min-height: 36px;
+  padding: 4px 9px 4px 12px;
+  font-size: 13px;
 }
 
 .recruit-shell--candidate-database .recruit-shell__nav-icon {
-  font-size: 20px;
-  min-width: 24px;
+  font-size: 16px;
+  min-width: 18px;
 }
 
 .recruit-shell--candidate-database .recruit-shell__nav-group-trigger::before,
@@ -366,12 +405,12 @@
 .recruit-shell--candidate-database
   .recruit-shell__submenu
   .recruit-shell__nav-item::before {
-  inset: 4px 10px;
-  border-radius: 9px;
+  inset: 3px 7px;
+  border-radius: 7px;
 }
 
 .recruit-shell--candidate-database .recruit-shell__submenu {
-  padding-left: 42px;
+  padding-left: 30px;
 }
 
 .recruit-shell__toggle {
@@ -391,7 +430,7 @@
 .recruit-shell__topbar-right {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
 }
 
 .recruit-shell__topbar-right a {
@@ -529,7 +568,7 @@
 }
 
 .recruit-shell__content {
-  padding: 10px 20px 10px 15px;
+  padding: 0 14px 10px 0;
   background: #f9f9f9;
   min-width: 0;
   flex: 1;

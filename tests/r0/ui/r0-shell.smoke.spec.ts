@@ -168,6 +168,53 @@ test('candidate detail preserves contextual direct entry and visible parent refr
     await expect(page.getByTestId('candidate-contracts-state')).toHaveText('sent');
 });
 
+test('candidate database and legacy-style candidate action surfaces stay reachable for parity smoke', async ({page}) => {
+    await page.goto('/candidates-database');
+
+    await expect(page.getByRole('heading', {name: 'Candidate database'})).toBeVisible();
+    await expect(page.getByTestId('candidate-database-composition')).toBeVisible();
+    await page.getByTestId('candidate-database-add-new-button').click();
+    await expect(page.getByText('New filter')).toBeVisible();
+    await page.getByTestId('candidate-database-add-new-button').click();
+    await page.getByLabel('Select Alex Candidate').check();
+    await expect(page.getByTestId('candidate-database-selected-toolbar')).toBeVisible();
+    await page.getByTestId('candidate-database-bulk-actions-enabled').click();
+    await expect(page.getByText('Add to list')).toBeVisible();
+    await page.getByTestId('candidate-database-bulk-actions-enabled').click();
+    await page.getByTestId('candidate-add-column-button').click({force: true});
+    await expect(page.getByText('Hiring flow stage')).toBeVisible();
+
+    await page.goto('/candidate/candidate-456/job-456/shortlisted/1/remote/interview-1?entry=job');
+
+    await expect(page.getByRole('heading', {name: 'candidate profile'})).toBeVisible();
+    await expect(page.getByTestId('candidate-detail-composition')).toBeVisible();
+    await page.getByTestId('candidate-more-actions-button').click();
+    await expect(page.getByTestId('candidate-more-actions-menu')).toBeVisible();
+
+    await page.getByTestId('candidate-open-email-modal').click();
+    await expect(page.getByTestId('candidate-email-legacy-modal')).toBeVisible();
+    await page.getByLabel('Back to emails').click();
+
+    await page.getByTestId('candidate-more-actions-button').click();
+    await page.getByTestId('candidate-open-review-request-modal').click();
+    await expect(page.getByTestId('candidate-review-legacy-modal')).toBeVisible();
+    await page.getByLabel('Close candidate action').click();
+
+    await page.getByTestId('candidate-more-actions-button').click();
+    await page.getByTestId('candidate-open-move-job-modal').click();
+    await expect(page.getByTestId('candidate-move-legacy-modal')).toBeVisible();
+    await page.getByLabel('Close candidate action').click();
+
+    await page.getByRole('tab', {name: 'Interview score'}).click();
+    await page.getByTestId('candidate-open-score-now-modal').click();
+    await expect(page.getByTestId('candidate-score-legacy-modal')).toBeVisible();
+    await page.getByLabel('Close candidate action').click();
+
+    await page.getByRole('tab', {name: 'Latest CV'}).click();
+    await page.getByTestId('candidate-upload-cv-button').click();
+    await expect(page.getByTestId('candidate-upload-cv-state')).toHaveText('Upload: succeeded');
+});
+
 test('user profile closes back to dashboard', async ({page}) => {
     await page.goto('/user-profile');
 

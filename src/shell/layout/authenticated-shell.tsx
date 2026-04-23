@@ -68,6 +68,61 @@ function isGroupActive(pathname: string, group: SidebarGroup) {
   return group.links.some((link) => isLinkActive(pathname, link));
 }
 
+function formatUserName(value: unknown) {
+  if (!value || typeof value !== "object") return null;
+  const record = value as Record<string, unknown>;
+  const firstName = String(record.firstName ?? record.first_name ?? "").trim();
+  const lastName = String(record.lastName ?? record.last_name ?? "").trim();
+  const fullName = String(record.name ?? record.fullName ?? "").trim();
+  const email = String(record.email ?? "").trim();
+  return fullName || [firstName, lastName].filter(Boolean).join(" ") || email || null;
+}
+
+function loadShellUserName() {
+  if (typeof window === "undefined") return null;
+
+  for (const key of ["oc_loginServiceUser", "recruit.localAuthSession"]) {
+    const raw = window.localStorage.getItem(key);
+    if (!raw) continue;
+
+    try {
+      const parsed = JSON.parse(raw) as { userSnapshot?: unknown };
+      const name = formatUserName(key === "recruit.localAuthSession" ? parsed.userSnapshot : parsed);
+      if (name) return name;
+    } catch {
+      continue;
+    }
+  }
+
+  return null;
+}
+
+function loadShellOrganizationName() {
+  if (typeof window === "undefined") return null;
+
+  const rawUser = window.localStorage.getItem("oc_loginServiceUser");
+  if (rawUser) {
+    try {
+      const parsed = JSON.parse(rawUser) as {
+        hiring_companies?: Array<{ name?: unknown }>;
+        recruitment_agencies?: Array<{ name?: unknown }>;
+      };
+      const hiringCompanyName = String(
+        parsed.hiring_companies?.[0]?.name ?? "",
+      ).trim();
+      if (hiringCompanyName) return hiringCompanyName;
+      const agencyName = String(
+        parsed.recruitment_agencies?.[0]?.name ?? "",
+      ).trim();
+      if (agencyName) return agencyName;
+    } catch {
+      // Ignore malformed legacy user bootstrap.
+    }
+  }
+
+  return null;
+}
+
 function NavLinkItem({
   item,
   collapsed,
@@ -229,8 +284,18 @@ export function AuthenticatedShell({ children }: PropsWithChildren) {
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, [userMenuOpen]);
 
-  const isCandidateDatabaseRoute = pathname === "/candidates-database";
-  const shellClass = `recruit-shell${collapsed ? " recruit-shell--collapsed" : ""}${isCandidateDatabaseRoute ? " recruit-shell--candidate-database" : ""}`;
+  const isCandidateV2Route =
+    pathname === "/candidates-database" ||
+    pathname === "/candidates-old" ||
+    pathname === "/candidates-new" ||
+    pathname.startsWith("/candidate/");
+  const shellClass = `recruit-shell${collapsed ? " recruit-shell--collapsed" : ""}${isCandidateV2Route ? " recruit-shell--candidate-database" : ""}`;
+  const shellUserName = loadShellUserName() ?? "kaue dev";
+  const shellOrganizationName =
+    loadShellOrganizationName() ??
+    (accessContext.organizationType === "ra"
+      ? "Local API Agency"
+      : "Local API Seeds");
   const profileLink = accountItems.find((link) => link.id === "user-profile");
   const organizationProfileLink = accountItems.find(
     (link) =>
@@ -266,6 +331,14 @@ export function AuthenticatedShell({ children }: PropsWithChildren) {
             alt="Cezanne Recruitment"
           />
         </a>
+        {isCandidateV2Route && !collapsed ? (
+          <div className="recruit-shell__candidate-user">
+            <i className="fas fa-building" aria-hidden="true" />
+            <div className="recruit-shell__candidate-user-copy">
+              <strong>{shellOrganizationName}</strong>
+            </div>
+          </div>
+        ) : null}
         <nav
           className="recruit-shell__nav"
           aria-label={t("authenticatedShell.title")}

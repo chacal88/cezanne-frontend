@@ -37,6 +37,11 @@ function taskPanelTitle(kind: CandidateActionKind) {
   return 'Reject candidate';
 }
 
+function scheduleJobTitle(actionContext: ReturnType<typeof resolveCandidateActionContext>) {
+  if (!actionContext.jobId) return 'API Seed Pipeline';
+  return `API Seed Pipeline ${actionContext.jobId}`;
+}
+
 
 export function CandidateTaskRoutePage() {
   const location = useLocation();
@@ -197,40 +202,68 @@ export function CandidateTaskRoutePage() {
           ) : null}
 
           <div className="candidate-task-legacy-layout">
-            <aside className="candidate-product-card candidate-profile-card candidate-task-candidate-card">
-              <div className="candidate-profile-header">
-            <div className="candidate-profile-name-row">
-              <h2>{record.name}</h2>
-              <span className="candidate-product-chip">✉</span>
-            </div>
-            <p className="candidate-product-muted">{record.headline}</p>
-            <span className="candidate-product-chip">{record.stage}</span>
-          </div>
-          <div className="candidate-profile-meta">
-            <p>✉ <span>{record.email}</span></p>
-            <p>☎ <span>{record.phone}</span></p>
-            <p>◆ <span>{record.location}</span></p>
-            <p>✓ <span>{record.lastAction}</span></p>
-            <p className="candidate-detail-hidden-state" data-testid="candidate-task-candidate">Candidate: {actionContext.candidateId}</p>
-            <p className="candidate-detail-hidden-state" data-testid="candidate-task-cv">CV: {actionContext.cvId}</p>
-            <p className="candidate-detail-hidden-state" data-testid="candidate-task-parent">Parent: {actionContext.returnTarget}</p>
-            <p className="candidate-detail-hidden-state" data-testid="candidate-task-recovery">Recovery: {actionContext.recoveryTarget}</p>
-            <p className="candidate-detail-hidden-state" data-testid="candidate-task-entry">Entry: {actionContext.entryMode}</p>
-            <p className="candidate-detail-hidden-state" data-testid="candidate-task-last-action">Last action: {record.lastAction}</p>
-            <p className="candidate-detail-hidden-state" data-testid="candidate-task-capability">Capability: {actionContext.capabilityKey}</p>
-          </div>
-
-          {actionContext.kind === 'schedule' ? (
-            <div className="candidate-task-job-summary" aria-label="Job details">
-              <h3>Job details</h3>
-              <p><strong>Negotiable salary</strong></p>
-              <p>Job type: Permanent</p>
-              <p>Job terms: Full-time</p>
-              <p>Address: Dublin, Ireland</p>
-              <p>Sector: Accounting &amp; Finance | Other</p>
-            </div>
-          ) : null}
-        </aside>
+            {actionContext.kind === 'schedule' ? (
+              <aside className="candidate-product-card candidate-task-candidate-card candidate-task-schedule-overview">
+                <header className="candidate-task-schedule-title">
+                  <h2>{scheduleJobTitle(actionContext)}</h2>
+                  <span>{record.location}</span>
+                </header>
+                <div className="candidate-task-schedule-columns">
+                  <section className="candidate-task-schedule-column">
+                    <h3>Candidate details</h3>
+                    <div className="candidate-task-schedule-candidate">
+                      <strong>{record.name}</strong>
+                      <div className="candidate-task-schedule-score">
+                        <span>-</span>
+                        <small>/100 - CV score</small>
+                      </div>
+                      <p>{record.email}</p>
+                    </div>
+                  </section>
+                  <section className="candidate-task-schedule-column candidate-task-schedule-job">
+                    <h3>Job details</h3>
+                    <p><strong>Negotiable salary</strong></p>
+                    <p>Job type: Permanent</p>
+                    <p>Job terms: Full-time</p>
+                    <p>Address: Dublin, Ireland</p>
+                    <p>Sector: Accounting &amp; Finance | Other</p>
+                    <p>Created at: Apr 23, 2026 1:30 PM</p>
+                    <p>Published by: Alex Seeder</p>
+                  </section>
+                </div>
+                <div className="candidate-detail-hidden-state" data-testid="candidate-task-candidate">Candidate: {actionContext.candidateId}</div>
+                <div className="candidate-detail-hidden-state" data-testid="candidate-task-cv">CV: {actionContext.cvId}</div>
+                <div className="candidate-detail-hidden-state" data-testid="candidate-task-parent">Parent: {actionContext.returnTarget}</div>
+                <div className="candidate-detail-hidden-state" data-testid="candidate-task-recovery">Recovery: {actionContext.recoveryTarget}</div>
+                <div className="candidate-detail-hidden-state" data-testid="candidate-task-entry">Entry: {actionContext.entryMode}</div>
+                <div className="candidate-detail-hidden-state" data-testid="candidate-task-last-action">Last action: {record.lastAction}</div>
+                <div className="candidate-detail-hidden-state" data-testid="candidate-task-capability">Capability: {actionContext.capabilityKey}</div>
+              </aside>
+            ) : (
+              <aside className="candidate-product-card candidate-profile-card candidate-task-candidate-card">
+                <div className="candidate-profile-header">
+                  <div className="candidate-profile-name-row">
+                    <h2>{record.name}</h2>
+                    <span className="candidate-product-chip">✉</span>
+                  </div>
+                  <p className="candidate-product-muted">{record.headline}</p>
+                  <span className="candidate-product-chip">{record.stage}</span>
+                </div>
+                <div className="candidate-profile-meta">
+                  <p>✉ <span>{record.email}</span></p>
+                  <p>☎ <span>{record.phone}</span></p>
+                  <p>◆ <span>{record.location}</span></p>
+                  <p>✓ <span>{record.lastAction}</span></p>
+                  <p className="candidate-detail-hidden-state" data-testid="candidate-task-candidate">Candidate: {actionContext.candidateId}</p>
+                  <p className="candidate-detail-hidden-state" data-testid="candidate-task-cv">CV: {actionContext.cvId}</p>
+                  <p className="candidate-detail-hidden-state" data-testid="candidate-task-parent">Parent: {actionContext.returnTarget}</p>
+                  <p className="candidate-detail-hidden-state" data-testid="candidate-task-recovery">Recovery: {actionContext.recoveryTarget}</p>
+                  <p className="candidate-detail-hidden-state" data-testid="candidate-task-entry">Entry: {actionContext.entryMode}</p>
+                  <p className="candidate-detail-hidden-state" data-testid="candidate-task-last-action">Last action: {record.lastAction}</p>
+                  <p className="candidate-detail-hidden-state" data-testid="candidate-task-capability">Capability: {actionContext.capabilityKey}</p>
+                </div>
+              </aside>
+            )}
 
         <main className="candidate-product-card candidate-task-form-card" data-testid="candidate-task-action-body">
           <header className="candidate-task-form-header">
@@ -266,6 +299,7 @@ export function CandidateTaskRoutePage() {
 
           {actionContext.kind === 'reject' ? (
             <>
+              <button className="candidate-task-reject-close" type="button" onClick={() => handleClose('cancel')} aria-label="Close reject candidate">×</button>
               <ol className="candidate-task-reject-steps" aria-label="Reject candidate steps">
                 <li className="is-active"><span>1</span> Add message</li>
                 <li><span>2</span> Leave internal reason for rejection</li>

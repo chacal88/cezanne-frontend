@@ -252,82 +252,82 @@ Gap impact:
 - V2-GAP-033 is fixed-current-capture-only for database/detail denied, stale/stale-context, unavailable, and mobile-width ready captures. It remains parity-blocked because same-run authenticated legacy/mobile comparison, product-approved mobile scope, provider-blocked, and broader terminal/read-only coverage are still missing.
 - No V2 gap is marked `Resolved` or `Accepted`; V2 remains not Figma-ready.
 
-## Current V2 gap audit after this pass
+## Current V2 gap audit after the 2026-04-23 parity passes
 
 | ID | Current audit marking |
 |---|---|
-| V2-GAP-001 | Still blocked; shell/sidebar parity is outside this V2-only pass and requires a product-approved shell decision or separate V0/shell work. |
-| V2-GAP-002 | Still blocked; database copy is closer but still needs side-by-side signoff. |
+| V2-GAP-001 | Improved to polish-residual; the candidate-route shell/sidebar is much closer, but exact shell width/item geometry still keeps the database ready frame from final parity signoff. |
+| V2-GAP-002 | Improved to polish-residual; database subtitle/header rhythm is now close and no longer a red-zone blocker by itself, but still needs final side-by-side signoff. |
 | V2-GAP-003 | Still blocked; topbar notification/account parity is outside this V2-only pass. |
-| V2-GAP-004 | Improved; still blocked on exact Add new menu glyphs, width, and offset. |
-| V2-GAP-005 | Improved; still blocked on saved filter title/row/kebab geometry. |
-| V2-GAP-006 | Improved; still blocked on saved list spacing, casing, and comparable data signoff. |
-| V2-GAP-007 | Improved; still blocked; Add column state is now captured in the parity-pass recapture, but exact side-by-side option/checkbox review remains required. |
-| V2-GAP-008 | Improved; still blocked on selected bulk toolbar copy, width, and menu geometry. |
-| V2-GAP-009 | Capture-path fixed; still blocked for visual parity review against legacy no-match/reset. |
-| V2-GAP-010 | Improved; still blocked on exact row/cell/header density and glyph parity. |
-| V2-GAP-011 | Partially improved by API-seed-style capture data; still blocked pending same-run legacy/current data parity. |
+| V2-GAP-004 | Improved to polish-residual; Add new is now in-family with legacy, but exact glyph/offset/width polish remains. |
+| V2-GAP-005 | Improved to polish-residual; saved filter layout is much closer, but exact title/row/kebab geometry still differs. |
+| V2-GAP-006 | Improved to polish-residual; saved list spacing/casing/data setup is much closer, but still not final-parity clean. |
+| V2-GAP-007 | Improved to polish-residual; Add column is now captured and closer, but exact option/checkbox/menu review remains required. |
+| V2-GAP-008 | Improved to polish-residual; selected bulk is now materially closer, but copy/width/menu geometry still differ. |
+| V2-GAP-009 | Fixed-current-capture-only and out of red zone for implementation; no-match/reset is stable in current-app evidence, but still needs final visual parity signoff. |
+| V2-GAP-010 | Improved to polish-residual; row/cell/header density is much closer and no longer a structural blocker. |
+| V2-GAP-011 | Improved to polish-residual; same-run data parity is much better after API-seed recapture, but final signoff still depends on exact matched review. |
 | V2-GAP-012 | Improved; still blocked on final column/status-stage decision and side-by-side table parity. |
 | V2-GAP-013 | Still blocked; legacy first-row open action capture remains incomplete. |
-| V2-GAP-014 | Improved; still blocked pending authenticated same-run legacy job-context recapture. |
-| V2-GAP-015 | Partially improved by Finn/Diego ApiSeed-style data; still blocked for full same-run data parity. |
-| V2-GAP-016 | Improved; still blocked on exact side-card dimensions, wrapping, and field hierarchy. |
-| V2-GAP-017 | Improved; still blocked on exact native selector placement/options evidence. |
-| V2-GAP-018 | Improved; still blocked on timeline dot/line spacing and selected-state parity. |
-| V2-GAP-019 | Improved; still blocked on exact sequence count/context behavior. |
-| V2-GAP-020 | Improved; still blocked pending final legacy grouping/count signoff. |
-| V2-GAP-021 | Improved; still blocked on CV preview proportions and exact toolbar behavior. |
+| V2-GAP-014 | Improved to polish-residual; detail-ready is no longer a red-zone structural miss, but final top-level parity still needs signoff. |
+| V2-GAP-015 | Improved to polish-residual; Finn/Diego/API-seed data now supports a much fairer comparison. |
+| V2-GAP-016 | Improved to polish-residual; side-card dimensions/wrapping are much closer. |
+| V2-GAP-017 | Improved to polish-residual; selector placement is close enough that the residual is now finishing work, not redesign work. |
+| V2-GAP-018 | Improved to polish-residual; timeline spacing is much closer and no longer a severe mismatch. |
+| V2-GAP-019 | Improved to polish-residual; sequence/context behavior remains for signoff but is no longer a primary blocker. |
+| V2-GAP-020 | Improved to polish-residual; tab grouping/count/composition is closer, with final legacy grouping review still needed. |
+| V2-GAP-021 | Improved to polish-residual; CV preview/toolbar proportion is much closer, with only final polish/signoff remaining. |
 | V2-GAP-022 | Still blocked; combined Forms & docs parity needs side-by-side content/state review. |
 | V2-GAP-023 | Still blocked; comments/email history and composer behavior need side-by-side parity. |
-| V2-GAP-024 | Improved; still blocked on exact schedule wizard copy, dot treatment, card internals, and footer behavior. |
-| V2-GAP-025 | Improved; still blocked on exact reject editor controls, chip wrapping, and reject-with/without-message behavior. |
-| V2-GAP-026 | Improved; still blocked on exact email toolbar, delete/back controls, chip styling, and send/draft behavior. |
-| V2-GAP-027 | Improved; still blocked on send-to-hiring-manager candidate chip/header/footer and backend-safe field parity. |
-| V2-GAP-028 | Improved; still blocked on move-job search/list behavior and exact modal footer. |
-| V2-GAP-029 | Improved by upload success capture; still blocked on upload modal/file-control/error-state parity. |
-| V2-GAP-030 | Improved; still blocked on score-now form contents and footer/action parity. |
+| V2-GAP-024 | Improved to polish-residual; schedule modal is now clearly in-family with legacy, but exact wizard polish still remains. |
+| V2-GAP-025 | Improved to polish-residual; reject modal is much closer, with editor/chip/footer details still open. |
+| V2-GAP-026 | Improved to polish-residual; email composer is much closer, but toolbar/delete/back/draft/send polish remains. |
+| V2-GAP-027 | Improved to polish-residual; send-to-hiring-manager now exists in the right family, with header/footer polish remaining. |
+| V2-GAP-028 | Improved to polish-residual; move-job remains open on search/list/footer details rather than structural absence. |
+| V2-GAP-029 | Improved to polish-residual; upload success coverage exists, but modal/file-control/error-state parity still remains. |
+| V2-GAP-030 | Improved to polish-residual; score-now remains open on form-content/footer polish rather than missing entry surface. |
 | V2-GAP-031 | Partially improved; still blocked pending same-run authenticated legacy/current data coverage. |
 | V2-GAP-032 | Improved by safe visible action-state hooks for review-request, move, hire, and unhire; still blocked for full non-destructive boundaries across all destructive actions. |
 | V2-GAP-033 | Fixed-current-capture-only; database/detail denied, stale/stale-context, unavailable, and mobile-width ready frames are captured in current-app evidence, but same-run legacy/mobile parity and broader provider-blocked/terminal coverage remain open. |
 
 ## Final V2 gap matrix — current pass
 
-Status values are intentionally limited to `open`, `improved`, `fixed-current-capture-only`, `parity-resolved`, or `product-exception-needed`.
+Status values are intentionally limited to `open`, `polish-residual`, `fixed-current-capture-only`, `parity-resolved`, or `product-exception-needed`.
 
 | ID | Status | Blocker class |
 |---|---|---|
-| V2-GAP-001 | open | Visual parity |
-| V2-GAP-002 | improved | Visual parity |
+| V2-GAP-001 | polish-residual | Visual parity |
+| V2-GAP-002 | polish-residual | Visual parity |
 | V2-GAP-003 | open | Visual parity |
-| V2-GAP-004 | improved | Visual parity |
-| V2-GAP-005 | improved | Visual parity |
-| V2-GAP-006 | improved | Visual parity |
-| V2-GAP-007 | improved | Visual parity |
-| V2-GAP-008 | improved | Visual parity |
+| V2-GAP-004 | polish-residual | Visual parity |
+| V2-GAP-005 | polish-residual | Visual parity |
+| V2-GAP-006 | polish-residual | Visual parity |
+| V2-GAP-007 | polish-residual | Visual parity |
+| V2-GAP-008 | polish-residual | Visual parity |
 | V2-GAP-009 | fixed-current-capture-only | Visual parity |
-| V2-GAP-010 | improved | Visual parity |
-| V2-GAP-011 | improved | Visual parity + backend/API |
+| V2-GAP-010 | polish-residual | Visual parity |
+| V2-GAP-011 | polish-residual | Visual parity + backend/API |
 | V2-GAP-012 | product-exception-needed | Visual parity + backend/API |
 | V2-GAP-013 | open | Visual parity |
-| V2-GAP-014 | improved | Visual parity |
-| V2-GAP-015 | improved | Visual parity + backend/API |
-| V2-GAP-016 | improved | Visual parity + backend/API |
-| V2-GAP-017 | improved | Visual parity + backend/API |
-| V2-GAP-018 | improved | Visual parity + backend/API |
-| V2-GAP-019 | improved | Visual parity + backend/API |
-| V2-GAP-020 | improved | Visual parity + backend/API |
-| V2-GAP-021 | improved | Visual parity + backend/API |
-| V2-GAP-022 | improved | Visual parity + backend/API |
-| V2-GAP-023 | improved | Visual parity + backend/API |
-| V2-GAP-024 | improved | Visual parity + backend/API |
-| V2-GAP-025 | improved | Visual parity + backend/API |
-| V2-GAP-026 | improved | Visual parity + backend/API |
-| V2-GAP-027 | improved | Visual parity + backend/API |
-| V2-GAP-028 | improved | Visual parity + backend/API |
-| V2-GAP-029 | improved | Visual parity + backend/API |
-| V2-GAP-030 | improved | Visual parity + backend/API |
-| V2-GAP-031 | improved | Visual parity + backend/API |
-| V2-GAP-032 | improved | Visual parity + backend/API |
+| V2-GAP-014 | polish-residual | Visual parity |
+| V2-GAP-015 | polish-residual | Visual parity + backend/API |
+| V2-GAP-016 | polish-residual | Visual parity + backend/API |
+| V2-GAP-017 | polish-residual | Visual parity + backend/API |
+| V2-GAP-018 | polish-residual | Visual parity + backend/API |
+| V2-GAP-019 | polish-residual | Visual parity + backend/API |
+| V2-GAP-020 | polish-residual | Visual parity + backend/API |
+| V2-GAP-021 | polish-residual | Visual parity + backend/API |
+| V2-GAP-022 | open | Visual parity + backend/API |
+| V2-GAP-023 | open | Visual parity + backend/API |
+| V2-GAP-024 | polish-residual | Visual parity + backend/API |
+| V2-GAP-025 | polish-residual | Visual parity + backend/API |
+| V2-GAP-026 | polish-residual | Visual parity + backend/API |
+| V2-GAP-027 | polish-residual | Visual parity + backend/API |
+| V2-GAP-028 | polish-residual | Visual parity + backend/API |
+| V2-GAP-029 | polish-residual | Visual parity + backend/API |
+| V2-GAP-030 | polish-residual | Visual parity + backend/API |
+| V2-GAP-031 | open | Visual parity + backend/API |
+| V2-GAP-032 | polish-residual | Visual parity + backend/API |
 | V2-GAP-033 | fixed-current-capture-only | Visual parity + backend/API |
 
-No gap is `parity-resolved` in this pass. V2 remains not Figma-ready.
+No gap is `parity-resolved` in this pass. V2 remains not Figma-ready, but the majority of previously red-zone gaps have now moved to `polish-residual`, leaving a smaller set of still-`open` or evidence-dependent blockers for final promotion.

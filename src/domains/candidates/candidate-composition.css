@@ -164,7 +164,7 @@
 .candidate-db-search-row {
   display: flex;
   gap: 10px;
-  margin: 0 0 11px 10px;
+  margin: 0 0 12px 10px;
 }
 
 .candidate-db-search-icon {
@@ -198,22 +198,26 @@
 }
 
 .candidate-database-page {
-  padding: 46px 40px 32px 36px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  padding: 42px 24px 28px 18px;
 }
 
 .candidate-database-page .candidate-product-hero {
-  margin-bottom: 41px;
+  margin-bottom: 20px;
 }
 
 .candidate-database-page .candidate-product-layout {
-  grid-template-columns: 260px minmax(0, 1fr);
-  margin-left: 8px;
+  grid-template-columns: 176px minmax(0, 1fr);
+  margin-left: 0;
+  max-width: 1288px;
 }
 
 .candidate-db-sidebar {
-  min-height: 620px;
+  min-height: 710px;
   border-right: 0;
-  padding: 34px 24px 20px;
+  padding: 16px 10px 12px;
 }
 
 .candidate-db-add-button {
@@ -242,14 +246,14 @@
 }
 
 .candidate-db-main {
-  min-height: 620px;
-  padding: 20px 20px 18px;
+  min-height: 710px;
+  padding: 10px 14px 18px;
 }
 
 .candidate-db-toolbar {
   justify-content: space-between;
   min-height: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
 }
 
 .candidate-db-bulk-button {
@@ -316,8 +320,9 @@
 }
 
 .candidate-db-table-wrap {
-  margin-right: -20px;
-  margin-left: -20px;
+  margin-right: -18px;
+  margin-left: -18px;
+  min-height: 610px;
   border: 1px solid #e0e2e6;
   overflow: hidden;
 }
@@ -330,20 +335,21 @@
 
 .candidate-product-table th,
 .candidate-product-table td {
-  padding: 0 16px;
-  height: 70px;
+  padding: 0 12px;
+  height: 52px;
   border-bottom: 1px solid #e0e2e6;
   border-right: 1px solid #e0e2e6;
   text-align: left;
   vertical-align: middle;
+  font-size: 13px;
 }
 
 .candidate-product-table th {
   background: #f7f8fa;
   color: #354052;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  height: 60px;
+  height: 44px;
 }
 
 .candidate-db-column-heading {
@@ -424,7 +430,7 @@
 
 /* Candidate detail: closer to legacy profile composition. */
 .candidate-detail-breadcrumb {
-  margin: 2px 0 16px 16px;
+  margin: 2px 0 14px 0;
   color: #8d939c;
   font-size: 13px;
 }
@@ -443,12 +449,12 @@
 
 .candidate-detail-layout {
   display: grid;
-  grid-template-columns: 310px minmax(0, 1fr);
-  gap: 16px;
+  grid-template-columns: 198px minmax(0, 1fr);
+  gap: 10px;
 }
 
 .candidate-profile-card {
-  min-height: 580px;
+  min-height: 480px;
   border-radius: 5px;
   padding: 0;
   overflow: hidden;
@@ -468,13 +474,13 @@
 .candidate-profile-name-row h2 {
   margin: 0;
   color: #354052;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1;
 }
 
 .candidate-profile-actions {
-  padding: 18px 20px;
+  padding: 16px 14px 12px;
   border-bottom: 1px solid #eceff3;
 }
 
@@ -485,17 +491,18 @@
 }
 
 .candidate-profile-meta {
-  padding: 18px 20px;
+  padding: 12px 14px;
 }
 
 .candidate-profile-meta p {
   display: flex;
   gap: 10px;
   align-items: center;
-  min-height: 38px;
+  min-height: 32px;
   margin: 0;
   border-bottom: 1px solid #eceff3;
   color: #777;
+  font-size: 12px;
 }
 
 .candidate-detail-main {
@@ -513,7 +520,7 @@
 
 .candidate-flow-step {
   position: relative;
-  min-width: 95px;
+  min-width: 78px;
   text-align: center;
 }
 
@@ -556,22 +563,23 @@
 }
 
 .candidate-detail-tab {
-  min-width: 112px;
-  padding: 16px 18px;
+  min-width: 92px;
+  padding: 13px 14px;
   border-right: 1px solid #e0e2e6;
   color: #555;
   text-align: center;
+  font-size: 13px;
 }
 
 .candidate-detail-tab.is-active {
   border-top: 3px solid #009688;
-  padding-top: 13px;
+  padding-top: 10px;
   color: #354052;
   font-weight: 600;
 }
 
 .candidate-cv-viewer {
-  min-height: 390px;
+  min-height: 356px;
   border: 1px solid #e0e2e6;
   background: #2d2f31;
   color: #fff;
@@ -705,7 +713,7 @@
   display: grid;
   grid-template-columns: 24px minmax(0, 1fr) 24px;
   align-items: center;
-  min-height: 60px;
+  min-height: 54px;
   border-top: 1px solid #e5e7eb;
   color: #333;
 }
@@ -723,9 +731,8 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  text-transform: lowercase;
 }
 
 .candidate-db-icon {
@@ -772,14 +779,14 @@
 }
 
 .candidate-db-lists-header {
-  margin-top: 142px;
+  margin-top: 8px;
 }
 
 .candidate-db-saved-list-items {
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  padding: 8px 5px 0 5px;
+  gap: 7px;
+  padding: 6px 4px 0 4px;
 }
 
 .candidate-db-saved-filter-items {
@@ -795,7 +802,7 @@
   color: #444;
   padding: 0;
   font: inherit;
-  font-size: 14px;
+  font-size: 13px;
   text-align: left;
   cursor: pointer;
 }
@@ -809,8 +816,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 28px;
-  height: 24px;
+  min-width: 24px;
+  height: 21px;
   border: 1px solid #e1e5eb;
   border-radius: 999px;
   background: #fafbfc;
@@ -1308,14 +1315,17 @@
 }
 
 .candidate-task-modal--schedule {
-  width: min(1198px, calc(100vw - 96px));
-  max-height: 620px;
+  width: min(1040px, calc(100vw - 88px));
+  min-height: 404px;
+  max-height: none;
+  overflow: hidden;
   position: relative;
 }
 
 .candidate-task-modal--reject {
   width: min(600px, calc(100vw - 48px));
   max-height: calc(100vh - 62px);
+  position: relative;
 }
 
 .candidate-task-modal--schedule .candidate-task-modal-header {
@@ -1345,7 +1355,7 @@
 
 .candidate-task-modal--schedule .candidate-task-modal-header {
   min-height: 0;
-  height: 70px;
+  height: 50px;
   padding: 0 28px;
 }
 
@@ -1393,6 +1403,26 @@
   color: #354052;
 }
 
+.candidate-task-reject-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: #555;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.candidate-task-reject-close:hover,
+.candidate-task-reject-close:focus {
+  color: #222;
+}
+
 .candidate-task-stepper {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1404,9 +1434,9 @@
 
 .candidate-task-modal--schedule .candidate-task-stepper {
   position: absolute;
-  top: 45px;
+  top: 25px;
   left: 50%;
-  width: 520px;
+  width: 182px;
   transform: translateX(-50%);
   z-index: 2;
   border: 0;
@@ -1422,12 +1452,25 @@
 .candidate-task-modal--schedule .candidate-task-stepper::before {
   content: "Step 1 of 4";
   position: absolute;
-  top: -30px;
+  top: -18px;
   left: 0;
   right: 0;
   color: #fff;
   text-align: center;
+  font-size: 12px;
   font-weight: 700;
+}
+
+.candidate-task-modal--schedule .candidate-task-stepper li::after {
+  top: 8px;
+  left: 21px;
+  right: 9px;
+}
+
+.candidate-task-modal--schedule .candidate-task-stepper span {
+  width: 16px;
+  height: 16px;
+  font-size: 11px;
 }
 
 .candidate-task-stepper li {
@@ -1487,7 +1530,7 @@
 }
 
 .candidate-task-modal--schedule .candidate-task-legacy-layout {
-  grid-template-columns: 780px minmax(0, 1fr);
+  grid-template-columns: 58% minmax(0, 1fr);
 }
 
 .candidate-task-candidate-card {
@@ -1498,25 +1541,94 @@
 }
 
 .candidate-task-modal--schedule .candidate-task-candidate-card {
-  min-height: 407px;
+  min-height: 388px;
+  display: block;
+}
+
+.candidate-task-schedule-overview {
+  padding: 0;
+}
+
+.candidate-task-schedule-title {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 28px 22px 10px;
+  color: #354052;
+}
+
+.candidate-task-schedule-title h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.candidate-task-schedule-title span {
+  color: #8d939c;
+  font-size: 13px;
+}
+
+.candidate-task-schedule-columns {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-content: start;
+  grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+  gap: 14px;
+  padding: 0 22px 18px;
 }
 
-.candidate-task-modal--schedule .candidate-task-candidate-card .candidate-profile-header {
-  border-bottom: 0;
+.candidate-task-schedule-column h3 {
+  margin: 0 0 12px;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.candidate-task-modal--schedule .candidate-task-candidate-card .candidate-profile-meta {
-  grid-column: 1;
+.candidate-task-schedule-candidate {
+  min-height: 100px;
+  border: 1px solid #eceff3;
+  border-radius: 3px;
+  padding: 14px 14px 10px;
 }
 
-.candidate-task-modal--schedule .candidate-task-job-summary {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  margin-top: 0;
-  padding-top: 28px;
+.candidate-task-schedule-candidate strong {
+  display: block;
+  margin-bottom: 12px;
+  color: #354052;
+  font-size: 14px;
+}
+
+.candidate-task-schedule-score {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  color: #9aa0a8;
+}
+
+.candidate-task-schedule-score span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+  height: 23px;
+  border: 1px solid #d9dde3;
+  border-radius: 50%;
+  color: #009688;
+  font-size: 12px;
+}
+
+.candidate-task-schedule-score small {
+  font-size: 10px;
+}
+
+.candidate-task-schedule-candidate p,
+.candidate-task-schedule-job p {
+  margin: 0 0 9px;
+  color: #354052;
+  font-size: 13px;
+}
+
+.candidate-task-schedule-job {
+  padding-top: 0;
 }
 
 .candidate-task-form-card {
@@ -1532,7 +1644,7 @@
 }
 
 .candidate-task-modal--schedule .candidate-task-form-header {
-  padding: 36px 20px 12px;
+  padding: 26px 20px 10px;
   border-bottom: 0;
 }
 
@@ -1543,8 +1655,8 @@
 }
 
 .candidate-task-modal--schedule .candidate-task-form-header h2 {
-  max-width: 360px;
-  font-size: 28px;
+  max-width: 320px;
+  font-size: 22px;
   line-height: 1.08;
 }
 
@@ -1799,8 +1911,8 @@
 }
 
 .candidate-task-modal--schedule .candidate-task-footer {
-  margin-top: 4px;
-  padding: 0 20px 19px;
+  margin-top: 8px;
+  padding: 0 18px 18px;
   border-top: 0;
 }
 
@@ -1851,9 +1963,16 @@
   color: #555;
 }
 
+.candidate-detail-page {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1450px;
+  padding-top: 24px;
+}
+
 /* Candidate detail visual gap pass: legacy job-context hub composition. */
 .candidate-detail-titlebar {
-  margin: 0 14px 10px 26px;
+  margin: 0 12px 10px 8px;
 }
 
 .candidate-detail-titlebar h1 {
@@ -1865,7 +1984,7 @@
 }
 
 .candidate-detail-breadcrumb {
-  margin: 8px 0 18px 28px;
+  margin: 2px 0 8px 6px;
   color: #8b919b;
   font-size: 12px;
 }
@@ -1880,9 +1999,10 @@
 }
 
 .candidate-detail-layout {
-  grid-template-columns: 282px minmax(0, 1fr);
-  gap: 15px;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 14px;
   align-items: start;
+  max-width: 1296px;
 }
 
 .candidate-detail-sidebar {
@@ -1890,8 +2010,8 @@
 }
 
 .candidate-profile-identity {
-  min-height: 87px;
-  padding-top: 28px;
+  min-height: 62px;
+  padding-top: 0;
 }
 
 .candidate-profile-name-row {
@@ -1900,7 +2020,7 @@
 
 .candidate-profile-name-row h2 {
   color: #354052;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: 0.01em;
 }
@@ -1936,13 +2056,13 @@
 }
 
 .candidate-profile-card {
-  min-height: 445px;
+  min-height: 356px;
   border-radius: 6px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.12);
 }
 
 .candidate-profile-actions {
-  padding: 26px 20px 0;
+  padding: 18px 14px 0;
   border-bottom: 0;
 }
 
@@ -1952,7 +2072,7 @@
   justify-content: center;
   width: 100%;
   min-height: 26px;
-  margin-bottom: 11px;
+  margin-bottom: 8px;
   border: 0;
   border-radius: 3px;
   background: #cdebe7;
@@ -1971,8 +2091,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 69px;
-  margin: 11px 0 0;
+  min-height: 52px;
+  margin: 8px 0 0;
   border-bottom: 1px solid #eceff3;
   color: #9aa0a8;
   font-size: 13px;
@@ -1982,8 +2102,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   margin-right: 9px;
   border: 2px solid #e2e4e8;
   border-radius: 50%;
@@ -1991,14 +2111,21 @@
 }
 
 .candidate-profile-meta {
-  padding: 0 20px 20px;
+  padding: 0 14px 14px;
 }
 
 .candidate-profile-meta p {
-  min-height: 44px;
+  min-height: 34px;
   border-bottom: 1px solid #eceff3;
   color: #858b93;
-  font-size: 13px;
+  font-size: 12px;
+}
+
+.candidate-profile-meta p span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .candidate-profile-meta p:last-child {
@@ -2022,20 +2149,20 @@
 }
 
 .candidate-notes-card {
-  min-height: 68px;
-  margin-top: 22px;
+  min-height: 56px;
+  margin-top: 14px;
   border-radius: 5px;
-  padding: 0 20px;
+  padding: 0 16px;
 }
 
 .candidate-notes-card h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 68px;
+  min-height: 56px;
   margin: 0;
   color: #777;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
 }
 
@@ -2051,7 +2178,7 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
-  margin-top: 22px;
+  margin-top: 14px;
   font-size: 13px;
 }
 
@@ -2097,14 +2224,15 @@
 }
 
 .candidate-flow-line {
+  width: max-content;
   justify-content: flex-end;
-  margin: 9px 20px 47px 0;
+  margin: 0 10px 22px auto;
   color: #999;
   font-size: 13px;
 }
 
 .candidate-flow-step {
-  min-width: 95px;
+  min-width: 72px;
 }
 
 .candidate-flow-step::after {
@@ -2131,11 +2259,11 @@
 }
 
 .candidate-detail-tab {
-  min-width: 92px;
-  min-height: 54px;
-  padding: 0 15px;
+  min-width: 84px;
+  min-height: 40px;
+  padding: 0 12px;
   color: #555;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .candidate-detail-tab.is-active {
@@ -2154,7 +2282,7 @@
 
 .candidate-cv-tab-shell {
   min-height: 574px;
-  padding: 18px 10px 0;
+  padding: 12px 10px 0;
   background: #fff;
 }
 

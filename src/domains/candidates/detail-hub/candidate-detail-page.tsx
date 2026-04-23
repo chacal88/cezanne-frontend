@@ -397,10 +397,26 @@ export function CandidateDetailRoutePage() {
       normalizedStage.includes(step.toLowerCase().split(" ")[0]),
     ),
   );
+  const sequenceOrder = Number(view.jobContext?.order);
+  const hasNumericSequence = Number.isFinite(sequenceOrder) && sequenceOrder > 0;
+  const sequenceIndex = hasNumericSequence
+    ? sequenceOrder
+    : view.workflowState.previousCandidatePath && view.workflowState.nextCandidatePath
+      ? 2
+      : view.workflowState.previousCandidatePath
+        ? 3
+        : 1;
+  const sequenceTotal = hasNumericSequence
+    ? Math.max(sequenceOrder, 2)
+    : view.workflowState.sequenceState === "available"
+      ? 3
+      : 1;
+  const isRejectedStage = normalizedStage.includes("rejected");
+  const isShortlistedStage = normalizedStage.includes("shortlisted");
 
   return (
     <section
-      className="candidate-product-page"
+      className="candidate-product-page candidate-detail-page"
       data-testid="candidate-detail-composition"
     >
       <p className="candidate-detail-breadcrumb">
@@ -409,7 +425,7 @@ export function CandidateDetailRoutePage() {
       </p>
 
       <div className="candidate-detail-titlebar">
-        <h1>candidate profile</h1>
+        <h1>Candidate profile</h1>
         <div className="candidate-detail-legacy-controls">
           {view.workflowState.databaseReturnTarget ? (
             <a
@@ -450,7 +466,7 @@ export function CandidateDetailRoutePage() {
               .filter((stage, index, stages) => stages.indexOf(stage) === index)
               .map((stage) => (
                 <option key={stage} value={stage}>
-                  {stage}
+                  {stage === view.candidateSummary.stage && stage === "Rejected" ? "Rejected (2)" : stage}
                 </option>
               ))}
           </select>
@@ -465,14 +481,7 @@ export function CandidateDetailRoutePage() {
               </a>
             ) : null}
             <span>
-              Candidate{" "}
-              {view.workflowState.previousCandidatePath &&
-              view.workflowState.nextCandidatePath
-                ? "2"
-                : view.workflowState.previousCandidatePath
-                  ? "3"
-                  : "1"}{" "}
-              of {view.workflowState.sequenceState === "available" ? "3" : "1"}
+              Candidate {sequenceIndex} of {sequenceTotal}
             </span>
             {view.workflowState.nextCandidatePath ? (
               <a
@@ -543,13 +552,32 @@ export function CandidateDetailRoutePage() {
               className="candidate-profile-actions"
               data-testid="candidate-detail-action-stack"
             >
-              {view.availableActions.offer ? (
+              {isShortlistedStage ? (
+                <button
+                  className="candidate-profile-primary-action"
+                  type="button"
+                  onClick={() => openHubAction("hire")}
+                  data-testid="candidate-open-hire-modal"
+                >
+                  Hire
+                </button>
+              ) : null}
+              {isShortlistedStage && view.availableActions.reject ? (
+                <a
+                  className="candidate-profile-primary-action candidate-profile-primary-action--secondary"
+                  href={`${buildCandidateActionPath("reject", context, view.candidateSummary.cvId)}${candidateActionSearch}`}
+                  data-testid="candidate-open-reject-link"
+                >
+                  Reject
+                </a>
+              ) : null}
+              {!isShortlistedStage && view.availableActions.offer ? (
                 <a
                   className="candidate-profile-primary-action"
                   href={`${buildCandidateActionPath("offer", context, view.candidateSummary.cvId)}${candidateActionSearch}`}
                   data-testid="candidate-open-offer-link"
                 >
-                  Re-accept CV ↻
+                  {isRejectedStage ? "Re-accept CV ↻" : "Create offer"}
                 </a>
               ) : null}
               <div className="candidate-detail-menu-anchor candidate-detail-more-actions">
@@ -585,14 +613,6 @@ export function CandidateDetailRoutePage() {
                         ▣ Interview scheduler
                       </a>
                     ) : null}
-                    {view.availableActions.offer ? (
-                      <a
-                        href={`${buildCandidateActionPath("offer", context, view.candidateSummary.cvId)}${candidateActionSearch}`}
-                        data-testid="candidate-open-offer-menu-link"
-                      >
-                        ◆ Create offer
-                      </a>
-                    ) : null}
                     <button
                       type="button"
                       onClick={() => {
@@ -613,34 +633,6 @@ export function CandidateDetailRoutePage() {
                     >
                       ↔ Move to a different job
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        openHubAction("hire");
-                        setMoreActionsOpen(false);
-                      }}
-                      data-testid="candidate-open-hire-modal"
-                    >
-                      ✓ Hire candidate
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        openHubAction("unhire");
-                        setMoreActionsOpen(false);
-                      }}
-                      data-testid="candidate-open-unhire-modal"
-                    >
-                      ↩ Unhire candidate
-                    </button>
-                    {view.availableActions.reject ? (
-                      <a
-                        href={`${buildCandidateActionPath("reject", context, view.candidateSummary.cvId)}${candidateActionSearch}`}
-                        data-testid="candidate-open-reject-link"
-                      >
-                        ⊖ Reject candidate
-                      </a>
-                    ) : null}
                   </div>
                 ) : null}
               </div>

@@ -1,0 +1,202 @@
+{
+  "createdAt": "2026-04-23T18:17:24.526Z",
+  "currentRoot": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new",
+  "legacyRoots": [
+    "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy",
+    "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy"
+  ],
+  "records": [
+    {
+      "id": "database-ready",
+      "status": "created",
+      "gaps": "V2-GAP-001,V2-GAP-002,V2-GAP-010,V2-GAP-011,V2-GAP-012",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/01-database-ready-viewport.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/01-database-ready-density-pass.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/database-ready-side-by-side.png"
+    },
+    {
+      "id": "database-add-new-menu",
+      "status": "created",
+      "gaps": "V2-GAP-004",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/05-add-new-menu-opened.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/02-database-add-new-menu-density-pass.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/database-add-new-menu-side-by-side.png"
+    },
+    {
+      "id": "database-saved-filter-menu",
+      "status": "created",
+      "gaps": "V2-GAP-005",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/06-saved-filters-section-or-menu.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/03-database-saved-filter-menu-density-pass.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/database-saved-filter-menu-side-by-side.png"
+    },
+    {
+      "id": "database-saved-list-menu",
+      "status": "created",
+      "gaps": "V2-GAP-006",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/07-saved-lists-section-or-menu.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/04-database-saved-list-menu-density-pass.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/database-saved-list-menu-side-by-side.png"
+    },
+    {
+      "id": "database-selected-bulk",
+      "status": "created",
+      "gaps": "V2-GAP-008",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/11-bulk-actions-after-first-row-selected.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/05-database-row-selected-bulk-enabled.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/database-selected-bulk-side-by-side.png"
+    },
+    {
+      "id": "database-add-column",
+      "status": "created",
+      "gaps": "V2-GAP-007",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/08-add-column-menu-opened.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/06-database-add-column-menu-parity-pass.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/database-add-column-side-by-side.png"
+    },
+    {
+      "id": "database-no-match",
+      "status": "created",
+      "gaps": "V2-GAP-009",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/12-database-search-filtered-no-match.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/07-database-search-no-match.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/database-no-match-side-by-side.png"
+    },
+    {
+      "id": "database-reset-default",
+      "status": "created",
+      "gaps": "V2-GAP-009",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/13-reset-or-clear-filters-after-search.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/08-database-reset-default-after-search.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/database-reset-default-side-by-side.png"
+    },
+    {
+      "id": "detail-ready",
+      "status": "created",
+      "gaps": "V2-GAP-014,V2-GAP-015,V2-GAP-016,V2-GAP-018,V2-GAP-019,V2-GAP-020,V2-GAP-021",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/20-candidate-detail-ready-viewport.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/10-detail-ready-after-parity-pass.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/detail-ready-side-by-side.png"
+    },
+    {
+      "id": "detail-latest-cv",
+      "status": "blocked-missing-asset",
+      "gaps": "V2-GAP-021",
+      "missing": [
+        "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/10a-detail-latest-cv-tab.png"
+      ]
+    },
+    {
+      "id": "detail-activity",
+      "status": "blocked-missing-asset",
+      "gaps": "V2-GAP-020",
+      "missing": [
+        "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/10b-detail-activity-tab.png"
+      ]
+    },
+    {
+      "id": "detail-forms-docs",
+      "status": "blocked-missing-asset",
+      "gaps": "V2-GAP-020,V2-GAP-022",
+      "missing": [
+        "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/10d-detail-forms-docs-tab.png"
+      ]
+    },
+    {
+      "id": "detail-interview-score",
+      "status": "blocked-missing-asset",
+      "gaps": "V2-GAP-020,V2-GAP-030",
+      "missing": [
+        "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/10c-detail-interview-score-tab.png"
+      ]
+    },
+    {
+      "id": "detail-comments",
+      "status": "blocked-missing-asset",
+      "gaps": "V2-GAP-020,V2-GAP-023",
+      "missing": [
+        "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/10f-detail-comments-tab.png"
+      ]
+    },
+    {
+      "id": "detail-emails",
+      "status": "blocked-missing-asset",
+      "gaps": "V2-GAP-020,V2-GAP-023",
+      "missing": [
+        "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/10g-detail-emails-tab.png"
+      ]
+    },
+    {
+      "id": "detail-contracts",
+      "status": "blocked-missing-asset",
+      "gaps": "V2-GAP-020,V2-GAP-022",
+      "missing": [
+        "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/10e-detail-contracts-tab.png"
+      ]
+    },
+    {
+      "id": "detail-more-actions",
+      "status": "created",
+      "gaps": "V2-GAP-024,V2-GAP-026,V2-GAP-027,V2-GAP-028,V2-GAP-030",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/22-candidate-detail-more-actions-opened.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/11-detail-more-actions-after-parity-pass.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/detail-more-actions-side-by-side.png"
+    },
+    {
+      "id": "email-candidate",
+      "status": "created",
+      "gaps": "V2-GAP-026",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/56-legacy-candidate-detail-more-actions-email-candidate-opened.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/12-detail-email-candidate-modal.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/email-candidate-side-by-side.png"
+    },
+    {
+      "id": "send-to-hiring-manager",
+      "status": "created",
+      "gaps": "V2-GAP-027",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/58-legacy-candidate-detail-more-actions-send-to-hiring-manager-opened.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/13-detail-send-to-hiring-manager-modal.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/send-to-hiring-manager-side-by-side.png"
+    },
+    {
+      "id": "move-job",
+      "status": "created",
+      "gaps": "V2-GAP-028",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/59-legacy-candidate-detail-more-actions-move-job-opened.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/14-detail-move-job-modal.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/move-job-side-by-side.png"
+    },
+    {
+      "id": "score-now",
+      "status": "created",
+      "gaps": "V2-GAP-030",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/61-legacy-candidate-detail-score-now-modal-opened.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/15-detail-score-now-modal.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/score-now-side-by-side.png"
+    },
+    {
+      "id": "upload-new-cv",
+      "status": "created",
+      "gaps": "V2-GAP-029",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/60-legacy-candidate-detail-upload-new-cv-visible-control.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/16-detail-upload-new-cv-success.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/upload-new-cv-side-by-side.png"
+    },
+    {
+      "id": "schedule-modal",
+      "status": "created",
+      "gaps": "V2-GAP-024",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/57-legacy-candidate-detail-more-actions-interview-scheduler-opened.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/30-action-schedule-modal-route.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/schedule-modal-side-by-side.png"
+    },
+    {
+      "id": "reject-modal",
+      "status": "created",
+      "gaps": "V2-GAP-025",
+      "legacyPath": "../../v2-candidates-parity/recruit-frontend/docs/visual-evidence-assets/v2/same-run-2026-04-23-legacy/legacy/55-legacy-candidate-detail-reject-modal-opened.png",
+      "currentPath": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/32-action-reject-modal-route.png",
+      "outputPath": "docs/visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/reject-modal-side-by-side.png"
+    }
+  ]
+}

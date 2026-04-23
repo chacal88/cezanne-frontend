@@ -5,7 +5,7 @@
     "1440x900",
     "390x844"
   ],
-  "baseUrl": "http://127.0.0.1:5173",
+  "baseUrl": "http://127.0.0.1:5183",
   "sessionStorage": "recruit.localAuthSession",
   "records": [
     {

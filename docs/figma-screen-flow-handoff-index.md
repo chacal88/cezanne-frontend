@@ -34,7 +34,7 @@ Project-wide rule:
 |---|---|---|
 | V0 | `visual-evidence-assets/v0/v0-capture-manifest.json`, `visual-evidence-assets/v0/v0-state-hooks-manifest.json` with 90 state-hook records, focused `/forgot-password` same-run manifest `visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/capture-manifest.json`, focused login/reset/session-loss manifest `visual-evidence-assets/v0/auth-same-run-2026-04-23/capture-manifest.json`, focused `/confirm-registration` same-run manifest `visual-evidence-assets/v0/confirm-registration-same-run-2026-04-23/capture-manifest.json`, focused register same-run manifest `visual-evidence-assets/v0/register-same-run-2026-04-23/capture-manifest.json`, focused invite-token current-only manifest `visual-evidence-assets/v0/invite-token-same-run-2026-04-23/capture-manifest.json`, and focused provider callback manifest `visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/capture-manifest.json` | Covered sub-blocks may draft; `/logout` and `/forgot-password` are replacement-approved only by focused evidence records |
 | V1 | `visual-evidence-assets/v1/v1-capture-manifest.json` with 37 targets plus current/legacy screenshots | Jobs rows may draft |
-| V2 | `visual-evidence-assets/v2/v2-capture-manifest.json` and `visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/` | Excluded from Figma-ready promotion |
+| V2 | `visual-evidence-assets/v2/v2-capture-manifest.json`, `visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/`, and same-run review assets under `visual-evidence-assets/v2/same-run-2026-04-23-side-by-side/` | Excluded from final Figma-ready promotion; structural blocker reduced to polish residual |
 | V3 | `visual-evidence-assets/v3/v3-capture-manifest.json`, `v3-a-lifecycle-manifest.json`, `v3-follow-up-manifest.json`, 122 total screenshots | Public/external/token rows may draft |
 | V4 | `visual-evidence-assets/v4/v4-capture-manifest.json`, `visual-evidence-assets/v4/interactive-2026-04-22/interactive-capture-manifest.json`, 163 total records | Operations rows may draft |
 | V5 | `visual-evidence-assets/v5/v5-capture-manifest.json`, `visual-evidence-assets/v5/state-hooks-2026-04-23/v5-state-hooks-manifest.json` with 124 state-hook records | Desktop current-app SysAdmin/platform rows may draft |
@@ -69,7 +69,7 @@ Project-wide rule:
 
 ## V2 Candidate Rows
 
-V2 is intentionally excluded from Figma-ready promotion in this handoff.
+V2 is still intentionally excluded from final Figma-ready promotion in this handoff, but the latest same-run review no longer treats Candidates as a broad structural parity miss. The remaining blocker is now a polish-level residual centered on `database-ready`, plus smaller detail/action refinements that still need explicit acceptance or one more parity pass.
 
 | Route/family | Source evidence | Target Figma drafting status | Deferred unknowns | Replacement blockers |
 |---|---|---|---|---|
@@ -142,7 +142,7 @@ V5 platform dashboard capture validates platform landing/navigation only. It is 
 |---|---|---|---|---|
 | V0 | Yes, covered auth/shell/dashboard sub-blocks | Covered sub-blocks may draft | `/logout` explicit handoff and `/forgot-password` focused desktop states only | Backend auth/token/provider/live notification/inbox/dashboard contracts; shell/dashboard/account-menu parity; all non-approved routes remain unapproved |
 | V1 | Yes, Jobs screen-flow/base-frame rows | Jobs rows may draft | None approved | Backend job/task/provider/requisition schemas; legacy/current/Figma parity |
-| V2 | No | Not Figma-ready | None approved | Candidate database/detail/action legacy parity, missing state coverage, backend/provider schemas |
+| V2 | No | Not Figma-ready | None approved | Candidate database `database-ready` polish residual, smaller detail/action parity refinements, remaining open gaps (`V2-GAP-003`, `013`, `022`, `023`, `031`), and backend/provider schemas |
 | V3 | Yes, public/external/token rows | Rows may draft | None approved | Backend schemas and legacy/reference parity where a legacy state exists |
 | V4 | Yes, operations rows | Current-app operations rows may draft | None approved | Backend/provider/payment/report/team/favorites/marketplace schemas; legacy parity where legacy-backed |
 | V5 | Yes, desktop current-app SysAdmin/platform rows covered by state hooks | Covered desktop rows may draft | None approved | Backend schemas, responsive/mobile scope, platform dashboard polish, legacy parity where applicable |
@@ -155,4 +155,4 @@ V5 platform dashboard capture validates platform landing/navigation only. It is 
 - Public/token rows must stay outside authenticated shell frames.
 - Authenticated provider setup must stay separate from public integration token callbacks and operational provider-blocked task states.
 - Org billing/team/favorites must stay separate from SysAdmin platform subscriptions/users/favorite-request queues.
-- V2 remains parity-blocked and must not be used as a Figma-ready source until a later parity review explicitly resolves or accepts its blockers.
+- V2 remains blocked from final Figma-ready promotion and must not be used as a canonical Candidates source until a later parity review explicitly resolves or accepts the remaining residual gaps.

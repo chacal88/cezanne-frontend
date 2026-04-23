@@ -150,6 +150,20 @@ Parity review evidence is stored separately from canonical current/legacy captur
 
 No visual deviations are accepted in this review. The current V2 candidate implementation is useful as functional behaviour coverage, but final screen design and implementation must continue from the legacy reference until these blockers are fixed or explicitly approved by product.
 
+## 2026-04-23 parity update
+
+The same-run recapture and follow-up parity passes on 2026-04-23 materially reduced the original blocker footprint:
+
+- `database-ready` now has fuller seeded current data (`1-10 of 10`) and no longer shows the earlier short-table mismatch that exaggerated the residual;
+- `detail-ready` is closer in top spacing, shell proportion, sidebar stack, and CV area rhythm;
+- `schedule-modal` remains improved and no longer reads as a separate structural family from legacy.
+
+Decision after the latest side-by-side review:
+
+- V2 is still **not** fully `Figma-ready`;
+- the blocker is now best described as a **polish-level residual**, not the earlier structural parity miss;
+- the main remaining open item is the exact `database-ready` shell/header/search/table proportion, with smaller follow-up polish still visible in detail/action surfaces.
+
 ## Backend/API unknowns
 
 - Candidate aggregate schema, database column schema, advanced query DSL, ATS duplicate/import payloads, CV/document body schemas, offer payloads, reject reason catalogs, survey answer schemas, custom-field payloads, and collaboration/message payloads remain non-inventable.
@@ -159,9 +173,9 @@ No visual deviations are accepted in this review. The current V2 candidate imple
 
 | Area | Decision | Reason |
 |---|---|---|
-| Candidate database | Parity-blocked | Current greenfield recapture shows behaviour coverage, but side-by-side review found visual/data/layout mismatches against legacy. |
-| Candidate detail hub | Parity-blocked | Current greenfield recapture shows behaviour coverage, but side-by-side review found layout, data, stage, action, and CV/tab composition mismatches against legacy. |
-| Candidate action launchers | Parity-blocked | Current greenfield recapture now shows route-owned modal surfaces, but exact side-by-side legacy modal parity and legacy offer/reject references still need review. |
+| Candidate database | Parity-blocked (polish residual) | Current greenfield recapture shows behaviour coverage and a much closer ready frame, but side-by-side review still shows final shell/header/search/table proportion differences against legacy. |
+| Candidate detail hub | Parity-blocked (polish residual) | Current greenfield recapture shows behaviour coverage and materially improved composition, but small top-of-page, shell, and CV rhythm differences remain. |
+| Candidate action launchers | Parity-blocked (polish residual) | Current greenfield recapture now shows route-owned modal surfaces much closer to legacy, but exact modal/editor polish and the remaining offer/reject/scheduler refinements still need final review. |
 V2 candidate rows covered by the recaptured current greenfield screenshots must **not** proceed to final Figma-ready implementation as pixel/behaviour parity references yet. They remain behaviour-coverage evidence only until the parity blockers below are resolved or explicitly accepted in a later change. Legacy captures remain the canonical visual reference, and backend/schema/provider details not visible in current evidence stay deferred.
 
 

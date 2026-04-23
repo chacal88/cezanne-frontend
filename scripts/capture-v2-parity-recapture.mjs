@@ -117,6 +117,30 @@ const candidateRows = [
     job_id: 'job-13',
     hiring_flow_step_id: 'screening',
   },
+  {
+    id: 9,
+    uuid: '99999999-9999-4999-8999-999999999999',
+    first_name: 'Noah',
+    last_name: 'ApiSeed',
+    email: 'api-seed-7-api-seed-1776817888-62113@example.test',
+    city_name: 'Dublin, Ireland',
+    status: 'screening',
+    source: 'Indeed',
+    job_id: 'job-13',
+    hiring_flow_step_id: 'screening',
+  },
+  {
+    id: 10,
+    uuid: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+    first_name: 'Mia',
+    last_name: 'ApiSeed',
+    email: 'api-seed-8-api-seed-1776817888-62113@example.test',
+    city_name: 'Dublin, Ireland',
+    status: 'screening',
+    source: 'Indeed',
+    job_id: 'job-13',
+    hiring_flow_step_id: 'screening',
+  },
 ];
 
 const captureRecords = [

@@ -36,6 +36,34 @@ const overview: DashboardOverview = {
   calendarIntegrationState: 'ready',
   notificationCount: 3,
   inboxConversationCount: 2,
+  activityItems: [
+    {
+      id: 'activity-1',
+      message: 'A CV has been received from Northstar Biolabs for Senior Account Executive',
+      createdAt: '2026-04-23T09:15:00.000Z',
+      target: '/notifications',
+    },
+    {
+      id: 'activity-2',
+      message: 'Interview activity for LumenForge Systems Growth Operations Lead',
+      createdAt: '2026-04-23T11:45:00.000Z',
+      target: '/notifications',
+    },
+  ],
+  calendarEvents: [
+    {
+      id: 'calendar-1',
+      title: 'Northstar Biolabs kickoff',
+      start: '2026-04-24T10:00:00.000Z',
+      status: 'confirmed',
+    },
+    {
+      id: 'calendar-2',
+      title: 'LumenForge Systems review',
+      start: '2026-04-25T14:30:00.000Z',
+      status: 'pending',
+    },
+  ],
 };
 
 function adapter(result: DashboardOverview | Error): DashboardApiAdapter {
@@ -82,6 +110,8 @@ describe('DashboardPage', () => {
     expect(screen.getByTestId('dashboard-source-health')).toHaveTextContent('ready');
     expect(screen.getByTestId('dashboard-inbox-state')).toHaveTextContent('ready');
     expect(screen.getByTestId('dashboard-adapter-contract')).toHaveTextContent('api');
+    expect(screen.getByTestId('dashboard-activity-list')).toHaveTextContent('Northstar Biolabs');
+    expect(screen.getByTestId('dashboard-calendar-readiness')).toHaveTextContent('ready');
   });
 
   it('renders notification fallback with safe action and target refresh intent', async () => {
