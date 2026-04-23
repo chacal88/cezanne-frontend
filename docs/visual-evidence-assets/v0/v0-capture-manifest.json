@@ -303,10 +303,11 @@
       "status": 200,
       "title": "Recruit Frontend",
       "screenshot": "docs/visual-evidence-assets/v0/current/greenfield-logout-post-handoff-login-1440x900.png",
-      "bodyText": "Log into your Cezanne Recruitment account \ud83d\udc64 \ud83d\udd12 \u25c9 Log In Or log in with: Log In with Google Log In with Microsoft ready Forgot password? Sign up for free now!",
+      "bodyText": "Log into your Cezanne Recruitment account Log In Or log in with: Log In with Google Log In with Microsoft ready Forgot password? Sign up for free now!",
       "evidenceStatus": "canonical-current",
-      "note": "Authenticated local session entered /logout; route cleared local auth/session storage and immediately redirected to public login /.",
-      "storageCleared": true
+      "note": "Authenticated local session entered /logout; route cleared local auth/session storage and immediately redirected to public login / after login-field placeholder/icon parity update.",
+      "storageCleared": true,
+      "recapturedAt": "2026-04-23T00:00:00.000-03:00"
     }
   ],
   "updatedAt": "2026-04-23T01:25:28.302Z"

@@ -45,7 +45,7 @@ Project-wide rule:
 | Primary login `/` desktop plus deterministic non-happy login states | `visual-evidence-v0-auth-shell-dashboard.md`; current and legacy login captures; `v0-state-hooks-manifest.json` login records | Figma-ready for covered current-app states | Auth error taxonomy, 2FA delivery/lockout, SSO-mandatory policy copy, activation/setup reason payloads | Final legacy/current/Figma pixel parity and backend policy/copy |
 | Token-flow state map for `/forgot-password`, `/reset-password/:token`, `/confirm-registration/:token`, `/register`, `/register/:token`, `/users/invite-token` | V0 evidence log; 45 token-flow state-hook screenshots | Figma-ready as current-app state map | Token continuation payloads, invite continuation semantics, approval semantics, token backend schemas | Legacy terminal/continuation parity and final matched Figma comparison |
 | Cezanne and SAML launch/callback transitions | V0 evidence log; SAML launch/error captures; Cezanne missing-tenant/callback captures; 15 SSO/callback hook screenshots | Figma-ready as current-app transition map | Provider popup framing, provider-specific payload/error copy, callback exchange contracts | Final legacy/reference parity where the legacy state exists |
-| Logout and session loss | `/logout` post-handoff login capture; `/session-lost` state-hook capture | Figma-ready for covered transitions | Session expiry policy and final copy | Login-field parity or product exception before `/logout` replacement approval |
+| Logout and session loss | `/logout` post-handoff login capture; `/session-lost` state-hook capture | Figma-ready for covered transitions; `/logout` Pixel-parity-approved only for explicit handoff | Session expiry policy and final copy | `/session-lost` and every non-logout auth state remain unapproved |
 | Shell/account profile states for `/user-profile`, `/hiring-company-profile`, `/recruitment-agency-profile` | V0 evidence log; 21 user/company/agency profile hook screenshots | Figma-ready as current-app state map | Persistence APIs, server validation schemas, account-menu interaction details | Sidebar/topbar/account-menu parity and matched legacy/current/Figma review |
 | Dashboard `/dashboard` desktop base | Current API-backed dashboard capture and authenticated legacy dashboard seeded capture | Figma-ready for desktop base | Final dashboard aggregates, calendar source, activity feed source, inbox summary source | Live data parity, shell/dashboard layout parity, breakpoint parity |
 | Notifications `/notifications` resolver categories | Current seeded notification resolver screenshots; explicit V0 fixture acceptance | Figma-ready for fixture-backed resolver map | Live notification API and destination payload contract | Replacement parity and live backend-backed resolver evidence |
@@ -139,7 +139,7 @@ V5 platform dashboard capture validates platform landing/navigation only. It is 
 
 | Version | Included in this handoff? | Figma drafting status | Replacement approval | Primary remaining blockers |
 |---|---|---|---|---|
-| V0 | Yes, covered auth/shell/dashboard sub-blocks | Covered sub-blocks may draft | None approved | Backend auth/token/provider/live notification/inbox/dashboard contracts; shell/dashboard/account-menu parity |
+| V0 | Yes, covered auth/shell/dashboard sub-blocks | Covered sub-blocks may draft | `/logout` explicit handoff only | Backend auth/token/provider/live notification/inbox/dashboard contracts; shell/dashboard/account-menu parity; all non-logout routes remain unapproved |
 | V1 | Yes, Jobs screen-flow/base-frame rows | Jobs rows may draft | None approved | Backend job/task/provider/requisition schemas; legacy/current/Figma parity |
 | V2 | No | Not Figma-ready | None approved | Candidate database/detail/action legacy parity, missing state coverage, backend/provider schemas |
 | V3 | Yes, public/external/token rows | Rows may draft | None approved | Backend schemas and legacy/reference parity where a legacy state exists |
@@ -148,7 +148,7 @@ V5 platform dashboard capture validates platform landing/navigation only. It is 
 
 ## Handoff Constraints
 
-- Do not mark any legacy-backed route as replacement-approved from this package.
+- Do not mark any additional legacy-backed route as replacement-approved from this package; `/logout` explicit handoff approval is recorded only in `replacement-evidence-v0-logout.md`.
 - Do not create standalone Figma frames for alias/reference rows such as legacy `/parameters*`, `/recruiters`, or candidate alias examples.
 - Do not infer backend payloads, provider schemas, API fields, final table columns, payment-provider fields, signed URLs, diagnostic logs, message bodies, document bodies, raw tokens, auth codes, or raw provider payloads.
 - Public/token rows must stay outside authenticated shell frames.

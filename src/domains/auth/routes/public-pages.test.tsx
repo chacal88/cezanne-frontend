@@ -131,7 +131,7 @@ describe('PublicHomePage login flow', () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(JSON.stringify({ msg: 'mail_sent' }), { status: 200 }));
     renderWithProviders(<ForgotPasswordPage />, { accessContext: publicAccessContext });
 
-    await userEvent.type(screen.getByPlaceholderText('Email'), 'person@example.test');
+    await userEvent.type(screen.getByPlaceholderText('Email address'), 'person@example.test');
     await userEvent.click(screen.getByRole('button', { name: /send email/i }));
 
     expect(await screen.findByTestId('auth-form-message')).toHaveTextContent('Password reset email sent.');

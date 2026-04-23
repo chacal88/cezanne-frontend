@@ -43,17 +43,17 @@ Legacy reference spot-checks:
 
 | Version | Figma drafting allowed | Backend/API ready | Visual parity ready | Responsive/mobile ready | Product exception needed | Replacement-approved |
 |---|---|---|---|---|---|---|
-| V0 | Partial | Partial | No | Partial | TBD for fixture/live gaps | No |
+| V0 | Partial | Partial | Partial for `/logout` only | Partial | TBD for fixture/live gaps | `/logout` only |
 | V1 | Yes for Jobs screen-flow bases | Partial | No | No | TBD for any accepted layout/schema deviations | No |
 | V2 | No | Partial | No | Partial current-app coverage only | Likely for unresolved candidate deviations if not fixed | No |
 | V3 | Yes for public/external/token bases | Partial | No | Yes for captured bases | TBD where legacy/reference parity is not pursued | No |
 | V4 | Yes for current-app operations bases | Partial | No | Partial | TBD for legacy-backed operations deviations | No |
 | V5 | Yes for desktop current-app SysAdmin/platform rows | No/Partial | No | No | TBD for legacy SysAdmin scope and mobile omissions | No |
 
-No V0-V5 route or sub-block is currently replacement-approved.
+Only `/logout` is currently replacement-approved, and only for the explicit V0 logout handoff to the public login surface.
 
 First focused evidence pack:
-- `replacement-evidence-v0-logout.md` records the first V0 `/logout` replacement evidence pass. Decision: blocked pending parity fix or product exception, not `Pixel-parity-approved`; no other route approval changes.
+- `replacement-evidence-v0-logout.md` records the first V0 `/logout` replacement evidence pass. Decision: `Pixel-parity-approved` for `/logout` only after the login-field placeholder/icon parity fix and 1440x900 recapture; no other route approval changes.
 
 ## V0 Checklist
 
@@ -62,15 +62,15 @@ First focused evidence pack:
 | Primary login `/` and `/login` entry | Yes for covered states | Partial | No | Partial | TBD | No | Auth error taxonomy, 2FA delivery/lockout, activation/setup reason payloads, matched legacy/current/Figma parity. |
 | Token flows `/forgot-password`, `/reset-password/:token`, `/confirm-registration/:token`, `/register`, `/register/:token`, `/users/invite-token` | Yes for current-app state map | Partial | No | Partial | TBD | No | Token lifecycle enum, continuation payloads, pending/used/expired semantics, matched legacy/current/Figma parity. |
 | SSO/Cezanne/SAML launch and callbacks | Yes for current-app transition map | Partial | No | Partial | TBD | No | Provider callback payloads, popup/redirect treatment, provider error taxonomy, reference parity where legacy exists. |
-| `/logout` and session-loss transitions | Yes for covered transitions | Partial | No | Partial | TBD | No | Final logged-out/session-loss copy, same-viewport legacy/current/Figma comparison. |
+| `/logout` and session-loss transitions | Yes for covered transitions | Partial | Yes for `/logout` explicit handoff only | Partial | No for `/logout`; TBD for `/session-lost` | `/logout` only | `/session-lost` copy/policy parity remains separate; no other session transition is approved. |
 | Shell and account profile routes | Yes for current-app state map | Partial | No | No | TBD | No | Profile persistence APIs, validation schema, account-menu/topbar/sidebar parity. |
 | `/dashboard` desktop base | Yes for desktop base | Partial | No | No | TBD | No | Aggregate semantics, calendar/activity/inbox summary data, shell/dashboard layout parity, breakpoint parity. |
 | `/notifications` resolver categories | Yes, fixture-backed only | No | No | No | Yes if live API remains deferred for first design batch | No | Live notification API, destination payloads, pagination/read-state, legacy/current/Figma parity. |
 | `/inbox?conversation=` empty/selected | Yes, fixture-backed only | No | No | No | Yes if live transport remains deferred for first design batch | No | Live conversation transport, composer/send states, provider-blocked states, legacy/current/Figma parity. |
 
-V0 shortest internal candidate: `/logout`, because it has a small route surface and minimal backend dependency. It still needs a matched legacy/current/Figma parity pack before approval.
+V0 first approved internal candidate: `/logout`, because it has a small route surface and minimal backend dependency. The matched legacy/current/Figma parity pack is recorded in `replacement-evidence-v0-logout.md`.
 
-The first `/logout` evidence pack now exists in `replacement-evidence-v0-logout.md`. Runtime has been aligned to the legacy action-route redirect behavior and the current post-handoff login state has been recaptured, but approval remains blocked until the visible login-field parity deltas are fixed or product-exceptioned.
+The first `/logout` evidence pack now exists in `replacement-evidence-v0-logout.md`. Runtime has been aligned to the legacy action-route redirect behavior, the visible login-field parity deltas are fixed, and the current post-handoff login state has been recaptured. `/logout` is approved only for the explicit handoff; `/session-lost`, `/`, and all other routes remain unapproved.
 
 ## V1 Checklist
 
@@ -135,13 +135,13 @@ Why:
 - It has minimal backend payload dependency compared with auth tokens, dashboard, inbox, Jobs, Candidates, V4 operations, or V5 admin tables.
 - It can exercise the full approval process without needing complex data seeding.
 
-Required approval pack for `/logout`:
+Completed approval pack for `/logout`:
 1. Capture legacy `/logout` behavior and resulting logged-out/login state at the target viewport.
 2. Capture current `/logout` behavior and resulting logged-out/login state at the same viewport.
 3. Produce or attach the canonical Figma frame for the logged-out/session transition state.
 4. Compare legacy/current/Figma for layout, spacing, typography, icon placement, route handoff, and copy.
-5. Fix differences or record a product exception with route `/logout` and the affected visual/state delta.
-6. Record the row as `Pixel-parity-approved` only in the replacement evidence record, not by changing route ownership.
+5. Fix differences or record a product exception with route `/logout` and the affected visual/state delta. Done: login-field placeholder/icon treatment fixed.
+6. Record the row as `Pixel-parity-approved` only in the replacement evidence record, not by changing route ownership. Done for `/logout` only.
 
 Second-best target: V0 `/forgot-password`.
 

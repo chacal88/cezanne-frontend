@@ -166,13 +166,13 @@ export function PublicHomePage({ authAdapter = authApiAdapter, autoRedirect = tr
   const loginForm = (
     <form onSubmit={submitLogin} aria-label={t('login.formLabel')} className="auth-login-form">
       <label className="auth-login-field" aria-label={t('login.email')}>
-        <span className="auth-login-field__icon" aria-hidden="true">👤</span>
+        <i className="auth-login-field__icon fas fa-user" aria-hidden="true" />
         <input className="auth-login-field__control" value={email} onChange={(event) => setEmail(event.target.value)} name="email" type="email" placeholder={t('login.emailPlaceholder')} autoComplete="email" data-testid="auth-login-email" required />
       </label>
       <label className="auth-login-field" aria-label={t('login.password')}>
-        <span className="auth-login-field__icon" aria-hidden="true">🔒</span>
+        <i className="auth-login-field__icon fas fa-lock" aria-hidden="true" />
         <input className="auth-login-field__control" value={password} onChange={(event) => setPassword(event.target.value)} name="password" type={showPassword ? 'text' : 'password'} placeholder={t('login.passwordPlaceholder')} autoComplete="current-password" data-testid="auth-login-password" required />
-        <button className="auth-login-field__toggle" type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? t('login.hidePassword') : t('login.showPassword')}>{showPassword ? '◡' : '◉'}</button>
+        <button className="auth-login-field__toggle" type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? t('login.hidePassword') : t('login.showPassword')}><i className={`far ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`} aria-hidden="true" /></button>
       </label>
       <button type="submit" className="auth-login-btn" data-testid="auth-login-submit" disabled={submitting}>{submitting ? t('login.loading') : t('login.submit')}</button>
       <div className="auth-login-divider">{t('login.signinOr')}</div>
@@ -189,7 +189,7 @@ export function PublicHomePage({ authAdapter = authApiAdapter, autoRedirect = tr
       <div className="auth-verify-separator" />
       <p className="auth-verify-text">{errorKind === 'two-factor-failed' ? t('login.twoFactor.error') : t('login.twoFactor.confirm', { email })}</p>
       <label className="auth-login-field" aria-label={t('login.code')}>
-        <span className="auth-login-field__icon" aria-hidden="true">#</span>
+        <i className="auth-login-field__icon fas fa-hashtag" aria-hidden="true" />
         <input className="auth-login-field__control" value={code} onChange={(event) => setCode(event.target.value)} type="text" inputMode="numeric" autoComplete="one-time-code" placeholder={t('login.twoFactor.placeholder')} data-testid="auth-login-code" required />
       </label>
       <button type="submit" className="auth-verify-btn" data-testid="auth-login-submit" disabled={submitting}>{submitting ? t('login.loading') : t('login.twoFactor.verify')}</button>

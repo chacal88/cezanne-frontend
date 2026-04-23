@@ -42,7 +42,7 @@ Product decision on 2026-04-22: the whole replacement project requires pixel par
 
 | Domain | Rows | H | M | L | Current status |
 |---|---:|---:|---:|---:|---|
-| `auth` | 10 | 9 | 0 | 1 | Partial: primary login, token, SSO/Cezanne/SAML, logout, and session-loss current-app state evidence is captured for screen-flow drafting; backend/API contracts and replacement parity remain deferred |
+| `auth` | 10 | 9 | 0 | 1 | Partial: primary login, token, SSO/Cezanne/SAML, logout, and session-loss current-app state evidence is captured for screen-flow drafting; `/logout` explicit handoff is Pixel-parity-approved, while backend/API contracts and all other auth replacement parity remain deferred |
 | `shell` | 5 | 1 | 4 | 0 | Partial: all rows contract-reviewed; canonical visuals still pending |
 | `dashboard` | 1 | 1 | 0 | 0 | Figma-ready for desktop dashboard base after current and legacy authenticated seed capture; parity refinements remain tracked debt |
 | `notifications` | 1 | 1 | 0 | 0 | Figma-ready for V0 fixture-backed resolver categories by explicit decision; live API replacement remains deferred |
@@ -142,7 +142,7 @@ Remaining blockers before broader auth promotion/replacement:
 | Contract-reviewed | `/user-profile` | ShellOverlay | account-context | M | R0 | Confirmed in router/metadata, shell account navigation, and account settings page. Uses `canOpenAccountArea`, shell-aware direct entry, close target to dashboard/current shell parent, fixture-backed editable profile states, save/retry/refresh intent, and unknown-field disclosure. Visual overlay reference is confirmed indirectly but final overlay states pending. |
 | Contract-reviewed | `/hiring-company-profile` | Page | account-context | M | R0 | Confirmed in router/metadata, organization profile page, account settings state/page tests, and runtime capability evaluation. Uses `canViewHiringCompanyProfile` for route access plus `canManageCompanySettings` as mutation capability, HC org ownership, dashboard parent return, ready/dirty/saved/denied/degraded/stale/retry states, refresh intent, and explicit unknown persistence fields. Visual reference pending. |
 | Contract-reviewed | `/recruitment-agency-profile` | Page | account-context | M | R0 | Confirmed in router/metadata, organization profile page, account settings state tests, and runtime capability evaluation. Uses `canViewRecruitmentAgencyProfile` for route access plus `canManageAgencySettings` as mutation capability, RA org ownership, dashboard parent return, ready/dirty/saved/denied/degraded/stale/retry states, refresh intent, and explicit unknown persistence fields. Visual reference pending. |
-| Figma-ready | `/logout` | Page | session | M | R0 | Confirmed in router/metadata and updated logout implementation. Runtime clears local auth session, resets access context to public, tracks safe logout telemetry, and immediately hands off to `/`, matching the legacy action-route direction. Explicit `/session-lost` remains a separate visible public/session state. Replacement approval remains blocked until the observable post-handoff login parity deltas are fixed or product-exceptioned. |
+| Figma-ready; Pixel-parity-approved for `/logout` only | `/logout` | Page | session | M | R0 | Confirmed in router/metadata and updated logout implementation. Runtime clears local auth session, resets access context to public, tracks safe logout telemetry, and immediately hands off to `/`, matching the legacy action-route direction. The observable post-handoff login placeholder/icon parity blocker is resolved in the 1440x900 recapture. Explicit `/session-lost` remains a separate visible public/session state and is not approved by this row. |
 
 
 #### Shell review evidence and remaining blockers
@@ -516,7 +516,7 @@ These rows are not independent canonical screens; they point to registered route
 
 - Full domain-by-domain contract review is complete for all 104 canonical route rows and 4 alias/reference rows. Rows become `Figma-ready` only when canonical evidence confirms their visual/state scope and unresolved debt is explicitly recorded.
 - Existing auth/dashboard visual references now include current-app token/callback/session/account hooks, but live API contracts, shell/dashboard parity, and replacement signoff remain pending for the affected legacy-backed states.
-- V0, V1, V3, V4, and V5 covered rows may proceed to Figma drafting with deferred provider/form/schema/backend annotations. V2 candidate rows are behaviour-evidenced but parity-blocked. No legacy-backed row is replacement-approved until pixel parity is confirmed or explicitly excepted.
+- V0, V1, V3, V4, and V5 covered rows may proceed to Figma drafting with deferred provider/form/schema/backend annotations. V2 candidate rows are behaviour-evidenced but parity-blocked. `/logout` is the only legacy-backed row currently replacement-approved; every other legacy-backed row remains blocked until pixel parity is confirmed or explicitly excepted.
 - Shell/dashboard visual parity debt remains tracked in `roadmap.md` and should be handled during visual refinement, not as API/data blocker.
 
 ## Next review order

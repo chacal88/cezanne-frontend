@@ -82,7 +82,7 @@ Confirmed:
 - V4 operations now has authenticated baseline plus final safe local-fixture interaction evidence in `visual-evidence-v4-operations.md`, `visual-evidence-assets/v4/v4-capture-manifest.json`, and `visual-evidence-assets/v4/interactive-2026-04-22/interactive-capture-manifest.json`; V4 may proceed to Figma for current-app screen-flow/base-frame work with backend/provider/schema unknowns annotated, but still needs legacy pixel-parity replacement signoff where legacy screens exist
 - V5 SysAdmin/platform now has first-pass current-app visual evidence plus 124 state-hook screenshots in `visual-evidence-v5-sysadmin-platform.md`, `visual-evidence-assets/v5/v5-capture-manifest.json`, and `visual-evidence-assets/v5/state-hooks-2026-04-23/v5-state-hooks-manifest.json`; covered V5 rows may proceed to desktop current-app Figma drafting with backend/API schemas deferred
 - The V1-V5 roadmap review requested on 2026-04-22 is recorded in `v1-v5-roadmap-review-2026-04-22.md`: build and test validation pass, V1/V3/V4/V5 are closed for their current screen-flow drafting bases, V2 remains candidate visual-parity blocked after the Finn/Diego/API-seed parity-pass recapture. None of these rows are replacement-approved until legacy pixel parity is confirmed where legacy exists.
-- `figma-screen-flow-handoff-index.md` is the active V0-V5 Figma/screen-flow handoff index for evidence-covered drafting. It includes V0 covered auth/shell/dashboard sub-blocks, V1 Jobs rows, V3 public/external/token rows, V4 operations rows, and V5 desktop current-app SysAdmin/platform rows. It keeps V2 excluded from Figma-ready promotion and keeps every legacy-backed row blocked from replacement approval.
+- `figma-screen-flow-handoff-index.md` is the active V0-V5 Figma/screen-flow handoff index for evidence-covered drafting. It includes V0 covered auth/shell/dashboard sub-blocks, V1 Jobs rows, V3 public/external/token rows, V4 operations rows, and V5 desktop current-app SysAdmin/platform rows. It keeps V2 excluded from Figma-ready promotion and keeps every legacy-backed row except the explicit `/logout` handoff blocked from replacement approval.
 
 ## Post-cleanup documentation semantics
 
@@ -166,11 +166,11 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 59. `visual-evidence-v4-operations.md` — first-pass current-app evidence log for settings, integrations admin, reports, billing, team, favorites, and marketplace route-state bases
 60. `visual-evidence-v5-sysadmin-platform.md` — first-pass current-app evidence log for SysAdmin/platform route-state bases
 61. `v1-v5-roadmap-review-2026-04-22.md` — audit closeout for the completed V1-V5 roadmap pass, including verification commands, item-level status, and remaining Figma/backend follow-ups
-62. `figma-screen-flow-handoff-index.md` — consolidated V0-V5 Figma/screen-flow handoff index for evidence-covered drafting rows, with V2 parity-blocked and no replacement approvals granted
+62. `figma-screen-flow-handoff-index.md` — consolidated V0-V5 Figma/screen-flow handoff index for evidence-covered drafting rows, with V2 parity-blocked and only `/logout` granted replacement approval
 63. `backend-api-contract-backlog.md` — V0-V5 backend/API/provider/schema blocker backlog for the next implementation phase, keeping backend readiness separate from Figma drafting and replacement approval
 64. `replacement-approval-audit-v0-v5.md` — V0-V5 replacement approval checklist, including backend/API readiness, visual parity readiness, responsive readiness, product-exception needs, and the recommended first approval target
 65. `replacement-approval-evidence-template.md` — reusable evidence-pack template/checklist for future replacement approval records; the template itself does not grant approval
-66. `replacement-evidence-v0-logout.md` — first focused V0 `/logout` replacement evidence record; decision is blocked pending parity fix or product exception, not replacement-approved
+66. `replacement-evidence-v0-logout.md` — first focused V0 `/logout` replacement evidence record; decision is Pixel-parity-approved for `/logout` only
 
 ## Package roles
 
@@ -237,9 +237,9 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `v1-v5-roadmap-review-2026-04-22.md` | records the V1-V5 audit result, validation commands, release-by-release verification matrix, and follow-ups before deeper Figma/backend work |
 | `figma-screen-flow-handoff-index.md` | consolidates the Figma/screen-flow handoff rows for every V0-V5 area that is evidence-covered and allowed for drafting, while explicitly excluding V2 and preserving replacement-approval blockers |
 | `backend-api-contract-backlog.md` | records the actionable V0-V5 backend/API/provider/schema blocker matrix and recommended backend decision order for the next implementation phase |
-| `replacement-approval-audit-v0-v5.md` | records that no V0-V5 row is replacement-approved yet and defines the checklist/shortest path for the first pixel-parity approval package |
+| `replacement-approval-audit-v0-v5.md` | records that only `/logout` is replacement-approved and defines the checklist/shortest path for future pixel-parity approval packages |
 | `replacement-approval-evidence-template.md` | provides the reusable route/family evidence-pack template for future matched legacy/current/Figma approval records; copying or completing the template does not approve replacement without an explicit final decision |
-| `replacement-evidence-v0-logout.md` | records the first route-specific replacement evidence pack; `/logout` remains blocked pending login-field parity fix or product exception |
+| `replacement-evidence-v0-logout.md` | records the first route-specific replacement evidence pack; `/logout` is Pixel-parity-approved after login-field parity recapture |
 
 ## Source relationship
 
