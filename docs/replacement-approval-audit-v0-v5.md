@@ -52,6 +52,9 @@ Legacy reference spot-checks:
 
 No V0-V5 route or sub-block is currently replacement-approved.
 
+First focused evidence pack:
+- `replacement-evidence-v0-logout.md` records the first V0 `/logout` replacement evidence pass. Decision: product-exception-needed, not `Pixel-parity-approved`; no other route approval changes.
+
 ## V0 Checklist
 
 | Route/sub-block | Figma drafting allowed | Backend/API ready | Visual parity ready | Responsive/mobile ready | Product exception needed | Replacement-approved | Main blockers |
@@ -66,6 +69,8 @@ No V0-V5 route or sub-block is currently replacement-approved.
 | `/inbox?conversation=` empty/selected | Yes, fixture-backed only | No | No | No | Yes if live transport remains deferred for first design batch | No | Live conversation transport, composer/send states, provider-blocked states, legacy/current/Figma parity. |
 
 V0 shortest internal candidate: `/logout`, because it has a small route surface and minimal backend dependency. It still needs a matched legacy/current/Figma parity pack before approval.
+
+The first `/logout` evidence pack now exists in `replacement-evidence-v0-logout.md`. It confirms legacy action-route redirect behavior and current stable logged-out-page behavior, but keeps approval blocked until a canonical Figma frame exists and product either accepts the route-local logged-out page/copy deltas or requests a legacy-style immediate login handoff.
 
 ## V1 Checklist
 
@@ -143,17 +148,64 @@ Second-best target: V0 `/forgot-password`.
 Why it is second:
 - It has an existing legacy route and current evidence, but it still depends on final token/error copy and submit lifecycle semantics.
 
+### V0 `/forgot-password` Pre-Approval Readiness Note
+
+Status: second candidate only. Do not mark `/forgot-password` replacement-approved from this note, and do not reuse the `/logout` approval pack as evidence for this route.
+
+Current evidence:
+- Legacy route/source exists under `/Users/kauesantos/Documents/recruit/frontend/src/app/domain/login/forgot-password/`.
+- Legacy ready screenshot exists at `visual-evidence-assets/v0/legacy/legacy-forgot-password-1440x900.png`.
+- Current ready screenshot exists at `visual-evidence-assets/v0/current/greenfield-forgot-password-1440x900.png`.
+- Current submitted/sent screenshot exists at `visual-evidence-assets/v0/current/greenfield-forgot-password-submitted-1440x900.png`.
+- Current deterministic state-hook screenshots exist for `/forgot-password?visualState=missing|invalid|expired|valid|success|failure|retry|pending-approval|bootstrap-failure` in `visual-evidence-assets/v0/current/state-hooks/`.
+- Legacy source confirms one email field, disabled/loading submit, `User.save({ id: 'forgot-password' }, vm.forgotPassword)`, response `msg` values `mail_not_found`, `mail_sent`, and `mail_error`, success/error toastr copy, and success redirect to `home`.
+
+Missing matched legacy/current/Figma captures:
+- Same-run legacy/current ready captures at the approval viewport after `/logout` approval is complete.
+- Same-run legacy/current submitting/loading captures using the same email/data setup.
+- Same-run legacy/current success captures for a known seeded email, including whether the observable approved behavior is toast-plus-redirect-to-login or an inline sent state.
+- Same-run legacy/current `mail_not_found` captures for an unknown email.
+- Same-run legacy/current `mail_error` or default failure captures, using a safe mocked/backend-triggered failure.
+- Canonical Figma frames or frame-node references for ready, submitting, sent/success, not-found, failure/retry, and return-to-login states.
+- A side-by-side comparison record for each state above, all at the same viewport, route, seed, and state trigger.
+
+Backend copy/token blockers:
+- Final backend response enum for `/user/forgot-password` must confirm whether `mail_sent`, `mail_not_found`, and `mail_error` remain the complete public contract or are replaced by structured error codes.
+- Product/security must confirm whether account-existence disclosure follows the legacy `mail_not_found` behavior or changes to neutral recovery copy; any change needs a product exception before replacement approval.
+- Final copy source must decide legacy toastr strings versus current inline `PublicFormMessage` strings for success, not-found, and failure.
+- Submit success route handoff must be decided: legacy redirects to `home` after `mail_sent`; current evidence shows an inline sent state and the current submit handler does not perform a redirect.
+- Reset-token email lifecycle remains backend-owned: token generation, expiry, used-token semantics, rate limiting/throttling copy, and delivery failure taxonomy must be documented enough that forgot-password does not imply unconfirmed reset-token behavior.
+
+Exact capture checklist after `/logout`:
+1. Capture legacy `/forgot-password` ready at desktop `1440x900`.
+2. Capture current `/forgot-password` ready at desktop `1440x900` in the same run.
+3. Capture legacy submitting/loading after entering the matched seeded email.
+4. Capture current submitting/loading after entering the same matched seeded email.
+5. Capture legacy `mail_sent` outcome, including toast text and final route after redirect.
+6. Capture current `mail_sent` outcome, including inline/toast text and final route.
+7. Capture legacy `mail_not_found` outcome with the agreed unknown email.
+8. Capture current `mail_not_found` outcome with the same unknown email.
+9. Capture legacy `mail_error` or equivalent forced failure.
+10. Capture current default failure/retry state from the same forced failure.
+11. Attach Figma frame/node references for ready, submitting, sent/success, not-found, failure/retry, and return-to-login.
+12. Record pixel diffs for card layout, logo placement, title/copy, email field, icon/feedback treatment, button loading state, return link placement, toast/inline message treatment, redirect behavior, typography, spacing, and responsive clipping.
+13. Fix differences or record explicit product exceptions tied to `/forgot-password` before any replacement approval record is created.
+
 ## Required Next Documents Before Approval
 
-Before marking any route approved, create a replacement evidence record with:
+Before marking any route approved, create a replacement evidence record from `replacement-approval-evidence-template.md` with:
 - route/family and exact state;
+- release/version and route class;
 - legacy screenshot path;
 - current screenshot path;
 - Figma frame/node reference;
 - viewport and data seed;
 - backend/API readiness status;
 - visual diffs found;
+- responsive/mobile checklist status;
 - fixes applied or product exception id;
 - final decision and approver/date.
+
+The reusable template is only a checklist and structure for future route/family evidence packs. It does not grant replacement approval, and it must not be used to mark any route `Pixel-parity-approved` without matched legacy/current/Figma evidence and an explicit approver/date.
 
 This audit does not create any replacement approval. It only identifies the approval checklist and the recommended first route.

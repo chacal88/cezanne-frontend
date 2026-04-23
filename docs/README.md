@@ -169,6 +169,8 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 62. `figma-screen-flow-handoff-index.md` — consolidated V0-V5 Figma/screen-flow handoff index for evidence-covered drafting rows, with V2 parity-blocked and no replacement approvals granted
 63. `backend-api-contract-backlog.md` — V0-V5 backend/API/provider/schema blocker backlog for the next implementation phase, keeping backend readiness separate from Figma drafting and replacement approval
 64. `replacement-approval-audit-v0-v5.md` — V0-V5 replacement approval checklist, including backend/API readiness, visual parity readiness, responsive readiness, product-exception needs, and the recommended first approval target
+65. `replacement-approval-evidence-template.md` — reusable evidence-pack template/checklist for future replacement approval records; the template itself does not grant approval
+66. `replacement-evidence-v0-logout.md` — first focused V0 `/logout` replacement evidence record; decision is product-exception-needed, not replacement-approved
 
 ## Package roles
 
@@ -236,6 +238,8 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `figma-screen-flow-handoff-index.md` | consolidates the Figma/screen-flow handoff rows for every V0-V5 area that is evidence-covered and allowed for drafting, while explicitly excluding V2 and preserving replacement-approval blockers |
 | `backend-api-contract-backlog.md` | records the actionable V0-V5 backend/API/provider/schema blocker matrix and recommended backend decision order for the next implementation phase |
 | `replacement-approval-audit-v0-v5.md` | records that no V0-V5 row is replacement-approved yet and defines the checklist/shortest path for the first pixel-parity approval package |
+| `replacement-approval-evidence-template.md` | provides the reusable route/family evidence-pack template for future matched legacy/current/Figma approval records; copying or completing the template does not approve replacement without an explicit final decision |
+| `replacement-evidence-v0-logout.md` | records the first route-specific replacement evidence pack; `/logout` remains product-exception-needed until Figma evidence and product acceptance or implementation parity exist |
 
 ## Source relationship
 
