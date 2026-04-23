@@ -13,7 +13,7 @@ Update from product direction on 2026-04-22: the whole project requires pixel pa
 | Command | Result | Notes |
 |---|---|---|
 | `npm run build` | Passed | TypeScript build and Vite production build completed. Vite emitted only the existing large chunk warning. |
-| `npm test` | Passed | 102 test files and 422 tests passed. |
+| `npm test` | Passed | 102 test files and 429 tests passed. |
 | `npm run smoke:r0:ui` | Passed | 28 Playwright smoke tests passed after updating the harness to seed the current local auth session contract and deterministic candidate API mocks. |
 | `npm test -- --runInBand` | Not applicable | Failed before running tests because Vitest does not support the Jest `--runInBand` flag. Retried with the project-supported `npm test`. |
 
