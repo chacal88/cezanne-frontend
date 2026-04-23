@@ -1,0 +1,233 @@
+{
+  "captureDate": "2026-04-23",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "currentBaseUrl": "http://localhost:5173",
+  "legacyBaseUrl": "http://127.0.0.1:4000",
+  "totalRecords": 11,
+  "records": [
+    {
+      "app": "current",
+      "family": "invite-token",
+      "route": "/users/invite-token",
+      "url": "http://localhost:5173/users/invite-token",
+      "finalUrl": "http://localhost:5173/users/invite-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "missing",
+      "trigger": "route-open-without-token",
+      "data": {
+        "fixtureNotes": "Current route uses shared token-state model; final invite continuation payload is backend/product blocked."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/invite-token-same-run-2026-04-23/current/current-invite-token-missing-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "invite-token",
+      "route": "/users/invite-token?token=<synthetic-redacted>",
+      "url": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>",
+      "finalUrl": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "ready-continuation",
+      "trigger": "route-open-with-synthetic-token",
+      "data": {
+        "tokenKind": "synthetic-query-token",
+        "fixtureNotes": "Current route uses shared token-state model; final invite continuation payload is backend/product blocked."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/invite-token-same-run-2026-04-23/current/current-invite-token-ready-continuation-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "invite-token",
+      "route": "/users/invite-token?token=<synthetic-redacted>&visualState=invalid",
+      "url": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=invalid",
+      "finalUrl": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=invalid",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "invalid",
+      "trigger": "current-visual-state-invalid",
+      "data": {
+        "tokenKind": "synthetic-query-token",
+        "fixtureNotes": "Current route uses shared token-state model; final invite continuation payload is backend/product blocked."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/invite-token-same-run-2026-04-23/current/current-invite-token-invalid-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "invite-token",
+      "route": "/users/invite-token?token=<synthetic-redacted>&visualState=expired",
+      "url": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=expired",
+      "finalUrl": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=expired",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "expired",
+      "trigger": "current-visual-state-expired",
+      "data": {
+        "tokenKind": "synthetic-query-token",
+        "fixtureNotes": "Current route uses shared token-state model; final invite continuation payload is backend/product blocked."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/invite-token-same-run-2026-04-23/current/current-invite-token-expired-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "invite-token",
+      "route": "/users/invite-token?token=<synthetic-redacted>&visualState=failure",
+      "url": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=failure",
+      "finalUrl": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=failure",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "failure",
+      "trigger": "current-visual-state-failure",
+      "data": {
+        "tokenKind": "synthetic-query-token",
+        "fixtureNotes": "Current route uses shared token-state model; final invite continuation payload is backend/product blocked."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/invite-token-same-run-2026-04-23/current/current-invite-token-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "invite-token",
+      "route": "/users/invite-token?token=<synthetic-redacted>&visualState=success",
+      "url": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=success",
+      "finalUrl": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=success",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "success-terminal",
+      "trigger": "current-visual-state-success",
+      "data": {
+        "tokenKind": "synthetic-query-token",
+        "fixtureNotes": "Current route uses shared token-state model; final invite continuation payload is backend/product blocked."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/invite-token-same-run-2026-04-23/current/current-invite-token-success-terminal-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "invite-token",
+      "route": "/users/invite-token?token=<synthetic-redacted>&visualState=retry",
+      "url": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=retry",
+      "finalUrl": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=retry",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "retry",
+      "trigger": "current-visual-state-retry",
+      "data": {
+        "tokenKind": "synthetic-query-token",
+        "fixtureNotes": "Current route uses shared token-state model; final invite continuation payload is backend/product blocked."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/invite-token-same-run-2026-04-23/current/current-invite-token-retry-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "invite-token",
+      "route": "/users/invite-token?token=<synthetic-redacted>&visualState=pending-approval",
+      "url": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=pending-approval",
+      "finalUrl": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=pending-approval",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "pending-approval",
+      "trigger": "current-visual-state-pending-approval",
+      "data": {
+        "tokenKind": "synthetic-query-token",
+        "fixtureNotes": "Current route uses shared token-state model; final invite continuation payload is backend/product blocked."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/invite-token-same-run-2026-04-23/current/current-invite-token-pending-approval-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "invite-token",
+      "route": "/users/invite-token?token=<synthetic-redacted>&visualState=bootstrap-failure",
+      "url": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=bootstrap-failure",
+      "finalUrl": "http://localhost:5173/users/invite-token?token=<synthetic-redacted>&visualState=bootstrap-failure",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "bootstrap-failure",
+      "trigger": "current-visual-state-bootstrap-failure",
+      "data": {
+        "tokenKind": "synthetic-query-token",
+        "fixtureNotes": "Current route uses shared token-state model; final invite continuation payload is backend/product blocked."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/invite-token-same-run-2026-04-23/current/current-invite-token-bootstrap-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "invite-token",
+      "route": "/users/invite-token",
+      "url": "http://127.0.0.1:4000/users/invite-token",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "public-path-missing-token",
+      "trigger": "legacy-public-route-probe",
+      "data": {
+        "fixtureNotes": "Legacy source has authenticated admin users.invite-token modal at /users/invite-token, not a confirmed public invite acceptance route."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/invite-token-same-run-2026-04-23/legacy/legacy-invite-token-public-path-missing-token-1440x900.png",
+      "status": "reference-only-nonmatching"
+    },
+    {
+      "app": "legacy",
+      "family": "invite-token",
+      "route": "/users/invite-token?token=<synthetic-redacted>",
+      "url": "http://127.0.0.1:4000/users/invite-token?token=<synthetic-redacted>",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "public-path-with-query-token",
+      "trigger": "legacy-public-route-probe-with-query-token",
+      "data": {
+        "tokenKind": "synthetic-query-token",
+        "fixtureNotes": "Legacy source has authenticated admin users.invite-token modal at /users/invite-token, not a confirmed public invite acceptance route."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/invite-token-same-run-2026-04-23/legacy/legacy-invite-token-public-path-with-query-token-1440x900.png",
+      "status": "reference-only-nonmatching"
+    }
+  ],
+  "notes": [
+    "Captures cover current-app /users/invite-token missing, ready/continuation, invalid, expired, failure, success terminal, retry, pending approval, and bootstrap-failure states.",
+    "Legacy source inspection on 2026-04-23 found users.invite-token as an authenticated admin modal under /users, backed by HiringCompany/RecruitmentAgency invite-token lookup and clipboard copy.",
+    "The legacy /users/invite-token probes are reference-only nonmatching captures; they must not be treated as public invite acceptance parity evidence.",
+    "Replacement approval remains blocked until backend/product confirms whether /users/invite-token is canonical, an alias, or current-only, and until Figma/parity evidence exists."
+  ],
+  "securityExclusions": [
+    "no raw passwords",
+    "no raw invitation tokens",
+    "no auth tokens",
+    "no provider payloads",
+    "no signed URLs",
+    "no tenant-sensitive identifiers"
+  ]
+}

@@ -91,6 +91,15 @@ describe('PublicHomePage login flow', () => {
     }
   });
 
+  it('uses safe provider callback copy without rendering raw provider errors', () => {
+    window.history.pushState({}, '', '/auth/cezanne/callback?error=raw_provider_payload');
+
+    renderWithProviders(<CezanneCallbackPage error="raw_provider_payload" />, { accessContext: publicAccessContext });
+
+    expect(screen.getByTestId('auth-form-message')).toHaveTextContent('The callback could not continue.');
+    expect(document.body.textContent).not.toContain('raw_provider_payload');
+  });
+
   it.each([
     ['launch'],
     ['missing-tenant'],
@@ -169,6 +178,23 @@ describe('PublicHomePage login flow', () => {
     expect(await screen.findByText('Registration token is missing.')).toBeInTheDocument();
   });
 
+  it('carries confirm-registration approval-pending feedback back to public entry', async () => {
+    const redirect = vi.fn();
+    __setAuthRedirectForTest(redirect);
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(JSON.stringify({ msg: 'approval_pending' }), { status: 200 }));
+    renderWithProviders(<ConfirmRegistrationPage token="approval-token" />, { accessContext: publicAccessContext });
+
+    expect(await screen.findByText('Registration confirmed. Your account is waiting for approval.')).toBeInTheDocument();
+    expect(redirect).toHaveBeenCalledWith('/');
+    expect(window.sessionStorage.getItem('recruit.flashMessage')).toContain('Registration confirmed');
+    cleanup();
+    __setAuthRedirectForTest();
+
+    renderWithProviders(<PublicHomePage autoRedirect={false} />, { accessContext: publicAccessContext });
+    expect(screen.getByTestId('auth-flash-toast')).toHaveTextContent('Registration confirmed');
+    expect(screen.getByTestId('auth-flash-toast')).toHaveTextContent('waiting for approval');
+  });
+
   it('redirects explicit logout while keeping session loss visible', () => {
     const redirect = vi.fn();
     __setAuthRedirectForTest(redirect);
@@ -183,5 +209,6 @@ describe('PublicHomePage login flow', () => {
 
     expect(screen.getByTestId('auth-route-state')).toHaveTextContent('session-expired');
     expect(screen.getByTestId('auth-landing-target')).toHaveTextContent('/');
+    expect(screen.getByText('Your session expired. Sign in again to continue.')).toBeInTheDocument();
   });
 });

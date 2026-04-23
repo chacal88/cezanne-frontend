@@ -251,7 +251,16 @@ export function ConfirmRegistrationPage({ token }: { token?: string }) {
         }
       } else {
         setState(result);
-        if (result.redirectTo) redirectTo(result.redirectTo);
+        if (result.redirectTo) {
+          if (result.message) {
+            storeFlashMessage({
+              kind: result.status === 'succeeded' ? 'success' : 'error',
+              title: result.status === 'succeeded' ? 'Registration confirmed' : 'Registration confirmation',
+              message: result.message,
+            });
+          }
+          redirectTo(result.redirectTo);
+        }
       }
     }).catch(() => setState({ status: 'failed', message: t('confirmRegistration.failed'), redirectTo: '/' }));
   }, [setAccessContext, t, token, visualState]);
@@ -391,7 +400,7 @@ function CallbackPage({ providerFamily, search, titleKey }: { providerFamily: Au
 
   useEffect(() => {
     if (visualState) return;
-    if (typeof search.error === 'string') return setState({ status: 'failed', message: search.error });
+    if (typeof search.error === 'string') return setState({ status: 'failed', message: t('callbackStates.callback-failed') });
     if (typeof search.code !== 'string' || !search.code) return setState({ status: 'idle', message: t('callbackStates.callback-failed') });
     const run = providerFamily === 'cezanne' ? completeCezanneCallback : completeSamlCallback;
     void run(search.code).then((result) => {
@@ -449,7 +458,7 @@ export function SessionLossPage() {
     trackAuthOpen(buildAuthTelemetry({ action: 'session-expired', outcome: 'session-expired', sessionOutcome: 'session-expired', entryMode: 'session-loss', fallbackKind: 'public-entry' }));
   }, [setAccessContext]);
 
-  return <PublicRoutePage title={t('logout.title')} detail={<><p>Your session expired. Sign in again to continue.</p><a className="auth-login-continue" href="/">{t('login.goToLogin')}</a></>} state={state.kind} landingTarget={state.landingTarget} />;
+  return <PublicRoutePage title={t('logout.title')} detail={<><p>{t('sessionStates.session-expired-detail')}</p><a className="auth-login-continue" href="/">{t('login.goToLogin')}</a></>} state={state.kind} landingTarget={state.landingTarget} />;
 }
 
 export function AccessDeniedPage() {

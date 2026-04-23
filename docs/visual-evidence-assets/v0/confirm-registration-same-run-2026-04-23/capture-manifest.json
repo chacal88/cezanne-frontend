@@ -1,0 +1,181 @@
+{
+  "captureDate": "2026-04-23",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "currentBaseUrl": "http://localhost:5173",
+  "legacyBaseUrl": "http://127.0.0.1:4000",
+  "totalRecords": 8,
+  "records": [
+    {
+      "app": "legacy",
+      "family": "confirm-registration",
+      "route": "/confirm-registration/visual-confirm-token",
+      "url": "http://127.0.0.1:4000/confirm-registration/visual-confirm-token",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "invalid-token",
+      "trigger": "mocked-confirm-token-invalid",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "responseKind": "token_invalid"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/confirm-registration-same-run-2026-04-23/legacy/legacy-confirm-registration-invalid-token-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "confirm-registration",
+      "route": "/confirm-registration/visual-confirm-token",
+      "url": "http://localhost:5173/confirm-registration/visual-confirm-token",
+      "finalUrl": "http://localhost:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "invalid-token",
+      "trigger": "mocked-confirm-token-invalid",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "responseKind": "token_invalid"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/confirm-registration-same-run-2026-04-23/current/current-confirm-registration-invalid-token-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "confirm-registration",
+      "route": "/confirm-registration/visual-confirm-token",
+      "url": "http://127.0.0.1:4000/confirm-registration/visual-confirm-token",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "valid-session-ready",
+      "trigger": "mocked-confirm-token-valid-session",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "responseKind": "token_valid",
+        "sessionTokenKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/confirm-registration-same-run-2026-04-23/legacy/legacy-confirm-registration-valid-session-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "confirm-registration",
+      "route": "/confirm-registration/visual-confirm-token",
+      "url": "http://localhost:5173/confirm-registration/visual-confirm-token",
+      "finalUrl": "http://localhost:5173/dashboard",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "valid-session-ready",
+      "trigger": "mocked-confirm-token-valid-session",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "responseKind": "token_valid",
+        "sessionTokenKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/confirm-registration-same-run-2026-04-23/current/current-confirm-registration-valid-session-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "confirm-registration",
+      "route": "/confirm-registration/visual-confirm-token",
+      "url": "http://127.0.0.1:4000/confirm-registration/visual-confirm-token",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "pending-approval",
+      "trigger": "mocked-confirm-approval-pending",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "responseKind": "approval_pending"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/confirm-registration-same-run-2026-04-23/legacy/legacy-confirm-registration-pending-approval-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "confirm-registration",
+      "route": "/confirm-registration/visual-confirm-token",
+      "url": "http://localhost:5173/confirm-registration/visual-confirm-token",
+      "finalUrl": "http://localhost:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "pending-approval",
+      "trigger": "mocked-confirm-approval-pending",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "responseKind": "approval_pending"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/confirm-registration-same-run-2026-04-23/current/current-confirm-registration-pending-approval-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "confirm-registration",
+      "route": "/confirm-registration/visual-confirm-token",
+      "url": "http://127.0.0.1:4000/confirm-registration/visual-confirm-token",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "bootstrap-failure",
+      "trigger": "mocked-confirm-bootstrap-failure",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "responseKind": "token_valid",
+        "sessionTokenKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/confirm-registration-same-run-2026-04-23/legacy/legacy-confirm-registration-bootstrap-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "confirm-registration",
+      "route": "/confirm-registration/visual-confirm-token",
+      "url": "http://localhost:5173/confirm-registration/visual-confirm-token",
+      "finalUrl": "http://localhost:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "bootstrap-failure",
+      "trigger": "mocked-confirm-bootstrap-failure",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "responseKind": "token_valid",
+        "sessionTokenKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/confirm-registration-same-run-2026-04-23/current/current-confirm-registration-bootstrap-failure-1440x900.png",
+      "status": "captured"
+    }
+  ],
+  "notes": [
+    "Captures use the approved 2026-04-23 confirm-registration continuation decision.",
+    "Legacy bootstrap-failure is a route fallback probe because the legacy route has no distinct bootstrap_failed branch.",
+    "Replacement approval remains blocked until matched Figma frames and final parity review exist."
+  ],
+  "securityExclusions": [
+    "no raw passwords",
+    "no raw auth tokens",
+    "no raw registration tokens",
+    "no provider payloads",
+    "no signed URLs",
+    "no tenant-sensitive identifiers"
+  ]
+}

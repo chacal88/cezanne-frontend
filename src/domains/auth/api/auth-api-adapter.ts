@@ -1,7 +1,7 @@
 import type { AccessContext } from '../../../lib/access-control';
 import { authServiceGetJson, authServicePostJson, graphqlRequest, resolveAuthServiceBaseUrl, restApiGetJson, restApiPostJson } from '../../../lib/api-client';
 import { resolvePostAuthLanding, type AuthLoginAttempt, type AuthLoginResult } from '../models';
-import { saveLocalAuthSession } from './local-session';
+import { clearLocalAuthSession, saveLocalAuthSession } from './local-session';
 
 export type AuthLoginError =
   | 'activation-required'
@@ -11,7 +11,8 @@ export type AuthLoginError =
   | 'two-factor-failed'
   | 'setup-required'
   | 'invalid-credentials'
-  | 'bootstrap-failed';
+  | 'bootstrap-failed'
+  | 'provider-error';
 
 export type PublicAuthActionStatus = 'idle' | 'submitting' | 'succeeded' | 'failed';
 
@@ -73,17 +74,19 @@ export function resolveAuthBaseUrl(): string {
 
 export function mapAuthLoginError(error: unknown): AuthLoginError {
   if (typeof error === 'object' && error && 'payload' in error) return mapAuthLoginError((error as { payload?: unknown }).payload);
-  const message = typeof error === 'string'
+  const rawMessage = typeof error === 'string'
     ? error
     : typeof error === 'object' && error
       ? String((error as { error?: unknown; message?: unknown }).error ?? (error as { message?: unknown }).message ?? '')
       : '';
+  const message = rawMessage.toLowerCase();
   if (message.includes('need to be activated')) return 'activation-required';
   if (message.includes('cezanne-sso-mandatory')) return 'sso-mandatory';
   if (message.includes('need to be approved')) return 'approval-required';
   if (message.includes('2fa code required')) return 'two-factor-required';
   if (message.includes('2fa code failed')) return 'two-factor-failed';
   if (message.includes('setup required')) return 'setup-required';
+  if (message.includes('token not found') || message.includes('provider') || message.includes('callback')) return 'provider-error';
   return 'invalid-credentials';
 }
 
@@ -195,7 +198,10 @@ export async function loginWithAuthApi(input: AuthLoginAttempt): Promise<AuthLog
 export async function completeCezanneCallback(code: string, requestedTarget?: string): Promise<AuthLoginResult> {
   try {
     const response = await authServiceGetJson<AuthLoginResponse>(`/login/cezanne/callback?json=1&code=${encodeURIComponent(code)}`);
-    return response.token ? bootstrapSessionFromToken(response.token, requestedTarget) : { status: 'failed', routeState: { kind: 'failed', message: 'Cezanne callback did not return a token.' }, errorKind: 'bootstrap-failed' };
+    if (!response.token) return { status: 'failed', routeState: { kind: 'failed', message: 'Cezanne callback did not return a token.' }, errorKind: 'bootstrap-failed' };
+    const result = await bootstrapSessionFromToken(response.token, requestedTarget);
+    if (result.status === 'failed') clearLocalAuthSession();
+    return result;
   } catch (error) {
     const errorKind = mapAuthLoginError(error);
     return { status: 'failed', routeState: { kind: 'failed', message: `Cezanne callback failed: ${errorKind}.` }, errorKind };
@@ -205,7 +211,10 @@ export async function completeCezanneCallback(code: string, requestedTarget?: st
 export async function completeSamlCallback(code: string, requestedTarget?: string): Promise<AuthLoginResult> {
   try {
     const response = await authServiceGetJson<AuthLoginResponse>(`/login/saml/callback?code=${encodeURIComponent(code)}`);
-    return response.token ? bootstrapSessionFromToken(response.token, requestedTarget) : { status: 'failed', routeState: { kind: 'failed', message: 'SAML callback did not return a token.' }, errorKind: 'bootstrap-failed' };
+    if (!response.token) return { status: 'failed', routeState: { kind: 'failed', message: 'SAML callback did not return a token.' }, errorKind: 'bootstrap-failed' };
+    const result = await bootstrapSessionFromToken(response.token, requestedTarget);
+    if (result.status === 'failed') clearLocalAuthSession();
+    return result;
   } catch (error) {
     const errorKind = mapAuthLoginError(error);
     return { status: 'failed', routeState: { kind: 'failed', message: `SAML callback failed: ${errorKind}.` }, errorKind };
@@ -242,6 +251,8 @@ export async function resetPassword(input: { token: string; password: string; pa
       return { status: 'succeeded', message: 'Password changed successfully.', redirectTo: '/' };
     case 'token_expired':
       return { status: 'failed', message: 'This reset token is expired.', redirectTo: '/' };
+    case 'token_used':
+      return { status: 'failed', message: 'This reset token was already used.', redirectTo: '/' };
     case 'token_not_found':
     case 'token_invalid':
       return { status: 'failed', message: 'This reset token is invalid.', redirectTo: '/' };
@@ -252,8 +263,20 @@ export async function resetPassword(input: { token: string; password: string; pa
 
 export async function confirmRegistrationToken(token: string): Promise<AuthLoginResult | PublicAuthApiResult> {
   const response = await restApiGetJson<ApiMessageResponse>(`/user/first-access?token=${encodeURIComponent(token)}`);
-  if (response.msg === 'token_valid' && response.token) return bootstrapSessionFromToken(response.token);
-  if (response.msg === 'token_valid') return { status: 'succeeded', message: 'Registration confirmed. Your account is waiting for approval.', redirectTo: '/' };
+  if (response.msg === 'token_valid' && response.token) {
+    const result = await bootstrapSessionFromToken(response.token);
+    if (result.status === 'succeeded') return result;
+    clearLocalAuthSession();
+    return { status: 'failed', message: 'Registration was confirmed, but the session could not be started. Try logging in.', redirectTo: '/' };
+  }
+  if (response.msg === 'token_valid' || response.msg === 'approval_pending') {
+    return { status: 'succeeded', message: 'Registration confirmed. Your account is waiting for approval.', redirectTo: '/' };
+  }
+  if (response.msg === 'bootstrap_failed') {
+    clearLocalAuthSession();
+    return { status: 'failed', message: 'Registration was confirmed, but the session could not be started. Try logging in.', redirectTo: '/' };
+  }
+  if (response.msg === 'token_expired') return { status: 'failed', message: 'This registration token is expired.', redirectTo: '/' };
   return { status: 'failed', message: 'This registration token is invalid.', redirectTo: '/' };
 }
 
@@ -271,8 +294,10 @@ export async function registerAccount(input: RegisterInput): Promise<PublicAuthA
   };
 
   if (input.token && input.token !== 'null') {
-    await restApiPostJson<ApiMessageResponse>('/invitation', payload);
-    return { status: 'succeeded', message: 'Registration completed.', redirectTo: '/' };
+    const response = await restApiPostJson<ApiMessageResponse>('/invitation', payload);
+    return response.msg === 'token_invalid' || response.msg === 'token_expired'
+      ? { status: 'failed', message: 'This invitation token is invalid.', redirectTo: '/' }
+      : { status: 'succeeded', message: 'Registration completed.', redirectTo: '/' };
   }
 
   const endpoint = input.organizationType === 'hiringCompany' ? '/hiring_company' : '/recruitment_agency';

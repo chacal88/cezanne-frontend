@@ -1,0 +1,428 @@
+{
+  "captureDate": "2026-04-23",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "currentBaseUrl": "http://localhost:5173",
+  "legacyBaseUrl": "http://127.0.0.1:4000",
+  "totalRecords": 20,
+  "records": [
+    {
+      "app": "legacy",
+      "family": "register",
+      "routeKind": "public",
+      "route": "/register/hiring-company",
+      "url": "http://127.0.0.1:4000/register/hiring-company",
+      "finalUrl": "http://127.0.0.1:4000/register/hiring-company",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "ready",
+      "trigger": "route-open",
+      "data": {},
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/legacy/legacy-register-public-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "register",
+      "routeKind": "public",
+      "route": "/register/null",
+      "url": "http://localhost:5173/register/null",
+      "finalUrl": "http://localhost:5173/register/null",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "ready",
+      "trigger": "route-open",
+      "data": {},
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/current/current-register-public-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "register",
+      "routeKind": "public",
+      "route": "/register/hiring-company",
+      "url": "http://127.0.0.1:4000/register/hiring-company",
+      "finalUrl": "http://127.0.0.1:4000/register/hiring-company",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "validation",
+      "trigger": "empty-submit-validation",
+      "data": {},
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/legacy/legacy-register-public-validation-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "register",
+      "routeKind": "public",
+      "route": "/register/null",
+      "url": "http://localhost:5173/register/null",
+      "finalUrl": "http://localhost:5173/register/null",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "validation",
+      "trigger": "empty-submit-validation",
+      "data": {},
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/current/current-register-public-validation-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "register",
+      "routeKind": "public",
+      "route": "/register/hiring-company",
+      "url": "http://127.0.0.1:4000/register/hiring-company",
+      "finalUrl": "http://127.0.0.1:4000/register/hiring-company",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "submitting",
+      "trigger": "mocked-pending-public-registration",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden",
+        "fixtureNotes": "legacy loading state forced after submit because recaptcha/form-dealer blocks deterministic API submission in visual capture"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/legacy/legacy-register-public-submitting-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "register",
+      "routeKind": "public",
+      "route": "/register/null",
+      "url": "http://localhost:5173/register/null",
+      "finalUrl": "http://localhost:5173/register/null",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "submitting",
+      "trigger": "mocked-pending-public-registration",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/current/current-register-public-submitting-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "register",
+      "routeKind": "public",
+      "route": "/register/hiring-company",
+      "url": "http://127.0.0.1:4000/register/hiring-company",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "success",
+      "trigger": "mocked-public-registration-success",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/legacy/legacy-register-public-success-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "register",
+      "routeKind": "public",
+      "route": "/register/null",
+      "url": "http://localhost:5173/register/null",
+      "finalUrl": "http://localhost:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "success",
+      "trigger": "mocked-public-registration-success",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/current/current-register-public-success-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "register",
+      "routeKind": "public",
+      "route": "/register/hiring-company",
+      "url": "http://127.0.0.1:4000/register/hiring-company",
+      "finalUrl": "http://127.0.0.1:4000/register/hiring-company",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "failure",
+      "trigger": "mocked-public-registration-failure",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/legacy/legacy-register-public-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "register",
+      "routeKind": "public",
+      "route": "/register/null",
+      "url": "http://localhost:5173/register/null",
+      "finalUrl": "http://localhost:5173/register/null",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "failure",
+      "trigger": "mocked-public-registration-failure",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/current/current-register-public-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "register",
+      "routeKind": "token",
+      "route": "/register/visual-register-token",
+      "url": "http://127.0.0.1:4000/register/visual-register-token",
+      "finalUrl": "http://127.0.0.1:4000/register/visual-register-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "ready",
+      "trigger": "mocked-invite-token-valid",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "fixtureNotes": "legacy token route uses mocked invitation token_valid resolver"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/legacy/legacy-register-token-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "register",
+      "routeKind": "token",
+      "route": "/register/visual-register-token",
+      "url": "http://localhost:5173/register/visual-register-token",
+      "finalUrl": "http://localhost:5173/register/visual-register-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "ready",
+      "trigger": "mocked-invite-token-valid",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "fixtureNotes": "current token route does not prefetch invitation details; token is submitted with the form"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/current/current-register-token-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "register",
+      "routeKind": "token",
+      "route": "/register/visual-register-token",
+      "url": "http://127.0.0.1:4000/register/visual-register-token",
+      "finalUrl": "http://127.0.0.1:4000/register/visual-register-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "validation",
+      "trigger": "empty-submit-validation",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "fixtureNotes": "legacy token route uses mocked invitation token_valid resolver"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/legacy/legacy-register-token-validation-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "register",
+      "routeKind": "token",
+      "route": "/register/visual-register-token",
+      "url": "http://localhost:5173/register/visual-register-token",
+      "finalUrl": "http://localhost:5173/register/visual-register-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "validation",
+      "trigger": "empty-submit-validation",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "fixtureNotes": "current token route does not prefetch invitation details; token is submitted with the form"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/current/current-register-token-validation-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "register",
+      "routeKind": "token",
+      "route": "/register/visual-register-token",
+      "url": "http://127.0.0.1:4000/register/visual-register-token",
+      "finalUrl": "http://127.0.0.1:4000/register/visual-register-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "submitting",
+      "trigger": "mocked-pending-invite-registration",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden",
+        "fixtureNotes": "legacy loading state forced after submit because recaptcha/form-dealer blocks deterministic API submission in visual capture"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/legacy/legacy-register-token-submitting-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "register",
+      "routeKind": "token",
+      "route": "/register/visual-register-token",
+      "url": "http://localhost:5173/register/visual-register-token",
+      "finalUrl": "http://localhost:5173/register/visual-register-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "submitting",
+      "trigger": "mocked-pending-invite-registration",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden",
+        "fixtureNotes": "current token route does not prefetch invitation details; token is submitted with the form"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/current/current-register-token-submitting-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "register",
+      "routeKind": "token",
+      "route": "/register/visual-register-token",
+      "url": "http://127.0.0.1:4000/register/visual-register-token",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "success",
+      "trigger": "mocked-invite-registration-success",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden",
+        "fixtureNotes": "legacy token route uses mocked invitation token_valid resolver"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/legacy/legacy-register-token-success-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "register",
+      "routeKind": "token",
+      "route": "/register/visual-register-token",
+      "url": "http://localhost:5173/register/visual-register-token",
+      "finalUrl": "http://localhost:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "success",
+      "trigger": "mocked-invite-registration-success",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden",
+        "fixtureNotes": "current token route does not prefetch invitation details; token is submitted with the form"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/current/current-register-token-success-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "register",
+      "routeKind": "token",
+      "route": "/register/visual-register-token",
+      "url": "http://127.0.0.1:4000/register/visual-register-token",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "failure",
+      "trigger": "mocked-invite-registration-failure",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden",
+        "fixtureNotes": "legacy token route uses mocked invitation token_valid resolver"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/legacy/legacy-register-token-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "register",
+      "routeKind": "token",
+      "route": "/register/visual-register-token",
+      "url": "http://localhost:5173/register/visual-register-token",
+      "finalUrl": "http://localhost:5173/register/visual-register-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "failure",
+      "trigger": "mocked-invite-registration-failure",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden",
+        "fixtureNotes": "current token route does not prefetch invitation details; token is submitted with the form"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/register-same-run-2026-04-23/current/current-register-token-failure-1440x900.png",
+      "status": "captured"
+    }
+  ],
+  "notes": [
+    "Captures cover public /register/null and token /register/:token ready, validation, submitting, success, and failure states.",
+    "Legacy public registration is captured at /register/hiring-company because /register/null is treated as a literal invitation token by the legacy route resolver.",
+    "Legacy public registration includes recaptcha/form-dealer behavior; deterministic submitting capture uses a local visual loading probe and is not replacement approval evidence.",
+    "Current token registration does not prefetch invitation payload; final invite continuation field parity remains blocked until backend/schema evidence is complete."
+  ],
+  "securityExclusions": [
+    "no raw passwords",
+    "no raw registration tokens",
+    "no raw invitation tokens",
+    "no auth tokens",
+    "no provider payloads",
+    "no signed URLs",
+    "no tenant-sensitive identifiers"
+  ]
+}

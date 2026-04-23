@@ -1,0 +1,528 @@
+{
+  "captureDate": "2026-04-23",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "currentBaseUrl": "http://localhost:5173",
+  "legacyBaseUrl": "http://127.0.0.1:4000",
+  "totalRecords": 27,
+  "records": [
+    {
+      "app": "current",
+      "family": "cezanne-launch",
+      "route": "/auth/cezanne/visual-tenant?visualState=launch",
+      "url": "http://localhost:5173/auth/cezanne/visual-tenant?visualState=launch",
+      "finalUrl": "http://localhost:5173/auth/cezanne/visual-tenant?visualState=launch",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "launch",
+      "trigger": "current-visual-state-launch",
+      "data": {
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-cezanne-launch-launch-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "cezanne-launch",
+      "route": "/auth/cezanne",
+      "url": "http://localhost:5173/auth/cezanne",
+      "finalUrl": "http://localhost:5173/auth/cezanne",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "missing-tenant",
+      "trigger": "current-route-missing-tenant",
+      "data": {
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-cezanne-launch-missing-tenant-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "cezanne-callback",
+      "route": "/auth/cezanne/callback?visualState=missing-code",
+      "url": "http://localhost:5173/auth/cezanne/callback?visualState=missing-code",
+      "finalUrl": "http://localhost:5173/auth/cezanne/callback?visualState=missing-code",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "missing-code",
+      "trigger": "current-visual-state-missing-code",
+      "data": {
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-cezanne-callback-missing-code-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "cezanne-callback",
+      "route": "/auth/cezanne/callback?visualState=provider-error",
+      "url": "http://localhost:5173/auth/cezanne/callback?visualState=provider-error",
+      "finalUrl": "http://localhost:5173/auth/cezanne/callback?visualState=provider-error",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "provider-error",
+      "trigger": "current-visual-state-provider-error",
+      "data": {
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-cezanne-callback-provider-error-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "cezanne-callback",
+      "route": "/auth/cezanne/callback?visualState=exchanging",
+      "url": "http://localhost:5173/auth/cezanne/callback?visualState=exchanging",
+      "finalUrl": "http://localhost:5173/auth/cezanne/callback?visualState=exchanging",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "exchanging",
+      "trigger": "current-visual-state-exchanging",
+      "data": {
+        "tokenKind": "synthetic-hidden",
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-cezanne-callback-exchanging-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "cezanne-callback",
+      "route": "/auth/cezanne/callback?visualState=exchange-failure",
+      "url": "http://localhost:5173/auth/cezanne/callback?visualState=exchange-failure",
+      "finalUrl": "http://localhost:5173/auth/cezanne/callback?visualState=exchange-failure",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "exchange-failure",
+      "trigger": "current-visual-state-exchange-failure",
+      "data": {
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-cezanne-callback-exchange-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "cezanne-callback",
+      "route": "/auth/cezanne/callback?visualState=bootstrap-failure",
+      "url": "http://localhost:5173/auth/cezanne/callback?visualState=bootstrap-failure",
+      "finalUrl": "http://localhost:5173/auth/cezanne/callback?visualState=bootstrap-failure",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "bootstrap-failure",
+      "trigger": "current-visual-state-bootstrap-failure",
+      "data": {
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-cezanne-callback-bootstrap-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "cezanne-callback",
+      "route": "/auth/cezanne/callback?visualState=success-redirect",
+      "url": "http://localhost:5173/auth/cezanne/callback?visualState=success-redirect",
+      "finalUrl": "http://localhost:5173/auth/cezanne/callback?visualState=success-redirect",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "success-redirect",
+      "trigger": "current-visual-state-success-redirect",
+      "data": {
+        "tokenKind": "synthetic-hidden",
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-cezanne-callback-success-redirect-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "saml-launch",
+      "route": "/auth/saml?visualState=launch",
+      "url": "http://localhost:5173/auth/saml?visualState=launch",
+      "finalUrl": "http://localhost:5173/auth/saml?visualState=launch",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "launch",
+      "trigger": "current-visual-state-launch",
+      "data": {
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-saml-launch-launch-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "saml-callback",
+      "route": "/auth/saml?visualState=missing-code",
+      "url": "http://localhost:5173/auth/saml?visualState=missing-code",
+      "finalUrl": "http://localhost:5173/auth/saml?visualState=missing-code",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "missing-code",
+      "trigger": "current-visual-state-missing-code",
+      "data": {
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-saml-callback-missing-code-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "saml-callback",
+      "route": "/auth/saml?visualState=provider-error",
+      "url": "http://localhost:5173/auth/saml?visualState=provider-error",
+      "finalUrl": "http://localhost:5173/auth/saml?visualState=provider-error",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "provider-error",
+      "trigger": "current-visual-state-provider-error",
+      "data": {
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-saml-callback-provider-error-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "saml-callback",
+      "route": "/auth/saml?visualState=exchanging",
+      "url": "http://localhost:5173/auth/saml?visualState=exchanging",
+      "finalUrl": "http://localhost:5173/auth/saml?visualState=exchanging",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "exchanging",
+      "trigger": "current-visual-state-exchanging",
+      "data": {
+        "tokenKind": "synthetic-hidden",
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-saml-callback-exchanging-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "saml-callback",
+      "route": "/auth/saml?visualState=exchange-failure",
+      "url": "http://localhost:5173/auth/saml?visualState=exchange-failure",
+      "finalUrl": "http://localhost:5173/auth/saml?visualState=exchange-failure",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "exchange-failure",
+      "trigger": "current-visual-state-exchange-failure",
+      "data": {
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-saml-callback-exchange-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "saml-callback",
+      "route": "/auth/saml?visualState=bootstrap-failure",
+      "url": "http://localhost:5173/auth/saml?visualState=bootstrap-failure",
+      "finalUrl": "http://localhost:5173/auth/saml?visualState=bootstrap-failure",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "bootstrap-failure",
+      "trigger": "current-visual-state-bootstrap-failure",
+      "data": {
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-saml-callback-bootstrap-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "saml-callback",
+      "route": "/auth/saml?visualState=success-redirect",
+      "url": "http://localhost:5173/auth/saml?visualState=success-redirect",
+      "finalUrl": "http://localhost:5173/auth/saml?visualState=success-redirect",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "success-redirect",
+      "trigger": "current-visual-state-success-redirect",
+      "data": {
+        "tokenKind": "synthetic-hidden",
+        "fixtureNotes": "Current capture uses deterministic provider visual states; callback codes/tokens are not stored."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/current/current-saml-callback-success-redirect-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "cezanne-launch",
+      "route": "/auth/cezanne/visual-tenant",
+      "url": "http://127.0.0.1:4000/auth/cezanne/visual-tenant",
+      "finalUrl": "https://showcase.cezanneondemand.com/CezanneOnDemand/Account/LogIn?ReturnUrl=~%2FOAuth%2FAuthorize%3Fresponse_type%3Dcode%26redirect_uri%3Dhttp%253a%252f%252f127.0.0.1%253a4000%252fauth%252fcezanne%252fcallback%26client_id%3D...",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "launch",
+      "trigger": "legacy-launch-route",
+      "data": {
+        "fixtureNotes": "Legacy provider launch reference."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-cezanne-launch-launch-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "cezanne-callback",
+      "route": "/auth/cezanne/callback",
+      "url": "http://127.0.0.1:4000/auth/cezanne/callback",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "missing-code",
+      "trigger": "legacy-callback-missing-code-probe",
+      "data": {
+        "fixtureNotes": "Legacy Cezanne callback is a resolver that exchanges code and redirects home/dashboard; visible frame is a reference probe, not a route-local callback screen."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-cezanne-callback-missing-code-1440x900.png",
+      "status": "reference-only-resolver-redirect"
+    },
+    {
+      "app": "legacy",
+      "family": "cezanne-callback",
+      "route": "/auth/cezanne/callback?code=<synthetic-redacted>",
+      "url": "http://127.0.0.1:4000/auth/cezanne/callback?code=<synthetic-redacted>",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "provider-error",
+      "trigger": "mocked-legacy-provider-error",
+      "data": {
+        "callbackCodeKind": "synthetic-query-code-redacted",
+        "fixtureNotes": "Legacy Cezanne callback is a resolver that exchanges code and redirects home/dashboard; visible frame is a reference probe, not a route-local callback screen."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-cezanne-callback-provider-error-1440x900.png",
+      "status": "reference-only-resolver-redirect"
+    },
+    {
+      "app": "legacy",
+      "family": "cezanne-callback",
+      "route": "/auth/cezanne/callback?code=<synthetic-redacted>",
+      "url": "http://127.0.0.1:4000/auth/cezanne/callback?code=<synthetic-redacted>",
+      "finalUrl": "http://127.0.0.1:4000/auth/cezanne/callback?code=<synthetic-redacted>",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "exchanging",
+      "trigger": "mocked-legacy-pending-exchange",
+      "data": {
+        "callbackCodeKind": "synthetic-query-code-redacted",
+        "tokenKind": "synthetic-hidden",
+        "fixtureNotes": "Legacy Cezanne callback is a resolver that exchanges code and redirects home/dashboard; visible frame is a reference probe, not a route-local callback screen."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-cezanne-callback-exchanging-1440x900.png",
+      "status": "reference-only-resolver-redirect"
+    },
+    {
+      "app": "legacy",
+      "family": "cezanne-callback",
+      "route": "/auth/cezanne/callback?code=<synthetic-redacted>",
+      "url": "http://127.0.0.1:4000/auth/cezanne/callback?code=<synthetic-redacted>",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "exchange-failure",
+      "trigger": "mocked-legacy-exchange-failure",
+      "data": {
+        "callbackCodeKind": "synthetic-query-code-redacted",
+        "fixtureNotes": "Legacy Cezanne callback is a resolver that exchanges code and redirects home/dashboard; visible frame is a reference probe, not a route-local callback screen."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-cezanne-callback-exchange-failure-1440x900.png",
+      "status": "reference-only-resolver-redirect"
+    },
+    {
+      "app": "legacy",
+      "family": "cezanne-callback",
+      "route": "/auth/cezanne/callback?code=<synthetic-redacted>",
+      "url": "http://127.0.0.1:4000/auth/cezanne/callback?code=<synthetic-redacted>",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "success-redirect",
+      "trigger": "mocked-legacy-success-redirect",
+      "data": {
+        "callbackCodeKind": "synthetic-query-code-redacted",
+        "tokenKind": "synthetic-hidden",
+        "fixtureNotes": "Legacy Cezanne callback is a resolver that exchanges code and redirects home/dashboard; visible frame is a reference probe, not a route-local callback screen."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-cezanne-callback-success-redirect-1440x900.png",
+      "status": "reference-only-resolver-redirect"
+    },
+    {
+      "app": "legacy",
+      "family": "saml-launch",
+      "route": "/auth/saml",
+      "url": "http://127.0.0.1:4000/auth/saml",
+      "finalUrl": "http://127.0.0.1:4000/auth/saml",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "launch",
+      "trigger": "legacy-launch-route",
+      "data": {
+        "fixtureNotes": "Legacy provider launch reference."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-saml-launch-launch-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "saml-callback",
+      "route": "/auth/saml",
+      "url": "http://127.0.0.1:4000/auth/saml",
+      "finalUrl": "http://127.0.0.1:4000/auth/saml",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "missing-code",
+      "trigger": "legacy-route-missing-code",
+      "data": {
+        "fixtureNotes": "Legacy SAML callback shares the SAML launch template and modal/error resolver behavior."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-saml-callback-missing-code-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "saml-callback",
+      "route": "/auth/saml?error=<synthetic-redacted>",
+      "url": "http://127.0.0.1:4000/auth/saml?error=<synthetic-redacted>",
+      "finalUrl": "http://127.0.0.1:4000/auth/saml?error=<synthetic-redacted>",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "provider-error",
+      "trigger": "legacy-provider-error-query",
+      "data": {
+        "providerErrorKind": "synthetic-query-error-redacted",
+        "fixtureNotes": "Legacy SAML callback shares the SAML launch template and modal/error resolver behavior."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-saml-callback-provider-error-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "saml-callback",
+      "route": "/auth/saml?code=<synthetic-redacted>",
+      "url": "http://127.0.0.1:4000/auth/saml?code=<synthetic-redacted>",
+      "finalUrl": "http://127.0.0.1:4000/auth/saml?code=<synthetic-redacted>",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "exchanging",
+      "trigger": "mocked-legacy-pending-exchange",
+      "data": {
+        "callbackCodeKind": "synthetic-query-code-redacted",
+        "tokenKind": "synthetic-hidden",
+        "fixtureNotes": "Legacy SAML callback shares the SAML launch template and modal/error resolver behavior."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-saml-callback-exchanging-1440x900.png",
+      "status": "reference-only-pending-probe"
+    },
+    {
+      "app": "legacy",
+      "family": "saml-callback",
+      "route": "/auth/saml?code=<synthetic-redacted>",
+      "url": "http://127.0.0.1:4000/auth/saml?code=<synthetic-redacted>",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "exchange-failure",
+      "trigger": "mocked-legacy-exchange-failure",
+      "data": {
+        "callbackCodeKind": "synthetic-query-code-redacted",
+        "fixtureNotes": "Legacy SAML callback shares the SAML launch template and modal/error resolver behavior."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-saml-callback-exchange-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "saml-callback",
+      "route": "/auth/saml?code=<synthetic-redacted>",
+      "url": "http://127.0.0.1:4000/auth/saml?code=<synthetic-redacted>",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "success-redirect",
+      "trigger": "mocked-legacy-success-redirect",
+      "data": {
+        "callbackCodeKind": "synthetic-query-code-redacted",
+        "tokenKind": "synthetic-hidden",
+        "fixtureNotes": "Legacy SAML callback shares the SAML launch template and modal/error resolver behavior."
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/provider-callback-same-run-2026-04-23/legacy/legacy-saml-callback-success-redirect-1440x900.png",
+      "status": "captured"
+    }
+  ],
+  "notes": [
+    "Captures cover Cezanne and SAML launch/callback missing tenant/code, provider error, exchanging, exchange failure, bootstrap failure where current-app supported, and success redirect states.",
+    "Current callback captures use deterministic visual states to avoid persisting raw provider codes or tokens.",
+    "Legacy Cezanne callback is resolver/redirect behavior with no stable route-local callback screen; those records are reference probes.",
+    "Legacy SAML callback shares the launch template plus resolver/modal behavior; those records are useful visual references but not final replacement approval."
+  ],
+  "securityExclusions": [
+    "no raw passwords",
+    "no raw auth codes",
+    "no raw auth tokens",
+    "no raw provider payloads",
+    "no signed URLs",
+    "no tenant-sensitive identifiers"
+  ]
+}

@@ -1,0 +1,686 @@
+{
+  "captureDate": "2026-04-23",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "currentBaseUrl": "http://127.0.0.1:5173",
+  "legacyBaseUrl": "http://127.0.0.1:4000",
+  "totalRecords": 36,
+  "records": [
+    {
+      "app": "legacy",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:4000/",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "ready",
+      "trigger": "route-open",
+      "data": null,
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-login-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:5173/",
+      "finalUrl": "http://127.0.0.1:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "ready",
+      "trigger": "route-open",
+      "data": null,
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-login-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:4000/",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "filled",
+      "trigger": "synthetic-fill",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-login-filled-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:5173/",
+      "finalUrl": "http://127.0.0.1:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "filled",
+      "trigger": "synthetic-fill",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-login-filled-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:4000/",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "submitting",
+      "trigger": "mocked-pending-login",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-login-submitting-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:5173/",
+      "finalUrl": "http://127.0.0.1:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "submitting",
+      "trigger": "mocked-pending-login",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-login-submitting-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:4000/",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "invalid-credentials",
+      "trigger": "mocked-invalid-login",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-login-invalid-credentials-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:5173/",
+      "finalUrl": "http://127.0.0.1:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "invalid-credentials",
+      "trigger": "mocked-invalid-login",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-login-invalid-credentials-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:4000/",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "two-factor-required",
+      "trigger": "mocked-2fa-required",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-login-two-factor-required-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:5173/",
+      "finalUrl": "http://127.0.0.1:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "two-factor-required",
+      "trigger": "mocked-2fa-required",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-login-two-factor-required-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:4000/",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "two-factor-failed",
+      "trigger": "mocked-2fa-failed",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-login-two-factor-failed-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:5173/",
+      "finalUrl": "http://127.0.0.1:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "two-factor-failed",
+      "trigger": "mocked-2fa-failed",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-login-two-factor-failed-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:4000/",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "sso-mandatory",
+      "trigger": "mocked-sso-mandatory",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-login-sso-mandatory-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:5173/",
+      "finalUrl": "http://127.0.0.1:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "sso-mandatory",
+      "trigger": "mocked-sso-mandatory",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-login-sso-mandatory-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:4000/",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "activation-required",
+      "trigger": "mocked-activation-required",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-login-activation-required-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:5173/",
+      "finalUrl": "http://127.0.0.1:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "activation-required",
+      "trigger": "mocked-activation-required",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-login-activation-required-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:4000/",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "setup-required",
+      "trigger": "mocked-setup-required",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-login-setup-required-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "login",
+      "route": "/",
+      "url": "http://127.0.0.1:5173/",
+      "finalUrl": "http://127.0.0.1:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "setup-required",
+      "trigger": "mocked-setup-required",
+      "data": {
+        "emailKind": "seeded",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-login-setup-required-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "login",
+      "route": "/?visualState=bootstrap-failure",
+      "url": "http://127.0.0.1:5173/?visualState=bootstrap-failure",
+      "finalUrl": "http://127.0.0.1:5173/?visualState=bootstrap-failure",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "bootstrap-failure",
+      "trigger": "current-visual-state-hook",
+      "data": null,
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-login-bootstrap-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "login",
+      "route": "/?visualState=redirecting",
+      "url": "http://127.0.0.1:5173/?visualState=redirecting",
+      "finalUrl": "http://127.0.0.1:5173/?visualState=redirecting",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "redirecting",
+      "trigger": "current-visual-state-hook",
+      "data": null,
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-login-redirecting-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:4000/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:4000/reset-password/visual-reset-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "validating-ready",
+      "trigger": "mocked-valid-token-check",
+      "data": {
+        "tokenKind": "synthetic-route-token"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-reset-password-validating-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "validating-ready",
+      "trigger": "mocked-valid-token-check",
+      "data": {
+        "tokenKind": "synthetic-route-token"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-reset-password-validating-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:4000/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:4000/reset-password/visual-reset-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "password-mismatch",
+      "trigger": "synthetic-mismatched-passwords",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-reset-password-password-mismatch-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "password-mismatch",
+      "trigger": "synthetic-mismatched-passwords",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-reset-password-password-mismatch-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:4000/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:4000/reset-password/visual-reset-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "invalid-token",
+      "trigger": "mocked-token-not-found",
+      "data": {
+        "tokenKind": "synthetic-route-token"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-reset-password-invalid-token-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "invalid-token",
+      "trigger": "mocked-token-not-found",
+      "data": {
+        "tokenKind": "synthetic-route-token"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-reset-password-invalid-token-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:4000/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "expired-token",
+      "trigger": "mocked-token-expired",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-reset-password-expired-token-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "expired-token",
+      "trigger": "mocked-token-expired",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-reset-password-expired-token-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:4000/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "success",
+      "trigger": "mocked-token-accepted",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-reset-password-success-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "success",
+      "trigger": "mocked-token-accepted",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-reset-password-success-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:4000/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "failure",
+      "trigger": "mocked-token-invalid",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-reset-password-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "failure",
+      "trigger": "mocked-token-invalid",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-reset-password-failure-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:4000/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:4000/reset-password/visual-reset-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "submitting",
+      "trigger": "mocked-pending-reset-post",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-reset-password-submitting-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "reset-password",
+      "route": "/reset-password/visual-reset-token",
+      "url": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "finalUrl": "http://127.0.0.1:5173/reset-password/visual-reset-token",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "submitting",
+      "trigger": "mocked-pending-reset-post",
+      "data": {
+        "tokenKind": "synthetic-route-token",
+        "passwordKind": "synthetic-hidden"
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-reset-password-submitting-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "family": "session-loss",
+      "route": "/session-lost",
+      "url": "http://127.0.0.1:4000/session-lost",
+      "finalUrl": "http://127.0.0.1:4000/session-lost",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "session-expired",
+      "trigger": "legacy-route-probe",
+      "data": null,
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/legacy/legacy-session-lost-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "family": "session-loss",
+      "route": "/session-lost",
+      "url": "http://127.0.0.1:5173/session-lost",
+      "finalUrl": "http://127.0.0.1:5173/session-lost",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "session-expired",
+      "trigger": "route-open-session-loss",
+      "data": null,
+      "screenshot": "docs/visual-evidence-assets/v0/auth-same-run-2026-04-23/current/current-session-lost-1440x900.png",
+      "status": "captured"
+    }
+  ],
+  "notes": [
+    "Legacy bootstrap-failure and redirecting login states were not captured because the legacy flow immediately hands off after token set and requires broader authenticated app mocking.",
+    "Legacy /session-lost is a route probe only; the legacy app has no confirmed standalone session-lost route matching current /session-lost."
+  ],
+  "securityExclusions": [
+    "no raw passwords",
+    "no auth tokens",
+    "no reset tokens",
+    "no provider payloads",
+    "no signed URLs",
+    "no tenant-sensitive identifiers"
+  ]
+}

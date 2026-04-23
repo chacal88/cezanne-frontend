@@ -173,6 +173,12 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 66. `replacement-evidence-v0-logout.md` — first focused V0 `/logout` replacement evidence record; decision is Pixel-parity-approved for `/logout` only
 67. `auth-replacement-readiness-inventory.md` — OpenSpec-driven inventory of auth route/state replacement-readiness classifications and blockers
 68. `replacement-evidence-v0-forgot-password.md` — focused V0 `/forgot-password` evidence record with same-run captures; decision remains blocked
+69. `replacement-evidence-v0-auth-entry.md` — focused V0 auth-entry evidence record; decision remains blocked
+70. `replacement-evidence-v0-reset-password.md` — focused V0 reset-password evidence record; decision remains blocked
+71. `replacement-evidence-v0-confirm-registration.md` — focused V0 confirm-registration evidence record; decision remains blocked
+72. `replacement-evidence-v0-register-invite-token.md` — focused V0 register/invite-token evidence record; decision remains blocked
+73. `replacement-evidence-v0-provider-callbacks.md` — focused V0 provider callback evidence record; decision remains blocked
+74. `replacement-evidence-v0-session-loss.md` — focused V0 session-loss evidence record; decision remains blocked
 
 ## Package roles
 
@@ -244,6 +250,12 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `replacement-evidence-v0-logout.md` | records the first route-specific replacement evidence pack; `/logout` is Pixel-parity-approved after login-field parity recapture |
 | `auth-replacement-readiness-inventory.md` | records the auth route/state inventory, `/login` alias finding, replacement-readiness classifications, and blockers for OpenSpec change `auth-replacement-readiness-package` |
 | `replacement-evidence-v0-forgot-password.md` | records the focused `/forgot-password` same-run evidence pack, scoped runtime parity fixes, and remaining blockers; it does not approve replacement |
+| `replacement-evidence-v0-auth-entry.md` | records the focused auth-entry evidence pack and remaining blockers; it does not approve replacement |
+| `replacement-evidence-v0-reset-password.md` | records the focused reset-password evidence pack and remaining blockers; it does not approve replacement |
+| `replacement-evidence-v0-confirm-registration.md` | records the focused confirm-registration evidence pack and remaining blockers; it does not approve replacement |
+| `replacement-evidence-v0-register-invite-token.md` | records the focused register/invite-token evidence pack and remaining blockers; it does not approve replacement |
+| `replacement-evidence-v0-provider-callbacks.md` | records the focused provider callback evidence pack and remaining blockers; it does not approve replacement |
+| `replacement-evidence-v0-session-loss.md` | records the focused session-loss evidence pack and remaining blockers; it does not approve replacement |
 
 ## Source relationship
 
