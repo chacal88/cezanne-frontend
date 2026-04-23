@@ -168,6 +168,7 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 61. `v1-v5-roadmap-review-2026-04-22.md` — audit closeout for the completed V1-V5 roadmap pass, including verification commands, item-level status, and remaining Figma/backend follow-ups
 62. `figma-screen-flow-handoff-index.md` — consolidated V0-V5 Figma/screen-flow handoff index for evidence-covered drafting rows, with V2 parity-blocked and no replacement approvals granted
 63. `backend-api-contract-backlog.md` — V0-V5 backend/API/provider/schema blocker backlog for the next implementation phase, keeping backend readiness separate from Figma drafting and replacement approval
+64. `replacement-approval-audit-v0-v5.md` — V0-V5 replacement approval checklist, including backend/API readiness, visual parity readiness, responsive readiness, product-exception needs, and the recommended first approval target
 
 ## Package roles
 
@@ -234,6 +235,7 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `v1-v5-roadmap-review-2026-04-22.md` | records the V1-V5 audit result, validation commands, release-by-release verification matrix, and follow-ups before deeper Figma/backend work |
 | `figma-screen-flow-handoff-index.md` | consolidates the Figma/screen-flow handoff rows for every V0-V5 area that is evidence-covered and allowed for drafting, while explicitly excluding V2 and preserving replacement-approval blockers |
 | `backend-api-contract-backlog.md` | records the actionable V0-V5 backend/API/provider/schema blocker matrix and recommended backend decision order for the next implementation phase |
+| `replacement-approval-audit-v0-v5.md` | records that no V0-V5 row is replacement-approved yet and defines the checklist/shortest path for the first pixel-parity approval package |
 
 ## Source relationship
 
