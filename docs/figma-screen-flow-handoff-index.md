@@ -16,6 +16,7 @@ Project-wide rule:
 
 | Source | Role |
 |---|---|
+| `figma-handoff-released-areas-change.md` | Active design-production change for the released V0 partial, V1, V3, V4, and V5 desktop handoff package |
 | `pre-figma-flow-review.md` | Route-by-route review status and promotion gate |
 | `visual-evidence-capture-plan.md` | Evidence schema and Figma-ready promotion rules |
 | `v0-auth-shell-dashboard-visual-contract.md` through `v5-sysadmin-platform-visual-contract.md` | Version-owned visual contracts |

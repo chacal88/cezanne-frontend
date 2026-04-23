@@ -83,6 +83,7 @@ Confirmed:
 - V5 SysAdmin/platform now has first-pass current-app visual evidence plus 124 state-hook screenshots in `visual-evidence-v5-sysadmin-platform.md`, `visual-evidence-assets/v5/v5-capture-manifest.json`, and `visual-evidence-assets/v5/state-hooks-2026-04-23/v5-state-hooks-manifest.json`; covered V5 rows may proceed to desktop current-app Figma drafting with backend/API schemas deferred
 - The V1-V5 roadmap review requested on 2026-04-22 is recorded in `v1-v5-roadmap-review-2026-04-22.md`: build and test validation pass, V1/V3/V4/V5 are closed for their current screen-flow drafting bases, V2 remains candidate visual-parity blocked after the Finn/Diego/API-seed parity-pass recapture. None of these rows are replacement-approved until legacy pixel parity is confirmed where legacy exists.
 - `figma-screen-flow-handoff-index.md` is the active V0-V5 Figma/screen-flow handoff index for evidence-covered drafting. It includes V0 covered auth/shell/dashboard sub-blocks, V1 Jobs rows, V3 public/external/token rows, V4 operations rows, and V5 desktop current-app SysAdmin/platform rows. It keeps V2 excluded from Figma-ready promotion and keeps every legacy-backed row except the explicit `/logout` handoff blocked from replacement approval.
+- `figma-handoff-released-areas-change.md` defines the active design-production change for continuing the Figma handoff across V0 partial, V1 Jobs, V3 Public/External/Token, V4 Operations, and V5 Platform desktop. It is scoped to Figma/screen-flow production only; it does not expand replacement approval or backend/API readiness.
 - `v0-auth-token-session-contract-closeout.md` records the current V0 auth/token/session contract closeout for backend handoff. It narrows auth blockers but does not approve any route beyond the already scoped `/logout` evidence record.
 
 ## Post-cleanup documentation semantics
@@ -168,18 +169,19 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 60. `visual-evidence-v5-sysadmin-platform.md` — first-pass current-app evidence log for SysAdmin/platform route-state bases
 61. `v1-v5-roadmap-review-2026-04-22.md` — audit closeout for the completed V1-V5 roadmap pass, including verification commands, item-level status, and remaining Figma/backend follow-ups
 62. `figma-screen-flow-handoff-index.md` — consolidated V0-V5 Figma/screen-flow handoff index for evidence-covered drafting rows, with V2 parity-blocked and only `/logout` granted replacement approval
-63. `backend-api-contract-backlog.md` — V0-V5 backend/API/provider/schema blocker backlog for the next implementation phase, keeping backend readiness separate from Figma drafting and replacement approval
-64. `replacement-approval-audit-v0-v5.md` — V0-V5 replacement approval checklist, including backend/API readiness, visual parity readiness, responsive readiness, product-exception needs, and the recommended first approval target
-65. `replacement-approval-evidence-template.md` — reusable evidence-pack template/checklist for future replacement approval records; the template itself does not grant approval
-66. `replacement-evidence-v0-logout.md` — first focused V0 `/logout` replacement evidence record; decision is Pixel-parity-approved for `/logout` only
-67. `auth-replacement-readiness-inventory.md` — OpenSpec-driven inventory of auth route/state replacement-readiness classifications and blockers
-68. `replacement-evidence-v0-forgot-password.md` — focused V0 `/forgot-password` evidence record with same-run captures; decision remains blocked
-69. `replacement-evidence-v0-auth-entry.md` — focused V0 auth-entry evidence record; decision remains blocked
-70. `replacement-evidence-v0-reset-password.md` — focused V0 reset-password evidence record; decision remains blocked
-71. `replacement-evidence-v0-confirm-registration.md` — focused V0 confirm-registration evidence record; decision remains blocked
-72. `replacement-evidence-v0-register-invite-token.md` — focused V0 register/invite-token evidence record; decision remains blocked
-73. `replacement-evidence-v0-provider-callbacks.md` — focused V0 provider callback evidence record; decision remains blocked
-74. `replacement-evidence-v0-session-loss.md` — focused V0 session-loss evidence record; decision remains blocked
+63. `figma-handoff-released-areas-change.md` — active Figma production change for V0 partial, V1, V3, V4, and V5 desktop handoff work, keeping V2 excluded and replacement approval blocked except `/logout`
+64. `backend-api-contract-backlog.md` — V0-V5 backend/API/provider/schema blocker backlog for the next implementation phase, keeping backend readiness separate from Figma drafting and replacement approval
+65. `replacement-approval-audit-v0-v5.md` — V0-V5 replacement approval checklist, including backend/API readiness, visual parity readiness, responsive readiness, product-exception needs, and the recommended first approval target
+66. `replacement-approval-evidence-template.md` — reusable evidence-pack template/checklist for future replacement approval records; the template itself does not grant approval
+67. `replacement-evidence-v0-logout.md` — first focused V0 `/logout` replacement evidence record; decision is Pixel-parity-approved for `/logout` only
+68. `auth-replacement-readiness-inventory.md` — OpenSpec-driven inventory of auth route/state replacement-readiness classifications and blockers
+69. `replacement-evidence-v0-forgot-password.md` — focused V0 `/forgot-password` evidence record with same-run captures; decision remains blocked
+70. `replacement-evidence-v0-auth-entry.md` — focused V0 auth-entry evidence record; decision remains blocked
+71. `replacement-evidence-v0-reset-password.md` — focused V0 reset-password evidence record; decision remains blocked
+72. `replacement-evidence-v0-confirm-registration.md` — focused V0 confirm-registration evidence record; decision remains blocked
+73. `replacement-evidence-v0-register-invite-token.md` — focused V0 register/invite-token evidence record; decision remains blocked
+74. `replacement-evidence-v0-provider-callbacks.md` — focused V0 provider callback evidence record; decision remains blocked
+75. `replacement-evidence-v0-session-loss.md` — focused V0 session-loss evidence record; decision remains blocked
 
 ## Package roles
 
@@ -210,6 +212,7 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `r0-code-closeout-checklist.md` | records the executable closeout evidence for R0 |
 | `r0-route-registration-plan.md` | defines the minimum R0 route-registration contract |
 | `conventions.md` | defines implementation conventions and default patterns |
+| `figma-handoff-released-areas-change.md` | defines the active Figma/screen-flow production change for the currently released V0 partial, V1, V3, V4, and V5 desktop areas |
 | `r5-decision-register.md` | records R5 platform and long-tail decisions before executable planning starts |
 | `r5-master-plan.md` | consolidates R5 sequencing, dependencies, and first OpenSpec queue |
 | `r5-sysadmin-open-points.md` | records SysAdmin open decisions before R5 platform implementation starts |
