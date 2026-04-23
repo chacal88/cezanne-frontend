@@ -66,7 +66,7 @@ V0 covers:
 | Cezanne launch | ready/launching, missing tenant, launch failed | Represent provider launch separately from callback processing. |
 | Cezanne callback | provider error, missing code, exchanging, exchange failed, bootstrap failed, success redirect | Do not show auth code, raw token, or provider payload. |
 | SAML launch/callback | email launch, provider error, missing code, exchanging, failed, success redirect | SAML launch may be a route-local form; callback is a separate state. |
-| Logout/session loss | authenticated logout entry, clearing local session, logged out, public-entry fallback | Runtime canonical route is shell/session `Page`, not account overlay. |
+| Logout/session loss | authenticated logout entry, clearing local session, immediate public-entry handoff for explicit logout, separate session-expired state for session loss | Runtime canonical route remains shell/session owned; explicit logout follows legacy-style redirect while `/session-lost` remains a visible public/session state. |
 
 ## Shell/navigation/account frame set
 
@@ -134,7 +134,7 @@ V0 covers:
 | Primary login desktop | Promote covered states | Legacy/current primary login captures plus deterministic current-app hooks for submitting, 2FA required/failed, SSO mandatory, activation/setup required, bootstrap failure, and redirecting | Backend auth policy/copy, 2FA delivery and lockout rules, final pixel parity |
 | Token flows | Promote current-app state map only | 45 deterministic screenshots across forgot/reset/confirm/register/invite-token for missing, invalid, expired, valid, success, failure, retry, pending approval, and bootstrap failure | Backend token continuation payloads, invite semantics, approval semantics, final legacy parity |
 | Cezanne and SAML callback flows | Promote current-app transition map only | Launch/provider-error/missing-code/exchanging/exchange-failure/bootstrap-failure/success hooks for Cezanne, plus launch/callback hooks for SAML | Provider popup framing, provider-specific payload/error copy, backend callback contracts |
-| Logout and session loss | Promote covered states | Stable `/logout` capture and separate `/session-lost` hook | Final copy/policy parity for session expiry |
+| Logout and session loss | Promote covered states | `/logout` legacy-style handoff, current post-handoff login recapture, and separate `/session-lost` hook | Final copy/policy parity for session expiry plus login-field parity or product exception before replacement approval |
 | Shell/account profile states | Promote current-app state map only | User, hiring-company, and recruitment-agency profile dirty/saving/saved/save-failed/retry/degraded/denied captures with dashboard close target | Persistence API, server validation schema, account-menu/sidebar/topbar parity |
 | Dashboard | Promote desktop base only | Current API-backed dashboard and authenticated legacy dashboard seeded captures | Final dashboard aggregate, calendar, activity, breakpoint, and pixel-parity review |
 | Notifications | Promote fixture-backed resolver map only | Accepted V0 fixture evidence for available, unknown, unsupported, denied/stale destination categories | Live notification API and replacement parity |

@@ -53,7 +53,7 @@ Legacy reference spot-checks:
 No V0-V5 route or sub-block is currently replacement-approved.
 
 First focused evidence pack:
-- `replacement-evidence-v0-logout.md` records the first V0 `/logout` replacement evidence pass. Decision: product-exception-needed, not `Pixel-parity-approved`; no other route approval changes.
+- `replacement-evidence-v0-logout.md` records the first V0 `/logout` replacement evidence pass. Decision: blocked pending parity fix or product exception, not `Pixel-parity-approved`; no other route approval changes.
 
 ## V0 Checklist
 
@@ -70,7 +70,7 @@ First focused evidence pack:
 
 V0 shortest internal candidate: `/logout`, because it has a small route surface and minimal backend dependency. It still needs a matched legacy/current/Figma parity pack before approval.
 
-The first `/logout` evidence pack now exists in `replacement-evidence-v0-logout.md`. It confirms legacy action-route redirect behavior and current stable logged-out-page behavior, but keeps approval blocked until a canonical Figma frame exists and product either accepts the route-local logged-out page/copy deltas or requests a legacy-style immediate login handoff.
+The first `/logout` evidence pack now exists in `replacement-evidence-v0-logout.md`. Runtime has been aligned to the legacy action-route redirect behavior and the current post-handoff login state has been recaptured, but approval remains blocked until the visible login-field parity deltas are fixed or product-exceptioned.
 
 ## V1 Checklist
 

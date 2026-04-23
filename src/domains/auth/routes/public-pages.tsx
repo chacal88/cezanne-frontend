@@ -38,8 +38,16 @@ const loginVisualStates: LoginVisualState[] = ['submitting', 'two-factor-require
 const tokenVisualStates = ['missing', 'invalid', 'expired', 'valid', 'success', 'failure', 'retry', 'pending-approval', 'bootstrap-failure'] as const;
 const callbackVisualStates = ['launch', 'missing-tenant', 'missing-code', 'provider-error', 'exchanging', 'exchange-failure', 'bootstrap-failure', 'success', 'success-redirect'] as const;
 
-function redirectTo(target: string) {
+let redirectHandler = (target: string) => {
   window.location.assign(target);
+};
+
+export function __setAuthRedirectForTest(handler?: (target: string) => void) {
+  redirectHandler = handler ?? ((target: string) => window.location.assign(target));
+}
+
+function redirectTo(target: string) {
+  redirectHandler(target);
 }
 
 function readVisualState(allowed: readonly string[]): string | undefined {
@@ -383,7 +391,6 @@ export function InviteTokenPage({ token }: { token?: string }) {
 }
 
 export function LogoutPage() {
-  const { t } = useTranslation('auth');
   const { setAccessContext } = useAccessSession();
   const state = resolveLogoutState();
 
@@ -391,9 +398,10 @@ export function LogoutPage() {
     clearLocalAuthSession();
     setAccessContext(publicAccessContext);
     trackAuthOpen(buildAuthTelemetry({ action: 'logout', outcome: state.kind, sessionOutcome: 'logged-out', entryMode: 'logout', fallbackKind: 'public-entry' }));
-  }, [setAccessContext, state.kind]);
+    redirectTo(state.landingTarget ?? '/');
+  }, [setAccessContext, state.kind, state.landingTarget]);
 
-  return <PublicRoutePage title={t('logout.title')} detail={<><p>{t('logout.detail')}</p><a className="auth-login-continue" href="/">{t('login.goToLogin')}</a></>} state={state.kind} landingTarget={state.landingTarget} />;
+  return null;
 }
 
 export function SessionLossPage() {

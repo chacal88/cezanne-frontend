@@ -4,7 +4,7 @@ import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest';
 import { renderWithProviders } from '../../../testing/render';
 import { publicAccessContext } from '../../../lib/access-control';
 import { foundationAuthAdapter } from '../api';
-import { CezanneAuthPage, CezanneCallbackPage, ConfirmRegistrationPage, ForgotPasswordPage, InviteTokenPage, LogoutPage, PublicHomePage, RegisterPage, ResetPasswordPage, SamlCallbackPage, SessionLossPage } from './public-pages';
+import { CezanneAuthPage, CezanneCallbackPage, ConfirmRegistrationPage, ForgotPasswordPage, InviteTokenPage, LogoutPage, PublicHomePage, RegisterPage, ResetPasswordPage, SamlCallbackPage, SessionLossPage, __setAuthRedirectForTest } from './public-pages';
 
 describe('PublicHomePage login flow', () => {
   beforeEach(() => {
@@ -13,6 +13,7 @@ describe('PublicHomePage login flow', () => {
   });
 
   afterEach(() => {
+    __setAuthRedirectForTest();
     vi.restoreAllMocks();
   });
 
@@ -148,12 +149,15 @@ describe('PublicHomePage login flow', () => {
     expect(await screen.findByText('Registration token is missing.')).toBeInTheDocument();
   });
 
-  it('separates session loss from explicit logout', () => {
+  it('redirects explicit logout while keeping session loss visible', () => {
+    const redirect = vi.fn();
+    __setAuthRedirectForTest(redirect);
     renderWithProviders(<LogoutPage />, { accessContext: publicAccessContext });
 
-    expect(screen.getByTestId('auth-route-state')).toHaveTextContent('logged-out');
-    expect(screen.getByTestId('auth-landing-target')).toHaveTextContent('/');
+    expect(redirect).toHaveBeenCalledWith('/');
+    expect(screen.queryByTestId('auth-route-state')).not.toBeInTheDocument();
     cleanup();
+    __setAuthRedirectForTest();
 
     renderWithProviders(<SessionLossPage />, { accessContext: publicAccessContext });
 
