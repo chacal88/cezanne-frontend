@@ -10,12 +10,12 @@ It supports `v0-auth-shell-dashboard-visual-contract.md` and keeps evidence sepa
 
 | Field | Value |
 |---|---|
-| Capture date | 2026-04-21; runtime hook update 2026-04-22; expanded state-hook visual capture and `/logout` parity recapture 2026-04-23 |
+| Capture date | 2026-04-21; runtime hook update 2026-04-22; expanded state-hook visual capture, `/logout` parity recapture, and focused `/forgot-password` same-run capture 2026-04-23 |
 | Viewport | Desktop `1440x900`, device scale factor `1` |
 | Current app | `http://localhost:5173`; expanded state-hook recapture used `V0_CAPTURE_BASE_URL=http://127.0.0.1:5174` because `5173` was already occupied locally |
 | Legacy/reference app | `http://localhost:4000` |
 | Capture tool | Local Playwright script from `@playwright/test` dependency; reusable script `scripts/capture-v0-state-evidence.mjs` |
-| Manifest | `visual-evidence-assets/v0/v0-capture-manifest.json`; expanded state-hook manifest `visual-evidence-assets/v0/v0-state-hooks-manifest.json` with 90 records |
+| Manifest | `visual-evidence-assets/v0/v0-capture-manifest.json`; expanded state-hook manifest `visual-evidence-assets/v0/v0-state-hooks-manifest.json` with 90 records; focused `/forgot-password` manifest `visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/capture-manifest.json` with 10 records |
 | Security exclusions | No credentials, raw tokens, auth codes, provider payloads, signed URLs, or message bodies are stored in this log. The seeded dashboard screenshot uses a non-sensitive dev-only visual evidence token. |
 | Local seed | `local-dev/scripts/seed-api-data.sh` with owner `kauemsc@gmail.com`, company `Warner Brothers`, 6 candidates, job id `12`, job uuid `be52b884-c06a-4d05-86e3-afb244c69c7b`. Passwords and auth tokens are intentionally omitted. |
 
@@ -36,6 +36,7 @@ It supports `v0-auth-shell-dashboard-visual-contract.md` and keeps evidence sepa
 | `/forgot-password` | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield app | `visual-evidence-assets/v0/current/greenfield-forgot-password-1440x900.png` | Ready forgot-password form | Partial evidence only |
 | `/forgot-password` | `v0-auth-shell-dashboard-visual-contract.md` | Legacy/reference app | `visual-evidence-assets/v0/legacy/legacy-forgot-password-1440x900.png` | Ready forgot-password form | Partial evidence only |
 | `/forgot-password` submitted | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield app with local API seed user email | `visual-evidence-assets/v0/current/greenfield-forgot-password-submitted-1440x900.png` | Submitted/sent password reset email state | Covered for ready/sent states |
+| `/forgot-password` focused same-run | `replacement-evidence-v0-forgot-password.md` | Legacy/reference and current greenfield apps with mocked forgot-password outcomes | `visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/` | Ready, submitting, `mail_sent`, `mail_not_found`, and `mail_error` at desktop `1440x900` | Captured; current follows legacy direction for ready/loading/outcome flash/redirect; replacement remains blocked by account-existence disclosure, backend enum confirmation, and missing Figma frames |
 | `/register/null` | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield app | `visual-evidence-assets/v0/current/greenfield-register-null-1440x900.png` | Register form ready with organization selector | Partial evidence only |
 | `/register/null` | `v0-auth-shell-dashboard-visual-contract.md` | Legacy/reference app | `visual-evidence-assets/v0/legacy/legacy-register-null-1440x900.png` | Invalid token redirect/message and login surface | Partial evidence only |
 | `/register/valid-register-token` mismatch | `v0-auth-shell-dashboard-visual-contract.md` | Current greenfield app | `visual-evidence-assets/v0/current/greenfield-register-token-mismatch-1440x900.png` | Registration password mismatch validation | Partial evidence only; success state remains deferred |
@@ -82,6 +83,7 @@ These files are retained for audit trail only and must not be used for implement
 - Runtime now exposes deterministic V0 visual-state hooks for missing auth/token/SSO states and a separate `/session-lost` route. Current-app screenshots for those hooks are captured in `visual-evidence-assets/v0/v0-state-hooks-manifest.json`.
 - `/auth/cezanne` without a tenant now renders the public missing-tenant state instead of falling through to access denied.
 - The expanded 2026-04-23 V0 state-hook recapture is reproducible with `npm run capture:v0:state-evidence` after starting the app. The manifest now records 90 current-app screenshots: 8 login, 45 token-flow, 15 SSO/callback, 1 session-loss, and 21 account/profile records.
+- The focused 2026-04-23 `/forgot-password` same-run recapture records 10 screenshots across legacy/current ready, submitting, `mail_sent`, `mail_not_found`, and `mail_error`. Current ready/submitting visuals were aligned closer to legacy, and outcome behavior now uses reusable flash placement plus `mail_sent` redirect to `/`.
 
 ## Accepted deviations in this pass
 
@@ -113,6 +115,7 @@ These files are retained for audit trail only and must not be used for implement
 | Auth token flows | Figma-ready current-app state-map sub-block; replacement not approved | Forgot-password ready/sent, reset/register validation, and 45 token state hooks across forgot/reset/confirm/register/invite are captured. Legacy continuation and backend schemas remain deferred. |
 | SSO/callback | Figma-ready current-app transition-map sub-block; replacement not approved | SAML launch, Cezanne launch/missing-tenant, and Cezanne/SAML provider-error/missing-code/exchanging/exchange-failure/bootstrap-failure/success hooks are captured. Provider popup decisions and backend payload details remain deferred. |
 | Logout | Figma-ready sub-block; `Pixel-parity-approved` for `/logout` only | `/logout` now follows legacy-style redirect handoff to `/`; current post-handoff login evidence is recaptured at `1440x900` after login-field placeholder/icon alignment, and the previous route-local logged-out screenshot is superseded for replacement approval. Session-loss is separately captured and tracked as its own transition. |
+| Forgot password | Focused same-run evidence captured; replacement not approved | Ready/submitting and outcome placement were aligned closer to legacy and recaptured. Replacement remains blocked by account-existence disclosure, backend enum confirmation, and missing Figma frame references. |
 | Session loss | Current-app visual evidence captured; replacement not approved | `/session-lost` separates session expiry from explicit logout and is covered by tests and screenshot evidence. |
 | Shell/dashboard | Figma-ready sub-block | Current API-backed dashboard and authenticated legacy dashboard are captured against local seed data. Visual/data parity refinements remain tracked as debt, not a V0 blocker. |
 | Notifications | Figma-ready sub-block | Fixture-backed resolver states are explicitly accepted for V0 Figma input; live API replacement remains deferred. |

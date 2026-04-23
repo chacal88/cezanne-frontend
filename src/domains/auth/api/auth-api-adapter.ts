@@ -216,11 +216,11 @@ export async function requestPasswordResetEmail(email: string): Promise<PublicAu
   const response = await restApiPostJson<ApiMessageResponse>('/user/forgot-password', { email });
   switch (response.msg) {
     case 'mail_sent':
-      return { status: 'succeeded', message: 'Password reset email sent.', redirectTo: '/' };
+      return { status: 'succeeded', message: `A verification email has been sent to ${email}. Please check your inbox or spam folder to reset password.`, redirectTo: '/' };
     case 'mail_not_found':
-      return { status: 'failed', message: 'No account was found for this email.' };
+      return { status: 'failed', message: 'Email not found.' };
     default:
-      return { status: 'failed', message: 'Password reset email could not be sent.' };
+      return { status: 'failed', message: 'Failed to send, please try again or contact the system admin on support@occupop.com' };
   }
 }
 

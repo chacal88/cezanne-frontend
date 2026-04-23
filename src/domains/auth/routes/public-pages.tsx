@@ -18,11 +18,12 @@ import {
   type PublicAuthActionStatus,
 } from '../api';
 import { publicAccessContext, useAccessSession } from '../../../lib/access-control';
+import { FlashToast, storeFlashMessage, useStoredFlashMessage, type FlashMessage } from '../../../lib/flash';
 import { createCorrelationId, ensureCorrelationId, setActiveCorrelationId } from '../../../lib/observability';
 import { buildAuthTelemetry, buildAuthTokenRouteState, parseAuthCallbackState, resolveLogoutState, resolvePostAuthLanding, type AuthLoginResult, type AuthProviderFamily } from '../models';
 import './public-pages.css';
 
-type PublicRoutePageProps = { title: string; detail: ReactNode; state?: string; landingTarget?: string };
+type PublicRoutePageProps = { title: string; detail: ReactNode; state?: string; landingTarget?: string; className?: string };
 type ActionState = { status: PublicAuthActionStatus; message?: string; redirectTo?: string };
 type LoginVisualState =
   | 'submitting'
@@ -79,9 +80,9 @@ function trackAuthOpen(event: ReturnType<typeof buildAuthTelemetry>) {
   observability.telemetry.track({ ...event, data: { ...event.data, correlationId: ensureCorrelationId() } });
 }
 
-function PublicRoutePage({ title, detail, state, landingTarget }: PublicRoutePageProps) {
+function PublicRoutePage({ title, detail, state, landingTarget, className }: PublicRoutePageProps) {
   return (
-    <main className="auth-public-page auth-public-page--simple">
+    <main className={`auth-public-page auth-public-page--simple${className ? ` ${className}` : ''}`}>
       <section className="auth-route-card">
         <img className="auth-login-logo" src="/assets/img/cezanne/cezanne_recruitment_logo_20261x.png" alt="Cezanne Recruitment logo" />
         <h2>{title}</h2>
@@ -114,6 +115,7 @@ function buildProviderPopupFeatures() {
 export function PublicHomePage({ authAdapter = authApiAdapter, autoRedirect = true }: { authAdapter?: AuthLoginAdapter; autoRedirect?: boolean } = {}) {
   const { t } = useTranslation('auth');
   const { setAccessContext } = useAccessSession();
+  const flash = useStoredFlashMessage();
   const requestedTarget = useMemo(() => new URLSearchParams(window.location.search).get('returnTo') ?? undefined, []);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -198,6 +200,7 @@ export function PublicHomePage({ authAdapter = authApiAdapter, autoRedirect = tr
 
   return (
     <main className="auth-public-page">
+      <FlashToast flash={flash} testId="auth-flash-toast" />
       <div>
         <div className="auth-login-shell">
           <section className="auth-login-card" aria-labelledby="auth-login-title">
@@ -259,6 +262,7 @@ export function ConfirmRegistrationPage({ token }: { token?: string }) {
 export function ForgotPasswordPage() {
   const { t } = useTranslation('auth');
   const [email, setEmail] = useState('');
+  const [flash, setFlash] = useState<FlashMessage | null>(null);
   const visualState = readVisualState(tokenVisualStates);
   const [state, setState] = useState<ActionState>(actionStateFromVisualState(visualState) ?? { status: 'idle' });
   trackAuthOpen(buildAuthTelemetry({ action: 'open', outcome: 'ready', entryMode: 'direct' }));
@@ -268,14 +272,44 @@ export function ForgotPasswordPage() {
     setState({ status: 'submitting', message: t('forgotPassword.sending') });
     try {
       const result = await requestPasswordResetEmail(email);
+      if (result.status === 'succeeded' && result.redirectTo) {
+        storeFlashMessage({ kind: 'success', title: t('forgotPassword.sentTitle'), message: result.message });
+        redirectTo(result.redirectTo);
+        return;
+      }
+      if (result.status === 'failed') {
+        setFlash({ kind: 'error', title: result.message === 'Email not found.' ? t('forgotPassword.notFoundTitle') : t('forgotPassword.errorTitle'), message: result.message });
+        setState({ status: 'idle' });
+        return;
+      }
       setState(result);
     } catch {
-      setState({ status: 'failed', message: t('forgotPassword.error') });
+      setFlash({ kind: 'error', title: t('forgotPassword.errorTitle'), message: t('forgotPassword.error') });
+      setState({ status: 'idle' });
     }
   }
 
   return (
-    <PublicRoutePage title={t('forgotPassword.title')} detail={<form className="auth-secondary-form" onSubmit={submit} aria-label={t('forgotPassword.title')}><p>{t('forgotPassword.detail')}</p><input className="auth-login-field__control" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={t('login.emailPlaceholder')} type="email" required /><button className="auth-login-btn" type="submit" disabled={state.status === 'submitting'}>{state.status === 'submitting' ? t('forgotPassword.sending') : t('forgotPassword.submit')}</button><PublicFormMessage state={state} /><a className="auth-login-continue" href="/">{t('login.goToLogin')}</a></form>} state={visualState ?? state.status} />
+    <PublicRoutePage
+      className="auth-public-page--forgot-password"
+      title={t('forgotPassword.title')}
+      detail={(
+        <form className="auth-secondary-form auth-secondary-form--forgot-password" onSubmit={submit} aria-label={t('forgotPassword.title')}>
+          <FlashToast flash={flash} testId="auth-flash-toast" />
+          {t('forgotPassword.detail') ? <p>{t('forgotPassword.detail')}</p> : null}
+          <label className="auth-login-field" htmlFor="forgot-password-email">
+            <input id="forgot-password-email" className="auth-login-field__control" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={t('login.emailPlaceholder')} type="email" required />
+            <i className="far fa-envelope auth-login-field__icon" aria-hidden="true" />
+          </label>
+          <button className="auth-login-btn" type="submit" disabled={state.status === 'submitting'}>
+            {state.status === 'submitting' ? <i className="fas fa-spin fa-circle-notch" aria-label={t('forgotPassword.sending')} /> : t('forgotPassword.submit')}
+          </button>
+          {state.status === 'submitting' ? <PublicFormMessage state={state} /> : null}
+          <a className="auth-login-continue" href="/">{t('forgotPassword.goToLogin')}</a>
+        </form>
+      )}
+      state={visualState ?? state.status}
+    />
   );
 }
 

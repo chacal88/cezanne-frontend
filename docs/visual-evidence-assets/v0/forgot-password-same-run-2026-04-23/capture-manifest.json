@@ -1,0 +1,194 @@
+{
+  "captureDate": "2026-04-23",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "currentBaseUrl": "http://127.0.0.1:5173",
+  "legacyBaseUrl": "http://127.0.0.1:4000",
+  "route": "/forgot-password",
+  "totalRecords": 10,
+  "records": [
+    {
+      "app": "legacy",
+      "route": "/forgot-password",
+      "url": "http://127.0.0.1:4000/forgot-password",
+      "finalUrl": "http://127.0.0.1:4000/forgot-password",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "ready",
+      "trigger": "route-open",
+      "data": null,
+      "screenshot": "docs/visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/legacy/legacy-forgot-password-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "route": "/forgot-password",
+      "url": "http://127.0.0.1:5173/forgot-password",
+      "finalUrl": "http://127.0.0.1:5173/forgot-password",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "ready",
+      "trigger": "route-open",
+      "data": null,
+      "screenshot": "docs/visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/current/current-forgot-password-ready-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "route": "/forgot-password",
+      "url": "http://127.0.0.1:4000/forgot-password",
+      "finalUrl": "http://127.0.0.1:4000/forgot-password",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "submitting",
+      "trigger": "mocked-pending-post",
+      "data": {
+        "emailKind": "seeded",
+        "intercepted": true
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/legacy/legacy-forgot-password-submitting-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "route": "/forgot-password",
+      "url": "http://127.0.0.1:5173/forgot-password",
+      "finalUrl": "http://127.0.0.1:5173/forgot-password",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "submitting",
+      "trigger": "mocked-pending-post",
+      "data": {
+        "emailKind": "seeded",
+        "intercepted": true
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/current/current-forgot-password-submitting-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "route": "/forgot-password",
+      "url": "http://127.0.0.1:4000/forgot-password",
+      "finalUrl": "http://127.0.0.1:4000/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "mail-sent",
+      "trigger": "mocked-mail_sent",
+      "data": {
+        "emailKind": "seeded",
+        "intercepted": true
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/legacy/legacy-forgot-password-mail-sent-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "route": "/forgot-password",
+      "url": "http://127.0.0.1:5173/forgot-password",
+      "finalUrl": "http://127.0.0.1:5173/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "mail-sent",
+      "trigger": "mocked-mail_sent",
+      "data": {
+        "emailKind": "seeded",
+        "intercepted": true
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/current/current-forgot-password-mail-sent-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "route": "/forgot-password",
+      "url": "http://127.0.0.1:4000/forgot-password",
+      "finalUrl": "http://127.0.0.1:4000/forgot-password",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "mail-not-found",
+      "trigger": "mocked-mail_not_found",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "intercepted": true
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/legacy/legacy-forgot-password-mail-not-found-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "route": "/forgot-password",
+      "url": "http://127.0.0.1:5173/forgot-password",
+      "finalUrl": "http://127.0.0.1:5173/forgot-password",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "mail-not-found",
+      "trigger": "mocked-mail_not_found",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "intercepted": true
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/current/current-forgot-password-mail-not-found-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "legacy",
+      "route": "/forgot-password",
+      "url": "http://127.0.0.1:4000/forgot-password",
+      "finalUrl": "http://127.0.0.1:4000/forgot-password",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "mail-error",
+      "trigger": "mocked-mail_error",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "intercepted": true
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/legacy/legacy-forgot-password-mail-error-1440x900.png",
+      "status": "captured"
+    },
+    {
+      "app": "current",
+      "route": "/forgot-password",
+      "url": "http://127.0.0.1:5173/forgot-password",
+      "finalUrl": "http://127.0.0.1:5173/forgot-password",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "state": "mail-error",
+      "trigger": "mocked-mail_error",
+      "data": {
+        "emailKind": "synthetic-non-sensitive",
+        "intercepted": true
+      },
+      "screenshot": "docs/visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/current/current-forgot-password-mail-error-1440x900.png",
+      "status": "captured"
+    }
+  ],
+  "securityExclusions": [
+    "no passwords",
+    "no auth tokens",
+    "no reset tokens",
+    "no provider payloads",
+    "no signed URLs"
+  ]
+}

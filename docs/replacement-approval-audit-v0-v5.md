@@ -154,42 +154,29 @@ Status: second candidate only. Do not mark `/forgot-password` replacement-approv
 
 Current evidence:
 - Legacy route/source exists under `/Users/kauesantos/Documents/recruit/frontend/src/app/domain/login/forgot-password/`.
-- Legacy ready screenshot exists at `visual-evidence-assets/v0/legacy/legacy-forgot-password-1440x900.png`.
-- Current ready screenshot exists at `visual-evidence-assets/v0/current/greenfield-forgot-password-1440x900.png`.
+- Legacy ready screenshot exists at `visual-evidence-assets/v0/legacy/legacy-forgot-password-1440x900.png`; focused same-run ready capture now exists under `visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/legacy/`.
+- Current ready screenshot exists at `visual-evidence-assets/v0/current/greenfield-forgot-password-1440x900.png`; focused same-run ready recapture now exists under `visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/current/`.
 - Current submitted/sent screenshot exists at `visual-evidence-assets/v0/current/greenfield-forgot-password-submitted-1440x900.png`.
 - Current deterministic state-hook screenshots exist for `/forgot-password?visualState=missing|invalid|expired|valid|success|failure|retry|pending-approval|bootstrap-failure` in `visual-evidence-assets/v0/current/state-hooks/`.
 - Legacy source confirms one email field, disabled/loading submit, `User.save({ id: 'forgot-password' }, vm.forgotPassword)`, response `msg` values `mail_not_found`, `mail_sent`, and `mail_error`, success/error toastr copy, and success redirect to `home`.
+- Focused evidence record `replacement-evidence-v0-forgot-password.md` and manifest `visual-evidence-assets/v0/forgot-password-same-run-2026-04-23/capture-manifest.json` now capture ready, submitting, `mail_sent`, `mail_not_found`, and `mail_error` same-run at desktop `1440x900`.
 
 Missing matched legacy/current/Figma captures:
-- Same-run legacy/current ready captures at the approval viewport after `/logout` approval is complete.
-- Same-run legacy/current submitting/loading captures using the same email/data setup.
-- Same-run legacy/current success captures for a known seeded email, including whether the observable approved behavior is toast-plus-redirect-to-login or an inline sent state.
-- Same-run legacy/current `mail_not_found` captures for an unknown email.
-- Same-run legacy/current `mail_error` or default failure captures, using a safe mocked/backend-triggered failure.
 - Canonical Figma frames or frame-node references for ready, submitting, sent/success, not-found, failure/retry, and return-to-login states.
 - A side-by-side comparison record for each state above, all at the same viewport, route, seed, and state trigger.
 
 Backend copy/token blockers:
 - Final backend response enum for `/user/forgot-password` must confirm whether `mail_sent`, `mail_not_found`, and `mail_error` remain the complete public contract or are replaced by structured error codes.
 - Product/security must confirm whether account-existence disclosure follows the legacy `mail_not_found` behavior or changes to neutral recovery copy; any change needs a product exception before replacement approval.
-- Final copy source must decide legacy toastr strings versus current inline `PublicFormMessage` strings for success, not-found, and failure.
-- Submit success route handoff must be decided: legacy redirects to `home` after `mail_sent`; current evidence shows an inline sent state and the current submit handler does not perform a redirect.
+- Current implementation now follows legacy-style top-right flash placement for success, not-found, and failure.
+- Current implementation now follows the legacy `mail_sent` handoff direction by redirecting to `/` after storing the success flash.
 - Reset-token email lifecycle remains backend-owned: token generation, expiry, used-token semantics, rate limiting/throttling copy, and delivery failure taxonomy must be documented enough that forgot-password does not imply unconfirmed reset-token behavior.
 
-Exact capture checklist after `/logout`:
-1. Capture legacy `/forgot-password` ready at desktop `1440x900`.
-2. Capture current `/forgot-password` ready at desktop `1440x900` in the same run.
-3. Capture legacy submitting/loading after entering the matched seeded email.
-4. Capture current submitting/loading after entering the same matched seeded email.
-5. Capture legacy `mail_sent` outcome, including toast text and final route after redirect.
-6. Capture current `mail_sent` outcome, including inline/toast text and final route.
-7. Capture legacy `mail_not_found` outcome with the agreed unknown email.
-8. Capture current `mail_not_found` outcome with the same unknown email.
-9. Capture legacy `mail_error` or equivalent forced failure.
-10. Capture current default failure/retry state from the same forced failure.
-11. Attach Figma frame/node references for ready, submitting, sent/success, not-found, failure/retry, and return-to-login.
-12. Record pixel diffs for card layout, logo placement, title/copy, email field, icon/feedback treatment, button loading state, return link placement, toast/inline message treatment, redirect behavior, typography, spacing, and responsive clipping.
-13. Fix differences or record explicit product exceptions tied to `/forgot-password` before any replacement approval record is created.
+Remaining exact checklist:
+1. Attach Figma frame/node references for ready, submitting, sent/success, not-found, failure/retry, and return-to-login.
+2. Confirm account-existence disclosure for `mail_not_found`.
+3. Confirm the final backend response enum for `/user/forgot-password`.
+4. Recapture after Figma references and backend/product decisions are attached before requesting replacement approval.
 
 ## Required Next Documents Before Approval
 

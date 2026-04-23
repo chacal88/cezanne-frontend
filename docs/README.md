@@ -171,6 +171,8 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 64. `replacement-approval-audit-v0-v5.md` — V0-V5 replacement approval checklist, including backend/API readiness, visual parity readiness, responsive readiness, product-exception needs, and the recommended first approval target
 65. `replacement-approval-evidence-template.md` — reusable evidence-pack template/checklist for future replacement approval records; the template itself does not grant approval
 66. `replacement-evidence-v0-logout.md` — first focused V0 `/logout` replacement evidence record; decision is Pixel-parity-approved for `/logout` only
+67. `auth-replacement-readiness-inventory.md` — OpenSpec-driven inventory of auth route/state replacement-readiness classifications and blockers
+68. `replacement-evidence-v0-forgot-password.md` — focused V0 `/forgot-password` evidence record with same-run captures; decision remains blocked
 
 ## Package roles
 
@@ -240,6 +242,8 @@ Use these rules when comparing docs to source so future audits do not reopen fal
 | `replacement-approval-audit-v0-v5.md` | records that only `/logout` is replacement-approved and defines the checklist/shortest path for future pixel-parity approval packages |
 | `replacement-approval-evidence-template.md` | provides the reusable route/family evidence-pack template for future matched legacy/current/Figma approval records; copying or completing the template does not approve replacement without an explicit final decision |
 | `replacement-evidence-v0-logout.md` | records the first route-specific replacement evidence pack; `/logout` is Pixel-parity-approved after login-field parity recapture |
+| `auth-replacement-readiness-inventory.md` | records the auth route/state inventory, `/login` alias finding, replacement-readiness classifications, and blockers for OpenSpec change `auth-replacement-readiness-package` |
+| `replacement-evidence-v0-forgot-password.md` | records the focused `/forgot-password` same-run evidence pack, scoped runtime parity fixes, and remaining blockers; it does not approve replacement |
 
 ## Source relationship
 

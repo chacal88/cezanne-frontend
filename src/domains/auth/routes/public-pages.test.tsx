@@ -128,14 +128,34 @@ describe('PublicHomePage login flow', () => {
   });
 
   it('keeps forgot-password navigation inside the public auth surface', async () => {
+    const redirect = vi.fn();
+    __setAuthRedirectForTest(redirect);
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(JSON.stringify({ msg: 'mail_sent' }), { status: 200 }));
     renderWithProviders(<ForgotPasswordPage />, { accessContext: publicAccessContext });
 
     await userEvent.type(screen.getByPlaceholderText('Email address'), 'person@example.test');
     await userEvent.click(screen.getByRole('button', { name: /send email/i }));
 
-    expect(await screen.findByTestId('auth-form-message')).toHaveTextContent('Password reset email sent.');
-    expect(screen.getByRole('link', { name: /go to login/i })).toHaveAttribute('href', '/');
+    expect(redirect).toHaveBeenCalledWith('/');
+    expect(window.sessionStorage.getItem('recruit.flashMessage')).toContain('A verification email has been sent to person@example.test.');
+    cleanup();
+    __setAuthRedirectForTest();
+
+    renderWithProviders(<PublicHomePage autoRedirect={false} />, { accessContext: publicAccessContext });
+    expect(screen.getByTestId('auth-flash-toast')).toHaveTextContent('Email Sent');
+    expect(screen.getByTestId('auth-flash-toast')).toHaveTextContent('Please check your inbox or spam folder');
+  });
+
+  it('shows forgot-password failures as legacy-style toast feedback', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(JSON.stringify({ msg: 'mail_not_found' }), { status: 200 }));
+    renderWithProviders(<ForgotPasswordPage />, { accessContext: publicAccessContext });
+
+    await userEvent.type(screen.getByPlaceholderText('Email address'), 'missing@example.test');
+    await userEvent.click(screen.getByRole('button', { name: /send email/i }));
+
+    expect(await screen.findByTestId('auth-flash-toast')).toHaveTextContent('Email not found.');
+    expect(screen.queryByTestId('auth-form-message')).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /go to login page/i })).toHaveAttribute('href', '/');
   });
 
   it('renders sign-up and token confirmation as navigable public routes', async () => {
