@@ -80,6 +80,8 @@ R3 implementation status (confirmed in code): the public/token route family now 
 
 R5 implementation status (confirmed in code/docs): platform master data, platform users/favorite-request queue, taxonomy, requisition authoring, API endpoints settings, `/parameters` compatibility, and requisition forms/download are implemented and validated. Generic integration tokenized entries were reconciled as already covered by R3 token-entry routes.
 
+V0 consolidation update (2026-04-22): auth entry, token flows, SSO/Cezanne/SAML callbacks, logout/session-loss separation, shell account profile states, dashboard, notifications, and inbox now have current-app runtime/evidence coverage for the documented local state hooks. Backend/API contracts for 2FA policy, activation/setup reasons, token continuation payloads, provider callback payloads, live notifications/inbox transport, and dashboard aggregate/calendar parity remain deferred. No V0 surface is production replacement-approved.
+
 V1-V5 review update (2026-04-22): V1, V3, and V4 are closed for current screen-flow handoff bases; V5 is foundation-complete but not final Figma-ready for non-ready/mutation/depth states; V2 is behaviour-covered but remains legacy-parity blocked. Product direction for V2 Candidates is full parity: no database/detail/action-flow deviation is accepted unless a future product decision explicitly records the exception and gap id. The first parity pass has improved V2 database density/saved lists, candidate action modal composition, candidate detail legacy modal entry points, recapture seed parity for Finn/Diego/API-seed-style evidence, schedule/reject/email editor-style action composition, database ready-frame vertical rhythm, search sizing, database 8-row/card/table geometry, database menu/header icon treatment, detail card/tab vertical proportions, schedule/reject modal geometry, and Email tab composer parity, with `npm test`, `npm run build`, and `npm run smoke:r0:ui` green.
 
 ### Why this slicing (and not the original Waves)
@@ -469,7 +471,7 @@ Current status:
 | Provider readiness operational gates | Closed | `provider-readiness-operational-gates-plan.md`, `provider-readiness-operational-gates` | Operational routes consume normalized readiness outputs and preserve provider setup separation. |
 | Operational-depth consumer packages | Closed | `integration-operational-depth-sequence-plan.md` | All eight follow-on packages are implemented and validated. |
 | Design/flow preparation | Closed for contract package creation | `screen-design-flow-matrix.md`, `pre-figma-flow-review.md`, `v0-auth-shell-dashboard-visual-contract.md` through `v5-sysadmin-platform-visual-contract.md` | All route rows are contract-reviewed and V0-V5 visual-readiness packages exist. |
-| Visual evidence capture | In progress | V0-V5 visual contracts + `visual-evidence-capture-plan.md` + V0/V1/V2/V3/V4/V5 evidence logs | V0, V1, V3, and V4 screen-flow bases are captured and unblocked for Figma drafting with deferred backend/provider/schema annotations, but still require project-wide pixel-parity signoff before replacement. V2 candidate rows are behaviour-captured and parity-blocked. V5 has first-pass current-app evidence and remains blocked for follow-up state capture, pixel-parity review, and canonical Figma-ready decisions. |
+| Visual evidence capture | In progress | V0-V5 visual contracts + `visual-evidence-capture-plan.md` + V0/V1/V2/V3/V4/V5 evidence logs | V0, V1, V3, and V4 screen-flow bases are captured and unblocked for Figma drafting with deferred backend/provider/schema annotations, but still require project-wide pixel-parity signoff before replacement. V0 token/SSO/session/account profile hook screenshots are now current-app evidence, not backend/API or replacement approval. V2 candidate rows are behaviour-captured and parity-blocked. V5 has first-pass current-app evidence plus tested runtime state hooks and remains blocked for hook screenshot capture, pixel-parity review, and canonical Figma-ready decisions. |
 | Figma + screen-flow contracts | Next planned phase | future Figma references + screen-flow contracts | Attach canonical Figma nodes/frames to rows only after visual evidence makes them `Figma-ready`, without changing route/spec ownership. Final replacement approval remains blocked until pixel parity against the matching legacy screen/state is confirmed or a documented product exception exists. |
 
 Planning rule: do not reopen provider readiness gates as the current implementation package unless a new provider family or operational consumer is intentionally added. The active phase is visual evidence capture against the V0-V5 visual-readiness contracts. Figma production is partially unblocked only for rows/sub-blocks promoted to `Figma-ready` by evidence, but `Figma-ready` is a screen-flow drafting status, not replacement signoff. Every legacy-backed row remains subject to side-by-side pixel-parity approval before launch replacement. V3 public/external and integration token rows plus V4 operations rows are promoted for screen-flow/base-frame Figma handoff; V5 first-pass screenshots remain current-app evidence only and do not promote rows until the remaining state gaps are captured or explicitly accepted as product omissions.
@@ -480,12 +482,15 @@ The 2026-04-22 V1-V5 audit is recorded in `v1-v5-roadmap-review-2026-04-22.md`.
 
 Confirmed:
 - `npm run build` passes.
-- `npm test` passes with 102 test files and 422 tests.
+- `npm test` passes with 105 test files and 466 tests after the V0, V2, and V5 follow-up passes.
+- `npm run smoke:r0:ui` passes with 28 Playwright tests.
+- `npm run smoke:r0:http` passes for the route-level HTTP sweep.
+- V0 has current-app evidence coverage for auth entry, token flows, SSO/Cezanne/SAML, logout/session-loss separation, account profile state hooks, dashboard, notifications, and inbox fixture states; production replacement remains blocked by backend/live API/parity follow-ups.
 - V1 Jobs is closed for route/state/screen-flow basis, but final replacement requires pixel-parity signoff.
 - V2 Candidates is behavior-covered but remains visual-parity blocked.
 - V3 public/external/token flows are promoted for Figma screen-flow/base-frame handoff with backend/API/schema details annotated as deferred, but final replacement requires pixel-parity signoff where legacy/reference screens exist.
 - V4 operations is promoted for current-app screen-flow handoff with backend/provider/schema details annotated as deferred, but final replacement requires pixel-parity signoff.
-- V5 platform/long-tail is foundation-complete in route/runtime coverage, but not Figma-ready until missing platform state depth is captured or a product-approved omission is recorded.
+- V5 platform/long-tail is foundation-complete in route/runtime coverage and now has tested fixture hooks for platform user, favorite request, master-data, company subscription, and taxonomy depth states, but it is not Figma-ready until those hook states are captured or a product-approved omission is recorded.
 
 ## 11. Contract gaps (backend dependencies)
 
@@ -677,7 +682,7 @@ The pre-Figma review gate is now tracked in `pre-figma-flow-review.md`. It impor
 
 ### V0 visual evidence gate
 
-V0 covered sub-blocks may proceed to Figma: primary login, desktop dashboard base, logout, notification resolver categories, and inbox empty/selected states. Deferred V0 states remain token-flow success variants, SSO success/exchange, 2FA, session-loss, and live inbox send/provider-blocked states.
+V0 covered sub-blocks may proceed to Figma for screen-flow drafting: primary login, current-app auth/token/SSO/Cezanne/SAML state hooks, logout and session-loss separation, desktop dashboard base, account profile state hooks, notification resolver categories, and inbox empty/selected states. Deferred V0 work remains backend/API confirmation for 2FA policy, activation/setup reasons, token continuation payloads, provider callback payloads, live notification and inbox send/provider-blocked transport, dashboard aggregate/calendar parity, and final legacy/current/Figma pixel-parity replacement signoff.
 
 ### V1 visual evidence gate
 

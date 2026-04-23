@@ -42,7 +42,7 @@ Product decision on 2026-04-22: the whole replacement project requires pixel par
 
 | Domain | Rows | H | M | L | Current status |
 |---|---:|---:|---:|---:|---|
-| `auth` | 10 | 9 | 0 | 1 | Partial: logout is Figma-ready; primary login is Figma-ready only as a sub-block, while token/SSO/session-loss variants remain contract-reviewed |
+| `auth` | 10 | 9 | 0 | 1 | Partial: primary login, token, SSO/Cezanne/SAML, logout, and session-loss current-app state evidence is captured for screen-flow drafting; backend/API contracts and replacement parity remain deferred |
 | `shell` | 5 | 1 | 4 | 0 | Partial: all rows contract-reviewed; canonical visuals still pending |
 | `dashboard` | 1 | 1 | 0 | 0 | Figma-ready for desktop dashboard base after current and legacy authenticated seed capture; parity refinements remain tracked debt |
 | `notifications` | 1 | 1 | 0 | 0 | Figma-ready for V0 fixture-backed resolver categories by explicit decision; live API replacement remains deferred |
@@ -66,10 +66,10 @@ Contract review is complete, and Figma production is partially unblocked only fo
 
 | Phase | Domain/family | Required visual evidence | Minimum states to confirm | Output before Figma-ready |
 |---|---|---|---|---|
-| V0 | Auth entry | Legacy/source login reference, current greenfield login, typography/spacing/token comparison | empty, filled, invalid credentials, loading, 2FA required, SSO required, session bootstrap failure, redirecting | `v0-auth-shell-dashboard-visual-contract.md` plus pixel-parity blockers/exceptions and screenshots |
-| V0 | Auth token flows | Current token pages plus any legacy references available for register/confirm/reset/forgot/invite | missing token, invalid, expired, valid, pending approval, submit success, submit failure, retry, return to login | `v0-auth-shell-dashboard-visual-contract.md` token-flow visual state map |
-| V0 | SSO/callback/logout | Current callback/logout pages and provider-launch reference behavior | launch, provider error, missing code, exchange loading, exchange failed, bootstrap failed, logged-out, public-entry fallback | `v0-auth-shell-dashboard-visual-contract.md` SSO/logout transition contract |
-| V0 | Shell/navigation/account | Current authenticated shell, legacy dashboard shell reference, account/profile pages | org mode, platform mode, account menu, notification bell, denied fallback, profile dirty/saved/degraded, logout entry | `v0-auth-shell-dashboard-visual-contract.md` shell layout/account visual contract |
+| V0 | Auth entry | Legacy/source login reference, current greenfield login, typography/spacing/token comparison | empty, filled, invalid credentials, loading/submitting, 2FA required/failed, SSO mandatory, activation/setup required, bootstrap failure, redirecting | `v0-auth-shell-dashboard-visual-contract.md` plus pixel-parity blockers/exceptions and screenshots |
+| V0 | Auth token flows | Current token pages plus any legacy references available for register/confirm/reset/forgot/invite | missing token, invalid, expired, valid, pending approval, submit success, submit failure, retry, return to login, bootstrap failure | `v0-auth-shell-dashboard-visual-contract.md` token-flow visual state map |
+| V0 | SSO/callback/logout | Current callback/logout pages and provider-launch reference behavior | launch, missing tenant, provider error, missing code, exchange loading, exchange failed, bootstrap failed, success, logged-out, session-loss, public-entry fallback | `v0-auth-shell-dashboard-visual-contract.md` SSO/logout transition contract |
+| V0 | Shell/navigation/account | Current authenticated shell, legacy dashboard shell reference, account/profile pages | org mode, platform mode, account menu, notification bell, denied fallback, profile dirty/saving/saved/save-failed/retry/degraded/denied, dashboard close target, logout entry | `v0-auth-shell-dashboard-visual-contract.md` shell layout/account visual contract |
 | V0 | Dashboard + notifications + inbox | Current dashboard and legacy dashboard reference at matching viewport; notification/inbox current pages | loading skeleton, ready, degraded source, unavailable calendar, empty notifications, unknown/denied/stale destination, selected conversation, send failure | `v0-auth-shell-dashboard-visual-contract.md` R0 visual parity debt list |
 | V1 | Jobs | Current job list/detail/task pages plus route/state contracts | list ready/empty/filtered-empty, detail sections, authoring dirty/saved/failed, bid/CV/reject/schedule/offer overlays, provider-blocked states | `v1-jobs-visual-contract.md` jobs screen-flow contract |
 | V2 | Candidates | Current candidate hub/database/action pages plus route/state contracts | hub panels, database filters, advanced/bulk states, action launchers, documents/contracts/surveys/degraded sections, parent return | `v2-candidates-visual-contract.md` candidate screen-flow contract |
@@ -92,7 +92,7 @@ Contract review is complete, and Figma production is partially unblocked only fo
 
 | Package | Covered phase | Status | Next evidence action |
 |---|---|---|---|
-| `v0-auth-shell-dashboard-visual-contract.md` | V0 auth, shell, dashboard, notifications, inbox | Prepared | Capture legacy/current app visual evidence and pixel-parity blockers/product exceptions for R0 anchor flows. |
+| `v0-auth-shell-dashboard-visual-contract.md` | V0 auth, shell, dashboard, notifications, inbox | Evidence captured for current-app state hooks | `visual-evidence-v0-auth-shell-dashboard.md` records current-app auth/token/SSO/session/account hook evidence plus dashboard/notifications/inbox captures; backend/live API contracts and pixel-parity replacement signoff remain pending. |
 | `v1-jobs-visual-contract.md` | V1 jobs list, authoring, detail, task overlays, requisitions | Evidence captured | `visual-evidence-v1-jobs.md` covers V1 screen-flow bases and records deferred provider/form/schema details. |
 | `v2-candidates-visual-contract.md` | V2 candidate hub, database, actions, panel boundaries | Product-composition evidence captured | `visual-evidence-v2-candidates.md` captures current/legacy evidence and records covered candidate rows as behaviour-evidenced but parity-blocked while keeping provider/schema/terminal variants deferred. |
 | `v3-public-external-token-visual-contract.md` | V3 public/external and integration token flows | Evidence complete | `visual-evidence-v3-public-external-token.md` covers desktop, mobile, narrow, lifecycle, and follow-up route/state evidence. V3 may proceed to Figma for screen-flow/base-frame work with backend/schema details annotated as deferred. |
@@ -107,15 +107,15 @@ No package marks any row `Figma-ready` by itself. A row becomes `Figma-ready` on
 
 | Status | Route | Class | Module | Crit | Release | Review notes |
 |---|---|---|---|---|---|---|
-| Contract-reviewed | `/` | Public/Token | entry | H | R0 | Confirmed in router, route metadata, auth API adapter, and public page tests. Covers direct entry, returnTo, email/password, 2FA, provider launch, failed login, session bootstrap, and dashboard redirect. Visual reference exists for login only; final non-happy-state visual signoff is still pending. |
-| Contract-reviewed | `/confirm-registration/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and `confirmRegistrationToken`; handles missing/invalid token, token_valid with session bootstrap, approval-pending redirect, failed API, and dashboard/login landing. Visual state references pending. |
+| Contract-reviewed | `/` | Public/Token | entry | H | R0 | Confirmed in router, route metadata, auth API adapter, and public page tests. Covers direct entry, returnTo, email/password, 2FA, provider launch, failed login, session bootstrap, and dashboard redirect. Current-app non-happy-state hook evidence is captured; backend policy/copy and final legacy parity remain pending. |
+| Contract-reviewed | `/confirm-registration/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and `confirmRegistrationToken`; handles missing/invalid token, token_valid with session bootstrap, approval-pending redirect, failed API, and dashboard/login landing. Current-app token state evidence is captured; exact backend continuation contract remains deferred. |
 | Figma-ready | `/forgot-password` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata, API adapter, public page tests, legacy ready visual, and current submitted/sent capture. Covers ready, submit/sent, retry, and return-to-login visuals; not-found/default failed copy remains backend-owned and should reuse the same message slot. |
-| Contract-reviewed | `/reset-password/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and API adapter. Handles token validation, missing/invalid/expired token, password mismatch, submit success, failed submit, and login redirect. Visual state references pending. |
+| Contract-reviewed | `/reset-password/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and API adapter. Handles token validation, missing/invalid/expired token, password mismatch, submit success, failed submit, and login redirect. Current-app token state evidence is captured; backend continuation payloads remain deferred. |
 | Contract-reviewed | `/register` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata as the public HC/RA registration companion route. Shares the register state model without treating the public route as authenticated-shell access; visual reference is partial through current `/register/null` evidence. |
-| Contract-reviewed | `/register/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and API adapter. Covers invitation token registration plus public HC/RA registration, password mismatch, submit success/failure, and login redirect. Visual state references pending. |
-| Contract-reviewed | `/auth/cezanne/:tenantGuid` | Public/Token | sso-callbacks | H | R0 | Confirmed in router/metadata and public page code. Launches current auth service `/login/cezanne/:tenantGuid`; missing tenant returns failed state. Visual launch/failure references pending. |
-| Contract-reviewed | `/auth/cezanne/callback?code` | Public/Token | sso-callbacks | H | R0 | Confirmed in router/metadata and callback API adapter. Handles provider error, missing code, code exchange, bootstrap success/failure, safe telemetry, and dashboard/login landing. Visual callback states pending. |
-| Contract-reviewed | `/auth/saml?code&error` | Public/Token | sso-callbacks | H | R0 | Confirmed in router/metadata and public page code. Covers SAML email launch, callback code exchange, provider error, missing code, bootstrap success/failure, and login/dashboard landing. Visual launch/callback states pending. |
+| Contract-reviewed | `/register/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and API adapter. Covers invitation token registration plus public HC/RA registration, password mismatch, submit success/failure, and login redirect. Current-app registration/token evidence is captured; backend continuation payloads remain deferred. |
+| Contract-reviewed | `/auth/cezanne/:tenantGuid` | Public/Token | sso-callbacks | H | R0 | Confirmed in router/metadata and public page code. Launches current auth service `/login/cezanne/:tenantGuid`; missing tenant returns failed state. Launch and missing-tenant evidence is captured; provider popup treatment remains deferred. |
+| Contract-reviewed | `/auth/cezanne/callback?code` | Public/Token | sso-callbacks | H | R0 | Confirmed in router/metadata and callback API adapter. Handles provider error, missing code, code exchange, bootstrap success/failure, safe telemetry, and dashboard/login landing. Callback waiting/failure/success hook evidence is captured; provider payload details remain deferred. |
+| Contract-reviewed | `/auth/saml?code&error` | Public/Token | sso-callbacks | H | R0 | Confirmed in router/metadata and public page code. Covers SAML email launch, callback code exchange, provider error, missing code, bootstrap success/failure, and login/dashboard landing. Launch/callback hook evidence is captured; provider payload details remain deferred. |
 | Contract-reviewed | `/users/invite-token` | Public/Token | token-flows | M | R0 | Confirmed in router/metadata as invite-token public/token route. Current code validates token presence shape only through shared token-state model; exact backend continuation screen still needs visual/reference confirmation before Figma. |
 
 
@@ -127,8 +127,8 @@ Confirmed evidence:
 - Tests cover login success/failure, provider launch, forgot-password submission, sign-up surface, confirmation missing-token behavior, local session safety, auth capabilities, and auth API adapter branches.
 - Telemetry code emits auth-safe route/state outcomes and does not persist raw credentials, passwords, auth codes, or raw tokens in local session snapshots.
 
-Remaining blockers before `Figma-ready`:
-- Visual states are confirmed only for the primary login screen; token, callback, 2FA, failed, pending approval, mandatory SSO, activation/setup-required, expired-token, and terminal retry screens still need canonical reference confirmation.
+Remaining blockers before broader auth promotion/replacement:
+- Current-app state hook evidence exists for login, token, callback, 2FA, failed, pending approval, mandatory SSO, activation/setup-required, expired-token, and terminal retry screens, but backend policy/copy, exact token continuation payloads, provider callback payloads, and final legacy/current/Figma parity remain pending.
 - `/users/invite-token` still needs exact legacy-reference confirmation for the continuation screen before canonical visual design.
 - Provider popup/callback UX needs final decision on whether Figma represents popup launch, callback waiting, and callback failure as separate frames or annotated states.
 
@@ -151,10 +151,10 @@ Confirmed evidence:
 - `/user-profile` reuses the account settings state model as a shell-aware overlay with parent close behavior.
 - Organization profile pages reuse the same account settings state model and expose unknown persistence fields instead of inventing APIs.
 
-Remaining blockers before `Figma-ready`:
+Remaining blockers before broader shell promotion/replacement:
 - Organization profile route capability names now follow runtime metadata: view capabilities gate route access, while manage capabilities are mutation capabilities.
 - `/logout` now follows runtime metadata as a shell/session page rather than an account-context overlay.
-- Shell visual parity is not complete: sidebar/topbar/account-menu/footer and notification bell interactions need canonical frame/state references.
+- Shell visual parity is not complete: sidebar/topbar/account-menu/footer and notification bell interactions need canonical frame/state references. Account/profile state hooks are captured as current-app evidence, but persistence API and account-menu parity remain deferred.
 
 ### `dashboard`
 
@@ -511,7 +511,7 @@ These rows are not independent canonical screens; they point to registered route
 ## Current blockers before Figma
 
 - Full domain-by-domain contract review is complete for all 104 canonical route rows and 4 alias/reference rows. Rows become `Figma-ready` only when canonical evidence confirms their visual/state scope and unresolved debt is explicitly recorded.
-- Existing auth/dashboard visual references do not cover all token, callback, degraded, denied, stale, retry, and parent-return states.
+- Existing auth/dashboard visual references now include current-app token/callback/session/account hooks, but live API contracts, shell/dashboard parity, and replacement signoff remain pending for the affected legacy-backed states.
 - V0, V1, V3, and V4 covered rows may proceed to Figma drafting with deferred provider/form/schema/backend annotations. V2 candidate rows are behaviour-evidenced but parity-blocked. V5 SysAdmin/platform has first-pass current-app evidence but is not Figma-ready yet. No legacy-backed row is replacement-approved until pixel parity is confirmed or explicitly excepted.
 - Shell/dashboard visual parity debt remains tracked in `roadmap.md` and should be handled during visual refinement, not as API/data blocker.
 
