@@ -83,6 +83,7 @@ Confirmed:
 - V5 SysAdmin/platform now has first-pass current-app visual evidence plus 124 state-hook screenshots in `visual-evidence-v5-sysadmin-platform.md`, `visual-evidence-assets/v5/v5-capture-manifest.json`, and `visual-evidence-assets/v5/state-hooks-2026-04-23/v5-state-hooks-manifest.json`; covered V5 rows may proceed to desktop current-app Figma drafting with backend/API schemas deferred
 - The V1-V5 roadmap review requested on 2026-04-22 is recorded in `v1-v5-roadmap-review-2026-04-22.md`: build and test validation pass, V1/V3/V4/V5 are closed for their current screen-flow drafting bases, V2 remains candidate visual-parity blocked after the Finn/Diego/API-seed parity-pass recapture. None of these rows are replacement-approved until legacy pixel parity is confirmed where legacy exists.
 - `figma-screen-flow-handoff-index.md` is the active V0-V5 Figma/screen-flow handoff index for evidence-covered drafting. It includes V0 covered auth/shell/dashboard sub-blocks, V1 Jobs rows, V3 public/external/token rows, V4 operations rows, and V5 desktop current-app SysAdmin/platform rows. It keeps V2 excluded from Figma-ready promotion and keeps every legacy-backed row except the explicit `/logout` handoff blocked from replacement approval.
+- `v0-auth-token-session-contract-closeout.md` records the current V0 auth/token/session contract closeout for backend handoff. It narrows auth blockers but does not approve any route beyond the already scoped `/logout` evidence record.
 
 ## Post-cleanup documentation semantics
 
