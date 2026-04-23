@@ -309,10 +309,16 @@ async function main() {
   await page.getByTestId('candidate-database-selected-toolbar').waitFor({ state: 'visible' });
   await capture(page, records, '05-database-row-selected-bulk-enabled', 'First row selected and bulk action toolbar enabled.');
 
+  await page.goto(`${baseUrl}/candidates-database`);
+  await waitForReady(page, 'candidate-database-composition');
+  await page.getByTestId('candidate-add-column-button').click();
+  await page.getByTestId('candidate-add-column-menu').waitFor({ state: 'visible' });
+  await capture(page, records, '06-database-add-column-menu-parity-pass', 'Add column menu with selectable legacy-style column options.');
+
   await page.goto(`${baseUrl}/candidates-database?query=no-parity-match`);
   await waitForReady(page, 'candidate-database-composition');
   await page.getByText('No candidates found').waitFor({ state: 'visible' });
-  await capture(page, records, '06-database-search-no-match', 'No-match search state with route-owned query preserved.');
+  await capture(page, records, '07-database-search-no-match', 'No-match search state with route-owned query preserved.');
 
   await Promise.all([
     page.waitForURL('**/candidates-database'),
@@ -320,7 +326,7 @@ async function main() {
   ]);
   await waitForReady(page, 'candidate-database-composition');
   await page.locator('tbody input[type="checkbox"]').first().waitFor({ state: 'visible' });
-  await capture(page, records, '07-database-reset-default-after-search', 'Reset to default returns from no-match search to the default candidate list.');
+  await capture(page, records, '08-database-reset-default-after-search', 'Reset to default returns from no-match search to the default candidate list.');
 
   await page.goto(`${baseUrl}/candidate/${finnUuid}/job-13/rejected/2/remote/interview-1?entry=job`);
   await waitForReady(page, 'candidate-detail-composition');
@@ -369,17 +375,27 @@ async function main() {
   await page.getByTestId('candidate-move-legacy-modal').waitFor({ state: 'visible' });
   await capture(page, records, '18-detail-move-parent-refresh-hook', 'Deterministic move-job parent-refresh fixtureAction state.');
 
+  await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1?entry=job&fixtureAction=hire&fixtureActionState=succeeded`);
+  await waitForReady(page, 'candidate-detail-composition');
+  await page.getByTestId('candidate-hire-legacy-modal').waitFor({ state: 'visible' });
+  await capture(page, records, '19-detail-hire-success-hook', 'Deterministic hire succeeded fixtureAction state.');
+
+  await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1?entry=job&fixtureAction=unhire&fixtureActionState=terminal`);
+  await waitForReady(page, 'candidate-detail-composition');
+  await page.getByTestId('candidate-unhire-legacy-modal').waitFor({ state: 'visible' });
+  await capture(page, records, '20-detail-unhire-terminal-hook', 'Deterministic unhire terminal fixtureAction state.');
+
   await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1/cv/4/schedule`);
   await waitForReady(page, 'candidate-task-composition');
-  await capture(page, records, '20-action-schedule-modal-route', 'Route-owned Schedule task rendered as a modal surface over candidate profile.');
+  await capture(page, records, '30-action-schedule-modal-route', 'Route-owned Schedule task rendered as a modal surface over candidate profile.');
 
   await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1/cv/4/offer`);
   await waitForReady(page, 'candidate-task-composition');
-  await capture(page, records, '21-action-offer-modal-route', 'Route-owned Offer task rendered as a modal surface over candidate profile.');
+  await capture(page, records, '31-action-offer-modal-route', 'Route-owned Offer task rendered as a modal surface over candidate profile.');
 
   await page.goto(`${baseUrl}/candidate/${diegoUuid}/job-13/shortlisted/1/remote/interview-1/cv-reject/4`);
   await waitForReady(page, 'candidate-task-composition');
-  await capture(page, records, '22-action-reject-modal-route', 'Route-owned Reject task rendered as a modal surface over candidate profile.');
+  await capture(page, records, '32-action-reject-modal-route', 'Route-owned Reject task rendered as a modal surface over candidate profile.');
 
   await fs.writeFile(recordsPath, `${JSON.stringify({
     captureDate: '2026-04-22',

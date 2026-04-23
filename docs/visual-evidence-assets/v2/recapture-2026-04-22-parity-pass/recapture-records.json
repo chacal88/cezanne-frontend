@@ -1,7 +1,7 @@
 {
   "captureDate": "2026-04-22",
   "viewport": "1440x900",
-  "baseUrl": "http://127.0.0.1:5174",
+  "baseUrl": "http://127.0.0.1:5176",
   "sessionStorage": "recruit.localAuthSession",
   "records": [
     {
@@ -40,16 +40,23 @@
       "status": "captured"
     },
     {
-      "name": "06-database-search-no-match",
+      "name": "06-database-add-column-menu-parity-pass",
+      "route": "/candidates-database",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/06-database-add-column-menu-parity-pass.png",
+      "note": "Add column menu with selectable legacy-style column options.",
+      "status": "captured"
+    },
+    {
+      "name": "07-database-search-no-match",
       "route": "/candidates-database?query=no-parity-match",
-      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/06-database-search-no-match.png",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/07-database-search-no-match.png",
       "note": "No-match search state with route-owned query preserved.",
       "status": "captured"
     },
     {
-      "name": "07-database-reset-default-after-search",
+      "name": "08-database-reset-default-after-search",
       "route": "/candidates-database",
-      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/07-database-reset-default-after-search.png",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/08-database-reset-default-after-search.png",
       "note": "Reset to default returns from no-match search to the default candidate list.",
       "status": "captured"
     },
@@ -117,23 +124,37 @@
       "status": "captured"
     },
     {
-      "name": "20-action-schedule-modal-route",
+      "name": "19-detail-hire-success-hook",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&fixtureAction=hire&fixtureActionState=succeeded&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/19-detail-hire-success-hook.png",
+      "note": "Deterministic hire succeeded fixtureAction state.",
+      "status": "captured"
+    },
+    {
+      "name": "20-detail-unhire-terminal-hook",
+      "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1?entry=job&fixtureAction=unhire&fixtureActionState=terminal&degrade=%5B%5D",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/20-detail-unhire-terminal-hook.png",
+      "note": "Deterministic unhire terminal fixtureAction state.",
+      "status": "captured"
+    },
+    {
+      "name": "30-action-schedule-modal-route",
       "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1/cv/4/schedule?entry=direct",
-      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/20-action-schedule-modal-route.png",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/30-action-schedule-modal-route.png",
       "note": "Route-owned Schedule task rendered as a modal surface over candidate profile.",
       "status": "captured"
     },
     {
-      "name": "21-action-offer-modal-route",
+      "name": "31-action-offer-modal-route",
       "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1/cv/4/offer?entry=direct",
-      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/21-action-offer-modal-route.png",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/31-action-offer-modal-route.png",
       "note": "Route-owned Offer task rendered as a modal surface over candidate profile.",
       "status": "captured"
     },
     {
-      "name": "22-action-reject-modal-route",
+      "name": "32-action-reject-modal-route",
       "route": "/candidate/22222222-2222-4222-8222-222222222222/job-13/shortlisted/1/remote/interview-1/cv-reject/4?entry=direct",
-      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/22-action-reject-modal-route.png",
+      "path": "docs/visual-evidence-assets/v2/recapture-2026-04-22-parity-pass/new/32-action-reject-modal-route.png",
       "note": "Route-owned Reject task rendered as a modal surface over candidate profile.",
       "status": "captured"
     }
