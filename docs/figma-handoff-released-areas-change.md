@@ -71,7 +71,7 @@ Figma remains a complementary production artifact. It must not override route, c
 | Exclusion | Reason |
 |---|---|
 | V2 Candidates | V2 remains behavior-evidenced but legacy-parity blocked and is not Figma-ready. |
-| Replacement approval for any included row except explicit `/logout` handoff | `Figma-ready` is drafting permission only; final replacement requires matched legacy/current/Figma parity evidence or a product exception. |
+| Replacement approval for any included row except focused `/logout` and `/forgot-password` approvals | `Figma-ready` is drafting permission only; final replacement requires matched legacy/current/Figma parity evidence or a product exception. |
 | Backend/API/provider/payment/schema invention | These remain deferred unless confirmed by source/spec/backend contracts. |
 | Standalone frames for aliases such as `/parameters*`, `/recruiters`, or candidate shorthand examples | They are compatibility/reference entries, not canonical standalone route targets. |
 | Mobile/responsive expansion for V5 | V5 is desktop current-app Figma-ready only. |
@@ -86,7 +86,7 @@ Figma remains a complementary production artifact. It must not override route, c
 2. Produce V0 partial frames.
    - Start from the covered V0 sub-block matrix in `figma-screen-flow-handoff-index.md`.
    - Produce current-app state maps for token, callback, shell/account, notifications, and inbox states where evidence exists.
-   - Keep `/logout` marked as the only pixel-parity-approved handoff.
+   - Keep `/logout` and `/forgot-password` marked as the only pixel-parity-approved V0 handoffs.
    - Mark all other V0 frames as Figma drafting outputs, not replacement-approved outputs.
 
 3. Produce V1 Jobs frames.
@@ -146,7 +146,7 @@ Figma remains a complementary production artifact. It must not override route, c
 
 | Slice | Change status | Replacement status |
 |---|---|---|
-| V0 partial | Ready to produce covered Figma frames | `/logout` only is pixel-parity-approved; all other V0 rows remain blocked. |
+| V0 partial | Ready to produce covered Figma frames | `/logout` and `/forgot-password` are pixel-parity-approved by focused records; all other V0 rows remain blocked. |
 | V1 Jobs | Ready to produce Figma frames | Not replacement-approved. |
 | V3 Public/External/Token | Ready to produce Figma frames | Not replacement-approved. |
 | V4 Operations | Ready to produce Figma frames | Not replacement-approved. |

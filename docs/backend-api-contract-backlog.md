@@ -8,7 +8,7 @@ Rules for this document:
 - confirmed facts come from `docs/`, `src/`, and captured visual evidence only;
 - unknown payloads and schemas stay unknown until backend/API contracts confirm them;
 - Figma drafting status is separate from backend readiness;
-- no route family is replacement-approved by this backlog.
+- no route family is replacement-approved by this backlog; focused route approvals are controlled by their dedicated replacement evidence records.
 
 ## Active Change Plan
 
@@ -109,7 +109,7 @@ Local source review for `auth-replacement-readiness-package` found these concret
 
 - Login error strings are currently emitted by `ms-auth` as message text and interpreted by the legacy frontend through substring checks. This confirms parity targets for activation, approval, Cezanne mandatory, setup required, invalid credentials, and 2FA states, but keeps structured error-code migration as a P0 blocker.
 - `v0-auth-token-session-contract-closeout` additionally confirms the source-backed 2FA delivery contract: `ms-auth` sends a six-digit email code, marks verified codes as used, and treats codes as valid for 10 minutes. No source-backed resend endpoint or lockout policy was located.
-- Forgot-password decision approved on 2026-04-23: use `mail_not_found`, `mail_sent`, and `mail_error`; preserve the legacy account-not-found disclosure until Product/Security explicitly changes it.
+- Forgot-password decision approved on 2026-04-23: use `mail_not_found`, `mail_sent`, and `mail_error`; the legacy backend confirms these values for `POST /user/forgot-password`; preserve the legacy account-not-found disclosure until Product/Security explicitly changes it. The focused `/forgot-password` replacement approval preserves this disclosure for parity.
 - Reset password decision approved on 2026-04-23: use `token_not_found`, `token_invalid`, `token_accepted`, `token_expired`, and `token_used`; terminal token outcomes return to `/` with safe flash/copy, while password mismatch remains route-local.
 - Confirm registration decision approved on 2026-04-23: invalid/expired returns home with safe error copy; `token_valid` with a session token bootstraps the session and hands off to `/dashboard`; `approval_pending` or `token_valid` without a session token returns home with approval-pending copy and no session; `bootstrap_failed` or failed bootstrap after a returned token clears partial continuation and returns home with safe login-retry copy.
 - Register/invite decision approved on 2026-04-23: `/register/:token` remains the legacy-backed invite continuation route; `token_valid` may prefill invitation fields, `token_invalid`/`token_expired` return home with invalid invite copy, submit success returns home with success modal/flash, and `/users/invite-token` stays current-app-only until confirmed as a canonical alias. Source/evidence review found legacy `users.invite-token` as an authenticated admin token-link modal, so current `/users/invite-token` has no confirmed public legacy parity target yet.
@@ -123,4 +123,4 @@ Figma drafting status remains separate from backend readiness:
 - V1, V3, V4, and V5 may proceed for current screen-flow/base-frame drafting only where their visual evidence docs say so.
 - V0 sub-blocks are partial and must carry backend blockers as annotations.
 - V2 Candidates remains parity-blocked.
-- No V0-V5 row is replacement-approved by this backlog.
+- This backlog does not grant approval. Current focused approvals are `/logout` and `/forgot-password` only, as recorded in their dedicated replacement evidence records.

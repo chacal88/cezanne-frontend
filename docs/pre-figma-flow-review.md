@@ -12,7 +12,7 @@ Product decision on 2026-04-22: the whole replacement project requires pixel par
 |---|---|---|
 | Complete route inventory imported from `screens.md` | Done | 104 canonical route rows imported after adding the public `/register` companion route; 4 alias/reference rows are tracked separately below. |
 | Domain-by-domain flow review | Done | All route rows are contract-reviewed; no domain is fully Figma-ready until visual evidence is confirmed. |
-| Visual reference confirmation | In progress | V0/V1 evidence capture is complete for covered sub-blocks; V2 candidate behaviour evidence is recaptured but parity-blocked against legacy; V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; V5 SysAdmin/platform now has first-pass foundation evidence plus 124 desktop state-hook screenshots for platform users, favorite requests, master data, company subscription, and taxonomy. All legacy-backed rows still require final pixel-parity replacement signoff. |
+| Visual reference confirmation | In progress | V0/V1 evidence capture is complete for covered sub-blocks; V2 candidate behaviour evidence is recaptured but parity-blocked against legacy; V3 public/external and integration token evidence is complete for screen-flow/base-frame handoff; V4 operations evidence is complete for current-app screen-flow handoff; V5 SysAdmin/platform now has first-pass foundation evidence plus 124 desktop state-hook screenshots for platform users, favorite requests, master data, company subscription, and taxonomy. All legacy-backed rows except focused `/logout` and `/forgot-password` approvals still require final pixel-parity replacement signoff. |
 | Figma production | Partially unblocked | V0, V1, V3, V4, and V5 covered sub-blocks may proceed to Figma drafting with deferred backend/provider/schema annotations; V2 candidate rows are blocked from final Figma-ready promotion until legacy parity blockers are resolved. V5 replacement approval remains blocked by pixel-parity review where applicable, backend/API unknown resolution, and responsive/mobile scope decisions. |
 
 ## Review status values
@@ -42,7 +42,7 @@ Product decision on 2026-04-22: the whole replacement project requires pixel par
 
 | Domain | Rows | H | M | L | Current status |
 |---|---:|---:|---:|---:|---|
-| `auth` | 10 | 9 | 0 | 1 | Partial: primary login, token, SSO/Cezanne/SAML, logout, and session-loss current-app state evidence is captured for screen-flow drafting; `/logout` explicit handoff is Pixel-parity-approved, while backend/API contracts and all other auth replacement parity remain deferred |
+| `auth` | 10 | 9 | 0 | 1 | Partial: primary login, token, SSO/Cezanne/SAML, logout, and session-loss current-app state evidence is captured for screen-flow drafting; `/logout` and `/forgot-password` have focused replacement approvals, while backend/API contracts and all other auth replacement parity remain deferred |
 | `shell` | 5 | 1 | 4 | 0 | Partial: all rows contract-reviewed; canonical visuals still pending |
 | `dashboard` | 1 | 1 | 0 | 0 | Figma-ready for desktop dashboard base after current and legacy authenticated seed capture; parity refinements remain tracked debt |
 | `notifications` | 1 | 1 | 0 | 0 | Figma-ready for V0 fixture-backed resolver categories by explicit decision; live API replacement remains deferred |
@@ -62,7 +62,7 @@ Product decision on 2026-04-22: the whole replacement project requires pixel par
 
 ## Visual-readiness pass
 
-Contract review is complete, and Figma production is partially unblocked only for rows/sub-blocks explicitly marked `Figma-ready`. V0/V1 covered bases, V3 public/external base frames, and V4 operations current-app screen-flow bases may proceed as Figma drafting inputs; V2 candidate rows must remain parity-blocked until side-by-side legacy mismatches are resolved or a product exception is recorded. V5 and deferred provider/schema/terminal variants remain blocked until separately evidenced. For every legacy-backed row, final replacement approval remains blocked until pixel parity is confirmed after Figma production.
+Contract review is complete, and Figma production is partially unblocked only for rows/sub-blocks explicitly marked `Figma-ready`. V0/V1 covered bases, V3 public/external base frames, and V4 operations current-app screen-flow bases may proceed as Figma drafting inputs; V2 candidate rows must remain parity-blocked until side-by-side legacy mismatches are resolved or a product exception is recorded. V5 and deferred provider/schema/terminal variants remain blocked until separately evidenced. For every legacy-backed row except focused `/logout` and `/forgot-password`, final replacement approval remains blocked until pixel parity is confirmed after Figma production or a route-specific legacy/current approval model is explicitly recorded.
 
 | Phase | Domain/family | Required visual evidence | Minimum states to confirm | Output before Figma-ready |
 |---|---|---|---|---|
@@ -90,7 +90,7 @@ Contract review is complete, and Figma production is partially unblocked only fo
 
 ## Visual contract package inventory
 
-The consolidated Figma/screen-flow handoff index for currently evidence-covered drafting rows is `figma-screen-flow-handoff-index.md`. It does not replace this gate: V2 remains excluded from Figma-ready promotion, and no legacy-backed route is replacement-approved by the handoff index.
+The consolidated Figma/screen-flow handoff index for currently evidence-covered drafting rows is `figma-screen-flow-handoff-index.md`. It does not replace this gate: V2 remains excluded from Figma-ready promotion, and no legacy-backed route is replacement-approved by the handoff index except focused `/logout` and `/forgot-password` approvals recorded in dedicated evidence records.
 
 | Package | Covered phase | Status | Next evidence action |
 |---|---|---|---|
@@ -111,7 +111,7 @@ No package marks any row `Figma-ready` by itself. A row becomes `Figma-ready` on
 |---|---|---|---|---|---|---|
 | Contract-reviewed | `/` | Public/Token | entry | H | R0 | Confirmed in router, route metadata, auth API adapter, and public page tests. Covers direct entry, returnTo, email/password, 2FA, provider launch, failed login, session bootstrap, and dashboard redirect. Current-app non-happy-state hook evidence is captured; backend policy/copy and final legacy parity remain pending. |
 | Contract-reviewed | `/confirm-registration/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and `confirmRegistrationToken`; handles missing/invalid token, `token_valid` with session bootstrap to `/dashboard`, `approval_pending` or `token_valid` without token returning to `/`, bootstrap failure returning to `/`, and dashboard/login landing. Current-app token state evidence is captured; same-run legacy/current capture and backend enum proof remain required before replacement approval. |
-| Figma-ready | `/forgot-password` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata, API adapter, public page tests, legacy ready visual, and current submitted/sent capture. Covers ready, submit/sent, retry, and return-to-login visuals; not-found/default failed copy remains backend-owned and should reuse the same message slot. |
+| Figma-ready | `/forgot-password` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata, API adapter, public page tests, legacy ready visual, focused same-run legacy/current capture, and backend legacy source. Pixel-parity-approved for focused desktop states in `replacement-evidence-v0-forgot-password.md`; approval does not extend to reset/register/confirm/invite token flows. |
 | Contract-reviewed | `/reset-password/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and API adapter. Handles token validation, missing/invalid/expired token, password mismatch, submit success, failed submit, and login redirect. Current-app token state evidence is captured; backend continuation payloads remain deferred. |
 | Contract-reviewed | `/register` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata as the public HC/RA registration companion route. Shares the register state model without treating the public route as authenticated-shell access; visual reference is partial through current `/register/null` evidence. |
 | Contract-reviewed | `/register/:token` | Public/Token | token-flows | H | R0 | Confirmed in router/metadata and API adapter. Covers invitation token registration plus public HC/RA registration, password mismatch, submit success/failure, and login redirect. Current-app registration/token evidence is captured; backend continuation payloads remain deferred. |
@@ -516,7 +516,7 @@ These rows are not independent canonical screens; they point to registered route
 
 - Full domain-by-domain contract review is complete for all 104 canonical route rows and 4 alias/reference rows. Rows become `Figma-ready` only when canonical evidence confirms their visual/state scope and unresolved debt is explicitly recorded.
 - Existing auth/dashboard visual references now include current-app token/callback/session/account hooks, but live API contracts, shell/dashboard parity, and replacement signoff remain pending for the affected legacy-backed states.
-- V0, V1, V3, V4, and V5 covered rows may proceed to Figma drafting with deferred provider/form/schema/backend annotations. V2 candidate rows are behaviour-evidenced but parity-blocked. `/logout` is the only legacy-backed row currently replacement-approved; every other legacy-backed row remains blocked until pixel parity is confirmed or explicitly excepted.
+- V0, V1, V3, V4, and V5 covered rows may proceed to Figma drafting with deferred provider/form/schema/backend annotations. V2 candidate rows are behaviour-evidenced but parity-blocked. No legacy-backed row is replacement-approved until pixel parity is confirmed or explicitly excepted, except focused `/logout` and `/forgot-password` approvals recorded in dedicated evidence records.
 - Shell/dashboard visual parity debt remains tracked in `roadmap.md` and should be handled during visual refinement, not as API/data blocker.
 
 ## Next review order

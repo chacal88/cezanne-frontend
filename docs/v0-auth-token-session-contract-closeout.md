@@ -4,7 +4,7 @@
 
 This record implements OpenSpec change `v0-auth-token-session-contract-closeout`.
 
-It closes the frontend contract position for V0 auth/token/session using current source evidence from `recruit-frontend`, legacy evidence from `frontend`, and backend source evidence from `ms-auth`. It does not approve replacement. `/logout` remains the only replacement-approved V0 auth transition.
+It closes the frontend contract position for V0 auth/token/session using current source evidence from `recruit-frontend`, legacy evidence from `frontend`, and backend source evidence from `ms-auth`. This closeout itself does not approve replacement. Replacement approval is granted only by focused evidence records; current focused approvals are `/logout` and `/forgot-password`.
 
 ## Confirmed Contract
 
